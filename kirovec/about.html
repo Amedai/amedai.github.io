@@ -11,13 +11,13 @@
         <div class="container">
             <div class="header__inner">
                 <div class="header__info">
-                    <a href="index.html" class="header__logo">
+                    <a href="" class="header__logo">
                         <img src="images/icons/header-logo.png" alt="" class="header__logo-img">
                     </a>
                     <nav class="header__menu">
                         <ul class="header__menu-list">
                             <li class="header__menu-item">
-                                <a href="index.html" class="header__menu-link header__menu-link--active">Главная</a>
+                                <a href="index.html" class="header__menu-link header__menu-link_active">Главная</a>
                             </li>
                             <li class="header__menu-item">
                                 <a href="about.html" class="header__menu-link">О предприятии</a>
@@ -45,7 +45,18 @@
                             <a href="tel:+78552778701" class="header__phone-link">+7 (8552) 77-87-01</a>  
                         </li>
                     </ul>
-                    <button class="contact-btn">Связаться</button>
+                    <button class="contact-btn contact-btn_header-popup">Связаться</button>
+                </div>
+            </div>
+            <div class="header__mobile">
+                <a href="" class="header__mobile-logo">
+                    <img src="images/icons/header-logo.png" alt="" class="header__logo-img">
+                </a>
+                <button class="contact-btn contact-btn_hf-mobile">Связаться</button>
+                <div class="header__mobile-burger">
+                    <span class="header__mobile-stick"></span>
+                    <span class="header__mobile-stick"></span>
+                    <span class="header__mobile-stick"></span>
                 </div>
             </div>
         </div>
@@ -294,13 +305,26 @@
                         </li>
                     </ul>
                 </nav>
+                <nav class="footer__menu-mobile">
+                    <ul class="footer__list-mobile">
+                        <li class="footer__item-mobile">
+                            <a href="" class="footer__link-mobile">О предприятии</a>
+                        </li>
+                        <li class="footer__item-mobile">
+                            <a href="" class="footer__link-mobile">Услуги</a>
+                        </li>
+                        <li class="footer__item-mobile">
+                            <a href="" class="footer__link-mobile">Продукция</a>
+                        </li>
+                    </ul>
+                </nav>
                 <div class="footer__contacts">
                     423800, г. Набережные Челны, <br> БСИ, ул. Дорожная, 13 <br> 8 (8552) 77-87-99, 77-88-01 <br> 8 (8552) 77-87-01 <br>
                     <span>k700a@list.ru</span><br>
                 </div>
             </div>
             <div class="footer__bottom">
-                <button class="contact-btn">Связаться</button>
+                <button class="contact-btn contact-btn_hf-mobile">Связаться</button>
             </div>
         </div>
     </footer>
@@ -323,35 +347,35 @@
                 </form>
                 <div class="modal__vertical-line"></div>
                 <div class="modal__contacts">
-                    <div class="modal__contacts-item">
+                    <div class="modal__contacts-item modal__contacts-location">
                         <div class="modal__contacts-img">
                             <img src="images/icons/modal-location.svg" alt="">
                         </div>
                         <div class="modal__contacts-name">Адрес:</div>
                         <p class="modal__contacts-text">423800, г. Набережные Челны, БСИ, ул. Дорожная, 13</p>
                     </div>
-                    <div class="modal__contacts-item">
+                    <div class="modal__contacts-item modal__contacts-call">
                         <div class="modal__contacts-img">
                             <img src="images/icons/modal-call.svg" alt="">
                         </div>
                         <div class="modal__contacts-name">Телефон:</div>
                         <p class="modal__contacts-text"><a href="tel:88552778799" class="modal__contacts-link">8 (8552) 77-87-99</a>, <a href="tel:88552778801" class="modal__contacts-link">77-88-01</a></p>
                     </div>
-                    <div class="modal__contacts-item">
+                    <div class="modal__contacts-item modal__contacts-directbox">
                         <div class="modal__contacts-img">
                             <img src="images/icons/modal-directbox.svg" alt="">
                         </div>
                         <div class="modal__contacts-name">Факс:</div>
                         <p class="modal__contacts-text"><a href="tel:88552778701" class="modal__contacts-link">8 (8552) 77-87-01</a></p>
                     </div>
-                    <div class="modal__contacts-item">
+                    <div class="modal__contacts-item modal__contacts-sms">
                         <div class="modal__contacts-img">
                             <img src="images/icons/modal-sms.svg" alt="">
                         </div>
                         <div class="modal__contacts-name">Email:</div>
                         <p class="modal__contacts-text"><a href="mailto:k700a@list.ru" class="modal__contacts-link modal__contacts-underline">k700a@list.ru</a></p>
                     </div>
-                    <div class="modal__contacts-item">
+                    <div class="modal__contacts-item modal__contacts-clock">
                         <div class="modal__contacts-img">
                             <img src="images/icons/modal-clock.svg" alt="">
                         </div>
@@ -362,6 +386,6 @@
             </div>
         </div>
     </div>
-    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
