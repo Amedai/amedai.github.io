@@ -11,7 +11,7 @@
         <div class="container">
             <div class="header__inner">
                 <div class="header__info">
-                    <a href="" class="header__logo">
+                    <a href="index.html" class="header__logo">
                         <img src="images/icons/header-logo.png" alt="" class="header__logo-img">
                     </a>
                     <nav class="header__menu">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="header__mobile">
-                <a href="" class="header__mobile-logo">
+                <a href="index.html" class="header__mobile-logo">
                     <img src="images/icons/header-logo.png" alt="" class="header__logo-img">
                 </a>
                 <button class="contact-btn contact-btn_hf-mobile">Связаться</button>
@@ -67,8 +67,11 @@
                 <div class="promo__block">
                     <div class="promo__item">
                         <h1 class="promo__title promo__title-about">о нас</h1>
-                        <p class="promo__text">Предприятие ООО “Челны-Кировец” ведет свою деятельность <mark>с 12 июля 2004 года.</mark></p>
-                        <p class="promo__text">Вот уже 20 лет компания имеет успешный опыт в сфере <mark>ремонта легендарных тракторов “Кировец”</mark>, а также фронтальных погрузчиков, автогрейдеров, тракторов Т-130, Т-150, ХТЗ и МТЗ.</p>
+                        <p class="promo__text promo__text-desktop">Предприятие ООО “Челны-Кировец” ведет свою деятельность <mark>с 12 июля 2004 года.</mark></p>
+                        <p class="promo__text promo__text-desktop">Вот уже 20 лет компания имеет успешный опыт в сфере <mark>ремонта легендарных тракторов “Кировец”</mark>, а также фронтальных погрузчиков, автогрейдеров, тракторов Т-130, Т-150, ХТЗ и МТЗ.</p>
+                        <p class="promo__text promo__text-mobile">
+                            Предприятие ООО “Челны-Кировец” ведет свою деятельность <mark>с 12 июля 2004 года.</mark>Вот уже 20 лет компания имеет успешный опыт в сфере <mark>ремонта легендарных тракторов “Кировец”</mark>, а также фронтальных погрузчиков, автогрейдеров, тракторов Т-130, Т-150, ХТЗ и МТЗ.
+                        </p>
                     </div>
                     <div class="promo__item">
                         <p class="promo__text">Наши специалисты проводят текущий и капитальный ремонт запасных частей, узлов и агрегатов трактора, применяя только <mark>оригинальные и качественные детали у проверенных дилеров.</mark></p>
@@ -80,14 +83,18 @@
         <div class="promo__img">
             <div class="promo__img-item promo__img-about" style="background-image: url('images/about-promo-bg.jpeg');"></div>
         </div>
-        <section class="info">
+        <div class="info" id="info">
             <div class="container">
                 <p class="info__text">Производственная мощность нашего предприятия позволяет частично оснащать собственный склад запасных частей. Склад находится на территории предприятия и имеет площадь <mark>более 500 кв.м.</mark> Все запасные части, узлы и агрегаты всегда в наличии и непрерывно пополняются, что гарантирует <mark>своевременный срок выполненных работ.</mark></p>
                 <div class="info__img">
-                    <img src="images/info-tractors.jpeg" alt="">
+                    <picture>
+                        <source srcset="images/info-tractors-tablet.jpeg" media="(max-width: 1200px)">
+                        <source srcset="images/info-tractors-mobile.jpeg" media="(max-width: 768px)">
+                        <img src="images/info-tractors.jpeg" alt="">
+                      </picture>
                 </div>
             </div>
-        </section>
+        </div>
         <section class="stages">
             <div class="container">
                 <h2 class="subtitle stages__subtitle">этапы <span>ремонта</span></h2>
@@ -137,7 +144,7 @@
                 </div>
             </div>
         </section>
-        <section class="before-after">
+        <section class="before-after" id="before-after">
             <div class="container">
                 <div class="before-after__img">
                     <img src="images/gear-bg.svg" alt="">
@@ -147,7 +154,7 @@
                 
             </div>
         </section>
-        <section class="documents">
+        <section class="documents" id="documents">
             <div class="container">
                 <h2 class="subtitle documents__subtitle">Сертификаты и благодарности</h2>
                 <div class="documents__items">
@@ -182,6 +189,9 @@
                         <p class="documents__name">Эко-акция “Чистый берег”</p>
                     </div>
                 </div>
+                <div class="documents__slider">
+                    СЛАЙДЕР
+                </div>
             </div>
         </section>
         <section class="exhibition">
@@ -200,7 +210,7 @@
                 </div>
             </div>
         </section>
-        <section class="works">
+        <section class="works" id="works">
             <div class="container">
                 <h2 class="subtitle works__subtitle">НАШИ <span>РАБОТЫ</span></h2>
             </div>
@@ -255,66 +265,66 @@
     <footer class="footer">
         <div class="container">
             <div class="footer__top">
-                <a href="" class="footer__logo">
+                <a href="index.html" class="footer__logo">
                     <img src="images/icons/footer-logo.svg" alt="" class="footer__logo-img">
                 </a>
                 <nav class="footer__menu">
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">О предприятии</a>
+                            <a href="about.html" class="footer__menu-link">О предприятии</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Наше производство</a>
+                            <a href="about.html#info" class="footer__menu-link">Наше производство</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Производственный процесс</a>
+                            <a href="about.html#before-after" class="footer__menu-link">Производственный процесс</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Сертификаты</a>
+                            <a href="about.html#documents" class="footer__menu-link">Сертификаты</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Галерея</a>
-                        </li>
-                    </ul>
-                    <ul class="footer__menu-list">
-                        <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Услуги</a>
-                        </li>
-                        <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Ремонт трактора “Кировец” и Т-150</a>
-                        </li>
-                        <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Ремонт узлов и агрегатов</a>
+                            <a href="about.html#works" class="footer__menu-link">Галерея</a>
                         </li>
                     </ul>
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Продукция</a>
+                            <a href="services.html" class="footer__menu-link">Услуги</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Узлы</a>
+                            <a href="services.html#repair-tractors" class="footer__menu-link">Ремонт трактора “Кировец” и Т-150</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Агрегаты</a>
+                            <a href="services.html#repair-nodes" class="footer__menu-link">Ремонт узлов и агрегатов</a>
+                        </li>
+                    </ul>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="production.html" class="footer__menu-link">Продукция</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Запчасти</a>
+                            <a href="production.html#wares" class="footer__menu-link">Узлы</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Трактор</a>
+                            <a href="production.html#wares" class="footer__menu-link">Агрегаты</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="production.html#wares" class="footer__menu-link">Запчасти</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="production.html#tractor" class="footer__menu-link">Трактор</a>
                         </li>
                     </ul>
                 </nav>
                 <nav class="footer__menu-mobile">
                     <ul class="footer__list-mobile">
                         <li class="footer__item-mobile">
-                            <a href="" class="footer__link-mobile">О предприятии</a>
+                            <a href="about.html" class="footer__link-mobile">О предприятии</a>
                         </li>
                         <li class="footer__item-mobile">
-                            <a href="" class="footer__link-mobile">Услуги</a>
+                            <a href="services.html" class="footer__link-mobile">Услуги</a>
                         </li>
                         <li class="footer__item-mobile">
-                            <a href="" class="footer__link-mobile">Продукция</a>
+                            <a href="production.html" class="footer__link-mobile">Продукция</a>
                         </li>
                     </ul>
                 </nav>

@@ -11,7 +11,7 @@
         <div class="container">
             <div class="header__inner">
                 <div class="header__info">
-                    <a href="" class="header__logo">
+                    <a href="index.html" class="header__logo">
                         <img src="images/icons/header-logo.png" alt="" class="header__logo-img">
                     </a>
                     <nav class="header__menu">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="header__mobile">
-                <a href="" class="header__mobile-logo">
+                <a href="index.html" class="header__mobile-logo">
                     <img src="images/icons/header-logo.png" alt="" class="header__logo-img">
                 </a>
                 <button class="contact-btn contact-btn_hf-mobile">Связаться</button>
@@ -70,13 +70,19 @@
                 <div class="service__repair">
                     <a href="" class="service__repair-link">
                         <div class="service__repair-img">
-                            <img src="images/service-tractors.jpeg" alt="">
+                            <picture>
+                                <source srcset="images/service-tractors-mobile.jpeg" media="(max-width: 768px)">
+                                <img src="images/service-tractors.jpeg" alt="">
+                            </picture>
                         </div>
                         <h3 class="service__repair-text">ремонт тракторов</h3>
                     </a>
                     <a href="" class="service__repair-link">
                         <div class="service__repair-img">
-                            <img src="images/service-nodes.jpeg" alt="">
+                            <picture>
+                                <source srcset="images/service-nodes-mobile.jpeg" media="(max-width: 768px)">
+                                <img src="images/service-nodes.jpeg" alt="">
+                            </picture>
                         </div>
                         <h3 class="service__repair-text">ремонт узлов и агрегатов</h3>
                     </a>
@@ -84,7 +90,7 @@
                 <h1 class="service__title">Мы проводим ремонт текущий и капитальный.<br>Проводим ремонт целого трактора, а также их узлы и агрегаты</h1>
             </div>
         </section>
-        <section class="repair-tractors">
+        <section class="repair-tractors" id="repair-tractors">
             <div class="container">
                 <h2 class="subtitle repair-tractors__subtitle">Ремонт <span>тракторов</span></h2>
                 <div class="repair-tractors__grid">
@@ -135,7 +141,7 @@
                 <p class="repair-tractors__quarantee">Гарантия на услуги по ремонту от 6 месяцев</p>
             </div>
         </section>
-        <section class="repair-nodes">
+        <section class="repair-nodes" id="repair-nodes">
             <div class="container">
                 <h2 class="subtitle repair-nodes__subtitle">Ремонт <span>узлов и агрегатов</span></h2>
                 <table class="repair-nodes__table">
@@ -351,66 +357,66 @@
     <footer class="footer">
         <div class="container">
             <div class="footer__top">
-                <a href="" class="footer__logo">
+                <a href="index.html" class="footer__logo">
                     <img src="images/icons/footer-logo.svg" alt="" class="footer__logo-img">
                 </a>
                 <nav class="footer__menu">
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">О предприятии</a>
+                            <a href="about.html" class="footer__menu-link">О предприятии</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Наше производство</a>
+                            <a href="about.html#info" class="footer__menu-link">Наше производство</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Производственный процесс</a>
+                            <a href="about.html#before-after" class="footer__menu-link">Производственный процесс</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Сертификаты</a>
+                            <a href="about.html#documents" class="footer__menu-link">Сертификаты</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="#" class="footer__menu-link">Галерея</a>
-                        </li>
-                    </ul>
-                    <ul class="footer__menu-list">
-                        <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Услуги</a>
-                        </li>
-                        <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Ремонт трактора “Кировец” и Т-150</a>
-                        </li>
-                        <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Ремонт узлов и агрегатов</a>
+                            <a href="about.html#works" class="footer__menu-link">Галерея</a>
                         </li>
                     </ul>
                     <ul class="footer__menu-list">
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Продукция</a>
+                            <a href="services.html" class="footer__menu-link">Услуги</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Узлы</a>
+                            <a href="services.html#repair-tractors" class="footer__menu-link">Ремонт трактора “Кировец” и Т-150</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Агрегаты</a>
+                            <a href="services.html#repair-nodes" class="footer__menu-link">Ремонт узлов и агрегатов</a>
+                        </li>
+                    </ul>
+                    <ul class="footer__menu-list">
+                        <li class="footer__menu-item">
+                            <a href="production.html" class="footer__menu-link">Продукция</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Запчасти</a>
+                            <a href="production.html#wares" class="footer__menu-link">Узлы</a>
                         </li>
                         <li class="footer__menu-item">
-                            <a href="" class="footer__menu-link">Трактор</a>
+                            <a href="production.html#wares" class="footer__menu-link">Агрегаты</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="production.html#wares" class="footer__menu-link">Запчасти</a>
+                        </li>
+                        <li class="footer__menu-item">
+                            <a href="production.html#tractor" class="footer__menu-link">Трактор</a>
                         </li>
                     </ul>
                 </nav>
                 <nav class="footer__menu-mobile">
                     <ul class="footer__list-mobile">
                         <li class="footer__item-mobile">
-                            <a href="" class="footer__link-mobile">О предприятии</a>
+                            <a href="about.html" class="footer__link-mobile">О предприятии</a>
                         </li>
                         <li class="footer__item-mobile">
-                            <a href="" class="footer__link-mobile">Услуги</a>
+                            <a href="services.html" class="footer__link-mobile">Услуги</a>
                         </li>
                         <li class="footer__item-mobile">
-                            <a href="" class="footer__link-mobile">Продукция</a>
+                            <a href="production.html" class="footer__link-mobile">Продукция</a>
                         </li>
                     </ul>
                 </nav>
