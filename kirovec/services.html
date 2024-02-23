@@ -68,16 +68,16 @@
                     <img src="images/gear-bg.svg" alt="" class="service__screw-img">
                 </div>
                 <div class="service__repair">
-                    <a href="" class="service__repair-link">
+                    <a href="#repair-tractors" class="service__repair-link">
                         <div class="service__repair-img">
                             <picture>
-                                <source srcset="images/service-tractors-mobile.jpeg" media="(max-width: 768px)">
+                                <!-- <source srcset="images/service-tractors-mobile.jpeg" media="(max-width: 768px)"> -->
                                 <img src="images/service-tractors.jpeg" alt="">
                             </picture>
                         </div>
                         <h3 class="service__repair-text">ремонт тракторов</h3>
                     </a>
-                    <a href="" class="service__repair-link">
+                    <a href="#repair-nodes" class="service__repair-link">
                         <div class="service__repair-img">
                             <picture>
                                 <source srcset="images/service-nodes-mobile.jpeg" media="(max-width: 768px)">
@@ -93,50 +93,93 @@
         <section class="repair-tractors" id="repair-tractors">
             <div class="container">
                 <h2 class="subtitle repair-tractors__subtitle">Ремонт <span>тракторов</span></h2>
-                <div class="repair-tractors__grid">
+                <div class="repair-tractors__grid repair-tractors__gallery">
                     <div class="repair-tractors__cell">
-                        <div class="repair-tractors__img">
-                            <picture>
-                                <source srcset="images/repair-tractors1-tablet.jpeg" media="(max-width: 1200px)">
-                                <img src="images/repair-tractors1.jpeg" alt="">
-                            </picture>
-                        </div>
+                        <a href="images/repair-tractors1.jpeg" class="repair-tractors__gallery-link" data-caption="Трактор К-700А">
+                            <div class="repair-tractors__img">
+                                <picture>
+                                    <source srcset="images/repair-tractors1-tablet.jpeg" media="(max-width: 1200px)">
+                                    <img src="images/repair-tractors1.jpeg" alt="">
+                                </picture>
+                            </div>
+                        </a>
                         <p class="repair-tractors__name">Трактор К-700А</p>
                         <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
                     </div>
                     <div class="repair-tractors__cell">
-                        <div class="repair-tractors__img">
-                            <picture>
-                                <source srcset="images/repair-tractors2-tablet.jpeg" media="(max-width: 1200px)">
-                                <img src="images/repair-tractors2.jpeg" alt="">
-                            </picture>
-                        </div>
+                        <a href="images/repair-tractors2.jpeg" class="repair-tractors__gallery-link" data-caption="Трактор К-701">
+                            <div class="repair-tractors__img">
+                                <picture>
+                                    <source srcset="images/repair-tractors2-tablet.jpeg" media="(max-width: 1200px)">
+                                    <img src="images/repair-tractors2.jpeg" alt="">
+                                </picture>
+                            </div>
+                        </a>
                         <p class="repair-tractors__name">Трактор К-701</p>
                         <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
                     </div>
                     <div class="repair-tractors__cell">
-                        <div class="repair-tractors__img">
-                            <picture>
-                                <source srcset="images/repair-tractors3-tablet.jpeg" media="(max-width: 1200px)">
-                                <img src="images/repair-tractors3.jpeg" alt="">
-                            </picture>
-                        </div>
+                        <a href="images/repair-tractors3.jpeg" class="repair-tractors__gallery-link" data-caption="Трактор К-744">
+                            <div class="repair-tractors__img">
+                                <picture>
+                                    <source srcset="images/repair-tractors3-tablet.jpeg" media="(max-width: 1200px)">
+                                    <img src="images/repair-tractors3.jpeg" alt="">
+                                </picture>
+                            </div>
+                        </a>
                         <p class="repair-tractors__name">Трактор К-744</p>
                         <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
                     </div>
                     <div class="repair-tractors__cell">
-                        <div class="repair-tractors__img">
-                            <picture>
-                                <source srcset="images/repair-tractors4-tablet.jpeg" media="(max-width: 1200px)">
-                                <img src="images/repair-tractors4.jpeg" alt="">
-                            </picture>
-                        </div>
+                        <a href="images/repair-tractors4.jpeg" class="repair-tractors__gallery-link" data-caption="Трактор Т-150">
+                            <div class="repair-tractors__img">
+                                <picture>
+                                    <source srcset="images/repair-tractors4-tablet.jpeg" media="(max-width: 1200px)">
+                                    <img src="images/repair-tractors4.jpeg" alt="">
+                                </picture>
+                            </div>
+                        </a>
                         <p class="repair-tractors__name">Трактор Т-150</p>
                         <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
                     </div>
                 </div>
-                <div class="repair-tractors__slider">
-                    СЛАЙДЕР
+                <div class="repair-tractors__slider swiper">
+                    <div class="repair-tractors__wrapper swiper-wrapper">
+                        <div class="repair-tractors__slide swiper-slide">
+                            <div class="repair-tractors__slide swiper-slide">
+                                <div class="repair-tractors__img">
+                                    <img src="images/repair-tractors1-tablet.jpeg" alt="">
+                                </div>
+                                <p class="repair-tractors__name">Трактор Т-150</p>
+                                <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
+                            </div>
+                        </div>
+                        <div class="repair-tractors__slide swiper-slide">
+                            <div class="repair-tractors__slide swiper-slide">
+                                <div class="repair-tractors__img">
+                                    <img src="images/repair-tractors2-tablet.jpeg" alt="">
+                                </div>
+                                <p class="repair-tractors__name">Трактор Т-150</p>
+                                <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
+                            </div>
+                        </div>
+                        <div class="repair-tractors__slide swiper-slide">
+                            <div class="repair-tractors__slide swiper-slide">
+                                <div class="repair-tractors__img">
+                                    <img src="images/repair-tractors3-tablet.jpeg" alt="">
+                                </div>
+                                <p class="repair-tractors__name">Трактор Т-150</p>
+                                <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
+                            </div>
+                        </div>
+                        <div class="repair-tractors__slide swiper-slide">
+                            <div class="repair-tractors__img">
+                                <img src="images/repair-tractors4-tablet.jpeg" alt="">
+                            </div>
+                            <p class="repair-tractors__name">Трактор Т-150</p>
+                            <p class="repair-tractors__price">3.500.000 без НДС / 4.000.000 с НДС</p>
+                        </div>
+                      </div>
                 </div>
                 <p class="repair-tractors__quarantee">Гарантия на услуги по ремонту от 6 месяцев</p>
             </div>
@@ -488,6 +531,8 @@
             </div>
         </div>
     </div>
+    <script src="./js/baguetteBox.min.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
