@@ -116,51 +116,70 @@ window.addEventListener('DOMContentLoaded', () => {
         slidesPerView: '1.15',
         spaceBetween:20,
     });
-    //gallery
 
     //active menu
 
     //exhibition video interactive with buttons
-    /* const videoBlock = document.querySelector('.exhibition__video'),
-        video = videoBlock.querySelector('video'),
+    const videoBlock = document.querySelector('.exhibition__video'),
         play = document.querySelector('.exhibition__play');
+    
 
-    play.addEventListener('click',()=>{
-        video.play();
-    });
-    video.addEventListener('play',()=>{
-        play.style.display = 'none';
-
-    });
-    video.addEventListener('pause',()=>{
-        play.style.display = 'block';
-    });
-    videoBlock.addEventListener('mouseenter',()=>{
-        video.controls = true;
-    });
-    videoBlock.addEventListener('mouseleave',()=>{
-        video.controls = false;
-    }); */
-
+    if(videoBlock && play){
+        const video = videoBlock.querySelector('video');
+        play.addEventListener('click',()=>{
+            video.play();
+        });
+        video.addEventListener('play',()=>{
+            play.style.display = 'none';
+    
+        });
+        video.addEventListener('pause',()=>{
+            play.style.display = 'block';
+        });
+        videoBlock.addEventListener('mouseenter',()=>{
+            video.controls = true;
+        });
+        videoBlock.addEventListener('mouseleave',()=>{
+            video.controls = false;
+        });
+    
+    }
 
     //carousel
     const images = document.querySelectorAll('.works__carousel-img');
 
-    images.forEach((item)=>{
-        item.addEventListener('mouseenter',(e)=>{
-            target = e.target;
-            images.forEach(item=>{
-                if(target != item){
-                    item.style.filter = 'blur(10px)';
-                    item.style.zIndex = -1;
-                }
+    if(images){
+        images.forEach((item)=>{
+            item.addEventListener('mouseenter',(e)=>{
+                target = e.target;
+                images.forEach(item=>{
+                    if(target != item){
+                        item.style.filter = 'blur(10px)';
+                        item.style.zIndex = -1;
+                    }
+                });
+            });
+            item.addEventListener('mouseleave',()=>{
+                images.forEach(item=>{
+                    item.style.filter = 'blur(0px)';
+                    item.style.zIndex = 0;
+                });
             });
         });
-        item.addEventListener('mouseleave',()=>{
-            images.forEach(item=>{
-                item.style.filter = 'blur(0px)';
-                item.style.zIndex = 0;
-            });
-        });
-    });
+    }
+
+    //animation on scroll
+    AOS.init({
+        disable: false, 
+        startEvent: 'DOMContentLoaded', 
+        
+        offset: 100, 
+        delay: 100, 
+        duration: 1000, 
+        easing: 'ease', 
+        once: true, 
+        mirror: false, 
+        anchorPlacement: 'top-bottom', 
+      
+      });
 });
