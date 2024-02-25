@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     //слайдер
-    const promotionInfoSlider = new Swiper('.promotion__info-slider', {
+    new Swiper('.promotion__info-slider', {
         loop: true,
         slidesPerView: 'auto',
         grabCursor: true,
@@ -77,7 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
         },
     });
 
-    const tractorInfoSlider = new Swiper('.tractor__info-slider', {
+    new Swiper('.tractor__info-slider', {
         loop: true,
         slidesPerView: 'auto',
         grabCursor: true,
@@ -93,13 +93,13 @@ window.addEventListener('DOMContentLoaded', () => {
         },
     });
 
-    const repairTractorsSlider = new Swiper('.repair-tractors__slider', {
+    new Swiper('.repair-tractors__slider', {
         loop: false,
-        slidesPerView: '1.02',
-        spaceBetween:3,
+        slidesPerView: '1.12',
+        spaceBetween:15,
     });
 
-    const beforeAfterSlider = new Swiper('.before-after__slider', {
+    new Swiper('.before-after__slider', {
         loop: true,
         autoplay:{
             delay:1000,
@@ -111,39 +111,11 @@ window.addEventListener('DOMContentLoaded', () => {
         },
     });
 
-    const docsSlider = new Swiper('.documents__slider', {
+    new Swiper('.documents__slider', {
         loop: false,
         slidesPerView: '1.15',
         spaceBetween:20,
     });
-
-    //active menu
-
-    //exhibition video interactive with buttons
-    const videoBlock = document.querySelector('.exhibition__video'),
-        play = document.querySelector('.exhibition__play');
-    
-
-    if(videoBlock && play){
-        const video = videoBlock.querySelector('video');
-        play.addEventListener('click',()=>{
-            video.play();
-        });
-        video.addEventListener('play',()=>{
-            play.style.display = 'none';
-    
-        });
-        video.addEventListener('pause',()=>{
-            play.style.display = 'block';
-        });
-        videoBlock.addEventListener('mouseenter',()=>{
-            video.controls = true;
-        });
-        videoBlock.addEventListener('mouseleave',()=>{
-            video.controls = false;
-        });
-    
-    }
 
     //carousel
     const images = document.querySelectorAll('.works__carousel-img');
