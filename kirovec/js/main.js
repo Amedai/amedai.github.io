@@ -102,7 +102,7 @@ window.addEventListener('DOMContentLoaded', () => {
     new Swiper('.before-after__slider', {
         loop: true,
         autoplay:{
-            delay:1000,
+            delay:4000,
         },
         speed:2000,
         effect: 'fade',
