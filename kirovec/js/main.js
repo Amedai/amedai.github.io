@@ -1,5 +1,6 @@
-const  preloader = document.querySelector('.preloader');
-window.onload = function () {
+window.addEventListener('DOMContentLoaded', () => {
+    const  preloader = document.querySelector('.preloader');
+    window.onload = function () {
     preloader.classList.add('preloader__loaded-hiding');
     window.setTimeout(function () {
       preloader.classList.add('preloader__loaded');
@@ -7,7 +8,6 @@ window.onload = function () {
     }, 500);
 };
 
-window.addEventListener('DOMContentLoaded', () => {
     //burger menu
     const inner = document.querySelector('.header__inner'),
     hamburger = document.querySelector('.header__mobile-burger'),
@@ -198,7 +198,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //animation on scroll
     AOS.init({
         disable: false, 
-        startEvent: 'DOMContentLoaded', 
+        startEvent: 'load', 
         
         offset: 100, 
         delay: 100, 
