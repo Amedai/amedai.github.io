@@ -95,8 +95,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
     new Swiper('.repair-tractors__slider', {
         loop: false,
-        slidesPerView: '1.12',
-        spaceBetween:15,
+        breakpoints: {
+            601:{
+                slidesPerView: '2.3',
+                spaceBetween:30,
+            },
+            501:{
+                slidesPerView: '1.7',
+                spaceBetween:40,
+            },
+            401: {
+                slidesPerView: '1.5',
+                spaceBetween:20,
+            },
+            320: {
+                slidesPerView: '1.3',
+                spaceBetween:20,
+            },
+            
+        }
     });
 
     new Swiper('.before-after__slider', {
@@ -113,8 +130,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
     new Swiper('.documents__slider', {
         loop: false,
-        slidesPerView: '1.15',
-        spaceBetween:20,
+        breakpoints: {
+            671:{
+                slidesPerView: '2.5',
+                spaceBetween:30,
+            },
+            601:{
+                slidesPerView: '2.2',
+                spaceBetween:25,
+            },
+            551:{
+                slidesPerView: '2.1',
+                spaceBetween:15,
+            },
+            501:{
+                slidesPerView: '1.8',
+                spaceBetween:25,
+            },
+            401: {
+                slidesPerView: '1.6',
+                spaceBetween:25,
+            },
+            365: {
+                slidesPerView: '1.35',
+                spaceBetween:25,
+            },
+            320: {
+                slidesPerView: '1.25',
+                spaceBetween:10,
+            },
+            
+        }
     });
 
     //carousel
