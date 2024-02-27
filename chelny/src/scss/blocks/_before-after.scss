@@ -1,0 +1,138 @@
+.before-after{
+    background-color: var(--fill-green);
+    padding: 70px 0 60px 0;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    &__img{
+        position: absolute;
+        top: -60px;
+        left: 0;
+        z-index: -1;
+        width: 730px;
+        height: 815px;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__subtitle{
+        margin: 0 auto;
+        color:var(--text-fill-orange);
+    }
+    &__text{
+        margin: 20px auto 0 auto;
+        font-size: 28px;
+        font-weight: 500;
+        color:var(--text-white);
+        max-width: 850px;
+        text-align: center;
+    }
+    &__video{
+        margin: 60px auto 0 auto;
+        width: 1120px;
+        height: 630px;
+        video{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__slider{
+        margin-top: 15px;
+        width: 1120px;
+    }
+    &__wrapper{
+        width: 1120px;
+    }
+    &__slide{
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+    }
+    &__after-img{
+        width: 550px;
+        height: 420px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__before-img{
+        width: 550px;
+        height: 420px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    @media(max-width:1200px){
+        &{
+            padding: 50px 0 45px 0;
+        }
+        &__img{
+            width: 562px;
+            height: 610px;
+        }
+        &__text{
+            margin-top: 10px;
+            font-size: 20px;
+            max-width: 600px;
+        }
+        &__video{
+            margin-top: 30px;
+            width: 740px;
+            height: 415px;
+        }
+        &__slider{
+            width: 740px;
+        }
+        &__wrapper{
+            width: 740px;
+        }
+        &__after-img{
+            width: 363px;
+            height: 280px;
+        }
+        &__before-img{
+            width: 363px;
+            height: 280px;
+        }
+    }
+    @media(max-width:768px){
+        &{
+            padding: 35px 0 30px 0;
+        }
+        &__img{
+            width: 259px;
+            height: 340px;
+        }
+        &__text{
+            margin-top: 5px;
+            font-size: 16px;
+            max-width: 370px;
+        }
+        &__video{
+            margin-top: 20px;
+            width: 310px;
+            height: 175px;
+        }
+        &__slider{
+            margin-top: 5px;
+            width: 310px;
+        }
+        &__wrapper{
+            width: 310px;
+        }
+        &__after-img{
+            width: 152px;
+            height: 120px;
+        }
+        &__before-img{
+            width: 152px;
+            height: 120px;
+        }
+    }
+}

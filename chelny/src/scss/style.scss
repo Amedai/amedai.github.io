@@ -1,0 +1,75 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
+@import "./libs/fonts";
+@import "./libs/swiper-bundle.min";
+@import "./libs/baguetteBox.min";
+@import "./libs/aos";
+
+@import "./base/animation";
+
+a{
+    text-decoration: none;
+    color:inherit;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+:root{
+    --text-black:#30312A;
+    --text-fill-orange:#FFB306;
+    --text-fill-whiteOrange:#FFE7B0;
+    --text-white:#FFF;
+    --text-validateForm-red:#D72700;
+    --fill-green:#363C13;
+    --fillTable-greenLight:#DBE0BD;
+}
+html,body{
+    font-family: 'HelveticaNeueCyr', sans-serif;
+    color:var(--text-black);
+}
+/* *{
+    outline:1px solid green;
+} */
+.container{
+    max-width: 1285px;
+    margin: 0 auto;
+    padding: 0 5px;
+}
+@media(max-width:1200px){
+    .container{
+        max-width: 800px;
+    } 
+}
+@media(max-width:768px){
+    .container{
+        max-width: 455px;
+    } 
+}
+@import "./blocks/preloader";
+@import "./blocks/header";
+@import "./blocks/contact-btn";
+@import "./blocks/footer";
+@import "./blocks/promo";
+@import "./blocks/subtitle";
+@import "./blocks/mission";
+@import "./blocks/service";
+@import "./blocks/all-btn";
+@import "./blocks/works";
+@import "./blocks/products";
+@import "./blocks/promotion";
+@import "./blocks/info-slider";
+@import "./blocks/contacts";
+@import "./blocks/wares";
+@import "./blocks/tractor";
+@import "./blocks/price-btn";
+@import "./blocks/repair-tractors";
+@import "./blocks/repair-nodes";
+@import "./blocks/info";
+@import "./blocks/stages";
+@import "./blocks/before-after";
+@import "./blocks/documents";
+@import "./blocks/exhibition";
+@import "./blocks/overlay";
+@import "./blocks/modal";
+@import "./blocks/send-btn";

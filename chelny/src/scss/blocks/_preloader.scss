@@ -1,0 +1,37 @@
+.preloader {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #e0e0e0;
+    z-index: 1001;
+    opacity: 1;
+    &__position{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+    }
+    &__item {
+        width: 100px;
+        height: 100px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__rotate{
+        animation: preloader-rotate 2s infinite linear;
+    }
+    &__scale{
+       animation: preloader-scale 2s infinite linear;
+    }
+
+    &__loaded-hiding{
+        transition:opacity 0.3s ;
+        opacity: 0;
+      }
+    &__loaded{
+        display: none;
+    } 
+}

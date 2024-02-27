@@ -1,0 +1,157 @@
+.promo{
+    box-sizing: border-box;
+    padding-top: 110px;
+    padding-bottom: 10px;
+    text-align: center;
+    color:var(--text-white);
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 900px;
+    position: relative;
+    z-index: 3;
+    &_production{
+        padding-top: 250px;
+    }
+    &__subtitle{
+       margin: 25px auto 0 auto;
+        span{
+            color:var(--text-fill-orange);
+        }
+    }
+    &__tractors-img{
+        margin: 10px auto 0 auto;
+        width: 1200px;
+        height: 390px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position:center 84%;
+        }
+      
+    }
+    &__title{
+        text-transform: uppercase;
+        margin-top: 20px;
+        &-about{
+            font-size: 60px;
+            font-weight: 700;
+            margin: 0;
+        }
+    }
+    &__block{
+        display: flex;
+        justify-content: space-between;
+        gap: 80px;
+        text-align: left;
+        margin: 110px auto 0 auto;
+        max-width: 1150px;
+    }
+    &__item{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 520px;
+    }
+    &__text{
+        font-size: 25px;
+        font-weight: 400;
+        margin: 0;
+        mark{
+            font-weight: 700;
+            background-color: transparent;
+            color:var(--text-white)
+        }
+    }
+    &__dark{
+        &::after{
+            background-color: rgba(24, 26, 10, .6);
+            content:'';
+            position:absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
+    &__text-mobile{
+        display: none;
+    }
+    @media(max-width:1200px){
+        &{
+            min-height:750px
+        }
+        &_about{
+            background-position: 65% center;
+        }
+        &_production{
+            padding-top: 200px;
+        }
+        &__tractors-img{
+            width: 100%;
+            height: 350px;
+        }
+        &__block{
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+            margin-top: 60px;
+            max-width: 800px;
+        }
+        &__text-desktop{
+            display: none;
+        }
+        &__text-mobile{
+            display: block;
+        }
+    }
+    @media(max-width:790px){
+        &__tractors-img{
+            height: 320px;
+        }
+    }
+    @media(max-width: 768px){
+        &{
+            min-height:600px
+        }
+        &_about{
+            background-position: 75% center;
+        }
+        &_production{
+            padding-top: 150px;
+        }
+        &__subtitle{
+            margin: 20px auto;
+        }
+        &__tractors-img{
+            height: 210px;
+        }
+        &__title{
+            margin-top: 20px;
+            font-size: 20px;
+            &-about{
+                font-size: 28px;
+            }
+        }
+        &__block{
+            gap: 10px;
+            margin-top: 0;
+            max-width: 455px;
+        }
+        &__item{
+            gap: 15px;
+            min-width: 300px;
+        }
+        &__text{
+            font-size: 15px;
+        }
+    }
+    @media(max-width:390px){
+        &__tractors-img{
+            height: 160px;
+        }
+    }
+}

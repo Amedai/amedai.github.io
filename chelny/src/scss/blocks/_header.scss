@@ -1,0 +1,207 @@
+.header{
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    &__inner{
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+    }
+    &__info{
+        display: flex;
+        justify-content: space-between;
+        gap: 45px;
+        align-items: center;
+        color:var(--text-white);
+    }
+    &__logo{
+        display: block;
+        width: 72px;
+        height: 72px;
+    }
+    &__logo-img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    &__menu-list{
+        display: flex;
+        justify-content: space-between;
+        gap: 32px;
+    }
+    &__menu-link{
+        font-size: 20px;
+        font-weight: 400;
+        &:hover{
+            color:var(--text-fill-orange);
+        }
+    }
+    &__menu-link_active{
+        font-weight: 700;
+    }
+    &__contacts{
+        display: flex;
+        justify-content: space-between;
+        gap: 28px;
+        align-items: center;
+    }
+    &__address{
+        max-width: 170px;
+        text-align:right;
+        color:var(--text-white);
+        font-size: 16px;
+        font-weight: 400;
+    }
+    &__phone-link{
+        color:var(--text-white);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+    }
+    &__youtube-link{
+        display: none;
+        width: 60px;
+        height: 60px;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__mobile{
+        display: none;
+        padding: 20px 10px 0 10px;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        left: 0;
+        right: 0;
+    }
+    &__mobile-burger{
+        width: 46px;
+        height: 38px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 13px;
+        cursor: pointer;
+    }
+    &__mobile-stick{
+        background-color: var(--text-fill-orange);
+        width: 100%;
+        height: 4px;
+        transition: 0.5s all;
+        &_active{
+            &:nth-child(1){
+                transform:translateY(17px) rotate(-45deg);
+            }
+            &:nth-child(2){
+                display: none;
+            }
+            &:nth-child(3){
+                transform: translateY(-17px) rotate(45deg);
+                
+            }
+        }
+    }
+    @media(max-width:1200px){
+        &__inner{
+            position: fixed;
+            left: -100%;
+            top: 0;
+            z-index: 13;
+            width: 40vw;
+            height: 100vh;
+            background-color: var(--fill-green);
+            flex-direction: column;
+            justify-content: start;
+            gap: 102px;
+            padding: 45px 50px 45px 10px;
+            transition: 0.3s all;
+            &_active{
+                left: 0;
+            }
+        }
+        &__info{
+            justify-content: flex-end;
+        }
+        &__logo{
+            display: none;
+        }
+        &__menu-list{
+            flex-direction: column;
+            text-align: right;
+            gap: 30px;
+        }
+        &__menu-link{
+            font-size: 30px;
+        }
+        &__contacts{
+            flex-direction: column;
+            gap: 50px;
+            align-items: flex-end;
+        }
+        &__address{
+            font-size: 24px;
+            max-width: 255px;
+        }
+        &__phone-link{
+            font-size: 24px;
+            line-height: 30px;
+        }
+        &__youtube-link{
+            display: block;
+        }
+        &__mobile{
+            display: flex;
+        }
+        &__mobile-logo{
+            width: 72px;
+            height: 72px;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    @media(max-width:768px){
+        &__inner{
+            width: 42vw;
+            gap: 68px;
+            padding: 40px 45px 40px 10px;
+        }
+        &__menu-list{ 
+            gap: 20px;
+        }
+        &__menu-link{
+            font-size: 20px;
+        }
+        &__contacts{
+            gap: 32px;
+        }
+        &__address{
+            font-size: 16px;
+            max-width: 170px;
+        }
+        &__phone-link{
+            font-size: 16px;
+            line-height: 20px;
+        }
+        &__youtube-link{
+            width: 40px;
+            height: 40px;
+        }
+        &__mobile-logo{
+            display: none;
+        }
+    }
+    @media(max-width:576px){
+        &__inner{
+            padding: 30px 15px 30px 10px;
+            width: 60vw;
+        }
+    }
+}

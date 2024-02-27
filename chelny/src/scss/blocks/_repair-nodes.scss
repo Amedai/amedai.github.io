@@ -1,0 +1,165 @@
+.repair-nodes{
+    padding: 15px 0 170px 0;
+    &__subtitle{
+        margin: 0 auto;
+        span{
+            color:var(--text-fill-orange);
+        }
+    }
+    &__table{
+        margin-top: 60px;
+        width: 100%;
+        border-collapse:collapse;
+    }
+    &__table-head{
+        background-color: var(--text-fill-orange);
+    }
+    &__table-rowhead{
+        th{
+            padding: 18px 20px;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: left;
+            &:nth-child(1){
+                width: 50%;
+            }
+            &:nth-child(2){
+                width: 25%;
+            }
+            &:nth-child(3){
+                width: 25%;
+            }
+        }
+    }
+    &__table-rowbody{
+        td{
+            padding: 13px 20px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        &:hover{
+            background-color: var(--fillTable-greenLight);
+            td{
+                font-weight: 700;
+            }
+        }
+    }
+    &__table-rowbody + &__table-rowbody{
+        border-top:2px solid var(--text-black);
+    }
+    &__price-info{
+        font-size: 23px;
+        font-weight: 500;
+        margin-top: 30px;
+        padding: 0 5px;
+        text-align: center;
+    }
+    @media(max-width:1200px){
+        padding: 10px 0 90px 0;
+        &__table{
+            margin-top: 45px;
+        }
+        &__table-rowhead{
+            th{
+                padding: 15px 15px;
+                font-size: 19px;
+            }
+        }
+        &__table-rowbody{
+            td{
+                padding: 11px 15px;
+                font-size: 16px;
+            }
+        }
+        &__price-info{
+            font-size: 20px;
+        }
+    }
+    @media(max-width:768px){
+        padding: 10px 0 65px 0;
+        &__table{
+            margin-top: 30px;
+        }
+        &__table-rowhead{
+            th{
+                padding: 12px 5px;
+                font-size: 14px;
+                &:nth-child(1){
+                    width: 40%;
+                }
+                &:nth-child(2){
+                    width: 30%;
+                    text-align: center;
+                }
+                &:nth-child(3){
+                    width: 30%;
+                    text-align: center;
+                }
+            }
+        }
+        &__table-rowbody{
+            td{
+                padding: 9px 5px;
+                font-size: 13px;
+            }
+            td + td{
+                text-align: center;
+            }
+        }
+        &__price-info{
+            margin-top: 25px;
+            font-size: 14px;
+        }
+    }
+    @media(max-width:468px){
+        &__table-rowhead{
+            th{
+                padding: 11px 2px;
+                font-size: 13px;
+            }
+        }
+        &__table-rowbody{
+            td{
+                padding: 9px 2px;
+                font-size: 12px;
+            }
+        }
+        &__table-rowbody + &__table-rowbody{
+            border-top:1px solid var(--text-black);
+        }
+        &__price-info{
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        
+    }
+    @media(max-width:386px){
+        &__table-rowhead{
+            th{
+                padding: 9px 2px;
+                font-size: 11px;
+            }
+        }
+        &__table-rowbody{
+            td{
+                padding: 7px 2px;
+                font-size: 10px;
+            }
+        }
+        &__price-info{
+            font-size: 12px;
+        }
+    }
+    @media(max-width:320px){
+        &__table-rowhead{
+            th{
+                font-size: 10px;
+            }
+        }
+        &__table-rowbody{
+            td{
+                font-size: 9px;
+            }
+        }
+    }
+}
