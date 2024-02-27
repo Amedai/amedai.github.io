@@ -1,3 +1,12 @@
+const  preloader = document.querySelector('.preloader');
+window.onload = function () {
+    preloader.classList.add('preloader__loaded-hiding');
+    window.setTimeout(function () {
+      preloader.classList.add('preloader__loaded');
+      preloader.classList.remove('preloader__loaded-hiding');
+    }, 500);
+};
+
 window.addEventListener('DOMContentLoaded', () => {
     //burger menu
     const inner = document.querySelector('.header__inner'),
