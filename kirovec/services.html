@@ -45,6 +45,9 @@
                             <a href="tel:+78552778701" class="header__phone-link">+7 (8552) 77-87-01</a>  
                         </li>
                     </ul>
+                    <a href="#" class="header__youtube-link">
+                        <img src="images/icons/youtube.svg" alt="">
+                    </a>
                     <button class="contact-btn contact-btn_hf-mobile">Связаться</button>
                 </div>
             </div>
@@ -487,11 +490,15 @@
             </div>
             <div class="footer__bottom">
                 <button class="contact-btn contact-btn_hf-mobile">Связаться</button>
+                <a href="policy.html" class="footer__policy-link">Политика конфиденциальности</a>
+                <a href="#" class="footer__youtube-link">
+                    <img src="images/icons/youtube.svg" alt="">
+                </a>
             </div>
         </div>
     </footer>
     <div class="overlay">
-        <div class="modal" id="order">
+        <div class="modal">
             <div class="modal__close">&times;</div>
             <div class="subtitle modal__subtitle">Оставьте заявку</div>
             <p class="modal__text">и наш менеджер свяжется с вами в ближайшее время</p>
@@ -505,6 +512,10 @@
                     <input type="tel" name="phone" id="phone" required>
                     <label for="textarea">Сообщение</label>
                     <textarea name="textarea" id="textarea" cols="30" rows="10"></textarea>
+                    <div class="modal__policy-check">
+                        <input id="checkbox" name="checkbox" type="checkbox" required>
+                        <label for="checkbox">Я ознакомлен(а) с <a href="policy.html" class="modal__policy-link">Политикой конфиденциальности</a> и согласен(а) на обработку персональных данных</label>
+                    </div>
                     <button class="send-btn">Отправить заявку</button>
                 </form>
                 <div class="modal__vertical-line"></div>
@@ -544,6 +555,9 @@
                         <div class="modal__contacts-name">График работы:</div>
                         <p class="modal__contacts-text" >Понедельник-пятница 7:30-16:30</p>
                     </div>
+                    <a href="#" class="modal__youtube-link">
+                        <img src="images/icons/youtube.svg" alt="">
+                    </a>
                 </div>
             </div>
         </div>
