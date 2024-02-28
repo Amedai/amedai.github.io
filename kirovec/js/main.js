@@ -101,7 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //слайдер
     new Swiper('.promotion__info-slider', {
-        loop: true,
+        loop: false,
         slidesPerView: 'auto',
         grabCursor: true,
         pagination: {
@@ -117,7 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     new Swiper('.tractor__info-slider', {
-        loop: true,
+        loop: false,
         slidesPerView: 'auto',
         grabCursor: true,
         pagination: {
