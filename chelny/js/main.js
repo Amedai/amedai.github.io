@@ -8,6 +8,36 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
 };
 
+    //lazy load for yandex-cart
+    function initYandexMapOnEvent (e) {
+        initYandexMap();
+        e.currentTarget.removeEventListener(e.type, initYandexMapOnEvent);
+    }
+
+    function initYandexMap () {
+        if (window.yandexMapDidInit) {
+            return false;
+        }
+        window.yandexMapDidInit = true;
+    
+        const script = document.createElement('script');
+
+        script.async = true;
+    
+        script.src = 'https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A29ba7d7918f1c1feb3e10c2f6dbcebf021b7477ec9a3ef378e58164aa98d541d&amp;width=100%25&amp;height=100%25&amp;lang=ru_RU&amp;scroll=true';
+    
+        map.appendChild(script);
+    }
+
+    const map = document.querySelector('.contacts__map');
+    if(map){
+        setTimeout(initYandexMap, 5000);
+
+        window.addEventListener('scroll', initYandexMapOnEvent);
+        window.addEventListener('mousemove', initYandexMapOnEvent);
+        window.addEventListener('touchstart', initYandexMapOnEvent);
+    }
+  
     //burger menu
     const inner = document.querySelector('.header__inner'),
     hamburger = document.querySelector('.header__mobile-burger'),
