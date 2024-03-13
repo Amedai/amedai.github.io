@@ -1,0 +1,274 @@
+window.addEventListener('DOMContentLoaded', () => {
+    //слайдер
+    if(document.querySelector('.expertise__slider')){
+        new Swiper('.expertise__slider', {
+            loop: false,
+    
+            navigation: {
+            nextEl: '.expertise__right',
+            prevEl: '.expertise__left',
+            },
+            breakpoints: {
+                1201:{
+                    slidesPerView: '3',
+                    spaceBetween:50,
+            
+                },
+                769:{
+                    slidesPerView: '3',
+                    spaceBetween:30,
+                },   
+            }
+        });
+    }
+    if(document.querySelector('.expertise__slider-mobile')){
+        new Swiper('.expertise__slider-mobile', {
+            loop: false,
+            
+            navigation: {
+            nextEl: '.expertise__right',
+            prevEl: '.expertise__left',
+            },
+            breakpoints: {
+                600:{
+                    slidesPerView: '2.6',
+                    spaceBetween:30,
+                }, 
+                450:{
+                    slidesPerView: '1.8',
+                    spaceBetween:40,
+                }, 
+                320:{
+                    slidesPerView: '1.45',
+                    spaceBetween:20,
+                }, 
+            }
+        });
+    }
+    if(document.querySelector('.team__slider')){
+        new Swiper('.team__slider', {
+            loop: false,
+            grabCursor:true,
+    
+            navigation: {
+            nextEl: '.team__right',
+            prevEl: '.team__left',
+            },
+    
+            breakpoints: {
+                1600:{
+                    slidesPerView: '4.4',
+                    spaceBetween:50,
+                }, 
+                1400:{
+                    slidesPerView: '4.2',
+                    spaceBetween:20,
+                }, 
+                1200:{
+                    slidesPerView: '3.7',
+                    spaceBetween:20,
+                }, 
+                1000:{
+                    slidesPerView: '3.5',
+                    spaceBetween:20,
+                }, 
+                800:{
+                    slidesPerView: '2.6',
+                    spaceBetween:20,
+                }, 
+                700:{
+                    slidesPerView: '2.3',
+                    spaceBetween:20,
+                }, 
+                600:{
+                    slidesPerView: '1.8',
+                    spaceBetween:40,
+                }, 
+                470:{
+                    slidesPerView: '1.6',
+                    spaceBetween:30,
+                }, 
+                380:{
+                    slidesPerView: '1.4',
+                    spaceBetween:20,
+                }, 
+                320:{
+                    slidesPerView: '1.2',
+                    spaceBetween:20,
+                }, 
+            }
+        });
+    }
+    if(document.querySelector('.cases__slider')){
+        new Swiper('.cases__slider', {
+            grid: {                         
+                rows: 2,                    
+            },  
+    
+            loop: false,
+    
+            navigation: {
+            nextEl: '.cases__right',
+            prevEl: '.cases__left',
+            },
+    
+            breakpoints: {
+                600:{
+                    slidesPerView: '1.5',
+                    spaceBetween:30,
+                }, 
+                450:{
+                    slidesPerView: '1.3',
+                    spaceBetween:20,
+                }, 
+                320:{
+                    slidesPerView: '1.1',
+                    spaceBetween:20,
+                }, 
+            }
+        });
+    }
+    if(document.querySelector('.result__slider')){
+        new Swiper('.result__slider', {
+            loop: false,
+            grabCursor:true,
+            
+            navigation: {
+            nextEl: '.result__right',
+            prevEl: '.result__left',
+            },
+            breakpoints: {
+                1201:{
+                    slidesPerView: '2',
+                    spaceBetween:100,
+                }, 
+                769:{
+                    slidesPerView: '2',
+                    spaceBetween:40,
+                }, 
+                320:{
+                    slidesPerView: '2',
+                    spaceBetween:10,
+                }, 
+            }
+        });
+    }
+    if(document.querySelector('.entrepreneurship__slider')){
+        new Swiper('.entrepreneurship__slider', {
+            loop: false,
+            grabCursor:true,
+            navigation: {
+            nextEl: '.entrepreneurship__right',
+            prevEl: '.entrepreneurship__left',
+            },
+            breakpoints: {
+                1201:{
+                    slidesPerView: '1.7',
+                    spaceBetween:60,
+                }, 
+                769:{
+                    slidesPerView: '1.5',
+                    spaceBetween:60,
+                }, 
+                320:{
+                    slidesPerView: '1.2',
+                    spaceBetween:20,
+                },
+            }
+        });
+    }
+    if(document.querySelector('.ammoniy__slider')){
+        new Swiper('.ammoniy__slider', {
+            loop: false,
+            grabCursor:true,
+            breakpoints: {
+                1201:{
+                    slidesPerView: '1.7',
+                    spaceBetween:30,
+                }, 
+                769:{
+                    slidesPerView: '1.2',
+                    spaceBetween:35,
+                }, 
+                320:{
+                    slidesPerView: '1.1',
+                    spaceBetween:10,
+                },
+            }
+        });
+    }
+
+
+    //burger menu
+    const inner = document.querySelector('.header__inner'),
+    hamburger = document.querySelector('.header__mobile-burger'),
+    sticks = document.querySelectorAll('.header__mobile-stick');
+
+    hamburger.addEventListener('click',()=>{
+        inner.classList.toggle('header__inner_active');
+        sticks.forEach(item=>{
+            item.classList.toggle('header__mobile-stick_active');
+        });
+    });
+
+
+    //modal
+    function fadeIn (el, timeout, display){
+        el.style.opacity = 0;
+        el.style.display = display || 'block';
+        el.style.transition = `opacity ${timeout}ms`;
+        setTimeout(() => {
+          el.style.opacity = 1;
+        }, 10);
+    }
+    function fadeOut (el, timeout){
+        el.style.opacity = 1;
+        el.style.transition = `opacity ${timeout}ms`;
+        el.style.opacity = 0;
+      
+        setTimeout(() => {
+          el.style.display = 'none';
+        }, timeout);
+    }
+    const   modalLinks = document.querySelectorAll('.modal-links'),
+            modals = document.querySelectorAll('.modal');
+            overlay = document.querySelector('.overlay'),
+            closeElement = document.querySelectorAll('.overlay__close');
+    
+   
+    modalLinks.forEach(item=>{
+        modals.forEach(modal=>{
+            if(item.getAttribute('data-name') === modal.getAttribute('data-name')){
+                item.addEventListener('click',()=>{
+                    modal.style.visibility = 'visible';
+                    fadeIn(overlay, 100, 'block');
+                });
+            }
+        });
+    });
+    closeElement.forEach(el=>{
+        el.addEventListener('click',()=>{
+            fadeOut(overlay,20);
+            modals.forEach(modal=>{
+                modal.style.visibility = 'hidden';
+            });
+        });
+    });
+    overlay.addEventListener('click', (e)=>{
+        const target = e.target;
+        if(target && target.classList.contains('overlay')){
+            fadeOut(overlay,20);
+            modals.forEach(modal=>{
+                modal.style.visibility = 'hidden';
+            });
+        }
+    });
+    document.addEventListener('keydown',(e)=>{
+        if(overlay.style.opacity === '1' && e.code == 'Escape'){
+            fadeOut(overlay,20);
+            modals.forEach(modal=>{
+                modal.style.visibility = 'hidden';
+            });
+        }
+     });
+});
