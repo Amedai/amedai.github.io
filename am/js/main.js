@@ -341,4 +341,19 @@ window.addEventListener('DOMContentLoaded', () => {
             }
          });
     }
+
+     //animation on scroll
+     AOS.init({
+        disable: false, 
+        startEvent: 'load', 
+        
+        offset: 100, 
+        delay: 100, 
+        duration: 1000, 
+        easing: 'ease', 
+        once: true, 
+        mirror: false, 
+        anchorPlacement: 'top-bottom', 
+      
+      });
 });
