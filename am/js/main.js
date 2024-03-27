@@ -356,4 +356,28 @@ window.addEventListener('DOMContentLoaded', () => {
         anchorPlacement: 'top-bottom', 
       
       });
+
+    //active menu on scroll
+    if(document.querySelector('.aside')){
+        const links = document.querySelectorAll('.aside__menu a');
+        const observer = new IntersectionObserver(entries=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    links.forEach(link=>{
+                        const id = link.getAttribute('href').replace('#','');
+                        if(id === entry.target.id){
+                            link.classList.add('aside__menu_active');
+                        }else{
+                            link.classList.remove('aside__menu_active');
+                        }
+                    });
+                }
+            });
+        },{
+            threshold: 1
+        });
+        document.querySelectorAll('.entry').forEach(entry=>{
+            observer.observe(entry);
+        });
+    }
 });
