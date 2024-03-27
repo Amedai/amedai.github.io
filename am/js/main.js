@@ -374,7 +374,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             });
         },{
-            threshold: 1
+            threshold: 0.7
         });
         document.querySelectorAll('.entry').forEach(entry=>{
             observer.observe(entry);
