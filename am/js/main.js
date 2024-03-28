@@ -91,49 +91,57 @@ window.addEventListener('DOMContentLoaded', () => {
             },
     
             breakpoints: {
+                2300:{
+                    slidesPerView: '6.5',
+                    spaceBetween:50,
+                },
+                2000:{
+                    slidesPerView: '5.4',
+                    spaceBetween:70,
+                },
                 1800:{
-                    slidesPerView: '3.9',
-                    spaceBetween:170,
+                    slidesPerView: '4.7',
+                    spaceBetween:80,
                 },
                 1600:{
-                    slidesPerView: '3.9',
-                    spaceBetween:100,
+                    slidesPerView: '4.2',
+                    spaceBetween:70,
                 }, 
                 1400:{
-                    slidesPerView: '3.8',
-                    spaceBetween:20,
-                }, 
-                1200:{
                     slidesPerView: '3.7',
-                    spaceBetween:20,
+                    spaceBetween:70,
+                }, 
+                1201:{
+                    slidesPerView: '3.3',
+                    spaceBetween:50,
                 }, 
                 1000:{
-                    slidesPerView: '3.5',
-                    spaceBetween:20,
+                    slidesPerView: '3.7',
+                    spaceBetween:35,
                 }, 
                 800:{
-                    slidesPerView: '2.6',
-                    spaceBetween:20,
+                    slidesPerView: '2.8',
+                    spaceBetween:50,
                 }, 
-                700:{
-                    slidesPerView: '2.3',
-                    spaceBetween:20,
+                769:{
+                    slidesPerView: '2.6',
+                    spaceBetween:30,
                 }, 
                 600:{
-                    slidesPerView: '1.8',
+                    slidesPerView: '2.3',
                     spaceBetween:40,
                 }, 
                 470:{
-                    slidesPerView: '1.6',
-                    spaceBetween:30,
+                    slidesPerView: '1.8',
+                    spaceBetween:35,
                 }, 
                 380:{
-                    slidesPerView: '1.4',
-                    spaceBetween:20,
+                    slidesPerView: '1.45',
+                    spaceBetween:30,
                 }, 
                 320:{
                     slidesPerView: '1.2',
-                    spaceBetween:20,
+                    spaceBetween:25,
                 }, 
             }
         });
