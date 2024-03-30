@@ -56,17 +56,25 @@ window.addEventListener('DOMContentLoaded', () => {
             },
     
             breakpoints: {
-                600:{
+                650:{
                     slidesPerView: '2.6',
-                    spaceBetween:30,
-                }, 
-                450:{
-                    slidesPerView: '1.8',
-                    spaceBetween:40,
-                }, 
-                320:{
-                    slidesPerView: '1.45',
                     spaceBetween:20,
+                }, 
+                550:{
+                    slidesPerView: '2.2',
+                    spaceBetween:10,
+                },
+                450:{
+                    slidesPerView: '1.7',
+                    spaceBetween:20,
+                },
+                400:{
+                    slidesPerView: '1.5',
+                    spaceBetween:15,
+                },
+                320:{
+                    slidesPerView: '1.3',
+                    spaceBetween:10,
                 }, 
             }
         });
@@ -268,8 +276,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     spaceBetween:30,
                 }, 
                 769:{
-                    slidesPerView: '1.2',
-                    spaceBetween:35,
+                    slidesPerView: '1.5',
+                    spaceBetween:25,
                 }, 
                 320:{
                     slidesPerView: '1.1',
@@ -301,8 +309,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     spaceBetween:30,
                 }, 
                 769:{
-                    slidesPerView: '1.2',
-                    spaceBetween:35,
+                    slidesPerView: '1.5',
+                    spaceBetween:25,
                 }, 
                 320:{
                     slidesPerView: '1.1',
@@ -334,8 +342,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     spaceBetween:30,
                 }, 
                 769:{
-                    slidesPerView: '1.2',
-                    spaceBetween:35,
+                    slidesPerView: '1.5',
+                    spaceBetween:25,
                 }, 
                 320:{
                     slidesPerView: '1.1',
@@ -351,6 +359,39 @@ window.addEventListener('DOMContentLoaded', () => {
         });
         ammoniyThirdSlider.on('reachBeginning',()=>{
             customArrowsSlider('.ammoniy__third-slider','reachBeginning');
+        });
+    }
+    if(document.querySelector('.ammoniy__fourth-slider')){
+        const ammoniyFourthSlider = new Swiper('.ammoniy__fourth-slider', {
+            loop: false,
+            grabCursor:true,
+            navigation: {
+                nextEl: '.right',
+                prevEl: '.left',
+            },
+            breakpoints: {
+                1201:{
+                    slidesPerView: '1.7',
+                    spaceBetween:30,
+                }, 
+                769:{
+                    slidesPerView: '1.5',
+                    spaceBetween:25,
+                }, 
+                320:{
+                    slidesPerView: '1.1',
+                    spaceBetween:10,
+                },
+            }
+        });
+        ammoniyFourthSlider.on('fromEdge',()=>{
+            customArrowsSlider('.ammoniy__fourth-slider','fromEdge');
+        });
+        ammoniyFourthSlider.on('reachEnd',()=>{
+            customArrowsSlider('.ammoniy__fourth-slider','reachEnd');
+        });
+        ammoniyFourthSlider.on('reachBeginning',()=>{
+            customArrowsSlider('.ammoniy__fourth-slider','reachBeginning');
         });
     }
 
