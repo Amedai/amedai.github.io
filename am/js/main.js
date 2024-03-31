@@ -511,4 +511,80 @@ window.addEventListener('DOMContentLoaded', () => {
             observer.observe(entry);
         });
     }
+
+    //form
+    function getOnlyNumber(value){
+        return value.replace(/\D/g,'');
+    }
+    function onPhoneInput(e){
+        const inputTarget = e.target,
+              selectionStart = inputTarget.selectionStart,
+              inputOnlyNumber = getOnlyNumber(inputTarget.value);
+        let resultValue = '';
+       
+
+        if (inputTarget.value.length != selectionStart) {
+            if (e.data && /\D/g.test(e.data)) {
+                inputTarget.value = inputOnlyNumber;
+            }
+            return;
+        }
+
+
+        if(['7','8','9'].indexOf(inputOnlyNumber[0]) > -1){
+            //russian number
+            if(inputOnlyNumber[0] == '8' || inputOnlyNumber[0] == '7'){
+                resultValue += '+7 ';
+            }else{
+                resultValue += '+7 (9';
+            }
+            if(inputOnlyNumber.length > 1){
+                resultValue += '(' + inputOnlyNumber.substring(1,4);
+            } 
+            if(inputOnlyNumber.length >4){
+                resultValue += ') ' + inputOnlyNumber.substring(4,7);
+            } 
+            if(inputOnlyNumber.length > 7){
+                resultValue += '-' + inputOnlyNumber.substring(7,9);
+            } 
+            if(inputOnlyNumber.length > 9){
+                resultValue += '-' + inputOnlyNumber.substring(9, 11);
+            } 
+        }else{
+            //not russian number
+            if(inputOnlyNumber){
+                resultValue += '+' + inputOnlyNumber;
+            }
+            
+        }
+        inputTarget.value = resultValue;
+    }
+
+    function onPhoneKeyDown (e) {
+        const inputValue = e.target.value.replace(/\D/g, '');
+        if (e.keyCode == 8 && inputValue.length == 1) {
+            e.target.value = '';
+        }
+    }
+
+    if(document.querySelector('.footer-order__form')){
+        //input:focus
+        const inputs = document.querySelectorAll('.focusout-js');
+        inputs.forEach(inputElem=>{
+            const savePlaceholer = inputElem.placeholder;
+            inputElem.addEventListener('focus',(e)=>{
+                inputTarget = e.target;
+                inputTarget.placeholder = '';
+                inputTarget.addEventListener('blur',(e)=>{
+                    e.target.placeholder = savePlaceholer;
+                });
+            });
+        });
+
+        //mask
+        const inputPhone = document.querySelector('input[id="feedtel"]');
+        inputPhone.setAttribute('maxlength','18');
+        inputPhone.addEventListener('input',onPhoneInput);
+        inputPhone.addEventListener('keydown',onPhoneKeyDown);
+    }
 });
