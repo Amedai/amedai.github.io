@@ -239,16 +239,16 @@ window.addEventListener('DOMContentLoaded', () => {
             },
             breakpoints: {
                 1201:{
-                    slidesPerView: '1.7',
-                    spaceBetween:60,
+                    slidesPerView: '1.55',
+                    spaceBetween:30,
                 }, 
                 769:{
-                    slidesPerView: '1.5',
-                    spaceBetween:60,
+                    slidesPerView: '1.35',
+                    spaceBetween:20,
                 }, 
                 320:{
                     slidesPerView: '1.2',
-                    spaceBetween:20,
+                    spaceBetween:10,
                 },
             }
         });
@@ -584,7 +584,7 @@ window.addEventListener('DOMContentLoaded', () => {
         //mask
         const inputPhone = document.querySelector('input[id="feedtel"]');
         inputPhone.setAttribute('maxlength','18');
-        inputPhone.addEventListener('input',onPhoneInput);
         inputPhone.addEventListener('keydown',onPhoneKeyDown);
+        inputPhone.addEventListener('input',onPhoneInput);
     }
 });
