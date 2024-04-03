@@ -187,10 +187,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 450:{
                     slidesPerView: '1.3',
                     spaceBetween:20,
-                }, 
+                },
                 320:{
-                    slidesPerView: '1.1',
-                    spaceBetween:20,
+                    slidesPerView: '1',
+                    spaceBetween:30,
                 }, 
             }
         });
