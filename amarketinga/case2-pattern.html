@@ -25,7 +25,13 @@
         <header class="header">
             <div class="container">
                 <div class="header__inner">
-                    <div class="header__logo"><a href="index.html" class="header__link">АГЕНТСТВО МАРКЕТИНГА</a></div>
+                    <div class="header__block">
+                        <div class="header__logo">
+                            <a href="index.html">
+                                <img src="./images/icons/header-logo.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
                     <nav class="header__menu">
                         <ul>
                             <li><a href="#business-tasks">Бизнес-задачи</a></li>
@@ -41,9 +47,7 @@
                     </a>
                 </div>
                 <div class="header__mobile">
-                    <div class="header__mobile-logo">
-                        <a href="index.html">АГЕНТСТВО МАРКЕТИНГА</a>
-                    </div>
+                    <a href="index.html" class="header__mobile-logo-text">АГЕНТСТВО МАРКЕТИНГА</a>
                     <div class="header__mobile-burger">
                         <span class="header__mobile-stick"></span>
                         <span class="header__mobile-stick"></span>
@@ -206,7 +210,6 @@
             </div>
             <div class="container footer-order__container">
                 <div class="footer-order__block">
-                    <p class="footer-order__text-order footer-order__text-order_lilac" data-aos="fade-up">Оставь заявку</p>
                     <p class="footer-order__text-offer" data-aos="fade-up">Получи коммерческое предложение за 24 часа</p>
                     <div class="footer-order__underline footer-order__underline_lilac" data-aos="fade-up"></div>
                     <div class="footer-order__form" data-aos="fade-up">
@@ -249,30 +252,34 @@
                 </div>
             </div>
         </div>
-        <footer class="footer entry">
+        <footer class="footer entry" id="contacts">
             <div class="container">
-                <div class="footer__info">
-                    <div class="footer__logo">
-                        <a href="index.html">
-                            <img src="./images/icons/logo.svg" alt="">
-                        </a>
+                <div class="footer__block">
+                    <div class="footer__item footer__item-info">
+                        <div class="footer__logo">
+                            <a href="index.html">
+                                <img src="./images/icons/footer-logo.svg" alt="">
+                            </a>
+                        </div>
+                        <a href="mailto:007@amarketinga.ru" class="footer__phone hover-underline">007@amarketinga.ru</a>
                     </div>
-                    <nav class="footer__menu">
-                        <ul>
-                            <li><a href="index.html#about">О нас</a></li>
-                            <li><a href="index.html#expertise">Направления</a></li>
-                            <li><a href="index.html#cases">Кейсы</a></li>
-                            <li><a href="index.html#team">Команда</a></li>
-                            <li><a href="index.html#contacts">Контакты</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="footer__contacts" id="contacts">
-                    <a href="mailto:007@amarketinga.ru" class="footer__phone hover-underline">007@amarketinga.ru</a>
-                    <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
-                    <a href="https://t.me/agentsmarketing" class="footer__tg">
-                        <img src="./images/icons/tg.svg" alt="">
-                    </a>
+                    <div class="footer__item footer__item-links">
+                        <nav class="footer__menu">
+                            <ul>
+                                <li><a href="index.html#about">О нас</a></li>
+                                <li><a href="index.html#expertise">Направления</a></li>
+                                <li><a href="index.html#cases">Кейсы</a></li>
+                                <li><a href="index.html#team">Команда</a></li>
+                                <li><a href="index.html#contacts">Контакты</a></li>
+                            </ul>
+                        </nav>
+                        <div class="footer__links">
+                            <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
+                            <a href="https://t.me/agentsmarketing" class="footer__tg">
+                                <img src="./images/icons/tg.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>
