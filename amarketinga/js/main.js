@@ -92,6 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const leafletsSlider = new Swiper('.leaflets__slider', {
             loop: false,
             slidesPerView: '1',
+            spaceBetween:1,
     
             navigation: {
             nextEl: '.right',
@@ -711,6 +712,34 @@ window.addEventListener('DOMContentLoaded', () => {
         });
         advancedFarmingSlider.on('reachBeginning',()=>{
             customArrowsSlider('.advanced-farming-slider','reachBeginning');
+        });
+    }
+    if(document.querySelector('.merch__slider-cloth')){
+        const merchWorkSlider = new Swiper('.merch__slider-works', {
+            loop: false,
+            grabCursor:true,
+            autoHeight:true,
+        });
+        merchWorkSlider.disable();
+        const merchClothSlider = new Swiper('.merch__slider-cloth', {
+            loop: false,
+            grabCursor:true,
+            navigation: {
+                nextEl: '.right',
+                prevEl: '.left',
+            },
+            controller:{
+                control: merchWorkSlider,
+            },
+        });
+        merchClothSlider.on('fromEdge',()=>{
+            customArrowsSlider('.merch__slider-cloth','fromEdge');
+        });
+        merchClothSlider.on('reachEnd',()=>{
+            customArrowsSlider('.merch__slider-cloth','reachEnd');
+        });
+        merchClothSlider.on('reachBeginning',()=>{
+            customArrowsSlider('.merch__slider-cloth','reachBeginning');
         });
     }
     
