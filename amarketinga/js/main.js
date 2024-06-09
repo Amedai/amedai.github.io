@@ -742,6 +742,25 @@ window.addEventListener('DOMContentLoaded', () => {
             customArrowsSlider('.merch__slider-cloth','reachBeginning');
         });
     }
+    if(document.querySelector('.merch__slider-collection')){
+        const merchCollectionSlider = new Swiper('.merch__slider-collection', {
+            loop: false,
+            grabCursor:true,
+            navigation: {
+                nextEl: '.right',
+                prevEl: '.left',
+            },
+        });
+        merchCollectionSlider.on('fromEdge',()=>{
+            customArrowsSlider('.merch__slider-collection','fromEdge');
+        });
+        merchCollectionSlider.on('reachEnd',()=>{
+            customArrowsSlider('.merch__slider-collection','reachEnd');
+        });
+        merchCollectionSlider.on('reachBeginning',()=>{
+            customArrowsSlider('.merch__slider-collection','reachBeginning');
+        });
+    }
     
 
 
