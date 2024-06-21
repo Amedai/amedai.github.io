@@ -3,23 +3,40 @@ window.addEventListener('DOMContentLoaded',()=>{
     //наведение мыши на картинку
     const images = document.querySelectorAll('.hover-js img');
     images.forEach(img=>{
-        img.addEventListener('mouseenter',()=>{
+        function dataHoverSrc(){
             img.src=img.getAttribute('data-hover-src');
-        });
-        img.addEventListener('mouseleave',()=>{
+        }
+        function dataSrc(){
             img.src=img.getAttribute('data-src');
+        }
+        window.addEventListener('touchstart',(e)=>{
+            if(e.target.tagName === 'IMG'){
+                img.onmouseenter = null;
+                img.onmouseleave = null;
+                
+            }
         });
+        img.onmouseenter = dataHoverSrc;
+        img.onmouseleave = dataSrc;
     });
     const videos = document.querySelectorAll('.hover-video-js');
     videos.forEach(video=>{
-        video.addEventListener('mouseenter',()=>{
+        function displayVideo(){
             video.querySelector('video').style.display = 'block';
             video.querySelector('img').style.display = 'none';
-        });
-        video.addEventListener('mouseleave',()=>{
+        }
+        function displayImg(){
             video.querySelector('img').style.display = 'block';
             video.querySelector('video').style.display = 'none';
+        }
+        window.addEventListener('touchstart',(e)=>{
+            if(e.target.tagName === 'IMG'){
+                video.onmouseenter = null;
+                video.onmouseleave = null;
+            }
         });
+        video.onmouseenter = displayVideo;
+        video.onmouseleave = displayImg;
     });
 
     //overlay
