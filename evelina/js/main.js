@@ -14,13 +14,11 @@ window.addEventListener('DOMContentLoaded',()=>{
     videos.forEach(video=>{
         video.addEventListener('mouseenter',()=>{
             video.querySelector('video').style.display = 'block';
-            video.querySelector('video').play();
             video.querySelector('img').style.display = 'none';
         });
         video.addEventListener('mouseleave',()=>{
             video.querySelector('img').style.display = 'block';
             video.querySelector('video').style.display = 'none';
-            video.querySelector('video').pause();
         });
     });
 
