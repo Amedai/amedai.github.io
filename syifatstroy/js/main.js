@@ -125,7 +125,7 @@ window.addEventListener('DOMContentLoaded',()=>{
               sum = +document.querySelector('.calc__result-numb[id="credit-sum"]').textContent,
               divider = Math.pow(monthInterestRate+1,termsMonths) - 1;
               
-        resultPayment.textContent = Math.round(sum*(monthInterestRate + monthInterestRate/divider));
+        resultPayment.textContent = Math.ceil(sum*(monthInterestRate + monthInterestRate/divider));
     }
     function calculatingCreditSum(){
         if(!total || !rublePayment){
@@ -136,7 +136,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             creditSum.textContent = 0;
             return;
         }
-        creditSum.textContent = Math.round(total - rublePayment);
+        creditSum.textContent = Math.ceil(total - rublePayment);
     }
     function calculatingDownPaymentPercent(){
         if(total && percentPayment){
@@ -193,10 +193,10 @@ window.addEventListener('DOMContentLoaded',()=>{
                         document.querySelector('input[id="terms-months"]').value= termsMonths;
                         break;
                 }
-                calculatingCreditSum();
-                calculationMortgage();
                 calculatingDownPaymentPercent();
                 calculatingMortgageTermsInMonths();
+                calculatingCreditSum();
+                calculationMortgage();
             });
         });
     }
