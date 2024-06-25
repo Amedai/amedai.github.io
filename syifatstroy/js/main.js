@@ -16,6 +16,10 @@ window.addEventListener('DOMContentLoaded',()=>{
         new Swiper('.promo__slider', {
             loop: true,
             grabCursor: true,
+
+            autoplay:{
+                delay:10000,
+            },
           
             navigation: {
               nextEl: '.promo__next',
@@ -25,8 +29,12 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
     if(document.querySelector('.ready-house__slider')){
         new Swiper('.ready-house__slider', {
-            loop: false,
+            loop: true,
             grabCursor: true,
+
+            autoplay:{
+                delay:10000,
+            },
           
             navigation: {
               nextEl: '.ready-house__next',
@@ -34,33 +42,11 @@ window.addEventListener('DOMContentLoaded',()=>{
             },
         });
     }
-    if(document.querySelector('.gallery__slider')){
-        new Swiper('.gallery__slider', {
-            loop: false,
-            grabCursor: true,
-            
-        
-            breakpoints: {
-                900:{
-                    slidesPerView:3.3,
-                    spaceBetween:37,
-                },
-                600:{
-                    slidesPerView:2.8,
-                    spaceBetween:30,
-                }, 
-                320:{
-                    slidesPerView:1.8,
-                    spaceBetween:10,
-                }, 
-            },
-          
-        });
-    }
     if(document.querySelector('.review__slider')){
         new Swiper('.review__slider', {
             loop: false,
             grabCursor: true,
+            autoHeight:true,
 
             breakpoints: {
                 1725:{
@@ -95,24 +81,20 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
     }
     //margin in individual section
-    const container = document.querySelector('.container'),
-          individualSubtitle = document.querySelector('.individual__subtitle'),
-          individualFlexItems = document.querySelectorAll('.individual__flex-item'),
-          processFlex= document.querySelector('.process__flex');
     function setpaddingLeft(){
-        if(window.screen.width > 1200){
+        if(window.innerWidth > 1200){
             individualSubtitle.style.paddingLeft = (parseInt(getComputedStyle(container).marginRight) + 60)+'px';
             individualFlexItems.forEach(item=>{
                 item.style.paddingLeft = (parseInt(getComputedStyle(container).marginRight) + 60)+'px';
             });
             processFlex.style.paddingLeft = (parseInt(getComputedStyle(container).marginRight) + 60)+'px';
-        }else if(window.screen.width > 768){
+        }else if(window.innerWidth > 768){
             individualSubtitle.style.paddingLeft = 45+'px';
             individualFlexItems.forEach(item=>{
                 item.style.paddingLeft = 45+'px';
             });
             processFlex.style.paddingLeft = 45+'px';
-        }else if(window.screen.width > 320){
+        }else if(window.innerWidth > 320){
             individualSubtitle.style.paddingLeft = 0+'px';
             individualFlexItems.forEach(item=>{
                 item.style.paddingLeft = 0+'px';
@@ -120,6 +102,10 @@ window.addEventListener('DOMContentLoaded',()=>{
             processFlex.style.paddingLeft = 0+'px';
         }
     }
+    const container = document.querySelector('.container'),
+          individualSubtitle = document.querySelector('.individual__subtitle'),
+          individualFlexItems = document.querySelectorAll('.individual__flex-item'),
+          processFlex= document.querySelector('.process__flex');
     if(document.querySelector('.individual__subtitle')){
         setpaddingLeft();
         window.addEventListener('resize',()=>{
@@ -165,55 +151,55 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
     }
 
-        const inputElems = document.querySelectorAll('.calc__input-item'),
-                resultPayment = document.querySelector('.calc__result-numb[id="result-payment"]'),
-                creditSum = document.querySelector('.calc__result-numb[id="credit-sum"]');
+    const inputElems = document.querySelectorAll('.calc__input-item'),
+            resultPayment = document.querySelector('.calc__result-numb[id="result-payment"]'),
+            creditSum = document.querySelector('.calc__result-numb[id="credit-sum"]');
 
-        let total,rublePayment,percentPayment,interestRate,termsYears,termsMonths;
-        if(document.querySelector('.calc')){
-            inputElems.forEach(el=>{
-                el.addEventListener('input',e=>{
-                    const inputTarget = e.target,
-                          inputOnlyNumber = getOnlyNumber(inputTarget.value);
-                    let resultValue;
-                    resultValue = inputOnlyNumber;
-                    switch(inputTarget.getAttribute('id')){
-                        case 'total':
-                            total = +resultValue;
-                            break;
-                        case 'ruble-payment':
-                            rublePayment = +resultValue;
-                            break;
-                        case 'percent-payment':
-                            percentPayment = +resultValue;
-                            break;
-                        case 'interest-rate':
-                            interestRate = +resultValue;
-                            break;
-                        case 'terms-years':
-                            if(+resultValue > 30){
-                                termsYears = 30;
-                            }else{
-                                termsYears = +resultValue;
-                            }
-                            document.querySelector('input[id="terms-years"]').value= termsYears;
-                            break;
-                        case 'terms-months':
-                            if(+resultValue > 360){
-                                termsMonths = 360;
-                            }else{
-                                termsMonths = +resultValue;
-                            }
-                            document.querySelector('input[id="terms-months"]').value= termsMonths;
-                            break;
-                    }
-                    calculatingCreditSum();
-                    calculationMortgage();
-                    calculatingDownPaymentPercent();
-                    calculatingMortgageTermsInMonths();
-                });
+    let total,rublePayment,percentPayment,interestRate,termsYears,termsMonths;
+    if(document.querySelector('.calc')){
+        inputElems.forEach(el=>{
+            el.addEventListener('input',e=>{
+                const inputTarget = e.target,
+                        inputOnlyNumber = getOnlyNumber(inputTarget.value);
+                let resultValue;
+                resultValue = inputOnlyNumber;
+                switch(inputTarget.getAttribute('id')){
+                    case 'total':
+                        total = +resultValue;
+                        break;
+                    case 'ruble-payment':
+                        rublePayment = +resultValue;
+                        break;
+                    case 'percent-payment':
+                        percentPayment = +resultValue;
+                        break;
+                    case 'interest-rate':
+                        interestRate = +resultValue;
+                        break;
+                    case 'terms-years':
+                        if(+resultValue > 30){
+                            termsYears = 30;
+                        }else{
+                            termsYears = +resultValue;
+                        }
+                        document.querySelector('input[id="terms-years"]').value= termsYears;
+                        break;
+                    case 'terms-months':
+                        if(+resultValue > 360){
+                            termsMonths = 360;
+                        }else{
+                            termsMonths = +resultValue;
+                        }
+                        document.querySelector('input[id="terms-months"]').value= termsMonths;
+                        break;
+                }
+                calculatingCreditSum();
+                calculationMortgage();
+                calculatingDownPaymentPercent();
+                calculatingMortgageTermsInMonths();
             });
-        }
+        });
+    }
     //animation on scroll
     AOS.init({
         disable: false, 
