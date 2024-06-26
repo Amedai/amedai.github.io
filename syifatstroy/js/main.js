@@ -45,7 +45,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     if(document.querySelector('.review__slider')){
         new Swiper('.review__slider', {
             loop: false,
-            grabCursor: true,
             autoHeight:true,
 
             breakpoints: {
@@ -113,84 +112,121 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
     }
     //calc
+    function getOnlyNumberWithFloat(value){
+        let regExp;
+        regExp = new RegExp(/^\d*\.?\d*$/);
+        if (regExp.test(value)) {
+            if((value.includes('.'))){
+                if((value.length) - value.indexOf('.') > 3){
+                    return value.slice(0,-1);
+                }
+            }
+            return value;
+        }else{
+            return value.slice(0,-1);
+        }
+    }
     function getOnlyNumber(value){
         return value.replace(/\D/g,'');
     }
     function calculationMortgage(){
-        if(!total || !rublePayment || !interestRate || !termsMonths){
+        
+        if(!+inputTotal.value || !+inputRublePayment.value || !+inputInterestRate.value || !+inputTermsMonths.value){
             resultPayment.textContent = 0;
             return;
         }
-        const monthInterestRate = interestRate/1200,
-              sum = +document.querySelector('.calc__result-numb[id="credit-sum"]').textContent,
-              divider = Math.pow(monthInterestRate+1,termsMonths) - 1;
+        const monthInterestRate = +inputInterestRate.value/1200,
+              sum = +creditSum.textContent,
+              divider = Math.pow(monthInterestRate+1,+inputTermsMonths.value) - 1;
               
         resultPayment.textContent = Math.ceil(sum*(monthInterestRate + monthInterestRate/divider));
     }
     function calculatingCreditSum(){
-        if(!total || !rublePayment){
+        if(!+inputTotal.value || !+inputRublePayment.value){
             creditSum.textContent = 0;
             return;
         }
-        if((total - rublePayment) < 0){
+        if((+inputTotal.value - +inputRublePayment.value) < 0){
             creditSum.textContent = 0;
             return;
         }
-        creditSum.textContent = Math.ceil(total - rublePayment);
+        creditSum.textContent = (+inputTotal.value - +inputRublePayment.value).toFixed(2);
     }
     function calculatingDownPaymentPercent(){
-        if(total && percentPayment){
-            rublePayment = percentPayment*total/100;
-            document.querySelector('input[id="ruble-payment"]').value = rublePayment;
-        }
+        if(+inputTotal.value && +inputPercentPayment.value){
+            inputRublePayment.value = (+inputPercentPayment.value*+inputTotal.value/100).toFixed(2);
+        }/* else{
+            inputRublePayment.value = '';
+        } */
     }
     function calculatingMortgageTermsInMonths(){
-        if(termsYears){
-            termsMonths = termsYears*12;
-            document.querySelector('input[id="terms-months"]').value = termsMonths;
-        }
+        if(+inputTermsYears.value){
+            inputTermsMonths.value = +inputTermsYears.value*12;
+        }/* else{
+            inputTermsMonths.value ='';
+        } */
     }
 
     const inputElems = document.querySelectorAll('.calc__input-item'),
             resultPayment = document.querySelector('.calc__result-numb[id="result-payment"]'),
-            creditSum = document.querySelector('.calc__result-numb[id="credit-sum"]');
+            creditSum = document.querySelector('.calc__result-numb[id="credit-sum"]'),
+            inputTotal = document.querySelector('input[id="total"]'),
+            inputRublePayment = document.querySelector('input[id="ruble-payment"]'),
+            inputPercentPayment = document.querySelector('input[id="percent-payment"]'),
+            inputInterestRate = document.querySelector('input[id="interest-rate"]'),
+            inputTermsYears = document.querySelector('input[id="terms-years"]'),
+            inputTermsMonths = document.querySelector('input[id="terms-months"]');
 
-    let total,rublePayment,percentPayment,interestRate,termsYears,termsMonths;
+    /* let total,rublePayment,percentPayment,interestRate,termsYears,termsMonths; */
     if(document.querySelector('.calc')){
         inputElems.forEach(el=>{
+               
             el.addEventListener('input',e=>{
-                const inputTarget = e.target,
-                        inputOnlyNumber = getOnlyNumber(inputTarget.value);
-                let resultValue;
-                resultValue = inputOnlyNumber;
+                console.log(+'10 000');
+                const inputTarget = e.target;
+                let inputOnlyNumber;
                 switch(inputTarget.getAttribute('id')){
                     case 'total':
-                        total = +resultValue;
+                        inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
+                        inputTotal.value = inputOnlyNumber;
                         break;
                     case 'ruble-payment':
-                        rublePayment = +resultValue;
+                        inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
+                        inputPercentPayment.value = '';
+                        inputRublePayment.value = inputOnlyNumber;
                         break;
                     case 'percent-payment':
-                        percentPayment = +resultValue;
+                        inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
+                        if(+inputPercentPayment.value > 100){
+                            inputPercentPayment.value = 100;
+                        }else{
+                            inputPercentPayment.value = inputOnlyNumber;
+                        }
                         break;
                     case 'interest-rate':
-                        interestRate = +resultValue;
+                        inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
+                        if(+inputInterestRate.value > 100){
+                            inputInterestRate.value = 100;
+                        }else{
+                            inputInterestRate.value = inputOnlyNumber;
+                        }
                         break;
                     case 'terms-years':
-                        if(+resultValue > 30){
-                            termsYears = 30;
+                        inputOnlyNumber = getOnlyNumber(inputTarget.value);
+                        if(+inputOnlyNumber > 30){
+                            inputTermsYears.value = 30;
                         }else{
-                            termsYears = +resultValue;
+                            inputTermsYears.value = inputOnlyNumber;
                         }
-                        document.querySelector('input[id="terms-years"]').value= termsYears;
                         break;
                     case 'terms-months':
-                        if(+resultValue > 360){
-                            termsMonths = 360;
+                        inputOnlyNumber = getOnlyNumber(inputTarget.value);
+                        inputTermsYears.value = '';
+                        if(+inputOnlyNumber > 360){
+                            inputTermsMonths.value = 360;
                         }else{
-                            termsMonths = +resultValue;
+                            inputTermsMonths.value = inputOnlyNumber;
                         }
-                        document.querySelector('input[id="terms-months"]').value= termsMonths;
                         break;
                 }
                 calculatingDownPaymentPercent();
@@ -199,6 +235,58 @@ window.addEventListener('DOMContentLoaded',()=>{
                 calculationMortgage();
             });
         });
+    }
+
+    //modal
+    function fadeIn (el, timeout, display){
+        el.style.opacity = 0;
+        el.style.display = display || 'block';
+        el.style.transition = `opacity ${timeout}ms`;
+        setTimeout(() => {
+          el.style.opacity = 1;
+        }, 10);
+    }
+    function fadeOut (el, timeout){
+        el.style.opacity = 1;
+        el.style.transition = `opacity ${timeout}ms`;
+        el.style.opacity = 0;
+      
+        setTimeout(() => {
+          el.style.display = 'none';
+        }, timeout);
+    }
+    const   reviewBlocks = document.querySelectorAll('.review__block'),
+            overlay = document.querySelector('.overlay'),
+            modalReviewAuthor = document.querySelector('.modal__review-author'),
+            modalReviewText = document.querySelector('.modal__review-text'),
+            closeElement = document.querySelector('.modal__close');
+    
+    if(overlay){
+        reviewBlocks.forEach(block=>{
+            block.querySelector('.review__read-next').addEventListener('click',()=>{
+                modalReviewAuthor.textContent = block.querySelector('.review__author').textContent;
+                modalReviewText.textContent = block.querySelector('.review__text').textContent;
+                fadeIn(overlay,100,'block');
+            });
+        });
+
+        closeElement.addEventListener('click',()=>{
+            fadeOut(overlay,20);
+            overlay.scrollTo(0, 0);
+        });
+        overlay.addEventListener('click', (e)=>{
+            const target = e.target;
+            if(target && target.classList.contains('overlay')){
+                fadeOut(overlay,20);
+                overlay.scrollTo(0, 0);
+            }
+        });
+        document.addEventListener('keydown',(e)=>{
+            if(overlay.style.opacity === '1' && e.code == 'Escape'){
+                fadeOut(overlay,20);
+                overlay.scrollTo(0, 0);
+            }
+         });
     }
     //animation on scroll
     AOS.init({
