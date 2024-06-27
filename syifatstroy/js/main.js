@@ -155,16 +155,17 @@ window.addEventListener('DOMContentLoaded',()=>{
     function calculatingDownPaymentPercent(){
         if(+inputTotal.value && +inputPercentPayment.value){
             inputRublePayment.value = (+inputPercentPayment.value*+inputTotal.value/100).toFixed(2);
-        }/* else{
-            inputRublePayment.value = '';
-        } */
+        }
+    }
+    function calculatingDownPaymentRuble(){
+        if(+inputTotal.value && +inputRublePayment.value){
+            inputPercentPayment.value = (+inputRublePayment.value*100/+inputTotal.value).toFixed(2);
+        }
     }
     function calculatingMortgageTermsInMonths(){
         if(+inputTermsYears.value){
             inputTermsMonths.value = +inputTermsYears.value*12;
-        }/* else{
-            inputTermsMonths.value ='';
-        } */
+        }
     }
 
     const inputElems = document.querySelectorAll('.calc__input-item'),
@@ -192,8 +193,8 @@ window.addEventListener('DOMContentLoaded',()=>{
                         break;
                     case 'ruble-payment':
                         inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
-                        inputPercentPayment.value = '';
                         inputRublePayment.value = inputOnlyNumber;
+                        calculatingDownPaymentRuble();
                         break;
                     case 'percent-payment':
                         inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
@@ -202,6 +203,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                         }else{
                             inputPercentPayment.value = inputOnlyNumber;
                         }
+                        calculatingDownPaymentPercent();
                         break;
                     case 'interest-rate':
                         inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
@@ -218,6 +220,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                         }else{
                             inputTermsYears.value = inputOnlyNumber;
                         }
+                        calculatingMortgageTermsInMonths();
                         break;
                     case 'terms-months':
                         inputOnlyNumber = getOnlyNumber(inputTarget.value);
@@ -229,8 +232,6 @@ window.addEventListener('DOMContentLoaded',()=>{
                         }
                         break;
                 }
-                calculatingDownPaymentPercent();
-                calculatingMortgageTermsInMonths();
                 calculatingCreditSum();
                 calculationMortgage();
             });
