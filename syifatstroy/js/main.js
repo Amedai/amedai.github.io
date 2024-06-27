@@ -167,6 +167,17 @@ window.addEventListener('DOMContentLoaded',()=>{
             inputTermsMonths.value = +inputTermsYears.value*12;
         }
     }
+    function presenceTotalValue(){
+        let presence;
+        if(!+inputTotal.value){
+            inputTotal.style.borderColor = 'red';
+            presence = false;
+        }else{
+            inputTotal.style.borderColor = '#1C1C1C';
+            presence = true;
+        }
+        return presence;
+    }
 
     const inputElems = document.querySelectorAll('.calc__input-item'),
             resultPayment = document.querySelector('.calc__result-numb[id="result-payment"]'),
@@ -183,21 +194,27 @@ window.addEventListener('DOMContentLoaded',()=>{
         inputElems.forEach(el=>{
                
             el.addEventListener('input',e=>{
-                console.log(+'10 000');
                 const inputTarget = e.target;
                 let inputOnlyNumber;
                 switch(inputTarget.getAttribute('id')){
                     case 'total':
                         inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
                         inputTotal.value = inputOnlyNumber;
+                        presenceTotalValue();
                         break;
                     case 'ruble-payment':
                         inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
+                        if(!presenceTotalValue()){
+                            inputOnlyNumber = '';
+                        }
                         inputRublePayment.value = inputOnlyNumber;
                         calculatingDownPaymentRuble();
                         break;
                     case 'percent-payment':
                         inputOnlyNumber = getOnlyNumberWithFloat(inputTarget.value);
+                        if(!presenceTotalValue()){
+                            inputOnlyNumber = '';
+                        }
                         if(+inputPercentPayment.value > 100){
                             inputPercentPayment.value = 100;
                         }else{
