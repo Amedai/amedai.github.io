@@ -18,64 +18,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         
     }
 
-
-    /* if(window.location.pathname.slice(1) === 'index.html'){
-        const btnMain = document.querySelector('[data-name="main"]');
-        if(window.innerWidth > 1200){
-            const   columnMainLeft = document.querySelector('.portfolio__column_left'),
-                    columnMainCenter = document.querySelector('.portfolio__column_center'),
-                    columnMainRight = document.querySelector('.portfolio__column_right');
-
-
-            columnMainLeft.scrollTo({top:window.sessionStorage.getItem(columnMainLeft.getAttribute('data-column'))});
-            columnMainCenter.scrollTo({top:window.sessionStorage.getItem(columnMainCenter.getAttribute('data-column'))});
-            columnMainRight.scrollTo({top:window.sessionStorage.getItem(columnMainRight.getAttribute('data-column'))});
-
-            
-            columnMainLeft.addEventListener('scroll',()=>{
-                window.sessionStorage.setItem(columnMainLeft.getAttribute('data-column'),columnMainLeft.scrollTop);
-            });
-            columnMainCenter.addEventListener('scroll',()=>{
-                window.sessionStorage.setItem(columnMainCenter.getAttribute('data-column'),columnMainCenter.scrollTop);
-            });
-            columnMainRight.addEventListener('scroll',()=>{
-                window.sessionStorage.setItem(columnMainRight.getAttribute('data-column'),columnMainRight.scrollTop);
-            });
-        }
-        if(window.innerWidth > 768){
-            const   columnsMobile = document.querySelector('.portfolio__list-mobile'),
-                    columnMainLeft = columnsMobile.querySelector('.portfolio__column_left'),
-                    columnMainRight = columnsMobile.querySelector('.portfolio__column_right');
-
-            columnMainLeft.scrollTo({top:window.sessionStorage.getItem(columnMainLeft.getAttribute('data-column'))});
-            columnMainRight.scrollTo({top:window.sessionStorage.getItem(columnMainRight.getAttribute('data-column'))});
-
-            columnMainLeft.addEventListener('scroll',()=>{
-                window.sessionStorage.setItem(columnMainLeft.getAttribute('data-column'),columnMainLeft.scrollTop);
-            });
-            columnMainRight.addEventListener('scroll',()=>{
-                window.sessionStorage.setItem(columnMainRight.getAttribute('data-column'),columnMainRight.scrollTop);
-            });
-        }
-        if(window.innerWidth > 320){
-            const   columnMobile = document.querySelector('.portfolio__list-mobile');
-
-            columnMobile.scrollTo({top:window.sessionStorage.getItem(columnMobile.getAttribute('data-column'))});
-
-            columnMobile.addEventListener('scroll',()=>{
-                window.sessionStorage.setItem(columnMobile.getAttribute('data-column'),columnMobile.scrollTop);
-            });
-        }
-
-        
-        btnMain.addEventListener('click',()=>{
-            window.sessionStorage.setItem('left',0);
-            window.sessionStorage.setItem('center',0);
-            window.sessionStorage.setItem('right',0);
-            window.sessionStorage.setItem('mobile',0);
-        });
-    }    */
-
     //наведение мыши на картинку
     if(document.querySelector('.hover-js')){
         const images = document.querySelectorAll('.hover-js img');
@@ -137,98 +79,59 @@ window.addEventListener('DOMContentLoaded',()=>{
           el.style.display = 'none';
         }, timeout);
     }
-   /*  function overlaySetSize(elemSizesParse){
-        let parentElement;
-        switch(elemSizesParse.tagName){
-            case 'VIDEO':
-                parentElement = elemSizesParse.parentElement;
-                break;
-            case 'IMG':
-                parentElement = elemSizesParse.parentElement.parentElement;
-                break;
-        }
-        const widthHeightRatio = elemSizesParse.offsetWidth/elemSizesParse.offsetHeight;
 
-        overlayBlock.setAttribute('data-ratio',widthHeightRatio);
-
-        if(window.innerWidth>= 1201){
-            overlayBlock.style.width = (widthHeightRatio * 600) +'px';
-            overlayImgItem.style.width = (widthHeightRatio * 600) +'px';
-        }else if(window.innerWidth>= 769){
-            overlayBlock.style.width = (widthHeightRatio * 406) +'px';
-            overlayImgItem.style.width = (widthHeightRatio * 406) +'px';
-        }else if(window.innerWidth>= 320){
-            if(parentElement.classList.contains('portfolio__img_lg-height')){
-                overlayBlock.style.width = (widthHeightRatio * 400) +'px';
-                overlayImgItem.style.width = (widthHeightRatio * 400) +'px';
-                overlayImgItem.style.height = 400 + 'px';
-            }else{
-                overlayBlock.style.width = elemSizesParse.offsetWidth + 'px';
-                overlayImgItem.style.width = elemSizesParse.offsetWidth + 'px';
-                overlayImgItem.style.height = elemSizesParse.offsetHeight + 'px';
-            }
-        }
-    } */
     function overlayResize(overlayBlock,overlayImgItem){
+        function calcSizeFromHeight(heightVar){
+            overlayImgItem.style.height = heightVar + 'px';
+            overlayBlock.style.width = (ratio * heightVar) +'px';
+            overlayImgItem.style.width = (ratio * heightVar) +'px';
+        }
+        function calcSizeFromWidth(widthVar){
+            overlayImgItem.style.height = widthVar/ratio + 'px';
+            overlayBlock.style.width = widthVar + 'px';
+            overlayImgItem.style.width = widthVar + 'px';
+        }
         let height,width;
         const ratio = overlayBlock.getAttribute('data-ratio');
         if(window.innerWidth>= 1201){
             height = window.innerHeight - 215;
-            overlayImgItem.style.height = height + 'px';
-            overlayBlock.style.width = (ratio * height) +'px';
-            overlayImgItem.style.width = (ratio * height) +'px';
+            calcSizeFromHeight(height);
         }else if(window.innerWidth>= 320){
             switch(overlayImgItem.getAttribute('data-height')){
                 case 'sm':
                     if(window.innerWidth/window.innerHeight >= 600/380){
                         height = window.innerHeight - 100;
-                        overlayImgItem.style.height = height + 'px';
-                        overlayBlock.style.width = (ratio*height)+ 'px';
-                        overlayImgItem.style.width = (ratio*height)+ 'px';
+                        calcSizeFromHeight(height);
                     }else{
                         width = window.innerWidth-50;
-                        overlayImgItem.style.height = width/ratio + 'px';
-                        overlayBlock.style.width = width + 'px';
-                        overlayImgItem.style.width = width + 'px';
+                        calcSizeFromWidth(width);
                     }
                     break;
                 case 'md':
                     if(window.innerWidth/window.innerHeight >= 600/640){
                         height = window.innerHeight - 100;
-                        overlayImgItem.style.height = height + 'px';
-                        overlayBlock.style.width = (ratio*height)+ 'px';
-                        overlayImgItem.style.width = (ratio*height)+ 'px';
+                        calcSizeFromHeight(height);
                     }else{
                         width = window.innerWidth-50;
-                        overlayImgItem.style.height = width/ratio + 'px';
-                        overlayBlock.style.width = width + 'px';
-                        overlayImgItem.style.width = width + 'px';
+                        calcSizeFromWidth(width);
                     }
                     break;
                 case 'lg':
                     if(window.innerWidth/window.innerHeight >= 600/790){
                         height = window.innerHeight - 100;
-                        overlayImgItem.style.height = height + 'px';
-                        overlayBlock.style.width = (ratio*height)+ 'px';
-                        overlayImgItem.style.width = (ratio*height)+ 'px';
+                        calcSizeFromHeight(height);
                     }else{
                         width = window.innerWidth - 50;
-                        overlayImgItem.style.height = width/ratio + 'px';
-                        overlayBlock.style.width = width + 'px';
-                        overlayImgItem.style.width = width + 'px';
+                        calcSizeFromWidth(width);
                     }
                     break;
                 case 'slg':
                     if(window.innerWidth/window.innerHeight >= 1230/860){
                         height = window.innerHeight - 100;
-                        overlayImgItem.style.height = height + 'px';
-                        overlayBlock.style.width = (ratio*height)+ 'px';
-                        overlayImgItem.style.width = (ratio*height)+ 'px';
+                        calcSizeFromHeight(height);
                     }else{
                         width = window.innerWidth - 50;
-                        overlayImgItem.style.height = width/ratio + 'px';
-                        overlayBlock.style.width = width + 'px';
-                        overlayImgItem.style.width = width + 'px';
+                        calcSizeFromWidth(width);
                     }
                     break;
             }
