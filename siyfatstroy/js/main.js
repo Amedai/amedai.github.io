@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 
             breakpoints: {
                 1725:{
-                    slidesPerView:3.3,
+                    slidesPerView:3.5,
                     spaceBetween:40,
                 },
                 1570:{
@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 },
                 910:{
                     slidesPerView:2,
-                    spaceBetween:40,
+                    spaceBetween:20,
                 },
                 769:{
                     slidesPerView:1.7,
@@ -70,6 +70,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 },
                 320:{
                     slidesPerView:1,
+                    spaceBetween:10,
                 },
             },
           
@@ -79,7 +80,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             },
         });
     }
-    //margin in individual section
+    //set paddingLeft
     function setpaddingLeft(){
         if(window.innerWidth > 1200){
             individualSubtitle.style.paddingLeft = (parseInt(getComputedStyle(container).marginRight) + 60)+'px';
@@ -109,6 +110,38 @@ window.addEventListener('DOMContentLoaded',()=>{
         setpaddingLeft();
         window.addEventListener('resize',()=>{
             setpaddingLeft();
+        });
+    }
+    //discovery individual section
+    if(document.querySelector('.individual')){
+        const individualSection = document.querySelector('.individual'),
+        discoverBtn = individualSection.querySelector('[data-purpose="discover"]'),
+        closeBtn = individualSection.querySelector('[data-purpose="close"]'),
+        individualFlexItems = individualSection.querySelectorAll('[data-item="individual"]');
+        closeBtn.parentElement.style.display = 'none';
+        individualFlexItems.forEach((flexItem,i)=>{
+            if(i>2){
+                flexItem.style.display = 'none';
+            }
+        });
+        discoverBtn.addEventListener('click',()=>{
+            individualFlexItems.forEach((flexItem,i)=>{
+                if(i>2){
+                    flexItem.style.display = 'flex';
+                }
+                discoverBtn.parentElement.style.display = 'none';
+                closeBtn.parentElement.style.display = 'flex';
+            });
+        });
+        closeBtn.addEventListener('click',()=>{
+            individualFlexItems.forEach((flexItem,i)=>{
+                if(i>2){
+                    flexItem.style.display = 'none';
+                }
+                closeBtn.parentElement.style.display = 'none';
+                discoverBtn.parentElement.style.display = 'flex';
+                document.documentElement.scrollTo({top:individualSection.offsetTop});
+            });
         });
     }
     //calc
@@ -189,7 +222,6 @@ window.addEventListener('DOMContentLoaded',()=>{
             inputTermsYears = document.querySelector('input[id="terms-years"]'),
             inputTermsMonths = document.querySelector('input[id="terms-months"]');
 
-    /* let total,rublePayment,percentPayment,interestRate,termsYears,termsMonths; */
     if(document.querySelector('.calc')){
         inputElems.forEach(el=>{
                
