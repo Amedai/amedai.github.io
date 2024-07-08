@@ -126,11 +126,11 @@ window.addEventListener('DOMContentLoaded',()=>{
                     }
                     break;
                 case 'slg':
-                    if(window.innerWidth/window.innerHeight >= 1230/860){
-                        height = window.innerHeight - 100;
+                    if(window.innerWidth/window.innerHeight >= 1230/1860){
+                        height = window.innerHeight - 150;
                         calcSizeFromHeight(height);
                     }else{
-                        width = window.innerWidth - 50;
+                        width = window.innerWidth - 100;
                         calcSizeFromWidth(width);
                     }
                     break;
