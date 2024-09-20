@@ -127,7 +127,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                     break;
                 case 'slg':
                     if(window.innerWidth/window.innerHeight >= 1230/1860){
-                        height = window.innerHeight - 150;
+                        height = window.innerHeight - 100;
                         calcSizeFromHeight(height);
                     }else{
                         width = window.innerWidth - 100;
