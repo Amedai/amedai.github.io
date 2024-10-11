@@ -164,7 +164,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         tranlateYBlock('.about__team',10);
         tranlateYBlock('.about__block',20);
         tranlateYBlock('.answer__details-wrapper',20);
-        bgParalax('.discussion__img');
     }
 
     //animation on scroll
