@@ -69,22 +69,38 @@ window.addEventListener('DOMContentLoaded',()=>{
                     firstSlideBlock.querySelector('.cases__slide-info').classList.add('cases__slide-info_active');
                 slideBlocks.forEach((slideBlock,i)=>{
                     const slideInfo = slideBlock.querySelector('.cases__slide-info');
-                    if(i != 0){
-                        slideBlock.addEventListener('mouseenter',()=>{
+                    //начало изменений
+                    if(window.innerWidth >=701){
+                        if(i != 0){
+                            slideBlock.addEventListener('mouseenter',()=>{
+                                slideBlock.classList.add('cases__slide-block_lg');
+                                slideInfo.classList.add('cases__slide-info_active');
+    
+                                firstSlideBlock.classList.remove('cases__slide-block_lg');
+                                firstSlideBlock.querySelector('.cases__slide-info').classList.remove('cases__slide-info_active');
+                            });
+                            slideBlock.addEventListener('mouseleave',()=>{
+                                slideBlock.classList.remove('cases__slide-block_lg');
+                                slideInfo.classList.remove('cases__slide-info_active');
+    
+                                firstSlideBlock.classList.add('cases__slide-block_lg');
+                                firstSlideBlock.querySelector('.cases__slide-info').classList.add('cases__slide-info_active');
+                            });
+                        }
+                    }else{
+                        slideBlock.addEventListener('touchstart',()=>{
+                            slideBlocks.forEach(item=>{
+                                item.classList.remove('cases__slide-block_lg');
+                                item.querySelector('.cases__slide-info').classList.remove('cases__slide-info_active');
+                            });
                             slideBlock.classList.add('cases__slide-block_lg');
                             slideInfo.classList.add('cases__slide-info_active');
-
+/* 
                             firstSlideBlock.classList.remove('cases__slide-block_lg');
-                            firstSlideBlock.querySelector('.cases__slide-info').classList.remove('cases__slide-info_active');
-                        });
-                        slideBlock.addEventListener('mouseleave',()=>{
-                            slideBlock.classList.remove('cases__slide-block_lg');
-                            slideInfo.classList.remove('cases__slide-info_active');
-
-                            firstSlideBlock.classList.add('cases__slide-block_lg');
-                            firstSlideBlock.querySelector('.cases__slide-info').classList.add('cases__slide-info_active');
+                            firstSlideBlock.querySelector('.cases__slide-info').classList.remove('cases__slide-info_active'); */
                         });
                     }
+                    //конец изменений
                 });
 
             });
