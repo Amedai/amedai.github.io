@@ -96,19 +96,34 @@ window.addEventListener('DOMContentLoaded',()=>{
      });
      // companies of Russia
      if(document.querySelector('.companies')){
+        const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints);
+        
         const points = document.querySelectorAll('.companies__point'),
             map = document.querySelector('.companies__russia-img');
         points.forEach(point=>{
-            let text = point.querySelector('.companies__text');
-            point.addEventListener('click',()=>{
-                points.forEach(item=>{
-                    item.querySelector('.companies__pattern').style.display = 'none';
-                    item.style.zIndex = 11;
+            const text = point.querySelector('.companies__text'),
+                pattern = point.querySelector('.companies__pattern');
+            if(isTouchDevice){
+                point.addEventListener('click',()=>{
+                    points.forEach(item=>{
+                        item.querySelector('.companies__pattern').style.display = 'none';
+                        item.style.zIndex = 11;
+                    });
+                    text.textContent = point.getAttribute('data-company');
+                    point.style.zIndex = 12;
+                    fadeIn(pattern,100,'block');
                 });
-                text.textContent = point.getAttribute('data-company');
-                point.style.zIndex = 12;
-                fadeIn(point.querySelector('.companies__pattern'),100,'block');
-            });
+            }else{
+                point.addEventListener('mouseenter',()=>{
+                    text.textContent = point.getAttribute('data-company');
+                    point.style.zIndex = 12;
+                    fadeIn(pattern,100,'block');
+                });
+                point.addEventListener('mouseleave',()=>{
+                    pattern.style.display = 'none';
+                    point.style.zIndex = 11;
+                });
+            }
         });
         map.addEventListener('click', (e)=>{
             const target = e.target;
@@ -123,7 +138,7 @@ window.addEventListener('DOMContentLoaded',()=>{
      }
 
      //companies__carousel hover
-     if(document.querySelector('.companies__carousel')){
+     /* if(document.querySelector('.companies__carousel')){
         const carouselItems = document.querySelectorAll('.companies__carousel-item');
         carouselItems.forEach(item=>{
             item.addEventListener('mouseenter',()=>{
@@ -135,7 +150,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 item.querySelector('.companies__carousel-img').classList.toggle('companies__carousel-img_active');
             });
         });
-     }
+     } */
      
      //sliders
      function customArrowsSlider (sliderClass,sliderPosition){
