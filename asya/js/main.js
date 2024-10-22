@@ -133,9 +133,6 @@ window.addEventListener('DOMContentLoaded',()=>{
             },
         });
     }
-    /* if(Math.abs(grid.getBoundingClientRect().top) < window.innerHeight){
-                grid.style.cssText = `transform: translateY(${(-mainScrollNumb/25) + 'px'})`;
-            } */
     function bgParalax(className){
         const bgParalax = document.querySelector(className);
         let translateIndex;
@@ -167,9 +164,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
     }
     if(document.querySelector('.promo')){
-        /* bgParalax('.promo__img'); */
         tranlateYBlock('.advantages__grid',10);
-        /* tranlateYBlock('.cases',10); */
         bgParalax('.stages__img');
         tranlateYBlock('.about__count',15);
         tranlateYBlock('.about__team',15);
