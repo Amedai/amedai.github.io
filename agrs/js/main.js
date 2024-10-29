@@ -171,12 +171,13 @@ window.addEventListener('DOMContentLoaded',()=>{
         const historySlider = new Swiper('.history__slider', {
             loop: false,
             slidesPerView: 'auto',
-            allowTouchMove:false,
+            grabCursor: true,
             
             navigation: {
             nextEl: '.next',
             prevEl: '.prev',
             },
+
         });
         historySlider.on('fromEdge',()=>{
             customArrowsSlider('.history__slider','fromEdge');
@@ -188,18 +189,16 @@ window.addEventListener('DOMContentLoaded',()=>{
             customArrowsSlider('.history__slider','reachBeginning');
         });
         //событие slideChange происходит раньше смены активного слайда,а transitionStart позже
-        historySlider.on('slideChange',()=>{
-            document.querySelector('.swiper-slide-active').querySelector('.history__img-block').classList.toggle('history__img-block_active');
-            document.querySelector('.swiper-slide-active').querySelector('.history__text-block').classList.toggle('history__text-block_active');
-        });
+        const historySlides = document.querySelectorAll('.history__slide');
         historySlider.on('transitionStart',()=>{
-            document.querySelector('.swiper-slide-active').querySelector('.history__img-block').classList.toggle('history__img-block_active');
-            document.querySelector('.swiper-slide-active').querySelector('.history__text-block').classList.toggle('history__text-block_active');
+            const activeSlide = document.querySelector('.swiper-slide-active');
+            historySlides.forEach(historySlide=>{
+                historySlide.classList.remove('history__slide_active');
+            });
+            activeSlide.classList.add('history__slide_active');
+            
         });
     }
-    /*  if(document.querySelector('.catalog__details-slider')){
-        
-    } */
 
     //catalog details
     if(document.querySelector('.catalog')){
@@ -227,22 +226,24 @@ window.addEventListener('DOMContentLoaded',()=>{
         cells.forEach((cell,i)=>{
             const details =  cell.querySelector('.catalog__details');
             let left = cell.offsetLeft;
-            let gridWidth = window.getComputedStyle(document.querySelector('.catalog__grid')).getPropertyValue('width');
-            let detailsHeight =  window.getComputedStyle(details).getPropertyValue('height');
+            let documentWidth = document.documentElement.clientWidth;
 
+            let detailsHeight;
+            setTimeout(()=>{
+                detailsHeight =  window.getComputedStyle(details).getPropertyValue('height');
+            },10);
             cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
 
-            
             details.style.left = -left + 'px';
-            details.style.width = parseInt(gridWidth) + 'px';
+            details.style.width = documentWidth + 'px';
 
             window.addEventListener('resize',()=>{
                 cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
 
                 left = cell.offsetLeft;
-                gridWidth = window.getComputedStyle(document.querySelector('.catalog__grid')).getPropertyValue('width');
+                documentWidth = document.documentElement.clientWidth;
                 details.style.left = -left + 'px';
-                details.style.width = parseInt(gridWidth) + 'px';
+                details.style.width = documentWidth + 'px';
 
                 detailsHeight =  window.getComputedStyle(details).getPropertyValue('height');
             });
@@ -250,8 +251,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 
             cell.querySelector('.catalog__btn').addEventListener('click',()=>{
-                console.log(detailsHeight);
-                console.log(cellsHeightArr[i]);
                 cells.forEach((itemCell,i)=>{
                     itemCell.style.minHeight = cellsHeightArr[i];
                     itemCell.querySelector('.catalog__details').classList.remove('catalog__details_active');
@@ -270,7 +269,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                         catalogDetailsSlidersArray[i].navigation.nextEl.querySelector('svg path').setAttribute('fill','#CCDAE7');
                     });
                 }
-                cell.style.minHeight = parseInt(cellsHeightArr[i]) + parseInt(detailsHeight) + 1 +'px';
+                cell.style.minHeight = parseInt(cellsHeightArr[i]) + parseInt(detailsHeight) + 2 +'px';
                 details.classList.add('catalog__details_active');
             });
 
@@ -283,39 +282,74 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
     // close-open function
-    function closeOpen(closedClass){
-        const closedBlock = document.querySelector(closedClass),
-        hiddenElems = closedBlock.querySelectorAll('[data-hide="hidden"]'),
+    function closeOpen(closedSection,closedClass,countVisibleElems){
+        const closedBlock = document.querySelector(closedSection),
+        closedElems = closedBlock.querySelectorAll(closedClass),
         closeBtn = closedBlock.querySelector('[data-btn="close"]'),
         openBtn = closedBlock.querySelector('[data-btn="open"]');
 
-        
+        setTimeout(()=>{
+            closedElems.forEach((el,i)=>{
+                if(i >= countVisibleElems){
+                    el.style.display = 'none';
+                }
+            });
+        },20);
+       
         openBtn.addEventListener('click',()=>{
-            hiddenElems.forEach(elem=>{
-                elem.style.display= 'block';
+            closedElems.forEach((el,i)=>{
+                if(i >= countVisibleElems){
+                    el.style.display = 'block';
+                }
             });
             openBtn.style.display = 'none';
             closeBtn.style.display = 'block';
         });
         closeBtn.addEventListener('click',()=>{
-            hiddenElems.forEach(elem=>{
-                elem.style.display= 'none';
+            closedElems.forEach((el,i)=>{
+                if(i >= countVisibleElems){
+                    el.style.display = 'none';
+                }
             });
             closeBtn.style.display = 'none';
             openBtn.style.display = 'block';
         });
     }
     if(document.querySelector('.catalog')){
-        closeOpen('.catalog');
+        if(window.innerWidth > 1200){
+            closeOpen('.catalog','.catalog__cell',12);
+        }else if(window.innerWidth > 700){
+            closeOpen('.catalog','.catalog__cell',8);
+        }else if(window.innerWidth > -1){
+            closeOpen('.catalog','.catalog__cell',3);
+        }
     }
     if(document.querySelector('.news')){
-        closeOpen('.news');
+        if(window.innerWidth > 1200){
+            closeOpen('.news','.article-mini__cell',6);
+        }else if(window.innerWidth > 700){
+            closeOpen('.news','.article-mini__cell',4);
+        }else if(window.innerWidth > -1){
+            closeOpen('.news','.article-mini__cell',3);
+        }
     }
     if(document.querySelector('.docs')){
-        closeOpen('.docs');
+        if(window.innerWidth > 1200){
+            closeOpen('.docs','.docs__cell',8);
+        }else if(window.innerWidth > 700){
+            closeOpen('.docs','.docs__cell',3);
+        }else if(window.innerWidth > -1){
+            closeOpen('.docs','.docs__cell',2);
+        }
     }
     if(document.querySelector('.charity')){
-        closeOpen('.charity');
+        if(window.innerWidth > 1200){
+            closeOpen('.charity','.article-mini__cell',6);
+        }else if(window.innerWidth > 700){
+            closeOpen('.charity','.article-mini__cell',4);
+        }else if(window.innerWidth > -1){
+            closeOpen('.charity','.article-mini__cell',3);
+        }
     }
     //news-pattern.html back
     if(document.querySelector('.article')){
