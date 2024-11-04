@@ -252,7 +252,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 
             cell.querySelector('.catalog__btn').addEventListener('click',()=>{
                 cells.forEach((itemCell,i)=>{
-                    itemCell.style.minHeight = cellsHeightArr[i];
+                    itemCell.style.height = cellsHeightArr[i];
                     itemCell.querySelector('.catalog__details').classList.remove('catalog__details_active');
                 });
 
@@ -269,13 +269,13 @@ window.addEventListener('DOMContentLoaded',()=>{
                         catalogDetailsSlidersArray[i].navigation.nextEl.querySelector('svg path').setAttribute('fill','#CCDAE7');
                     });
                 }
-                cell.style.minHeight = parseInt(cellsHeightArr[i]) + parseInt(detailsHeight) + 2 +'px';
+                cell.style.height = parseInt(cellsHeightArr[i]) + parseInt(detailsHeight) + 2 +'px';
                 details.classList.add('catalog__details_active');
             });
 
             cell.querySelector('.catalog__details-close').addEventListener('click',()=>{
                 details.classList.remove('catalog__details_active');
-                cell.style.minHeight = cellsHeightArr[i];
+                cell.style.height = cellsHeightArr[i];
             });
         });
 
