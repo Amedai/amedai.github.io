@@ -221,12 +221,15 @@ window.addEventListener('DOMContentLoaded',()=>{
 
         });
         const cells = document.querySelectorAll('.catalog__cell'),
-            cellsHeightArr = [cells.length];
+            cellsLength = cells.length,
+            cellsHeightArr = [cellsLength];
+        let windowWidth = window.innerWidth,
+            documentWidth = document.documentElement.clientWidth;
+        
 
         cells.forEach((cell,i)=>{
             const details =  cell.querySelector('.catalog__details');
             let left = cell.offsetLeft;
-            let documentWidth = document.documentElement.clientWidth;
 
             let detailsHeight;
             setTimeout(()=>{
@@ -237,18 +240,22 @@ window.addEventListener('DOMContentLoaded',()=>{
             details.style.left = -left + 'px';
             details.style.width = documentWidth + 'px';
 
-            /* document.querySelector('.catalog__grid').style.cssText = `grid-auto-rows: minmax(357px, ${cellsHeightArr[i]})`; */
-
             window.addEventListener('resize',()=>{
-                console.log(1);
-                cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
+                if(windowWidth != window.innerWidth){
+                    if(i == cellsLength - 1){
+                        windowWidth = window.innerWidth;
+                    }
+                    setTimeout(()=>{
+                        detailsHeight =  window.getComputedStyle(details).getPropertyValue('height');
+                    },20);
+                    cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
 
-                left = cell.offsetLeft;
-                documentWidth = document.documentElement.clientWidth;
-                details.style.left = -left + 'px';
-                details.style.width = documentWidth + 'px';
+                    left = cell.offsetLeft;
+                    documentWidth = document.documentElement.clientWidth;
+                    details.style.left = -left + 'px';
+                    details.style.width = documentWidth + 'px';
 
-                detailsHeight =  window.getComputedStyle(details).getPropertyValue('height');
+                }
             });
             
 
