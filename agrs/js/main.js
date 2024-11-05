@@ -375,7 +375,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         disable: false,
         startEvent: 'DOMContentLoaded', 
         
-        offset: 10, 
+        offset: 20, 
         delay: 20, 
         duration: 1000, 
         easing: 'ease', 
