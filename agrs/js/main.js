@@ -70,6 +70,21 @@ window.addEventListener('DOMContentLoaded',()=>{
         }, timeout);
     }
 
+    //aos
+    AOS.init({
+        disable: false,
+        startEvent: 'DOMContentLoaded', 
+        
+        offset: 20, 
+        delay: 20, 
+        duration: 1000, 
+        easing: 'ease', 
+        once: true, 
+        mirror: false, 
+        anchorPlacement: 'top-bottom', 
+      
+      });
+
      //modal
     const contactButtons = document.querySelectorAll('[data-overlay="modal"]'),
             overlay = document.querySelector('.overlay'),
@@ -136,21 +151,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
 
      }
-
-     //companies__carousel hover
-     /* if(document.querySelector('.companies__carousel')){
-        const carouselItems = document.querySelectorAll('.companies__carousel-item');
-        carouselItems.forEach(item=>{
-            item.addEventListener('mouseenter',()=>{
-                item.classList.toggle('companies__carousel-item_active');
-                item.querySelector('.companies__carousel-img').classList.toggle('companies__carousel-img_active');
-            });
-            item.addEventListener('mouseleave',()=>{
-                item.classList.toggle('companies__carousel-item_active');
-                item.querySelector('.companies__carousel-img').classList.toggle('companies__carousel-img_active');
-            });
-        });
-     } */
      
      //sliders
      function customArrowsSlider (sliderClass,sliderPosition){
@@ -369,19 +369,4 @@ window.addEventListener('DOMContentLoaded',()=>{
         window.history.back();
       });
     }
-
-    //aos
-    AOS.init({
-        disable: false,
-        startEvent: 'DOMContentLoaded', 
-        
-        offset: 20, 
-        delay: 20, 
-        duration: 1000, 
-        easing: 'ease', 
-        once: true, 
-        mirror: false, 
-        anchorPlacement: 'top-bottom', 
-      
-      });
 });
