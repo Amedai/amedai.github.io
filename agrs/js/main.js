@@ -237,6 +237,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             details.style.left = -left + 'px';
             details.style.width = documentWidth + 'px';
 
+            /* document.querySelector('.catalog__grid').style.cssText = `grid-auto-rows: minmax(357px, ${cellsHeightArr[i]})`; */
+
             window.addEventListener('resize',()=>{
                 cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
 
