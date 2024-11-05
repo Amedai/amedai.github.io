@@ -240,6 +240,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             /* document.querySelector('.catalog__grid').style.cssText = `grid-auto-rows: minmax(357px, ${cellsHeightArr[i]})`; */
 
             window.addEventListener('resize',()=>{
+                console.log(1);
                 cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
 
                 left = cell.offsetLeft;
