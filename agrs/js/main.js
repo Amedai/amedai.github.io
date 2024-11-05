@@ -361,4 +361,19 @@ window.addEventListener('DOMContentLoaded',()=>{
         window.history.back();
       });
     }
+
+    //aos
+    AOS.init({
+        disable: false,
+        startEvent: 'DOMContentLoaded', 
+        
+        offset: 100, 
+        delay: 100, 
+        duration: 1000, 
+        easing: 'ease', 
+        once: true, 
+        mirror: false, 
+        anchorPlacement: 'top-bottom', 
+      
+      });
 });
