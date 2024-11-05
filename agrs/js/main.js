@@ -276,8 +276,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             });
 
             cell.querySelector('.catalog__details-close').addEventListener('click',()=>{
+                cell.style.height = '500px';
                 details.classList.remove('catalog__details_active');
-                cell.style.height = cellsHeightArr[i];
             });
         });
 
