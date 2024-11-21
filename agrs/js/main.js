@@ -114,42 +114,55 @@ window.addEventListener('DOMContentLoaded',()=>{
         const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints);
         
         const points = document.querySelectorAll('.companies__point'),
-            map = document.querySelector('.companies__russia-img');
-        points.forEach(point=>{
-            const text = point.querySelector('.companies__text'),
-                pattern = point.querySelector('.companies__pattern');
+            mapRussia = document.querySelector('.companies__russia-img'),
+            svgPaths = mapRussia.querySelectorAll('path');
+        svgPaths.forEach((path,i)=>{
+            path.style.cssText = 'filter:grayscale(100%)';
             if(isTouchDevice){
-                point.addEventListener('click',()=>{
-                    points.forEach(item=>{
-                        item.querySelector('.companies__pattern').style.display = 'none';
-                        item.style.zIndex = 11;
+                path.addEventListener('click',()=>{
+                    svgPaths.forEach(pathItem=>{
+                        pathItem.style.cssText = 'filter:grayscale(100%)';
                     });
-                    text.textContent = point.getAttribute('data-company');
-                    point.style.zIndex = 12;
-                    fadeIn(pattern,100,'block');
+                    path.style.cssText = 'filter:grayscale(0)';
+                    points.forEach(point=>{
+                        point.querySelector('.companies__pattern').style.display = 'none';
+                        if(point.getAttribute('data-point') == i){
+                            point.querySelector('.companies__pattern').style.display = 'block';
+                        }
+                    });
+                    
                 });
             }else{
-                point.addEventListener('mouseenter',()=>{
-                    text.textContent = point.getAttribute('data-company');
-                    point.style.zIndex = 12;
-                    fadeIn(pattern,100,'block');
+                path.addEventListener('mouseenter',()=>{
+                    path.style.cssText = 'filter:grayscale(0)';
+                    points.forEach(point=>{
+                        if(point.getAttribute('data-point') == i){
+                            point.querySelector('.companies__pattern').style.display = 'block';
+                        }
+                    });
                 });
-                point.addEventListener('mouseleave',()=>{
-                    pattern.style.display = 'none';
-                    point.style.zIndex = 11;
-                });
-            }
-        });
-        map.addEventListener('click', (e)=>{
-            const target = e.target;
-            if(target && target.classList.contains('companies__russia-img')){
-                points.forEach(point=>{
-                    point.querySelector('.companies__pattern').style.display = 'none';
-                    point.style.zIndex = 11;
+                path.addEventListener('mouseleave',()=>{
+                    path.style.cssText = 'filter:grayscale(100%)';
+                    points.forEach(point=>{
+                        if(point.getAttribute('data-point') == i){
+                            point.querySelector('.companies__pattern').style.display = 'none';
+                        }
+                    });
                 });
             }
         });
 
+        mapRussia.addEventListener('click', (e)=>{
+            const target = e.target;
+            if(target && target.classList.contains('companies__russia-img')){
+                svgPaths.forEach(path=>{
+                    path.style.cssText = 'filter:grayscale(100%)';
+                });
+                points.forEach(point=>{
+                    point.querySelector('.companies__pattern').style.display = 'none';
+                });
+            }
+        });
      }
      
      //sliders
@@ -264,8 +277,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                 cells.forEach((itemCell,i)=>{
                     itemCell.style.height = cellsHeightArr[i];
                     itemCell.querySelector('.catalog__details').classList.remove('catalog__details_active');
+                    itemCell.querySelector('.catalog__shorts').classList.add('catalog__shorts_gray');
                 });
-
+                cell.querySelector('.catalog__shorts').classList.remove('catalog__shorts_gray');
                 if(!catalogDetailsSlidersArray[i].el){
                     catalogDetailsSlidersArray[i].init();
                     catalogDetailsSlidersArray[i].on('fromEdge',()=>{
@@ -281,11 +295,18 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
                 cell.style.height = parseInt(cellsHeightArr[i]) + parseInt(detailsHeight) + 2 +'px';
                 details.classList.add('catalog__details_active');
+                setTimeout(() => {
+                    cell.scrollIntoView(false);
+                }, 450);
+                
             });
 
             cell.querySelector('.catalog__details-close').addEventListener('click',()=>{
                 cell.style.height = cellsHeightArr[i];
                 details.classList.remove('catalog__details_active');
+                cells.forEach((itemCell)=>{
+                    itemCell.querySelector('.catalog__shorts').classList.remove('catalog__shorts_gray');
+                });
             });
         });
 
