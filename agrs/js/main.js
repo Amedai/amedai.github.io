@@ -22,6 +22,27 @@ window.addEventListener('DOMContentLoaded',()=>{
             });
         });
     }
+
+    //animate on scroll
+    if(document.querySelector('.intersective')){
+        const interscetOptions={
+            threshold: 0.3
+        };
+        const interscetCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    entry.target.classList.add('intersective_active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+        const observer = new IntersectionObserver(interscetCallback, interscetOptions);
+
+        const intersectElements = document.querySelectorAll('.intersective');
+        intersectElements.forEach(el=>{
+            observer.observe(el);
+        });
+    }
     //lazy load for yandex-cart
     function initYandexMapOnEvent (e) {
         initYandexMap();
@@ -69,21 +90,6 @@ window.addEventListener('DOMContentLoaded',()=>{
           el.style.display = 'none';
         }, timeout);
     }
-
-    //aos
-    AOS.init({
-        disable: false,
-        startEvent: 'DOMContentLoaded', 
-        
-        offset: 20, 
-        delay: 20, 
-        duration: 1000, 
-        easing: 'ease', 
-        once: true, 
-        mirror: false, 
-        anchorPlacement: 'top-bottom', 
-      
-      });
 
      //modal
     const contactButtons = document.querySelectorAll('[data-overlay="modal"]'),
