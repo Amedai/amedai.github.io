@@ -8,7 +8,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     mainBlock.style.paddingTop =  headerStyles.height;
     window.addEventListener('resize',()=>{
-        console.log(headerStyles.height);
         mainBlock.style.paddingTop =  headerStyles.height;
     });
     //переход между страницами с сохранением позиции
