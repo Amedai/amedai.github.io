@@ -1,5 +1,16 @@
 'use strict';
 window.addEventListener('DOMContentLoaded',()=>{
+    //header height
+    const mainBlock = document.querySelector('main'),
+        headerBlock = document.querySelector('header'),
+        headerStyles = window.getComputedStyle(headerBlock);
+    
+
+    mainBlock.style.paddingTop =  headerStyles.height;
+    window.addEventListener('resize',()=>{
+        console.log(headerStyles.height);
+        mainBlock.style.paddingTop =  headerStyles.height;
+    });
     //переход между страницами с сохранением позиции
 
     const previousUrl = document.referrer;
