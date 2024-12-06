@@ -36,15 +36,30 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
             });
         };
-        const observer = new IntersectionObserver(interscetCallback, interscetOptions);
+        const intersectObserver = new IntersectionObserver(interscetCallback, interscetOptions);
 
         const intersectElements = document.querySelectorAll('.intersective');
         intersectElements.forEach(el=>{
-            observer.observe(el);
+            intersectObserver.observe(el);
         });
     }
     //lazy load for images
- /*    if(document.querySelector('.layzi')) */
+    if(document.querySelector('.lazy-img')){
+        const lazyCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const lazyImg = entry.target;
+                    lazyImg.src = lazyImg.dataset.src;
+                    lazyImg.classList.remove('lazy-img');
+                    observer.unobserve(lazyImg);
+                }
+            });
+        };
+        const lazyObserver = new IntersectionObserver(lazyCallback);
+
+        const lazyImages = document.querySelectorAll('.lazy-img');
+        lazyImages.forEach(el=> lazyObserver.observe(el));
+    }
     //lazy load for yandex-cart
     function initYandexMapOnEvent (e) {
         initYandexMap();
