@@ -43,6 +43,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             observer.observe(el);
         });
     }
+    //lazy load for images
+ /*    if(document.querySelector('.layzi')) */
     //lazy load for yandex-cart
     function initYandexMapOnEvent (e) {
         initYandexMap();
