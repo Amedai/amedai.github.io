@@ -20,6 +20,29 @@
     <meta property="twitter:image" content="https://amedai.github.io/agrs/images/main/products1.jpg">
 
     <link rel="stylesheet" href="./css/style.min.css">
+
+    <link
+    rel="preload"
+    as="image"
+    href="./images/main/main-pattern.png"
+    imagesrcset="./images/main/main-pattern-mob.png 700w,
+    ./images/main/main-pattern-tab.png 1226w,
+    ./images/main/main-pattern.png 2662w"
+    imagesizes="(max-width: 700px) 1px,
+                (max-width: 1200px) 701px,
+                1227px"
+>
+    <link
+        rel="preload"
+        as="image"
+        href="./images/main/promo-bg.jpg"
+        imagesrcset="./images/main/promo-mob-bg.jpg 640w,
+        ./images/main/promo-tab-bg.jpg 2048w,
+        ./images/main/promo-bg.jpg 3960w"
+        imagesizes="(max-width: 700px) 1px,
+                    (max-width: 1200px) 641px,
+                    2049px"
+    >
 </head>
 <body>
     <div class="wrapper">
@@ -74,13 +97,11 @@
                     </div>
                 </div>
                 <div class="promo__pattern">
-                    <img src="./images/main/main-pattern.png" alt="">
-                </div>
-                <div class="promo__pattern-tab">
-                    <img src="./images/main/main-pattern-tab.png" alt="">
-                </div>
-                <div class="promo__pattern-mob">
-                    <img src="./images/main/main-pattern-mob.png" alt="">
+                    <picture>
+                        <source srcset="./images/main/main-pattern-mob.png" media="(max-width:700px)">
+                        <source srcset="./images/main/main-pattern-tab.png" media="(max-width:1200px)">
+                        <img src="./images/main/main-pattern.png" alt="">
+                    </picture>
                 </div>
             </section>
             <div class="info">
