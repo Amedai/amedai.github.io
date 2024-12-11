@@ -226,6 +226,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
         //событие slideChange происходит раньше смены активного слайда,а transitionStart позже
         const historySlides = document.querySelectorAll('.history__slide');
+        historySlides[0].classList.add('history__slide_active');
         historySlider.on('transitionStart',()=>{
             const activeSlide = document.querySelector('.swiper-slide-active');
             historySlides.forEach(historySlide=>{
