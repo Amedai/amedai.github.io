@@ -31,28 +31,38 @@
                     <nav class="header__menu">
                         <ul class="header__menu-list">
                             <li class="header__menu-item">
-                                <a href="#advantages" class="header__menu-link hover-underline">Преимущества</a>
+                                <a href="#advantages" class="header__menu-link hover-underline" data-link-action="hide-menu">Преимущества</a>
                             </li>
                             <li class="header__menu-item">
-                                <a href="#individual" class="header__menu-link hover-underline">Кейсы</a>
+                                <a href="#individual" class="header__menu-link hover-underline" data-link-action="hide-menu">Кейсы</a>
                             </li>
                             <li class="header__menu-item">
-                                <a href="#mortgage" class="header__menu-link hover-underline">Ипотека</a>
+                                <a href="#mortgage" class="header__menu-link hover-underline" data-link-action="hide-menu">Ипотека</a>
                             </li>
                             <li class="header__menu-item">
-                                <a href="#question-answer" class="header__menu-link hover-underline">Вопросы-ответы</a>
-                            </li>
-                            <li class="header__menu-item">
-                                <a href="#contacts" class="header__menu-link hover-underline">Контакты</a>
+                                <a href="#question-answer" class="header__menu-link hover-underline" data-link-action="hide-menu">Вопросы-ответы</a>
                             </li>
                         </ul>
                     </nav>
-                    <a href="#contacts" class="header__btn">Обсудить проект</a>
+                    <div class="header__social">
+                        <a href="https://t.me/syifatstroi" class="header__tg" data-link-action="hide-menu">
+                            <img src="./images/icons/tg.svg" alt="ссылка на мессенджер телеграмм СыйфатСтрой">
+                        </a>
+                        <a href="https://www.instagram.com/p/C-CyHLlIMtQ/?igsh=dXV0eGZreHg4OGlo" class="header__inst" data-link-action="hide-menu">
+                            <img src="./images/icons/instagram.svg" alt="ссылка на социльную сеть инстаграм СыйфатСтрой">
+                        </a>
+                    </div>
+                    <div class="header__contacts">
+                        <a href="#contacts" class="header__btn" data-link-action="hide-menu">Заказать звонок</a>
+                        <a href="tel:+79686284142" class="header__tel hover-underline">+7 (968) 628-41-42</a>
+                    </div>
+                    <a href="tel:+79686284142" class="header__tel-mob" data-link-action="hide-menu">+7 (968) 628-41-42</a>
                 </div>
                 <div class="header__mobile">
                     <a href="index.html" class="header__mobile-logo">
                         <img src="./images/icons/logo.svg" alt="логотип СыйфатСтрой">
                     </a>
+                    <a href="tel:+79686284142" class="header__mobile-tel">+7 (968) 628-41-42</a>
                     <div class="header__burger">
                         <div class="header__stick"></div>
                         <div class="header__stick"></div>
@@ -64,7 +74,7 @@
         <main class="main">
             <section class="promo">
                 <div class="container">
-                    <div class="promo__info" data-aos="fade-up">
+                    <div class="promo__info intersective" >
                         <h1 class="promo__title">Строим дома, в которых хочется жить</h1>
                         <div class="promo__stick"></div>
                         <div class="promo__info-block">
@@ -72,13 +82,13 @@
                             <a href="#individual" class="main-btn promo__main-btn main-btn_bgc-green">Смотреть проекты</a>
                         </div> 
                     </div>
-                    <div class="promo__slider swiper" data-aos="fade-up">
+                    <div class="promo__slider swiper intersective" >
                         <div class="promo__wrapper swiper-wrapper">
                           <div class="promo__slide swiper-slide">
                             <div class="promo__img">
                                 <picture>
                                     <source srcset="./images/adapt/promo-mob1.jpg" type="image/webp" media="(max-width:768px)">
-                                    <img src="./images/promo1.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/promo1.jpg" alt="дом">
                                 </picture>
                             </div>
                           </div>
@@ -86,7 +96,7 @@
                             <div class="promo__img">
                                 <picture>
                                     <source srcset="./images/adapt/promo-mob2.jpg" type="image/webp" media="(max-width:768px)">
-                                    <img src="./images/promo2.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/promo2.jpg" alt="дом">
                                 </picture>
                             </div>
                           </div>
@@ -94,7 +104,7 @@
                             <div class="promo__img">
                                 <picture>
                                     <source srcset="./images/adapt/promo-mob3.jpg" type="image/webp" media="(max-width:768px)">
-                                    <img src="./images/promo3.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/promo3.jpg" alt="дом">
                                 </picture>
                             </div>
                           </div>
@@ -102,7 +112,7 @@
                             <div class="promo__img">
                                 <picture>
                                     <source srcset="./images/adapt/promo-mob4.jpg" type="image/webp" media="(max-width:768px)">
-                                    <img src="./images/promo4.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/promo4.jpg" alt="дом">
                                 </picture>
                             </div>
                           </div>
@@ -110,7 +120,7 @@
                             <div class="promo__img">
                                 <picture>
                                     <source srcset="./images/adapt/promo-mob5.jpg" type="image/webp" media="(max-width:768px)">
-                                    <img src="./images/promo5.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/promo5.jpg" alt="дом">
                                 </picture>
                             </div>
                           </div>
@@ -125,11 +135,23 @@
                         </div>
                     </div>
                 </div>
-                <a href="https://wa.me/79270355990" class="promo__whatsapp">
-                    <img src="./images/icons/whatsapp.png" alt="ссылка на месенджер whatsapp Сыйфат Строй">
-                </a>
+                <div class="promo__contacts-icons">
+                    <button type="button" class="promo__contacts-icon promo__contacts-group">
+                        <img src="./images/icons/contact-group.png" alt="кнопка показа ссылок телефона Сыйфат Строй и whatsapp Сыйфат Строй">
+                    </button>
+                    <a class="promo__contacts-icon promo__contacts-tel" href="tel:+79686284142">
+                        <div class="promo__scale-animation">
+                            <img src="./images/icons/contact-tel.png" alt="ссылка на телефон Сыйфат Строй">
+                        </div>
+                    </a>
+                    <a class="promo__contacts-icon promo__contacts-whatsapp" href="https://wa.me/79686284142">
+                        <div class="promo__scale-animation">
+                            <img src="./images/icons/contact-whatsapp.png" alt="ссылка на месенджер whatsapp Сыйфат Строй">
+                        </div>
+                    </a>
+                </div>
             </section>
-            <div class="advantages" id="advantages" data-aos="fade-up">
+            <div class="advantages intersective" id="advantages" >
                 <div class="container">
                     <div class="advantages__grid">
                         <div class="advantages__cell">
@@ -166,7 +188,7 @@
                     </div>
                 </div>
             </div>
-            <section class="ready-house" data-aos="fade-up">
+            <section class="ready-house intersective" >
                 <div class="container">
                     <h2 class="subtitle">Готовые дома от застройщика</h2>
                     <div class="ready-house__flex">
@@ -176,7 +198,7 @@
                                     <div class="ready-house__img">
                                         <picture>
                                             <source srcset="./images/adapt/ready-house-mob1.jpg" type="image/webp" media="(max-width:768px)">
-                                            <img src="./images/ready-house1.jpg" alt="дом">
+                                            <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/ready-house1.jpg" alt="дом">
                                         </picture>
                                     </div>
                                 </div>
@@ -184,7 +206,7 @@
                                     <div class="ready-house__img">
                                         <picture>
                                             <source srcset="./images/adapt/ready-house-mob2.jpg" type="image/webp" media="(max-width:768px)">
-                                            <img src="./images/ready-house2.jpg" alt="дом">
+                                            <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/ready-house2.jpg" alt="дом">
                                         </picture>
                                     </div>
                                 </div>
@@ -218,71 +240,89 @@
                             <p class="ready-house__text-price">от 45.000₽ за м<sup>2</sup></p>
                         </div>
                     </div>
-                    <a href="#contacts" class="main-btn main-btn_bgc-green ready-house__main-btn">Обсудить проект</a>
+                    <div class="ready-house__btns-block">
+                        <a href="#contacts" class="main-btn main-btn_bgc-green ready-house__main-btn">Обсудить проект</a>
+                        <a href="#" class="main-btn main-btn_bgc-green ready-house__main-btn">Прогуляться по планировке</a>
+                    </div>
+                    
                 </div>
             </section>
             <section class="individual" id="individual">
-                <h2 class="subtitle individual__subtitle" data-aos="fade-up">Индивидуальные проекты</h2>
-                <div class="individual__flex-item" data-item="individual" data-aos="fade-up">
+                <h2 class="subtitle individual__subtitle intersective" >Индивидуальные проекты</h2>
+                <div class="individual__flex-item intersective" data-item="individual" >
                     <div class="individual__info">
                         <h3 class="individual__info-title">Проект 1</h3>
                         <ul class="individual__info-list">
-                            <li class="individual__info-item">Площадь: 112 м<sup>2</sup></li>
+                            <li class="individual__info-item">Площадь: 120 м<sup>2</sup></li>
                             <li class="individual__info-item">Этажность: 1</li>
-                            <li class="individual__info-item">Количество комнат: кухня, гостиная и 3 спальни</li>
+                            <li class="individual__info-item">Количество комнат: кухня-гостиная и 3 спальни</li>
                         </ul>
+                        <a href="#" class="individual__info-btn">Подробнее</a>
                     </div>
                     <div class="individual__carousel">
                         <div class="individual__carousel-block">
                             <div class="individual__carousel-item individual__gallery">
-                                <a href="./images/individual1.jpg" class="individual__img">
+                                <a href="./images/individual19.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual1.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual1.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual19.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual19.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual2.jpg" class="individual__img">
+                                <a href="./images/individual20.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual2.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual2.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual20.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual20.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual3.jpg" class="individual__img">
+                                <a href="./images/individual21.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual3.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual3.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual21.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual21.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual25.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual25.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual25.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
                             <div class="individual__carousel-item individual__gallery">
-                                <a href="./images/individual1.jpg" class="individual__img">
+                                <a href="./images/individual19.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual1.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual1.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual19.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual19.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual2.jpg" class="individual__img">
+                                <a href="./images/individual20.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual2.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual2.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual20.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual20.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual3.jpg" class="individual__img">
+                                <a href="./images/individual21.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual3.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual3.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual21.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual21.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual25.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual25.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual25.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <ul class="individual__info-mobile">
-                        <li class="individual__info-item">Площадь: 112 м<sup>2</sup></li>
+                        <li class="individual__info-item">Площадь: 120 м<sup>2</sup></li>
                         <li class="individual__info-item">Этажность: 1</li>
-                        <li class="individual__info-item">Количество комнат: кухня, гостиная и 3 спальни</li>
+                        <li class="individual__info-item">Количество комнат: кухня-гостиная и 3 спальни</li>
+                        <li class="individual__info-item"><a href="#" class="individual__info-btn-mobile">Подробнее</a></li>
                     </ul>
                 </div>
-                <div class="individual__flex-item" data-item="individual" data-aos="fade-up">
+                <div class="individual__flex-item intersective" data-item="individual" >
                     <div class="individual__info">
                         <h3 class="individual__info-title">Проект 2</h3>
                         <ul class="individual__info-list">
@@ -297,19 +337,25 @@
                                 <a href="./images/individual4.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual4.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual4.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual4.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual5.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual5.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual5.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual5.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual6.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual6.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual6.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual6.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual26.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual26.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual26.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -317,19 +363,25 @@
                                 <a href="./images/individual4.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual4.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual4.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual4.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual5.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual5.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual5.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual5.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual6.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual6.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual6.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual6.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual26.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual26.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual26.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -341,7 +393,7 @@
                         <li class="individual__info-item">Количество комнат: кухня-гостиная и 3 спальни</li>
                     </ul>
                 </div>
-                <div class="individual__flex-item" data-item="individual" data-aos="fade-up">
+                <div class="individual__flex-item intersective" data-item="individual" >
                     <div class="individual__info">
                         <h3 class="individual__info-title">Проект 3</h3>
                         <ul class="individual__info-list">
@@ -356,19 +408,25 @@
                                 <a href="./images/individual7.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual7.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual7.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual7.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual8.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual8.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual8.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual8.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual9.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual9.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual9.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual9.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual29.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual29.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual29.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -376,19 +434,25 @@
                                 <a href="./images/individual7.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual7.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual7.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual7.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual8.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual8.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual8.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual8.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual9.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual9.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual9.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual9.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual29.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual29.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual29.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -415,19 +479,25 @@
                                 <a href="./images/individual10.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual10.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual10.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual10.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual11.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual11.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual11.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual11.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual12.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual12.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual12.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual12.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual27.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual27.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual27.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -435,19 +505,25 @@
                                 <a href="./images/individual10.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual10.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual10.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual10.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual11.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual11.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual11.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual11.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual12.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual12.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual12.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual12.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual27.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual27.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual27.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -474,19 +550,25 @@
                                 <a href="./images/individual13.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual13.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual13.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual13.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual14.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual14.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual14.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual14.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual15.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual15.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual15.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual15.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual30.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual30.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual30.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -494,19 +576,25 @@
                                 <a href="./images/individual13.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual13.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual13.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual13.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual14.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual14.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual14.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual14.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual15.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual15.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual15.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual15.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual30.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual30.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual30.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -533,19 +621,25 @@
                                 <a href="./images/individual16.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual16.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual16.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual16.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual17.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual17.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual17.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual17.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual18.jpg" class="individual__img">
+                                <a href="./images/individual18.jpg?ver=2.0" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual18.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual18.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual18.jpg?ver=2.0" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual18.jpg?ver=2.0" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual31.jpg?ver=2.0" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual31.jpg?ver=2.0" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual31.jpg?ver=2.0" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -553,19 +647,25 @@
                                 <a href="./images/individual16.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual16.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual16.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual16.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual17.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual17.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual17.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual17.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual18.jpg" class="individual__img">
+                                <a href="./images/individual18.jpg?ver=2.0" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual18.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual18.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual18.jpg?ver=2.0" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual18.jpg?ver=2.0" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual31.jpg?ver=2.0" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual31.jpg?ver=2.0" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual31.jpg?ver=2.0" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -581,59 +681,71 @@
                     <div class="individual__info">
                         <h3 class="individual__info-title">Проект 7</h3>
                         <ul class="individual__info-list">
-                            <li class="individual__info-item">Площадь: 120 м<sup>2</sup></li>
+                            <li class="individual__info-item">Площадь: 112 м<sup>2</sup></li>
                             <li class="individual__info-item">Этажность: 1</li>
-                            <li class="individual__info-item">Количество комнат: кухня-гостиная и 3 спальни</li>
+                            <li class="individual__info-item">Количество комнат: кухня, гостиная и 3 спальни</li>
                         </ul>
                     </div>
                     <div class="individual__carousel">
                         <div class="individual__carousel-block">
                             <div class="individual__carousel-item individual__gallery">
-                                <a href="./images/individual19.jpg" class="individual__img">
+                                <a href="./images/individual1.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual19.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual19.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual1.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual1.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual20.jpg" class="individual__img">
+                                <a href="./images/individual2.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual20.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual20.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual2.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual2.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual21.jpg" class="individual__img">
+                                <a href="./images/individual3.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual21.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual21.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual3.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual3.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual28.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual28.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual28.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
                             <div class="individual__carousel-item individual__gallery">
-                                <a href="./images/individual19.jpg" class="individual__img">
+                                <a href="./images/individual1.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual19.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual19.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual1.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual1.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual20.jpg" class="individual__img">
+                                <a href="./images/individual2.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual20.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual20.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual2.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual2.jpg" alt="дом">
                                     </picture>
                                 </a>
-                                <a href="./images/individual21.jpg" class="individual__img">
+                                <a href="./images/individual3.jpg" class="individual__img">
                                     <picture>
-                                        <source srcset="./images/adapt/individual21.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual21.jpg" alt="дом">
+                                        <source srcset="./images/adapt/individual3.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual3.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual28.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual28.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual28.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <ul class="individual__info-mobile">
-                        <li class="individual__info-item">Площадь: 120 м<sup>2</sup></li>
+                        <li class="individual__info-item">Площадь: 112 м<sup>2</sup></li>
                         <li class="individual__info-item">Этажность: 1</li>
-                        <li class="individual__info-item">Количество комнат: кухня-гостиная и 3 спальни</li>
+                        <li class="individual__info-item">Количество комнат: кухня, гостиная и 3 спальни</li>
                     </ul>
                 </div>
                 <div class="individual__flex-item" data-item="individual">
@@ -651,19 +763,25 @@
                                 <a href="./images/individual22.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual22.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual22.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual22.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual23.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual23.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual23.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual23.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual24.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual24.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual24.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual24.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual32.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual32.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual32.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -671,19 +789,25 @@
                                 <a href="./images/individual22.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual22.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual22.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual22.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual23.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual23.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual23.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual23.jpg" alt="дом">
                                     </picture>
                                 </a>
                                 <a href="./images/individual24.jpg" class="individual__img">
                                     <picture>
                                         <source srcset="./images/adapt/individual24.jpg" type="image/webp" media="(max-width:768px)">
-                                        <img src="./images/individual24.jpg" alt="дом">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual24.jpg" alt="дом">
+                                    </picture>
+                                </a>
+                                <a href="./images/individual32.jpg" class="individual__img">
+                                    <picture>
+                                        <source srcset="./images/adapt/individual32.jpg" type="image/webp" media="(max-width:768px)">
+                                        <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/individual32.jpg" alt="дом">
                                     </picture>
                                 </a>
                             </div>
@@ -706,37 +830,37 @@
             </section>
             <section class="process">
                 <div class="process__flex">
-                    <h2 class="subtitle process__subtitle" data-aos="fade-up">Процесс работы</h2>
+                    <h2 class="subtitle process__subtitle intersective" >Процесс работы</h2>
                     <ul class="process__list">
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">1</p>
                                 <h3 class="process__list-title">личная встреча</h3>
                             </div>
                             <p class="process__text">В ходе встречи вы зададите интересующие вас вопросы, формы оплаты, технологию строительства, планировочные решения.</p>
                         </li>
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">2</p>
                                 <h3 class="process__list-title">формирование проекта</h3>
                             </div>
                             <p class="process__text">После встречи и выбора проекта архитектор сформирует готовое решение, уникальное под ваши пожелания.</p>
                         </li>
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">3</p>
                                 <h3 class="process__list-title">поиск и исследование участка под застройку</h3>
                             </div>
                             <p class="process__text"></p>
                         </li>
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">4</p>
                                 <h3 class="process__list-title">смета</h3>
                             </div>
                             <p class="process__text">Наши специалисты посчитают и сформируют для Вас наиболее выгодный вариант дома и его техническую часть, исходя из ваших пожеланий.</p>
                         </li>
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">5</p>
                                 <h3 class="process__list-title">подписание договора</h3>
@@ -744,14 +868,14 @@
                             <p class="process__text">Юридический отдел сформирует договор, который гарантирует вам защиту всех прав как во время строительства, так и после сдачи 
                                 в эксплуатацию.</p>
                         </li>
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">6</p>
                                 <h3 class="process__list-title">строительство дома</h3>
                             </div>
                             <p class="process__text">Укладываемся в сроки договора, используем высококачественные материалы и соблюдаем стандарты застройки.</p>
                         </li>
-                        <li class="process__item" data-aos="fade-up">
+                        <li class="process__item intersective" >
                             <div class="process__title-block">
                                 <p class="process__numb">7</p>
                                 <h3 class="process__list-title">дом готов к заселению</h3>
@@ -766,11 +890,11 @@
             </section>
             <div class="choosing-us">
                 <div class="container">
-                    <p class="choosing-us__text" data-aos="fade-up">Выбирая нас, вы выбираете надежность, качество и индивидуальный подход к каждому клиенту. Доверьте нам строительство вашего будущего дома, и мы превратим вашу мечту в реальность!</p>
+                    <p class="choosing-us__text intersective" >Выбирая нас, вы выбираете надежность, качество и индивидуальный подход к каждому клиенту. Доверьте нам строительство вашего будущего дома, и мы превратим вашу мечту в реальность!</p>
                     <a href="#contacts" class="main-btn main-btn_bgc-white choosing-us__main-btn">Обсудить проект</a>
                 </div>
             </div>
-            <section class="payment" data-aos="fade-up">
+            <section class="payment intersective" >
                 <div class="container">
                     <h2 class="subtitle">Оплата удобным для вас способом</h2>
                     <div class="payment__flex">
@@ -791,7 +915,7 @@
                     </div>
                 </div>
             </section>
-            <section class="calc" id="mortgage" data-aos="fade-up">
+            <section class="calc intersective" id="mortgage" >
                 <div class="container">
                     <h2 class="calc__title">Рассчитайте ежемесячный платеж по ипотеке</h2>
                     <div class="calc__result">
@@ -831,71 +955,71 @@
                         </div>
                     </div>
                     <div class="calc__opportunity">
-                        <p class="calc__opportunity-text" data-aos="fade-up">Решили приобрести дом,<br>но ещё не продана своя квартира?</p>
-                        <p class="calc__opportunity-text" data-aos="fade-up">Есть прекрасная возможность воспользоваться услугой<br>Trade-in!</p>
+                        <p class="calc__opportunity-text intersective" >Решили приобрести дом,<br>но ещё не продана своя квартира?</p>
+                        <p class="calc__opportunity-text intersective" >Есть прекрасная возможность воспользоваться услугой<br>Trade-in!</p>
                         <a href="#contacts" class="main-btn main-btn_bgc-green calc__main-btn">Связаться с нами</a>
                     </div>
                 </div>
             </section>
-            <section class="gallery" data-aos="fade-up">
+            <section class="gallery intersective" >
                 <div class="container">
                     <h2 class="subtitle">Галерея наших домов</h2>
                 </div>
                 <div class="gallery__carousel">
                     <div class="gallery__carousel-block">
-                        <div class="gallery__carousel-item">
-                            <div class="gallery__img">
+                        <div class="gallery__carousel-item gallery__gallery">
+                            <a href="./images/gallery1.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery1.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery1.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery2.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery2.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery2.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery3.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery3.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery3.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery4.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery4.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery4.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery5.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery5.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery5.jpg" alt="дом">
                                 </picture>
-                            </div>
+                            </a>
                         </div>
-                        <div class="gallery__carousel-item">
-                            <div class="gallery__img">
+                        <div class="gallery__carousel-item gallery__gallery">
+                            <a href="./images/gallery1.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery1.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery1.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery2.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery2.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery2.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery3.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery3.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery3.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery4.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery4.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery4.jpg" alt="дом">
                                 </picture>
-                            </div>
-                            <div class="gallery__img">
+                            </a>
+                            <a href="./images/gallery5.jpg" class="gallery__img">
                                 <picture>
-                                    <img src="./images/gallery5.jpg" alt="дом">
+                                    <img class="lazy-img" src="./images/lazy-img.jpg" data-src="./images/gallery5.jpg" alt="дом">
                                 </picture>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -903,7 +1027,7 @@
                     <img src="./images/icons/pattern-right.svg" alt="">
                 </div>
             </section>
-            <section class="question-answer" id="question-answer" data-aos="fade-up">
+            <section class="question-answer intersective" id="question-answer" >
                 <div class="container">
                     <h2 class="subtitle question-answer__subtitle">Вопрос-ответ</h2>
                     <details class="question-answer__details">
@@ -924,7 +1048,7 @@
                     </details>
                 </div>
             </section>
-            <section class="review" data-aos="fade-up">
+            <section class="review intersective" >
                 <div class="container">
                     <h2 class="subtitle">Отзывы</h2>
                 </div>
@@ -977,7 +1101,7 @@
                     </div>
                 </div>
             </section>
-            <section class="contacts" id="contacts" data-aos="fade-up">
+            <section class="contacts intersective" id="contacts" >
                 <div class="container">
                     <div class="contacts__flex">
                         <div class="contacts__block">
@@ -1010,8 +1134,45 @@
                     </div>
                 </div>
             </section>
+            <section class="map">
+                <h2 class="map__title"><span>Свяжитесь с нами</span> удобным для вас способом или приходите на консультацию в офис</h2>
+                <div class="map__flex">
+                    <div class="map__item"></div>
+                    <div class="map__contacts">
+                        <div class="map__contacts-item">
+                            <div class="map__contacts-icon">
+                                <img src="./images/icons/map-mail.svg" alt="">
+                            </div>
+                            <a href="mailto:syifatstroi@mail.ru" class="map__contacts-text hover-underline">syifatstroi@mail.ru</a>
+                        </div>
+                        <div class="map__contacts-item">
+                            <div class="map__contacts-icon">
+                                <img src="./images/icons/map-location.svg" alt="">
+                            </div>
+                            <p class="map__contacts-text">Адрес: Ямашева 46, БЦ Парк Хаус, <br>2 этаж, Офис 201,202</p>
+                        </div>
+                        <div class="map__contacts-item">
+                            <div class="map__contacts-icon">
+                                <img src="./images/icons/map-tel.svg" alt="">
+                            </div>
+                            <a href="tel:+79686284142" class="map__contacts-text hover-underline">+7 (968) 628-41-42</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <div class="main-pattern main-pattern_right-top">
                 <img src="./images/icons/pattern-right.svg" alt="">
+            </div>
+            <div class="overlay">
+                <div class="modal">
+                    <div class="modal__review">
+                        <div class="modal__close">
+                            <img src="./images/icons/cross.svg" alt="">
+                        </div>
+                        <p class="modal__review-author"></p>
+                        <p class="modal__review-text"></p>
+                    </div>
+                </div>
             </div>
         </main>
         <footer class="footer">
@@ -1043,13 +1204,18 @@
                         </ul>
                     </nav>
                     <div class="footer__contacts">
-                        <a href="" class="footer__tg">
+                        <a href="https://t.me/syifatstroi" class="footer__tg">
                             <img src="./images/icons/tg.svg" alt="ссылка на мессенджер телеграмм СыйфатСтрой">
                         </a>
-                        <a href="" class="footer__vk">
-                            <img src="./images/icons/vk.svg" alt="ссылка на социльную сеть вконтакте СыйфатСтрой">
+                        <a href="https://www.instagram.com/p/C-CyHLlIMtQ/?igsh=dXV0eGZreHg4OGlo" class="footer__inst">
+                            <img src="./images/icons/instagram.svg" alt="ссылка на социльную сеть инстаграм СыйфатСтрой">
                         </a>
                     </div>
+                </div>
+                <div class="footer__middle">
+                    <a href="mailto:syifatstroi@mail.ru" class="footer__mail hover-underline">syifatstroi@mail.ru</a>
+                    <p class="footer__location">Адрес: Ямашева 46, БЦ Парк Хаус, 2 этаж, Офис 201,202</p>
+                    <a href="tel:+79686284142" class="footer__tel hover-underline">+7 (968) 628-41-42</a>
                 </div>
                 <div class="footer__bottom">
                     <p class="footer__confidentiality">© 2024 все права защищины</p>
@@ -1057,19 +1223,7 @@
                 </div>
             </div>
         </footer>
-        <div class="overlay">
-            <div class="modal">
-                <div class="modal__review">
-                    <div class="modal__close">
-                        <img src="./images/icons/cross.svg" alt="">
-                    </div>
-                    <p class="modal__review-author"></p>
-                    <p class="modal__review-text"></p>
-                </div>
-            </div>
-        </div>
     </div>
-    <script src="./js/aos.js"></script>
     <script src="./js/baguetteBox.min.js"></script>
     <script src="./js/swiper-bundle.min.js"></script>
     <script src="./js/main.js"></script>

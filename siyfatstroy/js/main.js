@@ -1,5 +1,89 @@
 'use strict';
 window.addEventListener('DOMContentLoaded',()=>{
+     //animate on scroll
+     if(document.querySelector('.intersective')){
+        const interscetOptions={
+            threshold: 0.3
+        };
+        const interscetCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    entry.target.classList.add('intersective_active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+        const intersectObserver = new IntersectionObserver(interscetCallback, interscetOptions);
+
+        const intersectElements = document.querySelectorAll('.intersective');
+        intersectElements.forEach(el=>{
+            intersectObserver.observe(el);
+        });
+    }
+    //lazy load for images
+    if(document.querySelector('.lazy-img')){
+        const lazyCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const lazyImg = entry.target;
+                    lazyImg.src = lazyImg.dataset.src;
+                    lazyImg.classList.remove('lazy-img');
+                    observer.unobserve(lazyImg);
+                }
+            });
+        };
+        const lazyObserver = new IntersectionObserver(lazyCallback);
+
+        const lazyImages = document.querySelectorAll('.lazy-img');
+        lazyImages.forEach(el=> lazyObserver.observe(el));
+    }
+    //lazy load for yandex-cart
+    function initYandexMapOnEvent (e) {
+        initYandexMap();
+        e.currentTarget.removeEventListener(e.type, initYandexMapOnEvent);
+    }
+
+    function initYandexMap () {
+        if (window.yandexMapDidInit) {
+            return false;
+        }
+        window.yandexMapDidInit = true;
+    
+        const script = document.createElement('script');
+
+        script.async = true;
+    
+        script.src = 'https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A58dbe9a7266e27da5b7403bca11a18ad709506748b6865b3d7c037b82d1cceb8&amp;width=100%25&amp;height=100%25&amp;lang=ru_RU&amp;scroll=true';
+    
+        map.appendChild(script);
+    }
+
+    const map = document.querySelector('.map__item');
+    if(map){
+        setTimeout(initYandexMap, 4000);
+
+        window.addEventListener('scroll', initYandexMapOnEvent);
+        window.addEventListener('mousemove', initYandexMapOnEvent);
+        window.addEventListener('touchstart', initYandexMapOnEvent);
+    }
+    //парсинг iframe с проекта
+    function sendRequest(url){
+        return fetch(url).then(response =>{
+            return response.json();
+        });
+    }
+    if(document.querySelector('.project')){
+        const requestUrl = 'https://xn--80arbtjdchbq9e.xn--p1ai/wp-json/wp/v2/pages/';
+        sendRequest(requestUrl)
+        .then(data=>{
+            data.forEach(item=>{
+                if(window.location.pathname.includes(item.slug)){
+                    document.querySelector('.project__block').innerHTML = item.content.rendered.replace(/\n/g, '');
+                }
+            });
+        })
+        .catch(err => console.log(err));
+    }
     //burger menu
     const inner = document.querySelector('.header__inner'),
     hamburger = document.querySelector('.header__burger'),
@@ -11,6 +95,30 @@ window.addEventListener('DOMContentLoaded',()=>{
             item.classList.toggle('header__stick_active');
         });
     });
+    if(window.innerWidth <= 768){
+        const burgerMenuLinks = document.querySelectorAll('[data-link-action="hide-menu"]');
+        burgerMenuLinks.forEach(link=>{
+            link.addEventListener('click',()=>{
+                inner.classList.toggle('header__inner_active');
+                sticks.forEach(item=>{
+                    item.classList.toggle('header__stick_active');
+                });
+            });
+        });
+    }
+    //contacts-icons
+    if(document.querySelector('.promo__contacts-icons')){
+        const contactIcons = document.querySelector('.promo__contacts-icons'),
+        contactGroup = contactIcons.querySelector('.promo__contacts-group'),
+        contactTel = contactIcons.querySelector('.promo__contacts-tel'),
+        contactWhatsapp = contactIcons.querySelector('.promo__contacts-whatsapp');
+        
+        contactIcons.addEventListener('click',()=>{
+            contactGroup.classList.toggle('promo__contacts-group_active');
+            contactTel.classList.toggle('promo__contacts-tel_active');
+            contactWhatsapp.classList.toggle('promo__contacts-whatsapp_active');
+        });
+    }
     //sliders
     if(document.querySelector('.promo__slider')){
         new Swiper('.promo__slider', {
@@ -338,18 +446,4 @@ window.addEventListener('DOMContentLoaded',()=>{
             }
          });
     }
-    //animation on scroll
-    AOS.init({
-        disable: false, 
-        startEvent: 'load', 
-        
-        offset: 100, 
-        delay: 100, 
-        duration: 1000, 
-        easing: 'ease', 
-        once: true, 
-        mirror: false, 
-        anchorPlacement: 'top-bottom', 
-      
-      });
 });
