@@ -10,6 +10,23 @@ window.addEventListener('DOMContentLoaded',()=>{
     window.addEventListener('resize',()=>{
         mainBlock.style.paddingTop =  headerStyles.height;
     });
+    //scroll animation
+    if(document.querySelector('.scroll-animation')){
+        const scrollAnimationCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const target = entry.target;
+                    target.classList.add('scroll-animation--active');
+                    observer.unobserve(target);
+                }
+            });
+        };
+        const scrollAnimation = new IntersectionObserver(scrollAnimationCallback,{threshold:0.3});
+        document.querySelectorAll('.scroll-animation').forEach(el=>{
+            scrollAnimation.observe(el);
+        });
+        
+    }
     //переход между страницами с сохранением позиции
 
     const previousUrl = document.referrer;
