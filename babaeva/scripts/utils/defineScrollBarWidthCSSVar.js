@@ -16,7 +16,7 @@ const defineScrollBarWidthCSSVar = () => {
     `${outerElement.offsetWidth - innerElement.offsetWidth}px`
   )
 
-  /* outerElement.remove() */
+  outerElement.remove()
 }
 
 export default defineScrollBarWidthCSSVar
