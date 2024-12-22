@@ -8,13 +8,15 @@ const defineScrollBarWidthCSSVar = () => {
   const innerElement = document.createElement('div')
 
   outerElement.append(innerElement)
+  console.log(outerElement.offsetWidth);
+  console.log(innerElement.offsetWidth);
 
   document.documentElement.style.setProperty(
     '--scrollbar-width',
     `${outerElement.offsetWidth - innerElement.offsetWidth}px`
   )
 
-  outerElement.remove()
+  /* outerElement.remove() */
 }
 
 export default defineScrollBarWidthCSSVar
