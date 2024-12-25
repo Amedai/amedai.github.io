@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reg</title>
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <div class="reg">
+        <form action="" class="reg__form">
+            <div class="reg__flex">
+                <div class="reg__input-wrapper is-active" data-form="0">
+                    <p class="reg__title">Станьте автором</p>
+                    <p class="reg__text">Присоединятесь</p>
+                    <input type="email" class="reg__input" id="feedmail" name="feedmail" required placeholder="Эл.почта">
+                </div>
+                <div class="reg__input-wrapper" data-form="1">
+                    <p class="reg__title">Введите данные аккаунта</p>
+                    <p class="reg__text"></p>
+                    <input type="text" class="reg__input" id="feedname" name="feedname" required placeholder="Имя">
+                    <input type="password" class="reg__input" id="feedpass" name="feedpass" required placeholder="Пароль">
+                </div>
+                <div class="reg__input-wrapper" data-form="2">
+                    <p class="reg__title">Укажите название страницы</p>
+                    <p class="reg__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ea, q</p>
+                    <input type="checkbox" class="reg__input" id="feedcheck" name="feedcheck" required placeholder="Имя">
+                    <label for="feedcheck">мне уже есть 18</label>
+                    <input type="text" class="reg__input" id="feedauthor" name="feedauthor" required placeholder="Имя автора">
+                </div>
+                <div class="reg__input-wrapper" data-form="3">
+                    <p class="reg__title">Выберите URL-адрес</p>
+                    <p class="reg__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ea, q</p>
+                    <input type="url" class="reg__input" id="feedurl" name="feedurl" required placeholder="url.ru/">
+                </div>
+            </div>
+            <button class="reg__btn" data-btn="continue">Продолжить</button>
+            <button class="reg__btn hidden" data-btn="back">Назад</button>
+        </form>
+        <div class="reg__over hidden">
+            <div class="reg__modal">
+                <p class="reg__modal-title">Регистрация прошла успешно.На этом этапе можно отправлять данные на сервер.<br>Данные:</p>
+                <p class="reg__text"></p>
+                <a href="index.html" class="reg__btn">На главную</a>
+            </div>
+        </div>
+    </div>
+    <script src="./js/main.js"></script>
+</body>
+</html>

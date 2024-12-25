@@ -1,7 +1,92 @@
 'use strict';
 window.addEventListener('DOMContentLoaded',()=>{
+    //reg
+    const backBtn = document.querySelector('[data-btn="back"]');
+    function checkBackBtn(i){
+        if(i > 0){
+            backBtn.classList.remove('hidden');
+        }else{
+            backBtn.classList.add('hidden');
+        }
+    }
+    function getTransformTranslateX(el){
+        const transformValue = window.getComputedStyle(el).transform;
+        const matrix = transformValue.match(/matrix\(([^)]+)\)/)[1].split(', ');
+        const translateX = parseFloat(matrix[4]);
+
+        return translateX;
+
+    }
+    function validCheck(wrapper){
+        let flag = true;
+        wrapper.querySelectorAll('input').forEach(input=>{
+            if(!input.checkValidity()){
+                input.reportValidity();
+                flag = false;
+            }
+        });
+        return flag;
+    }
+    if(document.querySelector('.reg')){
+        const continueBtn = document.querySelector('[data-btn="continue"]'),
+            regFlex = document.querySelector('.reg__flex'),
+            over = document.querySelector('.reg__over'),
+            inputWrappers = document.querySelectorAll('.reg__input-wrapper'),
+            data = {};
+
+            let index;
+            continueBtn.addEventListener('click',(e)=>{
+                e.preventDefault();
+                const activeWrapper = regFlex.querySelector('.is-active');
+                index = +activeWrapper.getAttribute('data-form');
+                if(validCheck(activeWrapper)){
+                    activeWrapper.querySelectorAll('input').forEach(input=>{
+                        const dataItem = input.getAttribute('name');
+                        data[dataItem] = input.value;
+                    });
+                    
+                    if(index + 1 === 1){
+                        regFlex.querySelector('[data-form="1"]').querySelector('.reg__text').textContent = `Вы регистрируйтесь как ${data.feedmail}`;
+                    }
+    
+                    if(index+1 === inputWrappers.length){
+                        // тут может быть запрос на сервер
+                        let text ='';
+                        console.log(data);
+                        for (const key in data) {
+                            text += `${key}: ${data[key]}<br>`;
+                         }
+                        over.querySelector('.reg__text').innerHTML = text;
+                        over.classList.remove('hidden');
+                    }else{
+                        activeWrapper.classList.remove('is-active');
+                        document.querySelector(`[data-form="${index + 1}"]`).classList.add('is-active');
+                        checkBackBtn(index + 1);
+                        regFlex.style.transform = `translateX(${getTransformTranslateX(regFlex) - 500}px)`;
+                        
+                    }
+                }
+                
+                
+                
+            });
+        
+        backBtn.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    const activeWrapper = regFlex.querySelector('.is-active');
+                    index = +activeWrapper.getAttribute('data-form');
+
+                    activeWrapper.classList.remove('is-active');
+                    document.querySelector(`[data-form="${index - 1}"]`).classList.add('is-active');
+                    regFlex.style.transform = `translateX(${getTransformTranslateX(regFlex) + 500}px)`;
+                    checkBackBtn(index-1);
+                    
+                    
+        });
+
+    }
     //burger-menu
-    const inner = document.querySelector('.header__inner'),
+  /*   const inner = document.querySelector('.header__inner'),
     hamburger = document.querySelector('.header__burger'),
     sticks = document.querySelectorAll('.header__stick');
 
@@ -21,7 +106,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 });
             });
         });
-    }
+    } */
 
     //animate on scroll
     if(document.querySelector('.intersective')){
@@ -109,7 +194,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
      //modal
-    const contactButtons = document.querySelectorAll('[data-overlay="modal"]'),
+ /*    const contactButtons = document.querySelectorAll('[data-overlay="modal"]'),
             overlay = document.querySelector('.overlay'),
             closeElement = document.querySelector('.overlay__modal-close');
     
@@ -131,7 +216,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         if(overlay.style.opacity === '1' && e.code == 'Escape'){
            fadeOut(overlay,30);
         }
-     });
+     }); */
      // companies of Russia
      if(document.querySelector('.companies')){
         const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints);
@@ -273,6 +358,8 @@ window.addEventListener('DOMContentLoaded',()=>{
                 detailsHeight =  window.getComputedStyle(details).getPropertyValue('height');
             },10);
             cellsHeightArr[i] = window.getComputedStyle(cell).getPropertyValue('height');
+
+            cell.querySelector('.catalog__shorts').style.height = window.getComputedStyle(cell).getPropertyValue('height');
 
             details.style.left = -left + 'px';
             details.style.width = documentWidth + 'px';
