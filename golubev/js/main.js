@@ -58,61 +58,62 @@ window.addEventListener('DOMContentLoaded',()=>{
               },
         });
     }
-    function initSlider(slider){
+    let advantagesSlider;
+    const advSlider = document.querySelector('.advantages__slider'),
+        advSliderWrapper = document.querySelector('.advantages__slider-wrapper'),
+        advSlides = document.querySelectorAll('.advantages__slide');
+    function initAdvantagesSlider(){
+        if(window.innerWidth <= 1023.98){
+            if(!advantagesSlider){
+                advSlider.classList.add('swiper');
+                advSliderWrapper.classList.add('swiper-wrapper');
+                advSlides.forEach(slide=>{
+                    slide.classList.add('swiper-slide');
+                });
+                advantagesSlider = new Swiper('.advantages__slider', {
+                    grabCursor:true,
+                    speed:500,
+                    spaceBetween:26,
         
-        if(window.innerWidth <= 768){
-            console.log(slider.enabled);
-            if(!slider.enabled){
-                console.log(12);
-                slider.enable();
-                
-                console.log(slider);
+                    breakpoints:{
+                        935.98:{
+                            slidesPerView: '3',
+                        },
+                        767.98:{
+                            slidesPerView: '2.5',
+                        },
+                        320:{
+                            slidesPerView: '1',
+                        }
+                    },
+        
+                    navigation: {
+                        nextEl: '.advantages__arrows .arrows__next',
+                        prevEl: '.advantages__arrows .arrows__prev',
+                    },
             
+                    pagination: {
+                        el: '.advantages__pagination.pagination',
+                        bulletClass: 'pagination__bullet',
+                        bulletActiveClass: 'pagination__bullet--active',
+                        clickable:true,
+                    },
+                });
             }
-        }else if(slider.enabled){
-            slider.disable();
-            console.log(slider);
-        }
+        }else if(advantagesSlider){
+            advSlider.classList.remove('swiper');
+            advSliderWrapper.classList.remove('swiper-wrapper');
+            advSlides.forEach(slide=>{
+                slide.classList.remove('swiper-slide');
+            });
+            advantagesSlider.destroy();
+            advantagesSlider = null;
+        } 
     }
 
     if(document.querySelector('.advantages__slider')){
-        const advantagesSlider = new Swiper('.advantages__slider', {
-            grabCursor:true,
-            speed:500,
-            spaceBetween:26,
-            enabled:false,
-
-            breakpoints:{
-                1023.98:{
-                    slidesPerView: '3',
-                },
-/*                 767.98:{
-                    slidesPerView: '2',
-                }, */
-                320:{
-                    slidesPerView: '1',
-                }
-            },
-
-            navigation: {
-                nextEl: '.advantages__arrows .arrows__next',
-                prevEl: '.advantages__arrows .arrows__prev',
-            },
-    
-            pagination: {
-                el: '.advantages__pagination.pagination',
-                bulletClass: 'pagination__bullet',
-                bulletActiveClass: 'pagination__bullet--active',
-                clickable:true,
-            },
-        });
-        console.log(advantagesSlider.enabled);
-        initSlider(advantagesSlider);
-        
+        initAdvantagesSlider();
+        window.addEventListener('resize',initAdvantagesSlider);
        
     }
-    window.addEventListener('resize',()=>{ 
-        console.log(window.innerWidth);
-        /* initSlider(advantagesSlider); */
-    });
 });
