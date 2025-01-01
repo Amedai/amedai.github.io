@@ -116,4 +116,47 @@ window.addEventListener('DOMContentLoaded',()=>{
         window.addEventListener('resize',initAdvantagesSlider);
        
     }
+
+    // worth section
+    function setBorderBottom(cells,grid,cellLength){
+        if(window.innerWidth > 1250.98){
+            if(grid.getAttribute('data-border-bottom') != 'desktop'){
+                cells.forEach(cell=>{
+                    cell.classList.add('worth__cell--border-bottom');
+                });
+                for(let i = 1; i <= (cellLength-1) % 3 + 1 ;i++){
+                    cells[cellLength - i].classList.remove('worth__cell--border-bottom');
+                }
+                grid.setAttribute('data-border-bottom','desktop');
+            }
+            
+        }else if(window.innerWidth > 767.98){
+            if(grid.getAttribute('data-border-bottom') != 'tablet'){
+                cells.forEach(cell=>{
+                    cell.classList.add('worth__cell--border-bottom');
+                });
+                for(let i = 1; i <= (cellLength-1) % 2 + 1 ;i++){
+                    cells[cellLength - i].classList.remove('worth__cell--border-bottom');
+                }
+                grid.setAttribute('data-border-bottom','tablet');
+            }
+            
+        }
+        
+    }
+
+    if(document.querySelector('.worth__cell')){
+        const worthGrid = document.querySelector('.worth__grid'),
+            worthCells = document.querySelectorAll('.worth__cell'),
+            worthCellsLength = worthCells.length;
+
+
+        setBorderBottom(worthCells,worthGrid,worthCellsLength);
+
+        window.addEventListener('resize',()=>{
+            setBorderBottom(worthCells,worthGrid,worthCellsLength);
+        });
+        
+       
+    }
 });
