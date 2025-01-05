@@ -1508,6 +1508,9 @@ main {
   .connection__insert:has(img) {
     max-height: 500px;
   }
+  .connection__insert:has(iframe) {
+    min-height: 300px;
+  }
 }
 .connection__btn {
   margin-top: 24px;
@@ -1790,7 +1793,7 @@ main {
      object-fit: cover;
 }
 .info__block--img--border {
-  border: 1px solid var(--color-brown);
+  border: 1px solid var(--color-brown-dark);
 }
 .info__block--img--sm {
   height: clamp(300px, 225.8064516129px + 23.185483871vw, 530px);
@@ -2017,7 +2020,7 @@ main {
   justify-content: space-between;
 }
 .events__slide img {
-  border: 1px solid var(--color-brown);
+  border: 1px solid var(--color-brown-dark);
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
