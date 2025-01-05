@@ -87,12 +87,11 @@
 
 /**
   Убираем внутренние отступы слева тегам списков,
-  у которых есть атрибут class
+  у которых есть атрибут class.Убрал так как не на всех браузерах работает
  */
-:where(ul, ol):where([class]) {
-  padding-left: 0;
-}
-
+/*  :where(ul, ol):where([class]) {
+   padding-left: 0;
+ } */
 /**
   Убираем внешние отступы body и двум другим тегам,
   у которых есть атрибут class
@@ -131,12 +130,11 @@ dl):where([class]) {
 
 /**
   Убираем стандартный маркер маркированному списку,
-  у которого есть атрибут class
+  у которого есть атрибут class.Пока убрал так как не рабоает в мобильном яндексе
  */
-:where(ul[class]) {
+/* :where(ul[class]) {
   list-style: none;
-}
-
+} */
 :where(address[class]) {
   font-style: normal;
 }
@@ -1033,6 +1031,11 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
 main {
   flex-grow: 1;
 }
@@ -1317,12 +1320,17 @@ main {
 }
 @media (max-width: 767.98px) {
   .footer__social-menu {
+    width: 100%;
     justify-content: space-between;
     margin: 60px 0;
   }
 }
 .footer__social-item {
   height: 30px;
+}
+.footer__social-item img {
+  width: 100%;
+  height: 100%;
 }
 .footer__social-item:nth-child(1) {
   aspect-ratio: 35/34;
@@ -1484,8 +1492,6 @@ main {
   border: none;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
   display: block;
 }
 .connection__insert:has(img) {
@@ -1689,7 +1695,10 @@ main {
 }
 .promo__slider {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   z-index: 1;
 }
 .promo__slider-slide img {
@@ -1826,8 +1835,6 @@ main {
   border: none;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
   display: block;
 }
 .info__text-block--gap-none {
@@ -1867,6 +1874,9 @@ main {
   .info__text-block:has(iframe) {
     flex-basis: 300px;
     height: 300px;
+  }
+  .info__text-block iframe {
+    min-height: 300px;
   }
 }
 .info__title {
