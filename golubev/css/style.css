@@ -1150,16 +1150,18 @@ main {
     overflow-y: auto;
     background-color: var(--color-black);
     position: fixed;
-    inset: 0;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 55px;
     padding: 70px 0;
-    transform: translateX(100%);
-    transition: transform 0.5s;
+    transition: right 0.5s;
   }
   .header__inner--active {
-    transform: translateX(0);
+    right: 0;
   }
 }
 .header__logo {
@@ -1509,7 +1511,7 @@ main {
     max-height: 500px;
   }
   .connection__insert:has(iframe) {
-    min-height: 300px;
+    height: 300px;
   }
 }
 .connection__btn {
