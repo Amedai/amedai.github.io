@@ -1720,8 +1720,8 @@ main {
   gap: 5px;
 }
 .pagination__bullet {
-  width: 10px;
-  height: 10px;
+  width: 17px;
+  height: 17px;
   border-radius: 100%;
   background-color: var(--color-grey);
   opacity: 0.6;
