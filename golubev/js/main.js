@@ -37,6 +37,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             autoplay: {
                 delay: 5000,
             },
+            lazy: true,
             speed:1000,
             loop: true,
             allowTouchMove:false,
