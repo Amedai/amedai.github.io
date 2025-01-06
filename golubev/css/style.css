@@ -1088,7 +1088,17 @@ main {
 }
 
 .hidden {
-  display: none !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+  z-index: -1000 !important; /* добавли от себя */
 }
 
 @media (width > 935.98px) {
