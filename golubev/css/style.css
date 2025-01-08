@@ -1730,8 +1730,8 @@ main {
   gap: 5px;
 }
 .pagination__bullet {
-  width: 17px;
-  height: 17px;
+  width: 12px;
+  height: 12px;
   border-radius: 100%;
   background-color: var(--color-grey);
   opacity: 0.6;
@@ -2207,11 +2207,12 @@ main {
   margin-top: clamp(30px, 17.0967741935px + 4.0322580645vw, 70px);
 }
 .partners__list-item {
+  overflow: hidden;
+  border-radius: 7px;
   max-width: 400px;
   height: clamp(25px, 7.9032258065px + 5.3427419355vw, 78px);
 }
 .partners__list-item img {
-  border-radius: 5px;
   height: 100%;
   width: auto;
   -o-object-fit: cover;
