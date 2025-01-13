@@ -1,1 +1,293 @@
-"use strict";window.addEventListener("DOMContentLoaded",(()=>{const e=document.querySelector(".header__inner"),t=document.querySelector(".header__burger");if(t.addEventListener("click",(()=>{e.classList.toggle("header__inner--active"),t.classList.toggle("header__burger--active")})),document.querySelector(".scroll-animate")){const e=new IntersectionObserver(((e,t)=>{e.forEach((e=>{e.isIntersecting&&(e.target.classList.add("scroll-animate--active"),t.unobserve(e.target))}))}),{threshold:.3});document.querySelectorAll(".scroll-animate").forEach((t=>{e.observe(t)}))}if(document.querySelector(".promo__slider")&&new Swiper(".promo__slider",{autoplay:{delay:5e3},lazy:!0,speed:1e3,loop:!0,allowTouchMove:!1,pagination:{el:".promo__pagination.pagination",bulletClass:"pagination__bullet",bulletActiveClass:"pagination__bullet--active",clickable:!0}}),document.querySelector("[data-menu-name]")){document.querySelectorAll("[data-menu-name]").forEach((e=>{e.addEventListener("click",(()=>{localStorage.setItem("menu-name",e.getAttribute("data-menu-name"))}))}))}if(document.querySelector(".info__tab-slider")){const e=new Swiper(".info__tab-slider",{speed:700,slidesPerView:1,allowTouchMove:!1,pagination:{el:".info__pagination",bulletClass:"info__pagination-bullet active-scale hover-underline",bulletActiveClass:"info__pagination-bullet--active",clickable:!0}}),t=document.querySelectorAll(".info__menu-tab-btn"),a=document.querySelectorAll(".info__pagination-bullet");a.forEach(((e,a)=>{e.textContent=t[a].textContent})),localStorage.getItem("menu-name")?a.forEach(((t,a)=>{t.textContent===localStorage.getItem("menu-name")&&e.slideTo(a)})):e.slideTo(0)}let a;document.querySelector(".vacancy__slider")&&new Swiper(".vacancy__slider",{speed:500,slidesPerView:1,navigation:{nextEl:".vacancy__arrows .arrows__next",prevEl:".vacancy__arrows .arrows__prev"},pagination:{el:".vacancy__pagination.pagination",bulletClass:"pagination__bullet",bulletActiveClass:"pagination__bullet--active",clickable:!0}}),document.querySelector(".last-events__slider")&&new Swiper(".last-events__slider",{speed:500,slidesPerView:1,navigation:{nextEl:".last-events__arrows .arrows__next",prevEl:".last-events__arrows .arrows__prev"}}),document.querySelector('[data-slider="events"]')&&new Swiper('[data-slider="events"]',{grabCursor:!0,speed:500,spaceBetween:26,breakpoints:{1400.98:{slidesPerView:"2.5"},767.98:{slidesPerView:"2"},320:{slidesPerView:"1"}},navigation:{nextEl:".events__arrows .arrows__next",prevEl:".events__arrows .arrows__prev"},pagination:{el:".events__pagination.pagination",bulletClass:"pagination__bullet",bulletActiveClass:"pagination__bullet--active",clickable:!0}}),document.querySelector('[data-slider="menu"]')&&new Swiper('[data-slider="menu"]',{grabCursor:!0,speed:500,spaceBetween:26,breakpoints:{1400.98:{slidesPerView:"2.5"},935.98:{slidesPerView:"3"},767.98:{slidesPerView:"2.3"},320:{slidesPerView:"1"}},navigation:{nextEl:".events__arrows .arrows__next",prevEl:".events__arrows .arrows__prev"},pagination:{el:".events__pagination.pagination",bulletClass:"pagination__bullet",bulletActiveClass:"pagination__bullet--active",clickable:!0}});const r=document.querySelector(".advantages__slider"),l=document.querySelector(".advantages__slider-wrapper"),i=document.querySelectorAll(".advantages__slide");function n(){window.innerWidth<=1023.98?a||(r.classList.add("swiper"),l.classList.add("swiper-wrapper"),i.forEach((e=>{e.classList.add("swiper-slide")})),a=new Swiper(".advantages__slider",{grabCursor:!0,speed:500,spaceBetween:26,breakpoints:{935.98:{slidesPerView:"3"},767.98:{slidesPerView:"2.5"},320:{slidesPerView:"1"}},navigation:{nextEl:".advantages__arrows .arrows__next",prevEl:".advantages__arrows .arrows__prev"},pagination:{el:".advantages__pagination.pagination",bulletClass:"pagination__bullet",bulletActiveClass:"pagination__bullet--active",clickable:!0}})):a&&(r.classList.remove("swiper"),l.classList.remove("swiper-wrapper"),i.forEach((e=>{e.classList.remove("swiper-slide")})),a.destroy(),a=null)}function o(e,t,a){if(window.innerWidth>1250.98){if("desktop"!=t.getAttribute("data-border-bottom")){e.forEach((e=>{e.classList.add("worth__cell--border-bottom")}));for(let t=1;t<=(a-1)%3+1;t++)e[a-t].classList.remove("worth__cell--border-bottom");t.setAttribute("data-border-bottom","desktop")}}else if(window.innerWidth>767.98&&"tablet"!=t.getAttribute("data-border-bottom")){e.forEach((e=>{e.classList.add("worth__cell--border-bottom")}));for(let t=1;t<=(a-1)%2+1;t++)e[a-t].classList.remove("worth__cell--border-bottom");t.setAttribute("data-border-bottom","tablet")}}if(document.querySelector(".advantages__slider")&&(n(),window.addEventListener("resize",n)),document.querySelector(".worth__cell")){const e=document.querySelector(".worth__grid"),t=document.querySelectorAll(".worth__cell"),a=t.length;o(t,e,a),window.addEventListener("resize",(()=>{o(t,e,a)}))}}));
+'use strict';
+window.addEventListener('DOMContentLoaded',()=>{
+    //mob menu
+    const inner = document.querySelector('.header__inner'),
+        burger = document.querySelector('.header__burger');
+    
+    burger.addEventListener('click',()=>{
+        inner.classList.toggle('header__inner--active');
+        burger.classList.toggle('header__burger--active');
+    });
+
+    //scroll animate
+    if(document.querySelector('.scroll-animate')){
+        const scrollAnimating = (entries,observer)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    entry.target.classList.add('scroll-animate--active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const scrollInersectObserver = new IntersectionObserver(scrollAnimating,{threshold:0.3});
+
+        const scrollAnimateItems = document.querySelectorAll('.scroll-animate');
+        scrollAnimateItems.forEach(item=>{
+            scrollInersectObserver.observe(item);
+        });
+    }
+    
+
+
+
+    //sliders
+    if(document.querySelector('.promo__slider')){
+        new Swiper('.promo__slider', {
+            autoplay: {
+                delay: 5000,
+            },
+            lazy: true,
+            speed:1000,
+            loop: true,
+            allowTouchMove:false,
+    
+            pagination: {
+                el: '.promo__pagination.pagination',
+                bulletClass: 'pagination__bullet',
+                bulletActiveClass: 'pagination__bullet--active',
+                clickable:true,
+              },
+        });
+    }
+
+    if(document.querySelector('[data-menu-name]')){
+        const detailsBtns = document.querySelectorAll('[data-menu-name]');
+
+        detailsBtns.forEach(btn=>{
+            btn.addEventListener('click',()=>{
+               localStorage.setItem('menu-name',btn.getAttribute('data-menu-name'));
+            });
+        });
+    }
+
+    if(document.querySelector('.info__tab-slider')){
+        const tabMenuSlider = new Swiper('.info__tab-slider', {
+            speed:700,
+            slidesPerView:1,
+            allowTouchMove:false,
+
+            pagination: {
+                el: '.info__pagination',
+                bulletClass: 'info__pagination-bullet active-scale hover-underline',
+                bulletActiveClass: 'info__pagination-bullet--active',
+                clickable:true,
+            },
+        });
+        const tabs = document.querySelectorAll('.info__menu-tab-btn'),
+         bullets = document.querySelectorAll('.info__pagination-bullet');
+
+         bullets.forEach((bullet,i)=>{
+            bullet.textContent = tabs[i].textContent ;
+         });
+
+     
+        if(localStorage.getItem('menu-name')){
+            bullets.forEach((bullet,i)=>{
+                if(bullet.textContent === localStorage.getItem('menu-name')){
+                    tabMenuSlider.slideTo(i);
+                }
+            });
+        }else{
+            tabMenuSlider.slideTo(0);
+        }
+    }
+
+    if(document.querySelector('.vacancy__slider')){
+        new Swiper('.vacancy__slider', {
+            speed:500,
+            slidesPerView:1,
+
+            navigation: {
+                nextEl: '.vacancy__arrows .arrows__next',
+                prevEl: '.vacancy__arrows .arrows__prev',
+            },
+    
+            pagination: {
+                el: '.vacancy__pagination.pagination',
+                bulletClass: 'pagination__bullet',
+                bulletActiveClass: 'pagination__bullet--active',
+                clickable:true,
+            },
+        });
+    }
+    if(document.querySelector('.last-events__slider')){
+        new Swiper('.last-events__slider', {
+            speed:500,
+            slidesPerView:1,
+
+            navigation: {
+                nextEl: '.last-events__arrows .arrows__next',
+                prevEl: '.last-events__arrows .arrows__prev',
+            },
+        });
+    }
+
+    if(document.querySelector('[data-slider="events"]')){
+        new Swiper('[data-slider="events"]', {
+            grabCursor:true,
+            speed:500,
+            spaceBetween:26,
+
+            breakpoints:{
+                1400.98:{
+                    slidesPerView: '2.5',
+                },
+                767.98:{
+                    slidesPerView: '2',
+                },
+                320:{
+                    slidesPerView: '1',
+                }
+            },
+
+            navigation: {
+                nextEl: '.events__arrows .arrows__next',
+                prevEl: '.events__arrows .arrows__prev',
+            },
+    
+            pagination: {
+                el: '.events__pagination.pagination',
+                bulletClass: 'pagination__bullet',
+                bulletActiveClass: 'pagination__bullet--active',
+                clickable:true,
+              },
+        });
+    }
+
+    if(document.querySelector('[data-slider="menu"]')){
+        new Swiper('[data-slider="menu"]', {
+            grabCursor:true,
+            speed:500,
+            spaceBetween:26,
+
+            breakpoints:{
+                1400.98:{
+                    slidesPerView: '2.5',
+                },
+                935.98:{
+                    slidesPerView: '3',
+                },
+                767.98:{
+                    slidesPerView: '2.3',
+                },
+                320:{
+                    slidesPerView: '1',
+                }
+            },
+
+            navigation: {
+                nextEl: '.events__arrows .arrows__next',
+                prevEl: '.events__arrows .arrows__prev',
+            },
+    
+            pagination: {
+                el: '.events__pagination.pagination',
+                bulletClass: 'pagination__bullet',
+                bulletActiveClass: 'pagination__bullet--active',
+                clickable:true,
+              },
+        });
+    }
+
+    let advantagesSlider;
+    const advSlider = document.querySelector('.advantages__slider'),
+        advSliderWrapper = document.querySelector('.advantages__slider-wrapper'),
+        advSlides = document.querySelectorAll('.advantages__slide');
+    function initAdvantagesSlider(){
+        if(window.innerWidth <= 1023.98){
+            if(!advantagesSlider){
+                advSlider.classList.add('swiper');
+                advSliderWrapper.classList.add('swiper-wrapper');
+                advSlides.forEach(slide=>{
+                    slide.classList.add('swiper-slide');
+                });
+                advantagesSlider = new Swiper('.advantages__slider', {
+                    grabCursor:true,
+                    speed:500,
+                    spaceBetween:26,
+        
+                    breakpoints:{
+                        935.98:{
+                            slidesPerView: '3',
+                        },
+                        767.98:{
+                            slidesPerView: '2.5',
+                        },
+                        320:{
+                            slidesPerView: '1',
+                        }
+                    },
+        
+                    navigation: {
+                        nextEl: '.advantages__arrows .arrows__next',
+                        prevEl: '.advantages__arrows .arrows__prev',
+                    },
+            
+                    pagination: {
+                        el: '.advantages__pagination.pagination',
+                        bulletClass: 'pagination__bullet',
+                        bulletActiveClass: 'pagination__bullet--active',
+                        clickable:true,
+                    },
+                });
+            }
+        }else if(advantagesSlider){
+            advSlider.classList.remove('swiper');
+            advSliderWrapper.classList.remove('swiper-wrapper');
+            advSlides.forEach(slide=>{
+                slide.classList.remove('swiper-slide');
+            });
+            advantagesSlider.destroy();
+            advantagesSlider = null;
+        } 
+    }
+
+    if(document.querySelector('.advantages__slider')){
+        initAdvantagesSlider();
+        window.addEventListener('resize',initAdvantagesSlider);
+       
+    }
+
+    // worth section
+    function setBorderBottom(cells,grid,cellLength){
+        if(window.innerWidth > 1250.98){
+            if(grid.getAttribute('data-border-bottom') != 'desktop'){
+                cells.forEach(cell=>{
+                    cell.classList.add('worth__cell--border-bottom');
+                });
+                for(let i = 1; i <= (cellLength-1) % 3 + 1 ;i++){
+                    cells[cellLength - i].classList.remove('worth__cell--border-bottom');
+                }
+                grid.setAttribute('data-border-bottom','desktop');
+            }
+            
+        }else if(window.innerWidth > 767.98){
+            if(grid.getAttribute('data-border-bottom') != 'tablet'){
+                cells.forEach(cell=>{
+                    cell.classList.add('worth__cell--border-bottom');
+                });
+                for(let i = 1; i <= (cellLength-1) % 2 + 1 ;i++){
+                    cells[cellLength - i].classList.remove('worth__cell--border-bottom');
+                }
+                grid.setAttribute('data-border-bottom','tablet');
+            }
+            
+        }
+        
+    }
+
+    if(document.querySelector('.worth__cell')){
+        const worthGrid = document.querySelector('.worth__grid'),
+            worthCells = document.querySelectorAll('.worth__cell'),
+            worthCellsLength = worthCells.length;
+
+
+        setBorderBottom(worthCells,worthGrid,worthCellsLength);
+
+        window.addEventListener('resize',()=>{
+            setBorderBottom(worthCells,worthGrid,worthCellsLength);
+        });
+    }
+
+});
