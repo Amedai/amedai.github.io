@@ -1308,6 +1308,19 @@ main {
   transform: translateY(-6px) rotate(45deg);
 }
 
+.breadcrumbs {
+  padding: clamp(30px, 23.5483870968px + 2.0161290323vw, 50px) 0 clamp(10px, 3.5483870968px + 2.0161290323vw, 30px) 0;
+  font-size: clamp(14px, 13.3548387097px + 0.2016129032vw, 16px);
+  display: flex;
+  gap: 8px;
+}
+.breadcrumbs a.home {
+  opacity: 0.6;
+}
+.breadcrumbs span.current-item {
+  text-decoration: underline;
+}
+
 .footer {
   padding: var(--section-distane) 0;
   background-color: var(--color-brown);
@@ -2330,7 +2343,6 @@ main {
 }
 .services__cell {
   border: 1px solid var(--color-brown-dark);
-  background-image: url("../images/main/service1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -2356,7 +2368,7 @@ main {
 @media (max-width: 767.98px) {
   .services__cell {
     border: none;
-    background-image: none;
+    background-image: none !important;
     padding: 0;
   }
   .services__cell:before {
