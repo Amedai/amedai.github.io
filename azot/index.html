@@ -6,6 +6,9 @@
     <title>Azot</title>
 
     <link rel="stylesheet" href="./css/style.min.css">
+
+    <link rel="preload" as="image" href="./images/promo-bg.jpg" media="(min-width:1024.98px)">
+    <link rel="preload" as="image" href="./images/promo-bg-mob.jpg" media="(max-width:1023.98px)">
 </head>
 <body>
     <header class="header">
@@ -15,12 +18,20 @@
                     <img src="./images/icons/logo.svg" alt="" width="90" height="36">
                 </a>
                 <div class="header__inner">
-                    <a href="index.html" class="header__logo">
+                    <a href="index.html" class="header__logo header__logo--tablet-none">
                         <img src="./images/icons/logo.svg" alt="" width="90" height="36">
                     </a>
+                    <div class="header__mob-menu-block tablet-visible">
+                        <a href="index.html" class="header__logo">
+                            <img src="./images/icons/logo-mob.svg" alt="" width="90" height="36">
+                        </a>
+                        <div class="header__inner-close header__inner-close--mobile-none">
+                            <img src="./images/icons/close.svg" alt="">
+                        </div>
+                    </div>
                     <nav class="header__menu">
                         <ul class="header__menu-list">
-                            <li class="header__menu-item">
+                            <li class="header__menu-item header__menu-item--bold">
                                 <a href="#goals" class="header__menu-link">Цели проекта</a>
                             </li>
                             <li class="header__menu-item">
@@ -34,7 +45,21 @@
                             </li>
                         </ul>
                     </nav>
-                    <a href="tel:+79999999999" class="header__tel hover-underline">+7 (999) 999-99-99</a>
+                    <ul class="header__contacts-list tablet-visible">
+                        <li class="header__contacts-list-item">
+                            <a href="tel:+73842771772" class="header__contacts-list-link hover-underline">+7 (3842) 77-17-72</a>
+                        </li>
+                        <li class="header__contacts-list-item">
+                            <a href="tel:+73842450777" class="header__contacts-list-link hover-underline">+7 (3842) 45-07-77</a>
+                        </li>
+                        <li class="header__contacts-list-item">
+                            <a href="mailto:adm@gk-azot.ru" class="header__contacts-list-link hover-underline">adm@gk-azot.ru</a>
+                        </li>
+                    </ul>
+                    <div class="header__inner-close mobile-visible">
+                        <img src="./images/icons/close.svg" alt="">
+                    </div>
+                    <a href="tel:+79999999999" class="header__tel header__tel--tablet-none hover-underline">+7 (999) 999-99-99</a>
                 </div>
                 <a href="tel:+79999999999" class="header__tel tablet-visible">+7 (999) 999-99-99</a>
                 <button class="header__burger tablet-visible" type="button" title="Открыть меню" aria-label="Открыть меню">
@@ -49,7 +74,7 @@
     <main class="main">
         <section class="promo">
             <div class="container container--header">
-                <div class="promo__title-block">
+                <div class="promo__title-block scroll-animate">
                     <h1 class="promo__title">
                         <span class="promo__title-top">КОД</span>
                         <span class="promo__title-bottom">РОСТА</span>
@@ -61,7 +86,7 @@
                 </div>
                 <div class="promo__info">
                     <div class="promo__order-block">
-                        <a href="order" class="order-btn active-scale">подать заявку</a>
+                        <a href="#order" class="order-btn active-scale hover-green">подать заявку</a>
                         <span class="promo__data">май-декабрь 2025</span>
                     </div>
                     <h2 class="promo__info-text">#ВНЕСИ ВЕСОМЫЙ ВКЛАД<br>В ЦИФРОВОЕ РАЗВИТИЕ КОМПАНИИ</h2>
@@ -73,9 +98,9 @@
                 <img src="./images/goals-bg.svg" alt="">
             </div>
             <div class="container">
-                <h2 class="goals__title">цели проекта</h2>
-                <h3 class="goals__subtitle">Раскрой свой потенциал в области приоритетных направлений развития технологий и техники</h3>
-                <ul class="goals__benefits-list">
+                <h2 class="goals__title scroll-animate">цели проекта</h2>
+                <h3 class="goals__subtitle scroll-animate">Раскрой свой потенциал в области приоритетных направлений развития технологий и техники</h3>
+                <ul class="goals__benefits-list scroll-animate">
                     <li class="goals__benefits-items">
                         <div class="goals__benefits-img">
                             <img src="./images/icons/work.svg" alt="" width="23" height="23" loading="lazy">
@@ -121,9 +146,9 @@
         </section>
         <section class="stages" id="stages">
             <div class="container">
-                 <h2 class="stages__title">этапы конкурса</h2>
+                 <h2 class="stages__title scroll-animate">этапы конкурса</h2>
                 <div class="stages__grid">
-                    <div class="stages__cell">
+                    <div class="stages__cell scroll-animate">
                         <h3 class="stages__cell-title">Сбор потребностей и проблем</h3>
                         <div class="stages__cell-text-block">
                             <p class="stages__cell-text">требующих автоматизации и решения с применением IT-технологий</p>
@@ -132,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="stages__cell">
+                    <div class="stages__cell scroll-animate">
                         <h3 class="stages__cell-title">Подача заявок</h3>
                         <div class="stages__cell-text-block">
                             <p class="stages__cell-text">подготовка идеи проекта и подача заявки на участие</p>
@@ -141,7 +166,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="stages__cell">
+                    <div class="stages__cell scroll-animate">
                         <h3 class="stages__cell-title">Практико-ориентированная программа обучения</h3>
                         <div class="stages__cell-text-block">
                             <p class="stages__cell-text"></p>
@@ -150,7 +175,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="stages__cell">
+                    <div class="stages__cell scroll-animate">
                         <h3 class="stages__cell-title">Хакатон на одном из предприятий</h3>
                         <div class="stages__cell-text-block">
                             <p class="stages__cell-text"></p>
@@ -159,7 +184,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="stages__cell">
+                    <div class="stages__cell scroll-animate">
                         <h3 class="stages__cell-title">Защита идей и реализация проектов</h3>
                         <div class="stages__cell-text-block">
                             <p class="stages__cell-text"></p>
@@ -168,7 +193,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="stages__cell">
+                    <div class="stages__cell scroll-animate">
                         <h3 class="stages__cell-title">Подведение итогов и награждение победителей</h3>
                         <div class="stages__cell-text-block">
                             <p class="stages__cell-text"></p>
@@ -178,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper stages__slider mobile-visible">
+                <div class="swiper stages__slider mobile-visible scroll-animate">
                     <div class="swiper-wrapper stages__slider-wrapper">
                         <div class="swiper-slide stages__slide">
                             <div class="stages__cell">
@@ -257,7 +282,7 @@
             </div>
         </section>
         <section class="about">
-                <div class="swiper about__slider">
+                <div class="swiper about__slider scroll-animate">
                     <div class="swiper-wrapper about__slider-wrapper">
                         <div class="swiper-slide about__slide">
                            <div class="about__slide-info">
@@ -339,24 +364,21 @@
                     </div>
                     <div class="about__order-block">
                         <div class="about__order-wrapper">
-                            <p class="about__order-text">Первый шаг к повышению эффективности бизнес-процессов</p>
-                            <a href="order" class="order-btn about__order-btn active-scale">подать заявку</a>
+                            <p class="about__order-text scroll-animate">Первый шаг к повышению эффективности бизнес-процессов</p>
+                            <a href="#order" class="order-btn about__order-btn active-scale hover-green">подать заявку</a>
                         </div>
                     </div>
                 </div>
         </section>
         <section class="results" id="results">
-            <div class="results__pattern">
-                <img src="./images/results-pattern.svg" alt="">
-            </div>
             <div class="container">
                 <div class="results__wrapper">
-                    <div class="results__title-block">
+                    <div class="results__title-block scroll-animate">
                         <h2 class="results__title">подведение итогов</h2>
                         <h3 class="results__subtitle">Призовой фонд</h3>
                     </div>
                     <div class="results__flex-outer">
-                        <div class="results__cell results__cell--green">
+                        <div class="results__cell results__cell--green hover-green scroll-animate">
                             <h4 class="results__cell-title">Победителям</h4>
                             <ul class="results__cell-list">
                                 <li class="results__cell-item">Крупные денежные призы</li>
@@ -369,7 +391,7 @@
                             </div>
                         </div>
                         <div class="results__flex-inner">
-                            <div class="results__cell">
+                            <div class="results__cell scroll-animate">
                                 <h4 class="results__cell-title">Для всех</h4>
                                 <ul class="results__cell-list">
                                     <li class="results__cell-item">Хакатон</li>
@@ -380,7 +402,7 @@
                                 <img src="./images/icons/arrow-green.svg" alt="">
                                 </div>
                             </div>
-                            <div class="results__cell">
+                            <div class="results__cell scroll-animate">
                                 <h4 class="results__cell-title">Директорам и предприятиям</h4>
                                 <ul class="results__cell-list">
                                     <li class="results__cell-item">Специальные призы директорам победителей</li>
@@ -397,8 +419,8 @@
         </section>
         <section class="test">
             <div class="container">
-                <h2 class="test__title">критерии оценки проектов</h2>
-                <ul class="test__list">
+                <h2 class="test__title scroll-animate">критерии оценки проектов</h2>
+                <ul class="test__list scroll-animate">
                     <li class="test__list-item">
                         <div class="test__list-img">
                             <img src="./images/icons/white-work.svg" alt="" width="36" height="36" loading="lazy">
@@ -461,7 +483,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="swiper test__slider mobile-visible">
+            <div class="swiper test__slider mobile-visible scroll-animate">
                 <div class="swiper-wrapper test__slider-wrapper">
                     <div class="swiper-slide test__slide">
                         <div class="test__list-item">
@@ -544,7 +566,7 @@
         </section>
         <section class="awards" id="awards">
             <div class="container">
-                <div class="awards__flex">
+                <div class="awards__flex scroll-animate">
                     <div class="awards__block">
                         <h2 class="awards__title">индивидуальные<br>номинации</h2>
                         <h3 class="awards__subtitle">треки</h3>
@@ -574,11 +596,11 @@
             <div class="container">
                 <div class="order__wrapper">
                     <div class="order__left">
-                        <div class="order__title-block">
+                        <div class="order__title-block scroll-animate">
                             <h2 class="order__title">подача заявки</h2>
                             <h3 class="order__subtitle">Открой двери в мир IT вместе с <mark>AZOT group</mark></h3>
                         </div>
-                        <div class="order__contacts">
+                        <div class="order__contacts scroll-animate">
                             <h4 class="order__contacts-title">контакты для связи</h4>
                             <div class="order__contacts-list">
                                 <div class="order__contacts-item">
@@ -596,15 +618,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="order__form">
+                    <div class="order__form scroll-animate">
                         <form action="">
                             <input type="text" class="order__input" id="feedteam" name="feedteam" placeholder="Название команды" required>
                             <input type="text" class="order__input" id="feedproject" name="feedproject" placeholder="Название проекта" required>
-                            <textarea name="feedarea" id="feedarea" class="order__input order__input--area" placeholder="Прикрепить файл" required></textarea>
-                            <button class="order__btn active-scale">подать заявку</button>
+                            <input class="order__upload-real hidden" type="file" name="feedfile" id="feedfile">
+                            <label for="feedfile" class="order__upload-custom active-scale hover-green">
+                                <span>Прикрепить файл</span>    
+                            </label>
+                            <div class="order__check-block">
+                                <input class="order__check" id="feedcheck" name="feedcheck" type="checkbox" required>
+                                <label class="order__check-label" for="feedcheck">Я принимаю условия <a href="https://gk-azot.ru/personal-data-processing-policy" class="order__check-link hover-underline">пользовательского соглашения</a> и даю согласие на обработку персональных данных</label>
+                            </div>
+                            <button class="order__btn active-scale hover-green">подать заявку</button>
                         </form>
                     </div>
-                    <div class="order__contacts order__contacts--mob-visible">
+                    <div class="order__contacts order__contacts--mob-visible scroll-animate">
                         <h4 class="order__contacts-title">контакты для связи</h4>
                         <div class="order__contacts-list">
                             <div class="order__contacts-item">
@@ -646,7 +675,7 @@
                             <a href="mailto:adm@gk-azot.ru" class="footer__contacts-link hover-underline">adm@gk-azot.ru</a>
                         </li>
                     </ul>
-                    <a href="https://gk-azot.ru/personal-data-processing-policy" class="footer__policy hover-underline">Политика обработки персональных данных</a>
+                    <a href="https://gk-azot.ru/personal-data-processing-policy" class="footer__policy hover-underline" target="_blank">Политика обработки персональных данных</a>
                 </div>
             </div>
         </div>

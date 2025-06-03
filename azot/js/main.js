@@ -1,14 +1,39 @@
 'use strict';
 
 window.addEventListener('DOMContentLoaded',()=>{
-      //mob menu
+    //mob menu
     const inner = document.querySelector('.header__inner'),
-        burger = document.querySelector('.header__burger');
+        burger = document.querySelector('.header__burger'),
+        closeElems = document.querySelectorAll('.header__inner-close');
     
     burger.addEventListener('click',()=>{
         inner.classList.toggle('header__inner--active');
-        burger.classList.toggle('header__burger--active');
     });
+
+    closeElems.forEach(el=>{
+        el.addEventListener('click',()=>{
+            inner.classList.toggle('header__inner--active');
+        });
+    });
+
+    //scroll animate
+    if(document.querySelector('.scroll-animate')){
+        const scrollAnimating = (entries,observer)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    entry.target.classList.add('scroll-animate--active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const scrollInersectObserver = new IntersectionObserver(scrollAnimating,{threshold:0.3});
+
+        const scrollAnimateItems = document.querySelectorAll('.scroll-animate');
+        scrollAnimateItems.forEach(item=>{
+            scrollInersectObserver.observe(item);
+        });
+    }
 
     //slider
     if(document.querySelector('.stages__slider')){
