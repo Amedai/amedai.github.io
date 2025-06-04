@@ -16,6 +16,14 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
     });
 
+    const menuMobileLinks = document.querySelectorAll('[data-link-action]');
+
+    menuMobileLinks.forEach(link=>{
+        link.addEventListener('click',()=>{
+            inner.classList.toggle('header__inner--active');
+        });
+    });
+
     //scroll animate
     if(document.querySelector('.scroll-animate')){
         const scrollAnimating = (entries,observer)=>{
