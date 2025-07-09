@@ -2707,3 +2707,25 @@ main {
   -webkit-text-decoration-skip-ink: none;
           text-decoration-skip-ink: none;
 }
+
+.error {
+  padding: var(--section-distane) 50px;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+}
+.error__link-main {
+  font-size: 90px;
+  font-weight: 500;
+  color: var(--color-white);
+}
+@media (max-width: 1023.98px) {
+  .error__link-main {
+    font-size: 60px;
+  }
+}
+@media (max-width: 767.98px) {
+  .error__link-main {
+    font-size: 25px;
+  }
+}
