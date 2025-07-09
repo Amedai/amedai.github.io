@@ -5,8 +5,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
         const point = block.querySelector('.roadmap-stage__point');
         const modal = block.querySelector('.roadmap-stage__modal');
         const closeEl = block.querySelector('.roadmap-stage__modal-close');
+        const title = block.querySelector('.roadmap-stage__modal-title');
 
         point.addEventListener('click', ()=>{
+            title.textContent = point.textContent;
             modal.style.display = 'block';
         });
 
