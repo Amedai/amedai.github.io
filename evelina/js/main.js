@@ -81,14 +81,14 @@ window.addEventListener('DOMContentLoaded',()=>{
         const nav = getNavigationHistory();
 
         if(nav.referrer.includes('index')){
-            mainBack.addEventListener('click',()=>{
-                e.preventDefault(e);
+            mainBack.addEventListener('click',(e)=>{
+                e.preventDefault();
                 history.go(-1);
             });
         }
         if(nav.referrer.includes('work-more') && curentPath.includes('about') && nav.historyLength > 2){
-            mainBack.addEventListener('click',()=>{
-                e.preventDefault(e);
+            mainBack.addEventListener('click',(e)=>{
+                e.preventDefault();
                 history.go(-2);
             });            
         }
