@@ -27,14 +27,14 @@
             <div class="container">
                 <div class="header__inner">
                     <nav class="header__menu">
-                        <ul class="header__menu-list">
-                            <li class="header__menu-item hover-pink">
-                                <h1 class="header__title"><a href="index.html" class="header__item-link">Evelina Babaeva</a></h1>
-                            </li>
-                            <li class="header__menu-item hover-pink">
-                                <p class="header__text"><a href="about.html" class="header__item-link">About</a></p>
-                            </li>
-                        </ul>
+                        <a href="index.html" class="header__logo hover-underline" data-name="main">evelina babaeva</a>
+                        <div class="header__links">
+                            <a href="about.html" class="header__link hover-underline">about</a>
+                            <div class="header__deliver"></div>
+                            <a href="mailto:hello@evelinababaeva.com" class="header__link header__link-hover"></a>
+                            <div class="header__deliver"></div>
+                            <a href="" class="header__link hover-underline">shop</a>
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -42,335 +42,117 @@
         <main class="main">
             <div class="portfolio">
                 <div class="container">
-                    <div class="portfolio__list">
-                        <div class="portfolio__column">
-                            <a href="portfolio-pattern1.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/01_variant-1_market.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/1column/01_variant-2_market.webp" data-src="./images/1column/01_variant-1_market.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration realised for an Austrian vintage company Nowherevintage, June 2023." data-src="./images/1column/02_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern2.html" class="portfolio__img hover-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/03_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/1column/03_variant-2.webp" data-src="./images/1column/03_variant-1.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of the university atelier view in Bolzano." data-src="./images/1column/04_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/05_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration of my dogs :)" data-src="./images/1column/05_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/06_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration based on the characters of Alice Rohrwacher's film La Chimera." data-src="./images/1column/06_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/07_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration aimed at exploring disproportion. Liner, pencil and pastel pencils." data-src="./images/1column/07_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                        </div>
-                        <div class="portfolio__column">
-                            <a href="portfolio-pattern3.html" class="portfolio__img hover-video-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/01_variant-1.webp" alt="Illustration by Evelina Babaeva" data-src="./images/2column/01_variant-1.webp">
-                                </picture>
-                                <video class="portfolio__video" playsinline autoplay loop muted preload="auto">
-                                    <source src="./videos/tugan.mov" type="video/mp4">
-                                </video>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of a cafe in Trento, Italy. Water markers, liner, coloured pencils." data-src="./images/2column/02_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-video-js portfolio__img_sm-height">
-                                <video playsinline autoplay loop muted preload="auto" data-src="./videos/loop.mp4" data-text="Fragment of the animation that was submitted to the Faculty of Design and Art as part of BA admission process." data-height="sm">
-                                    <source src="./videos/loop.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn sketch of the Neue Gestaltung founders Eva and Pit, realised during their public talk in Trento in 2023." data-src="./images/2column/04_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern4.html" class="portfolio__img hover-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/05_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/2column/05_variant-2.webp" data-src="./images/2column/05_variant-1.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_lg-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/06_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn sketch." data-src="./images/2column/06_only-variant.webp" data-height="lg">
-                                </picture>
-                            </div>
-                        </div>
-                        <div class="portfolio__column">
-                            <a href="portfolio-pattern5.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/01_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/01_variant-2.webp" data-src="./images/3column/01_variant-1.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration based on observations of my father Marat." data-src="./images/3column/02_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern6.html" class="portfolio__img hover-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/03_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/03_variant-2.webp" data-src="./images/3column/03_variant-1.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of a cafe in Bolzano, Italy. Characters based on observations of the clients." data-src="./images/3column/04_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern7.html" class="portfolio__img hover-js portfolio__img_lg-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/05_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/05_variant-2.webp" data-src="./images/3column/05_variant-1.webp">
-                                </picture>
-                            </a>
-                            <a href="portfolio-pattern8.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/plainair0.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/plainair1.webp" data-src="./images/3column/plainair0.webp">
-                                </picture>
-                            </a>
+                    <div class="portfolio__promo">
+                        <div class="portfolio__promo-animation"></div>
+                        <div class="portfolio__promo-info">
+                            <h1 class="portfolio__promo-title">Illustrator & 2D Animator</h1>
+                            <p class="portfolio__promo-text">Hi! I’m Evelina, an illustrator passionate about simple, subtly ironic story-telling. I create visuals for media, brands, cultural projects, and more.</p>
                         </div>
                     </div>
-                    <div class="portfolio__list-tablet">
-                        <div class="portfolio__column">
-                            <a href="portfolio-pattern1.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/01_variant-1_market.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/1column/01_variant-2_market.webp" data-src="./images/1column/01_variant-1_market.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration realised for an Austrian vintage company Nowherevintage, June 2023." data-src="./images/1column/02_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern2.html" class="portfolio__img hover-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/03_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/1column/03_variant-2.webp" data-src="./images/1column/03_variant-1.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of the university atelier view in Bolzano." data-src="./images/1column/04_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/05_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration of my dogs :)" data-src="./images/1column/05_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/06_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration based on the characters of Alice Rohrwacher's film La Chimera." data-src="./images/1column/06_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/1column/07_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration aimed at exploring disproportion. Liner, pencil and pastel pencils." data-src="./images/1column/07_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern5.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/01_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/01_variant-2.webp" data-src="./images/3column/01_variant-1.webp">
-                                </picture>
-                            </a>
-                            <a href="portfolio-pattern6.html" class="portfolio__img hover-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/03_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/03_variant-2.webp" data-src="./images/3column/03_variant-1.webp">
-                                </picture>
-                            </a>
-                            <a href="portfolio-pattern7.html" class="portfolio__img hover-js portfolio__img_lg-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/05_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/05_variant-2.webp" data-src="./images/3column/05_variant-1.webp">
-                                </picture>
-                            </a>
-                        </div>
-                        <div class="portfolio__column">
-                            <a href="portfolio-pattern3.html" class="portfolio__img hover-video-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/01_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./" data-src="./images/2column/01_variant-1.webp">
-                                </picture>
-                                <video class="portfolio__video" playsinline autoplay loop muted preload="auto" >
-                                    <source src="./videos/tugan.mov" type="video/mp4">
-                                </video>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of a cafe in Trento, Italy. Water markers, liner, coloured pencils." data-src="./images/2column/02_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-video-js portfolio__img_sm-height">
-                                <video playsinline autoplay loop muted preload="auto" data-src="./videos/loop.mp4" data-text="Fragment of the animation that was submitted to the Faculty of Design and Art as part of BA admission process." data-height="sm">
-                                    <source src="./videos/loop.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn sketch of the Neue Gestaltung founders Eva and Pit, realised during their public talk in Trento in 2023." data-src="./images/2column/04_only-variant.webp" data-height="md">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern4.html" class="portfolio__img hover-js portfolio__img_md-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/05_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/2column/05_variant-2.webp" data-src="./images/2column/05_variant-1.webp">
-                                </picture>
-                            </a>
-                            <div class="portfolio__img overlay-js portfolio__img_lg-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/2column/06_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn sketch." data-src="./images/2column/06_only-variant.webp" data-height="lg">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration based on observations of my father Marat." data-src="./images/3column/02_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of a cafe in Bolzano, Italy. Characters based on observations of the clients." data-src="./images/3column/04_only-variant.webp" data-height="sm">
-                                </picture>
-                            </div>
-                            <a href="portfolio-pattern8.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                                <picture>
-                                    <img width="100%" height="100%" loading="lazy" src="./images/3column/plainair0.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/plainair1.webp" data-src="./images/3column/plainair0.webp">
-                                </picture>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="portfolio__list-mobile">
-                        <a href="portfolio-pattern1.html" class="portfolio__img hover-js portfolio__img_sm-height">
+                    <div class="portfolio__gallery">
+                        <a href="work-more1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
                             <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/01_variant-1_market.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/1column/01_variant-2_market.webp" data-src="./images/1column/01_variant-1_market.webp">
+                                <img width="600" height="380" loading="lazy" src="./images/2.jpg" alt="Illustration by Evelina Babaeva">
                             </picture>
                         </a>
-                        <div class="portfolio__img overlay-js portfolio__img_md-height">
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height hover-brightness">
                             <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration realised for an Austrian vintage company Nowherevintage, June 2023." data-src="./images/1column/02_only-variant.webp" data-height="md">
-                            </picture>
-                        </div>
-                        <a href="portfolio-pattern2.html" class="portfolio__img hover-js portfolio__img_md-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/03_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/1column/03_variant-2.webp" data-src="./images/1column/03_variant-1.webp">
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
                             </picture>
                         </a>
-                        <div class="portfolio__img overlay-js portfolio__img_sm-height">
+                        <a href="" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
                             <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of the university atelier view in Bolzano." data-src="./images/1column/04_only-variant.webp" data-height="sm">
-                            </picture>
-                        </div>
-                        <div class="portfolio__img overlay-js portfolio__img_md-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/05_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration of my dogs :)" data-src="./images/1column/05_only-variant.webp" data-height="md">
-                            </picture>
-                        </div>
-                        <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/06_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Digital illustration based on the characters of Alice Rohrwacher's film La Chimera." data-src="./images/1column/06_only-variant.webp" data-height="sm">
-                            </picture>
-                        </div>
-                        <div class="portfolio__img overlay-js portfolio__img_md-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/1column/07_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration aimed at exploring disproportion. Liner, pencil and pastel pencils." data-src="./images/1column/07_only-variant.webp" data-height="md">
-                            </picture>
-                        </div>
-                        <a href="portfolio-pattern5.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/3column/01_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/01_variant-2.webp" data-src="./images/3column/01_variant-1.webp">
+                                <img width="600" height="380" loading="lazy" src="./images/4.jpg" alt="Illustration by Evelina Babaeva">
                             </picture>
                         </a>
-                        <a href="portfolio-pattern6.html" class="portfolio__img hover-js portfolio__img_md-height">
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height hover-brightness">
                             <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/3column/03_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/03_variant-2.webp" data-src="./images/3column/03_variant-1.webp">
+                                <img width="600" height="380" loading="lazy" src="./images/5.jpg" alt="Illustration by Evelina Babaeva">
                             </picture>
                         </a>
-                        <a href="portfolio-pattern7.html" class="portfolio__img hover-js portfolio__img_lg-height">
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height hover-brightness">
                             <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/3column/05_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/05_variant-2.webp" data-src="./images/3column/05_variant-1.webp">
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
                             </picture>
                         </a>
-                        <a href="portfolio-pattern3.html" class="portfolio__img hover-video-js portfolio__img_md-height">
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
                             <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/2column/01_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./" data-src="./images/2column/01_variant-1.webp">
+                                <img width="600" height="380" loading="lazy" src="./images/3.jpg" alt="Illustration by Evelina Babaeva">
                             </picture>
-                            <video class="portfolio__video" playsinline autoplay loop muted preload="auto" >
-                                <source src="./videos/tugan.mov" type="video/mp4">
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height hover-brightness">
+                            <picture>
+                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                            </picture>
+                        </a>
+                        <a class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
+                            <video playsinline loop autoplay ">
+                                <source src="./videos/loop.MP4" type="video/mp4">
+                                Ваш браузер не поддерживает встроенные видео
                             </video>
                         </a>
-                        <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/2column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of a cafe in Trento, Italy. Water markers, liner, coloured pencils." data-src="./images/2column/02_only-variant.webp" data-height="sm">
-                            </picture>
-                        </div>
-                        <div class="portfolio__img overlay-video-js portfolio__img_sm-height">
-                            <video playsinline autoplay loop muted preload="auto" data-src="./videos/loop.mp4" data-text="Fragment of the animation that was submitted to the Faculty of Design and Art as part of BA admission process." data-height="sm">
-                                <source src="./videos/loop.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="portfolio__img overlay-js portfolio__img_md-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/2column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn sketch of the Neue Gestaltung founders Eva and Pit, realised during their public talk in Trento in 2023." data-src="./images/2column/04_only-variant.webp" data-height="md">
-                            </picture>
-                        </div>
-                        <a href="portfolio-pattern4.html" class="portfolio__img hover-js portfolio__img_md-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/2column/05_variant-1.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/2column/05_variant-2.webp" data-src="./images/2column/05_variant-1.webp">
-                            </picture>
-                        </a>
-                        <div class="portfolio__img overlay-js portfolio__img_lg-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/2column/06_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn sketch." data-src="./images/2column/06_only-variant.webp" data-height="lg">
-                            </picture>
-                        </div>
-                        <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/3column/02_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration based on observations of my father Marat." data-src="./images/3column/02_only-variant.webp" data-height="sm">
-                            </picture>
-                        </div>
-                        <div class="portfolio__img overlay-js portfolio__img_sm-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/3column/04_only-variant.webp" alt="Illustration by Evelina Babaeva" data-text="Hand-drawn illustration of a cafe in Bolzano, Italy. Characters based on observations of the clients." data-src="./images/3column/04_only-variant.webp" data-height="sm">
-                            </picture>
-                        </div>
-                        <a href="portfolio-pattern8.html" class="portfolio__img hover-js portfolio__img_sm-height">
-                            <picture>
-                                <img width="100%" height="100%" loading="lazy" src="./images/3column/plainair0.webp" alt="Illustration by Evelina Babaeva" data-hover-src="./images/3column/plainair1.webp" data-src="./images/3column/plainair0.webp">
-                            </picture>
-                        </a>
+                        <div class="portfolio__break portfolio__break-first"></div>
+                        <div class="portfolio__break portfolio__break-second"></div>
+                        <div class="portfolio__break portfolio__break-third"></div>
                     </div>
                 </div>
             </div>
         </main>
-    </div>
-    <div class="overlay">
-        <div class="overlay__block">
-            <div class="overlay__close">
-                <picture>
-                    <img width="100%" height="100%" loading="lazy" src="./images/close.svg" alt="">
-                </picture>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__inner">
+                    <a href="" class="footer__link hover-underline">instagram</a>
+                    <a href="mailto:hello@evelinababaeva.com" class="footer__link hover-underline">hello@evelinababaeva.com</a>
+                    <a href="mailto:hello@evelinababaeva.com" class="footer__link hover-underline">e-mail</a>
+                    <a href="" class="footer__link hover-underline">telegram</a>
+                </div>
             </div>
-            <div class="overlay__img">
-                <picture>
-                    <img width="100%" height="100%" loading="lazy" src="./" alt="Illustration by Evelina Babaeva">
-                </picture>
-                <video playsinline loop muted preload="auto"></video>
-            </div>
-            <p class="overlay__text"></p>
-        </div>
+        </footer>
     </div>
     <script src="./js/main.js"></script>
 </body>
