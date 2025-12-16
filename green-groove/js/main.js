@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                     video.muted = false;
                     video.play();
                     video.loop = true;
-                    video.volume = 1.02;
+                    video.volume = 0.5;
                 } else {
                     // Секция не видна - приостанавливаем видео
                     video.pause();
