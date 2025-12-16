@@ -48,7 +48,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         if (video.muted) {
             video.muted = false; // Теперь звук включится
             video.volume = 0.02; // Устанавливаем желаемую громкость
-            console.log("Звук видео включен.");
             // Можно удалить обработчик, чтобы не срабатывал повторно
             document.removeEventListener('click', enableSound);
         }
@@ -111,6 +110,42 @@ window.addEventListener('DOMContentLoaded',()=>{
           el.style.display = 'none';
         }, timeout);
     }
+    const contactButtons = document.querySelectorAll('[data-overlay="modal"]'),
+    overlay = document.querySelector('.overlay'),
+    closeElement = document.querySelector('[data-overlay="close"]');
+
+    const body = document.body;
+
+    let scrollPosition = 0;
+
+    contactButtons.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            fadeIn(overlay, 100, 'block');
+            scrollPosition = window.pageYOffset;
+            body.classList.add('no-scroll');
+            body.style.top = `-${scrollPosition}px`;
+        });
+    });
+    closeElement.addEventListener('click',()=>{
+        fadeOut(overlay,30);
+        body.classList.remove('no-scroll');
+        window.scrollTo(0, scrollPosition);
+    });
+    overlay.addEventListener('click', (e)=>{
+        const target = e.target;
+        if(target && target.classList.contains('overlay')){
+            fadeOut(overlay,30);
+            body.classList.remove('no-scroll');
+            window.scrollTo(0, scrollPosition);
+        }
+    });
+    document.addEventListener('keydown',(e)=>{
+        if(overlay.style.opacity === '1' && e.code == 'Escape'){
+            fadeOut(overlay,30);
+            body.classList.remove('no-scroll');
+            window.scrollTo(0, scrollPosition);
+    }
+    });
 
     //slider
     if(document.querySelector('.artists__slider')){

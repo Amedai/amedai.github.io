@@ -12,11 +12,11 @@
     <header class="header">
         <div class="header__outer container">
             <div class="header__logo">
-                <img src="./images/icons/logo.png" alt="">
+                <img src="./images/icons/logo.svg" alt="">
             </div>
             <div class="header__inner">
                 <div class="header__logo header__logo--mob">
-                    <img src="./images/icons/logo.png" alt="">
+                    <img src="./images/icons/logo.svg" alt="">
                 </div>
                 <nav class="header__menu">
                     <ul class="header__menu-list">
@@ -1072,7 +1072,7 @@
         <div class="demo">
             <div class="demo__wrapper  container">
                 <p class="demo__text"><span class="demo__golden">Ты</span><br><span class="demo__green">Артист,</span><br> и Хочешь быть частью <br> нашей команды?</p>
-                <button class="demo__btn hover-dark-green">Отправить  демо</button>
+                <button class="demo__btn hover-dark-green" data-overlay="modal">Отправить  демо</button>
             </div>
         </div>
         <section class="questions">
@@ -1080,11 +1080,11 @@
             <div class="questions__form container">
                 <form action="">
                     <div class="questions__grid">
-                        <input class="questions__input" type="text" name="feedname" id="feedname-main" required placeholder="Имя">
-                        <input class="questions__input" type="email" name="feedmail" id="feedmail-main" required placeholder="Почта">
-                        <textarea class="questions__textarea" name="feedarea" id="feedarea-main" placeholder="Сообщение"></textarea>
-                        <input class="questions__input questions__real-upload" type="file" name="feedfile" id="feedfile-main" required>
-                        <label for="feedfile-main" class="questions__custom-input">
+                        <input class="questions__input" type="text" name="feedname" required placeholder="Имя">
+                        <input class="questions__input" type="email" name="feedmail"required placeholder="Почта">
+                        <textarea class="questions__textarea" name="feedarea"  placeholder="Сообщение"></textarea>
+                        <input class="questions__input questions__real-upload" type="file" name="feedfile" id="feedfile" required>
+                        <label for="feedfile" class="questions__custom-input">
                             <span class="questions__custom-upload">Прикрепить файл</span>    
                         </label>
                     </div>
@@ -1093,11 +1093,81 @@
             </div>
         </section>
     </main>
+    <div class="overlay">
+        <section class="form-demo">
+            <div class="form-demo__container">
+                <button class="form-demo__close" data-overlay="close">
+                    <img src="./images/icons/close.svg" alt="">
+                </button>
+                <div class="form-demo__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </div>
+                <h2 class="form-demo__title">ФОРМА ПРЕДОСТАВЛЕНИЯ КОНТЕНТА ДЛЯ ЗАГРУЗКИ:</h2>
+                <div class="form-demo__form">
+                    <form action="">
+                        <div class="form-demo__inner">
+                            <div class="form-demo__item">
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">Никнейм Артиста</div>
+                                    <input class="form-demo__input" type="text" name="nickname" required>
+                                </div>
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">Название трека</div>
+                                    <div class="form-demo__form-details">*Наименование должно быть полностью верным (Таким, каким будет на площадках)</div>
+                                    <input class="form-demo__input" type="text" name="trackname" required>
+                                </div>
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">Рингтон, не более 28 секунд, формат WAV</div>
+                                    <div class="form-demo__form-details">*Самый интересный фрагмент композиции,(как правило  припев, дроп)</div>
+                                    <input class="form-demo__real-upload" type="file" name="ringtone" id="ringtone" required>
+                                    <label for="ringtone" class="form-demo__custom-input">
+                                        <span class="form-demo__custom-upload">Загрузить</span>    
+                                    </label>
+                                </div>
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">Текст песни(ен), без ошибок.</div>
+                                    <div class="form-demo__form-details">*Например в формате txt (блокнот) или doc (word).   Требования к тексту тут,  а также тут.    Если это электронный трек – текст всё равно потребуется.   Перевести иностранные акапеллы в текст можно на этом сервисе: https://converter.app/ru/transcribe-text/</div>
+                                    <input class="form-demo__real-upload" type="file" name="musictext" id="musictext" required>
+                                    <label for="musictext" class="form-demo__custom-input">
+                                        <span class="form-demo__custom-upload">Загрузить</span>    
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-demo__item">
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">Обложка 3000 x 3000</div>
+                                    <div class="form-demo__form-details">*(Обратите внимание, чтобы обложка была не сжатой, файл должен быть  полноразмерным)</div>
+                                    <input class="form-demo__real-upload" type="file" name="envelope" id="envelope" required>
+                                    <label for="envelope" class="form-demo__custom-input">
+                                        <span class="form-demo__custom-upload">Загрузить</span>    
+                                    </label>
+                                </div>
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">2-3 строчки про трек: чем вдохновлялся артист, какую идею хотел передать, какое настроение.</div>
+                                    <div class="form-demo__form-details">*Наименование должно быть полностью верным (Таким, каким будет на площадках)</div>
+                                    <input class="form-demo__input" type="text" name="trackdescription" required>
+                                </div>
+                                <div class="form-demo__form-block">
+                                    <div class="form-demo__form-info">Документы на бит с битмейкером</div>
+                                    <div class="form-demo__form-details">*(Исключительные права должны принадлежать вам), либо (если бит  сделан артистом) - скриншот проекта + архив самого проекта. Шаблон договора на бит можно запросить у  лейбла.</div>
+                                    <input class="form-demo__real-upload" type="file" name="docbit" id="docbit" required>
+                                    <label for="docbit" class="form-demo__custom-input">
+                                        <span class="form-demo__custom-upload">Загрузить</span>    
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="form-demo__btn">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
     <footer class="footer">
         <div class="footer__top">
             <div class="footer__top-inner container">
                 <div class="footer__logo-tablet">
-                    <img src="./images/icons/logo.png" alt="" width="150" height="95">
+                    <img src="./images/icons/logo.svg" alt="" width="150" height="95">
                 </div>
                 <ul class="footer__links">
                     <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>О НАС</li>
@@ -1131,7 +1201,7 @@
                     </ul>
                     <a href="" class="footer__policy hover-underline">ПОЛИТИКА КОНФИДЕЦИАЛЬНОСТИ</a>
                     <div class="footer__logo">
-                        <img src="./images/icons/logo.png" alt="" width="150" height="95">
+                        <img src="./images/icons/logo.svg" alt="" width="150" height="95">
                     </div>
                 </div>
             </div>
