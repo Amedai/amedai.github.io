@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
     // Включаем звук при первом клике где угодно на странице
-    document.addEventListener('click', enableSound);
+    document.addEventListener('scroll', enableSound);
 
     //advantages animation
     const advantagesItems = document.querySelectorAll('.advantages__item');
