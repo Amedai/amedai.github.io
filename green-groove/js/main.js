@@ -22,17 +22,15 @@ window.addEventListener('DOMContentLoaded',()=>{
     const heroSection = document.querySelector('.hero');
     
     video.muted = true;
-    video.loop = true;
     // Вариант 1: Базовый Intersection Observer
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     // Секция видна - включаем видео
-                    video.muted = false;
                     video.play();
                     video.loop = true;
-                    video.volume = 0.5;
+                    video.volume = 0.02; 
                 } else {
                     // Секция не видна - приостанавливаем видео
                     video.pause();
@@ -45,6 +43,18 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
     );
     observer.observe(heroSection);
+    function enableSound() {
+        if (video.muted) {
+            video.muted = false; // Теперь звук включится
+            video.volume = 0.02; // Устанавливаем желаемую громкость
+            console.log("Звук видео включен.");
+            // Можно удалить обработчик, чтобы не срабатывал повторно
+            document.removeEventListener('click', enableSound);
+        }
+    }
+
+    // Включаем звук при первом клике где угодно на странице
+    document.addEventListener('click', enableSound);
 
     //advantages animation
     const advantagesItems = document.querySelectorAll('.advantages__item');
