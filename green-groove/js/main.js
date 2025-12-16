@@ -44,18 +44,47 @@ window.addEventListener('DOMContentLoaded',()=>{
         }
     );
     observer.observe(heroSection);
-    function enableSound() {
-        if (video.muted) {
-            video.muted = false; // Теперь звук включится
-            video.volume = 0.02; // Устанавливаем желаемую громкость
-            console.log("Звук видео включен.");
-            // Можно удалить обработчик, чтобы не срабатывал повторно
-            document.removeEventListener('scroll', enableSound);
-        }
-    }
+// Флаг, чтобы не пытаться включить звук несколько раз
+let soundAttempted = false;
 
-    // Включаем звук при первом клике где угодно на странице
-    document.addEventListener('scroll', enableSound);
+function enableSound() {
+    // Если звук уже не muted или уже пытались включить - выходим
+    if (soundAttempted || !video.muted) return;
+    
+    soundAttempted = true;
+    
+    // Пытаемся включить звук
+    video.muted = false;
+    
+    // Проверяем, не поставил ли браузер видео на паузу
+    if (video.paused) {
+        // Если видео на паузе, пробуем перезапустить
+        video.play().then(() => {
+            console.log("✅ Звук включен после скролла");
+        }).catch(error => {
+            console.log("⚠️ Звук включен, но видео не запустилось:", error.message);
+            // Оставляем звук включенным, видео запустится при следующем скролле
+        });
+    } else {
+        console.log("✅ Звук включен");
+    }
+    
+    // Убираем обработчик СРАЗУ после первой попытки
+    window.removeEventListener('scroll', enableSound);
+}
+
+// ВАЖНО: используем requestAnimationFrame чтобы не блокировать скролл
+let scrollHandlerScheduled = false;
+
+window.addEventListener('scroll', () => {
+    if (!scrollHandlerScheduled) {
+        scrollHandlerScheduled = true;
+        requestAnimationFrame(() => {
+            enableSound();
+            scrollHandlerScheduled = false;
+        });
+    }
+}, { passive: true });
 
     //advantages animation
     const advantagesItems = document.querySelectorAll('.advantages__item');
