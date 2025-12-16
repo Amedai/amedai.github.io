@@ -21,6 +21,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     const video = document.querySelector('video');
     const heroSection = document.querySelector('.hero');
     
+    video.muted = true;
+    video.loop = true;
     // Вариант 1: Базовый Intersection Observer
     const observer = new IntersectionObserver(
         (entries) => {
