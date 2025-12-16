@@ -17,73 +17,72 @@ window.addEventListener('DOMContentLoaded',()=>{
     });
 
     //фоновое видео
-    
     const video = document.querySelector('video');
-    const heroSection = document.querySelector('.hero');
-    
-    video.muted = true;
-    video.loop = true;
-    video.volume = 0.02;
-    video.play();
-    // Вариант 1: Базовый Intersection Observer
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Секция видна - включаем видео
-                    video.play();
-                } else {
-                    // Секция не видна - приостанавливаем видео
-                    video.pause();
-                }
-            });
-        },
-        {
-            threshold: 0.1 
-        }
-    );
-    observer.observe(heroSection);
-// Флаг, чтобы не пытаться включить звук несколько раз
-let soundAttempted = false;
+const heroSection = document.querySelector('.hero');
 
-function enableSound() {
-    // Если звук уже не muted или уже пытались включить - выходим
-    if (soundAttempted || !video.muted) return;
-    
-    soundAttempted = true;
-    
-    // Пытаемся включить звук
-    video.muted = false;
-    
-    // Проверяем, не поставил ли браузер видео на паузу
-    if (video.paused) {
-        // Если видео на паузе, пробуем перезапустить
-        video.play().then(() => {
-            console.log("✅ Звук включен после скролла");
-        }).catch(error => {
-            console.log("⚠️ Звук включен, но видео не запустилось:", error.message);
-            // Оставляем звук включенным, видео запустится при следующем скролле
+// 1. ОБЯЗАТЕЛЬНЫЕ настройки для iOS
+video.playsInline = true;
+video.muted = true;
+video.loop = true;
+video.volume = 0.02;
+
+// 2. Запускаем видео сразу
+video.play().catch(e => console.log('Стартовый запуск:', e.message));
+
+// 3. Intersection Observer (упрощаем)
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                video.play().catch(e => {}); // Игнорируем ошибки
+            } else {
+                video.pause();
+            }
         });
-    } else {
-        console.log("✅ Звук включен");
+    },
+    { threshold: 0.1 }
+);
+observer.observe(heroSection);
+
+// 4. ПРОСТОЙ и РАБОЧИЙ способ включения звука
+let soundEnabled = false;
+
+function enableSoundOnFirstInteraction() {
+    if (soundEnabled || !video.muted) return;
+    
+    // Включаем звук ПРОСТО и БЕЗ лишних проверок
+    video.muted = false;
+    soundEnabled = true;
+    console.log('🔊 Звук включен!');
+    
+    // Если видео на паузе - просто пробуем запустить
+    if (video.paused) {
+        video.play().catch(e => {
+            // Не страшно - запустится когда секция будет видна
+            console.log('Видео на паузе, запустится позже');
+        });
     }
     
-    // Убираем обработчик СРАЗУ после первой попытки
-    window.removeEventListener('scroll', enableSound);
+    // УДАЛЯЕМ ВСЕ обработчики
+    window.removeEventListener('scroll', scrollHandler);
+    document.removeEventListener('click', enableSoundOnFirstInteraction);
 }
 
-// ВАЖНО: используем requestAnimationFrame чтобы не блокировать скролл
-let scrollHandlerScheduled = false;
+// 5. УПРОЩЕННЫЙ обработчик скролла (исправляет вашу ошибку)
+let scrollTimeout;
+function scrollHandler() {
+    if (scrollTimeout) return; // Уже запланирован вызов
+    
+    scrollTimeout = setTimeout(() => {
+        enableSoundOnFirstInteraction();
+        scrollTimeout = null;
+    }, 300); // Ждем 300мс после ПЕРВОГО скролла
+}
 
-window.addEventListener('scroll', () => {
-    if (!scrollHandlerScheduled) {
-        scrollHandlerScheduled = true;
-        requestAnimationFrame(() => {
-            enableSound();
-            scrollHandlerScheduled = false;
-        });
-    }
-}, { passive: true });
+// 6. Вешаем обработчики ПРАВИЛЬНО
+window.addEventListener('scroll', scrollHandler, { passive: true });
+// И клик тоже - для надежности
+document.addEventListener('click', enableSoundOnFirstInteraction, { once: true });
 
     //advantages animation
     const advantagesItems = document.querySelectorAll('.advantages__item');
