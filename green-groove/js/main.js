@@ -50,7 +50,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             video.volume = 0.02; // Устанавливаем желаемую громкость
             console.log("Звук видео включен.");
             // Можно удалить обработчик, чтобы не срабатывал повторно
-            document.removeEventListener('click', enableSound);
+            document.removeEventListener('scroll', enableSound);
         }
     }
 
