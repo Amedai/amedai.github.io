@@ -17,72 +17,45 @@ window.addEventListener('DOMContentLoaded',()=>{
     });
 
     //фоновое видео
+    
     const video = document.querySelector('video');
-const heroSection = document.querySelector('.hero');
-
-// 1. ОБЯЗАТЕЛЬНЫЕ настройки для iOS
-video.playsInline = true;
-video.muted = true;
-video.loop = true;
-video.volume = 0.02;
-
-// 2. Запускаем видео сразу
-video.play().catch(e => console.log('Стартовый запуск:', e.message));
-
-// 3. Intersection Observer (упрощаем)
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                video.play().catch(e => {}); // Игнорируем ошибки
-            } else {
-                video.pause();
-            }
-        });
-    },
-    { threshold: 0.1 }
-);
-observer.observe(heroSection);
-
-// 4. ПРОСТОЙ и РАБОЧИЙ способ включения звука
-let soundEnabled = false;
-
-function enableSoundOnFirstInteraction() {
-    if (soundEnabled || !video.muted) return;
+    const heroSection = document.querySelector('.hero');
     
-    // Включаем звук ПРОСТО и БЕЗ лишних проверок
-    video.muted = false;
-    soundEnabled = true;
-    console.log('🔊 Звук включен!');
-    
-    // Если видео на паузе - просто пробуем запустить
-    if (video.paused) {
-        video.play().catch(e => {
-            // Не страшно - запустится когда секция будет видна
-            console.log('Видео на паузе, запустится позже');
-        });
+    video.muted = true;
+    video.play();
+    // Вариант 1: Базовый Intersection Observer
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Секция видна - включаем видео
+                    video.play();
+                    video.loop = true;
+                    video.volume = 0.02; 
+                } else {
+                    // Секция не видна - приостанавливаем видео
+                    video.pause();
+                    video.volume = 0;
+                }
+            });
+        },
+        {
+            threshold: 0.1 
+        }
+    );
+    observer.observe(heroSection);
+    function enableSound() {
+        if (video.muted) {
+            video.muted = false; // Теперь звук включится
+            video.volume = 0.02; // Устанавливаем желаемую громкость
+            console.log("Звук видео включен.");
+            // Можно удалить обработчик, чтобы не срабатывал повторно
+            document.removeEventListener('click', enableSound);
+        }
     }
-    
-    // УДАЛЯЕМ ВСЕ обработчики
-    window.removeEventListener('scroll', scrollHandler);
-    document.removeEventListener('click', enableSoundOnFirstInteraction);
-}
 
-// 5. УПРОЩЕННЫЙ обработчик скролла (исправляет вашу ошибку)
-let scrollTimeout;
-function scrollHandler() {
-    if (scrollTimeout) return; // Уже запланирован вызов
-    
-    scrollTimeout = setTimeout(() => {
-        enableSoundOnFirstInteraction();
-        scrollTimeout = null;
-    }, 300); // Ждем 300мс после ПЕРВОГО скролла
-}
-
-// 6. Вешаем обработчики ПРАВИЛЬНО
-window.addEventListener('scroll', scrollHandler, { passive: true });
-// И клик тоже - для надежности
-document.addEventListener('click', enableSoundOnFirstInteraction, { once: true });
+    // Включаем звук при первом клике где угодно на странице
+    document.addEventListener('click', enableSound);
 
     //advantages animation
     const advantagesItems = document.querySelectorAll('.advantages__item');
