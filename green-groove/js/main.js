@@ -29,9 +29,10 @@ window.addEventListener('DOMContentLoaded',()=>{
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     // Секция видна - включаем видео
+                    video.muted = false;
                     video.play();
                     video.loop = true;
-                    video.volume = 0.02;
+                    video.volume = 1.02;
                 } else {
                     // Секция не видна - приостанавливаем видео
                     video.pause();
