@@ -179,4 +179,140 @@ window.addEventListener('DOMContentLoaded',()=>{
             }
         });
     }
+
+    //счетчик слушателей
+    class ListenersCounter {
+        constructor() {
+            // Целевые значения по часам (0-23)
+            this.hourlyTargets = {
+                0: 49000,  1: 44000,  2: 42000,  3: 44000,
+                4: 51000,  5: 55000,  6: 58000,  7: 63000,
+                8: 66000,  9: 68000,  10: 70000, 11: 70000,
+                12: 70000, 13: 70000, 14: 70000, 15: 70000,
+                16: 70000, 17: 70000, 18: 67000, 19: 63000,
+                20: 60000, 21: 57000, 22: 54000, 23: 51000
+            };
+            
+            this.currentListeners = 0;
+            this.interval = null;
+            this.updateInterval = 10000; // Обновление каждые 10 секунд
+            
+            // СНАЧАЛА показываем начальное значение мгновенно
+            this.showInitialValue();
+            
+            // ПОТОМ инициализируем логику (микро-задержка)
+            setTimeout(() => this.init(), 0);
+        }
+        
+        showInitialValue() {
+            const currentHour = new Date().getHours();
+            const initialValue = this.hourlyTargets[currentHour] || 70000;
+            
+            const counterElement = document.getElementById('listeners-counter');
+            if (counterElement) {
+                counterElement.textContent = initialValue.toLocaleString('ru-RU');
+            }
+            
+            this.currentListeners = initialValue;
+        }
+        
+        init() {
+            // Запускаем обновление
+            this.startCounter();
+            
+            // Обновляем каждый час целевое значение
+            setInterval(() => this.updateTarget(), 60 * 60 * 1000);
+        }
+        
+        getTargetForCurrentHour() {
+            const currentHour = new Date().getHours();
+            return this.hourlyTargets[currentHour];
+        }
+        
+        getNextHourTarget() {
+            const nextHour = (new Date().getHours() + 1) % 24;
+            return this.hourlyTargets[nextHour];
+        }
+        
+        calculateSmoothChange() {
+            const currentTarget = this.getTargetForCurrentHour();
+            const nextTarget = this.getNextHourTarget();
+            const now = new Date();
+            const minutesPassed = now.getMinutes();
+            const secondsPassed = now.getSeconds();
+            
+            // Прогресс текущего часа в диапазоне 0-1
+            const hourProgress = (minutesPassed * 60 + secondsPassed) / 3600;
+            
+            // Линейная интерполяция между часами
+            const interpolatedTarget = currentTarget + (nextTarget - currentTarget) * hourProgress;
+            
+            // Добавляем случайность (±5% от разницы между текущим и целевым)
+            const maxRandomChange = Math.abs(interpolatedTarget - this.currentListeners) * 0.05;
+            const randomChange = (Math.random() * 2 - 1) * maxRandomChange;
+            
+            // Плавное движение к интерполированной цели
+            const stepSize = 0.1; // Коэффициент плавности (меньше = плавнее)
+            const difference = interpolatedTarget - this.currentListeners;
+            
+            return this.currentListeners + (difference * stepSize) + randomChange;
+        }
+        
+        updateCounter() {
+            const newValue = this.calculateSmoothChange();
+            this.currentListeners = Math.max(1000, Math.round(newValue)); // Не меньше 1000
+            
+            // Обновляем отображение
+            const counterElement = document.getElementById('listeners-counter');
+            if (counterElement) {
+                // Форматирование с пробелами
+                counterElement.textContent = this.currentListeners.toLocaleString('ru-RU');
+                
+            }
+        }
+        
+        updateTarget() {
+            // Эта функция вызывается каждый час для смены цели
+            // Можно добавить дополнительную логику при смене часа
+        }
+        
+        startCounter() {
+            if (this.interval) clearInterval(this.interval);
+            
+            this.interval = setInterval(() => {
+                this.updateCounter();
+            }, this.updateInterval);
+        }
+        
+        stopCounter() {
+            if (this.interval) {
+                clearInterval(this.interval);
+                this.interval = null;
+            }
+        }
+        
+        // Метод для ручного обновления снаружи
+        forceUpdate() {
+            this.updateCounter();
+        }
+        
+        // Метод для изменения значения вручную
+        setValue(newValue) {
+            if (typeof newValue === 'number' && newValue >= 0) {
+                this.currentListeners = newValue;
+                const counterElement = document.getElementById('listeners-counter');
+                if (counterElement) {
+                    counterElement.textContent = newValue.toLocaleString('ru-RU');
+                }
+            }
+        }
+        
+        // Метод для получения текущего значения
+        getValue() {
+            return this.currentListeners;
+        }
+    }
+    
+    // Инициализация при загрузке страницы
+    window.listenersCounter = new ListenersCounter();
 });
