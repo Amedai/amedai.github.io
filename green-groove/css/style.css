@@ -2257,16 +2257,7 @@ body {
 .artists__slider {
   position: relative;
   padding-top: clamp(50px, 30.6060606061px + 6.0606060606vw, 130px);
-}
-@media (max-width: 1023.98px) {
-  .artists__slider {
-    padding-bottom: 100px;
-  }
-}
-@media (max-width: 480.98px) {
-  .artists__slider {
-    padding-bottom: 60px;
-  }
+  padding-bottom: clamp(30px, 17.8787878788px + 3.7878787879vw, 80px);
 }
 .artists__img {
   width: 100%;
@@ -2285,14 +2276,14 @@ body {
 @media (hover: hover) {
   .artists__img:hover img {
     z-index: 30;
-    filter: grayscale(0%) drop-shadow(0 0 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 0 20px rgba(39, 145, 25, 0.3)) drop-shadow(0 0 30px rgba(39, 145, 25, 0.2)) drop-shadow(0 10px 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 -10px 10px rgba(39, 145, 25, 0.5));
+    filter: grayscale(0%) drop-shadow(0 0 4px rgba(39, 145, 25, 0.6)) drop-shadow(0 0 8px rgba(39, 145, 25, 0.4)) drop-shadow(0 0 12px rgba(39, 145, 25, 0.25)) drop-shadow(0 10px 4px rgba(39, 145, 25, 0.6)) drop-shadow(0 -10px 4px rgba(39, 145, 25, 0.6));
     transform: scale(1.1);
     transform-origin: bottom;
   }
 }
 .artists__img--active img {
   z-index: 30;
-  filter: grayscale(0%) drop-shadow(0 0 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 0 20px rgba(39, 145, 25, 0.3)) drop-shadow(0 0 30px rgba(39, 145, 25, 0.2)) drop-shadow(0 10px 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 -10px 10px rgba(39, 145, 25, 0.5));
+  filter: grayscale(0%) drop-shadow(0 0 4px rgba(39, 145, 25, 0.6)) drop-shadow(0 0 8px rgba(39, 145, 25, 0.4)) drop-shadow(0 0 12px rgba(39, 145, 25, 0.25)) drop-shadow(0 10px 4px rgba(39, 145, 25, 0.6)) drop-shadow(0 -10px 4px rgba(39, 145, 25, 0.6));
   transform: scale(1.1);
   transform-origin: bottom;
 }
