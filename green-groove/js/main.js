@@ -252,13 +252,38 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     //slider
     if(document.querySelector('.artists__slider')){
+        const artistImages = document.querySelectorAll('.artists__img');
+
+        artistImages.forEach(img => {
+            img.addEventListener('touchstart', function() {
+                this.classList.toggle('artists__img--active');
+
+                artistImages.forEach(otherImg => {
+                    if (otherImg !== this) {
+                        otherImg.classList.remove('artists__img--active');
+                    }
+                });
+            });
+        });
+        
         new Swiper('.artists__slider', {
-            loop: false,
+            loop: true,
             grabCursor:true,
-            centeredSlidesBounds:true,
-            centeredSlides: true,
-    
-            breakpoints: {
+/*             centeredSlidesBounds:true,
+            centeredSlides: true, */
+            mousewheel: {
+                enabled: true,
+                forceToAxis: true,
+                thresholdDelta: 10,
+            },
+            freeMode: {
+                enabled: true,          
+                momentum: true,         // инерция (плавное замедление после движения)
+                momentumVelocityRatio: 0.5,  // скорость инерции (можно поиграться: 0.5-2)
+                momentumRatio: 1,       // сила инерции
+                sticky: false           // без прилипания к слайдам (важно для полной плавности)
+            },
+                        breakpoints: {
                 1400:{
                     slidesPerView: '4.2',
                     spaceBetween:30,

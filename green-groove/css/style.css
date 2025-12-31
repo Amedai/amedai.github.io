@@ -1892,7 +1892,7 @@ body {
 }
 .genres__block {
   transform: translateX(clamp(210px, 10.5194805195px + 19.4805194805vw, 330px));
-  width: clamp(510px, -171.5584415584px + 66.5584415584vw, 920px);
+  width: clamp(510px, -221.4285714286px + 71.4285714286vw, 950px);
 }
 @media (max-width: 1023.98px) {
   .genres__block {
@@ -2274,6 +2274,7 @@ body {
   transition: all 0.3s;
 }
 .artists__img img {
+  position: relative;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -2281,8 +2282,15 @@ body {
   filter: grayscale(100%);
   transition: all 0.3s;
 }
-.artists__img:hover img {
-  position: relative;
+@media (hover: hover) {
+  .artists__img:hover img {
+    z-index: 30;
+    filter: grayscale(0%) drop-shadow(0 0 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 0 20px rgba(39, 145, 25, 0.3)) drop-shadow(0 0 30px rgba(39, 145, 25, 0.2)) drop-shadow(0 10px 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 -10px 10px rgba(39, 145, 25, 0.5));
+    transform: scale(1.1);
+    transform-origin: bottom;
+  }
+}
+.artists__img--active img {
   z-index: 30;
   filter: grayscale(0%) drop-shadow(0 0 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 0 20px rgba(39, 145, 25, 0.3)) drop-shadow(0 0 30px rgba(39, 145, 25, 0.2)) drop-shadow(0 10px 10px rgba(39, 145, 25, 0.5)) drop-shadow(0 -10px 10px rgba(39, 145, 25, 0.5));
   transform: scale(1.1);
@@ -2397,7 +2405,7 @@ body {
        appearance: none;
   background: transparent;
   cursor: pointer;
-  width: clamp(28px, 17.8181818182px + 3.1818181818vw, 70px);
+  width: clamp(40px, 32.7272727273px + 2.2727272727vw, 70px);
   height: clamp(8px, 6.0606060606px + 0.6060606061vw, 16px);
   margin: 0;
   border-radius: 8px;
@@ -2611,7 +2619,7 @@ body {
 .trust__carousel-bottom {
   margin-top: clamp(20px, 15.1515151515px + 1.5151515152vw, 40px);
   display: flex;
-  animation: carousel-reverse 35s linear infinite;
+  animation: carousel-reverse 40s linear infinite;
 }
 .trust__carousel-item {
   display: flex;
