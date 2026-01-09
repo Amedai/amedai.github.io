@@ -184,5 +184,19 @@ window.addEventListener('DOMContentLoaded',()=>{
         window.addEventListener('resize', checkTabsOverflow);
     }
 
+    // Скролл вкладок колесом мыши
+    function initTabsWheelScroll() {
+        const tabsContainer = document.querySelector('.portfolio__tabs');
+        if (!tabsContainer) return;
+
+        tabsContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            
+            const scrollAmount = e.deltaY;
+            tabsContainer.scrollLeft += scrollAmount;
+        });
+    }
+    initTabsWheelScroll();
+
 });
 

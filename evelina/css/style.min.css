@@ -166,6 +166,7 @@ body {
 @media (max-width: 768px) {
   body {
     overflow-x: hidden;
+    padding-top: clamp(41px, 31.5734597156px + 2.4170616114vw, 92px);
   }
 }
 
@@ -228,6 +229,9 @@ body {
   display: none;
 }
 @media (max-width: 768px) {
+  .header {
+    position: fixed;
+  }
   .header__inner {
     display: flex;
     justify-content: space-between;
@@ -354,6 +358,7 @@ body {
   padding: clamp(13px, 12.2606635071px + 0.1895734597vw, 17px);
   opacity: 0;
   transition: opacity 0.4s ease;
+  letter-spacing: 0.02em;
 }
 .portfolio__img-title {
   font-size: clamp(16px, 14.8909952607px + 0.2843601896vw, 22px);
