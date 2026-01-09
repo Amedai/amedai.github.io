@@ -22,144 +22,213 @@
     <link rel="stylesheet" href="./css/style.min.css">
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <nav class="header__menu">
+                    <a href="index.html" class="header__logo hover-underline" data-name="main">Evelina Babaeva</a>
+                    <ul class="header__links">
+                        <a href="" class="header__link hover-underline">Shop</a>
+                        <a href="mailto:hello@evelinababaeva.com" class="header__link hover-underline">Contact</a>
+                        <a href="about.html" class="header__link hover-underline">About</a>
+                    </ul>
+                </nav>
+                <button class="header__mob-btn hover-underline">Menu</button>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="portfolio">
             <div class="container">
-                <div class="header__inner">
-                    <nav class="header__menu">
-                        <a href="index.html" class="header__logo hover-underline" data-name="main">evelina babaeva</a>
-                        <div class="header__links">
-                            <a href="about.html" class="header__link hover-underline">about</a>
-                            <div class="header__deliver"></div>
-                            <a href="mailto:hello@evelinababaeva.com" class="header__link header__link-hover"></a>
-                            <div class="header__deliver"></div>
-                            <a href="" class="header__link hover-underline">shop</a>
-                        </div>
-                    </nav>
-                </div>
+                <h1 class="portfolio__promo-title">Ciao! I’m Evelina, a Vienna-based <span>illustrator and 2D animator</span> creating simple, subtly ironic visual stories for media, publishing, brands, cultural projects and more.</h1>
             </div>
-        </header>
-        <main class="main">
-            <div class="portfolio">
-                <div class="container">
-                    <div class="portfolio__promo">
-                        <div class="portfolio__promo-animation">
-                            <div class="portfolio__promo-frame">
-                                <picture>
-                                    <img width="316" height="316" loading="lazy" src="./images/grey2.jpg" alt="">
-                                </picture>
-                            </div>
-                        </div>
-                        <div class="portfolio__promo-info">
-                            <h1 class="portfolio__promo-title">Illustrator & 2D Animator</h1>
-                            <p class="portfolio__promo-text">Hi! I’m Evelina, an illustrator passionate about simple, subtly ironic story-telling. I create visuals for media, brands, cultural projects, and more.</p>
-                        </div>
+            <div class="portfolio__tabs">
+                <button class="portfolio__tab portfolio__tab--active hover-underline" data-tab="all">All Projects</button>
+                <button class="portfolio__tab hover-underline" data-tab="illustration">Illustration</button>
+                <button class="portfolio__tab hover-underline" data-tab="animation">Animation</button>
+                <button class="portfolio__tab hover-underline" data-tab="editorial">Editorial</button>
+                <button class="portfolio__tab hover-underline" data-tab="commercial">Commercial</button>
+                <button class="portfolio__tab hover-underline" data-tab="collaborations">Collaborations</button>
+            </div>
+            <div class="portfolio__gallery">
+                <a href="project.html" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/2.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
                     </div>
-                    <div class="portfolio__gallery">
-                        <a href="work-more1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/2.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/4.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/5.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/3.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height hover-brightness">
-                            <picture>
-                                <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
-                            </picture>
-                        </a>
-                        <a class="scroll-animation portfolio__img portfolio__img_xs-height hover-brightness">
-                            <video playsinline loop autoplay ">
-                                <source src="./videos/loop.MP4" type="video/mp4">
-                                Ваш браузер не поддерживает встроенные видео
-                            </video>
-                        </a>
-                        <div class="portfolio__break portfolio__break-first"></div>
-                        <div class="portfolio__break portfolio__break-second"></div>
-                        <div class="portfolio__break portfolio__break-third"></div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height " data-category="editorial">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
                     </div>
-                </div>
+                </a>
+                <a href="" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="commercial">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/4.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/5.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height " data-category="commercial">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="animation">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/3.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height " data-category="animation">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height " data-category="collaborations">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_xs-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_lg-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_md-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a href="portfolio-pattern1.html" class="scroll-animation portfolio__img portfolio__img_sm-height " data-category="illustration">
+                    <picture>
+                        <img width="600" height="380" loading="lazy" src="./images/grey.jpg" alt="Illustration by Evelina Babaeva">
+                    </picture>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <a class="scroll-animation portfolio__img portfolio__img_xs-height " data-category="animation">
+                    <video playsinline loop autoplay ">
+                        <source src="./videos/loop.MP4" type="video/mp4">
+                        Ваш браузер не поддерживает встроенные видео
+                    </video>
+                    <div class="portfolio__img-description">
+                        <h2 class="portfolio__img-title">Project name</h2>
+                        <p class="portfolio__img-text">project description</p>
+                    </div>
+                </a>
+                <div class="portfolio__break portfolio__break-first"></div>
+                <div class="portfolio__break portfolio__break-second"></div>
+                <div class="portfolio__break portfolio__break-third"></div>
             </div>
-        </main>
-        <footer class="footer">
-            <div class="container">
-                <div class="footer__inner">
-                    <a href="" class="footer__link hover-underline">instagram</a>
-                    <a href="mailto:hello@evelinababaeva.com" class="footer__link hover-underline">hello@evelinababaeva.com</a>
-                    <a href="mailto:hello@evelinababaeva.com" class="footer__link hover-underline">e-mail</a>
-                    <a href="" class="footer__link hover-underline">telegram</a>
-                </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <a href="mailto:hello@evelinababaeva.com" class="footer__link hover-underline">hello@evelinababaeva.com</a>
+                <a href="" class="footer__link hover-underline">instagram</a>
+                <a href="" class="footer__link hover-underline">telegram</a>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
     <script src="./js/main.js"></script>
 </body>
 </html>
