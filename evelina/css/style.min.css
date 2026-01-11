@@ -357,7 +357,6 @@ body {
   color: var(--color--white);
   padding: clamp(13px, 12.2606635071px + 0.1895734597vw, 17px);
   opacity: 0;
-  transition: opacity 0.4s ease;
   letter-spacing: 0.02em;
 }
 .portfolio__img-title {
