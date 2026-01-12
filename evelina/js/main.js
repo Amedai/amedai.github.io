@@ -45,7 +45,20 @@ window.addEventListener('DOMContentLoaded',()=>{
         if (!mobBtn || !headerLinks) return;
         
         mobBtn.addEventListener('click', () => {
-            headerLinks.classList.toggle('header__links--active');
+            const isActive = headerLinks.classList.toggle('header__links--active');
+            mobBtn.textContent = isActive ? 'Close' : 'Menu';
+        });
+
+        // Закрытие меню при клике на пространство вне блока
+        document.addEventListener('click', (e) => {
+            const isMenuOpen = headerLinks.classList.contains('header__links--active');
+            const isClickInsideMenu = headerLinks.contains(e.target);
+            const isClickOnButton = mobBtn.contains(e.target);
+            
+            if (isMenuOpen && !isClickInsideMenu && !isClickOnButton) {
+                headerLinks.classList.remove('header__links--active');
+                mobBtn.textContent = 'Menu';
+            }
         });
     }
     initMobileMenu();
@@ -197,6 +210,98 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
     }
     initTabsWheelScroll();
+
+    // Видео функциональность
+    function initVideoFunctionality() {
+        const videoContainers = document.querySelectorAll('.project__video-container');
+        const videoOverlay = document.getElementById('videoOverlay');
+        const overlayVideo = document.getElementById('overlayVideo');
+        
+        if (!videoContainers.length || !videoOverlay || !overlayVideo) return;
+        
+        const isMobile = window.innerWidth <= 600;
+        
+        videoContainers.forEach(container => {
+            const video = container.querySelector('video');
+            const playBtn = container.querySelector('.project__video-play-btn');
+            
+            if (!video || !playBtn) return;
+            
+            // Десктопная версия - overlay
+            if (!isMobile) {
+                container.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openVideoOverlay(video);
+                });
+            }
+            // Мобильная версия - play/pause на месте
+            else {
+                container.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleMobileVideo(container, video);
+                });
+            }
+        });
+        
+        // Открытие overlay для десктопа
+        function openVideoOverlay(originalVideo) {
+            const videoSrc = originalVideo.querySelector('source').src;
+            const currentTime = originalVideo.currentTime;
+            
+            overlayVideo.src = videoSrc;
+            overlayVideo.currentTime = currentTime;
+            overlayVideo.play();
+            
+            videoOverlay.classList.add('project__video-overlay--active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Закрытие overlay
+        function closeVideoOverlay() {
+            overlayVideo.pause();
+            videoOverlay.classList.remove('project__video-overlay--active');
+            document.body.style.overflow = '';
+        }
+        
+        // Мобильная версия - play/pause
+        function toggleMobileVideo(container, video) {
+            if (video.paused) {
+                video.play();
+                container.classList.add('project__video-container--playing');
+            } else {
+                video.pause();
+                container.classList.remove('project__video-container--playing');
+            }
+        }
+        
+        
+        // Закрытие overlay по клику вне видео
+        videoOverlay.addEventListener('click', (e) => {
+            if (e.target === videoOverlay) {
+                closeVideoOverlay();
+            }
+        });
+        
+        // Закрытие overlay по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoOverlay.classList.contains('project__video-overlay--active')) {
+                closeVideoOverlay();
+            }
+        });
+        
+        // Обновление при изменении размера окна
+        window.addEventListener('resize', () => {
+            const newIsMobile = window.innerWidth <= 600;
+            if (newIsMobile !== isMobile) {
+                location.reload(); // Простое решение для переключения режимов
+            }
+        });
+    }
+    
+    // Инициализация видео функциональности
+    if (document.querySelector('.project__video-container')) {
+        initVideoFunctionality();
+    }
 
 });
 
