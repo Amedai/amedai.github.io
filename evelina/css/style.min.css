@@ -295,6 +295,7 @@ body {
   color: var(--color--brown);
 }
 .portfolio__gallery {
+  align-content: flex-start;
   margin-top: clamp(15px, 11.0830564784px + 0.9966777409vw, 36px);
   display: flex;
   flex-wrap: wrap;
