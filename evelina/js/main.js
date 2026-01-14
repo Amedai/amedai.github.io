@@ -8,13 +8,13 @@ window.addEventListener('DOMContentLoaded',()=>{
         
         if (items.length === 0) return;
 
-        // На мобильных устройствах (≤500px) используем 100% ширину и одну колонку
-        if (window.innerWidth <= 500) {
+        // На мобильных устройствах (≤600px) используем 100% ширину и одну колонку
+        if (window.innerWidth <= 600) {
             container.style.height = 'auto';
             return;
         }
 
-        // Только для десктопа (>500px) вычисляем высоту колонок
+        // Только для десктопа (>600px) вычисляем высоту колонок
         const columnsCount = 4;
         
         // Собираем высоты по колонкам
@@ -250,6 +250,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             
             overlayVideo.src = videoSrc;
             overlayVideo.currentTime = currentTime;
+            overlayVideo.volume = 0.3; // Устанавливаем громкость 30%
             overlayVideo.play();
             
             videoOverlay.classList.add('project__video-overlay--active');
@@ -266,6 +267,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         // Мобильная версия - play/pause
         function toggleMobileVideo(container, video) {
             if (video.paused) {
+                video.volume = 0.3; // Устанавливаем громкость 30%
                 video.play();
                 container.classList.add('project__video-container--playing');
             } else {

@@ -404,22 +404,29 @@ body {
 }
 @media (max-width: 1024px) {
   .portfolio__img-description {
-    padding: clamp(8px, 2.2748091603px + 1.1450381679vw, 14px);
+    padding: clamp(8px, -0.4905660377px + 1.4150943396vw, 14px);
   }
   .portfolio__img-title {
-    font-size: clamp(13px, 6.320610687px + 1.3358778626vw, 20px);
+    font-size: clamp(14px, 9.7547169811px + 0.7075471698vw, 17px);
   }
   .portfolio__img-text {
-    font-size: clamp(9px, 2.320610687px + 1.3358778626vw, 16px);
+    font-size: clamp(11px, 6.7547169811px + 0.7075471698vw, 14px);
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .portfolio__img {
     width: 100%;
     order: 1;
   }
   .portfolio__img-description {
     opacity: 1;
+    padding: clamp(12px, 11.0673943996px + 0.237304224vw, 17px);
+  }
+  .portfolio__img-title {
+    font-size: clamp(16px, 14.8808732795px + 0.2847650688vw, 22px);
+  }
+  .portfolio__img-text {
+    font-size: clamp(12px, 10.8808732795px + 0.2847650688vw, 18px);
   }
   .portfolio__img {
     outline: clamp(1.2px, 0.8642619839px + 0.0854295206vw, 3px) solid var(--color--brown);
@@ -466,7 +473,7 @@ body {
   text-align: center;
 }
 .about__title {
-  font-size: clamp(20px, 12.725676317px + 1.8509729473vw, 59px);
+  font-size: clamp(33px, 3.6229508197px + 2.2950819672vw, 61px);
 }
 .about__skill-links {
   margin-top: clamp(45px, 31.0109159943px + 3.5595633602vw, 120px);
@@ -481,7 +488,7 @@ body {
   border-radius: 10px;
   background: #fff;
   padding: clamp(10px, 7.575225439px + 0.6169909824vw, 23px);
-  font-size: clamp(24px, 17.4717607973px + 1.6611295681vw, 59px);
+  font-size: clamp(35px, 8.7704918033px + 2.0491803279vw, 60px);
   text-transform: uppercase;
   font-weight: 500;
   transition: transform 0.3s ease-in-out;
@@ -494,8 +501,8 @@ body {
 }
 .about__info {
   margin-top: clamp(45px, 31.0109159943px + 3.5595633602vw, 120px);
-  font-size: clamp(32px, 0.5245901639px + 2.4590163934vw, 62px);
-  max-width: clamp(1100px, 29.8360655738px + 83.606557377vw, 2120px);
+  font-size: clamp(31px, -2.5737704918px + 2.6229508197vw, 63px);
+  max-width: clamp(1200px, 255.737704918px + 73.7704918033vw, 2100px);
   margin-inline: auto;
 }
 .about__text-underline {
@@ -509,19 +516,31 @@ body {
 .about__philosophy {
   margin-top: clamp(30px, 19.9278595159px + 2.5628856194vw, 84px);
   font-weight: 500;
-  font-size: clamp(20px, 12.725676317px + 1.8509729473vw, 59px);
+  font-size: clamp(31px, -2.5737704918px + 2.6229508197vw, 63px);
   background-color: var(--color--brown);
   color: var(--color--white);
-  padding: clamp(15px, 11.0830564784px + 0.9966777409vw, 36px);
-  max-width: clamp(390px, 244.5135263408px + 37.0194589464vw, 1170px);
+  padding: clamp(22.5px, 20.075225439px + 0.6169909824vw, 35.5px) 19px;
+  max-width: clamp(560px, 3.9344262295px + 43.4426229508vw, 1090px);
   margin-inline: auto;
   border-radius: 10px;
 }
-@media (max-width: 1250px) {
-  .about__info {
-    font-size: clamp(20px, 14.6832018038px + 1.3528748591vw, 32px);
-    max-width: clamp(363px, 36.4599774521px + 83.0890642616vw, 1100px);
+@media (max-width: 1280px) {
+  .about__title {
+    font-size: clamp(20px, 14.2401352875px + 1.4656144307vw, 33px);
   }
+  .about__skill-link {
+    font-size: clamp(24px, 19.1262683202px + 1.2401352875vw, 35px);
+  }
+  .about__info {
+    font-size: clamp(20px, 15.1262683202px + 1.2401352875vw, 31px);
+    max-width: clamp(362px, -9.289740699px + 94.4757609921vw, 1200px);
+  }
+  .about__philosophy {
+    font-size: clamp(20px, 15.1262683202px + 1.2401352875vw, 31px);
+    max-width: clamp(362px, 274.2728297632px + 22.3224351747vw, 560px);
+  }
+}
+@media (max-width: 1024px) {
   .about__text-nowrap {
     white-space: normal;
   }
