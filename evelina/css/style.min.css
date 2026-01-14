@@ -704,6 +704,7 @@ body {
   position: relative;
   max-width: 90%;
   max-height: 90%;
+  border-radius: 10px;
 }
 .project__video-overlay-content video {
   width: 100%;
