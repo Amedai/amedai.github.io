@@ -501,7 +501,7 @@ body {
 }
 .about__info {
   margin-top: clamp(45px, 31.0109159943px + 3.5595633602vw, 120px);
-  font-size: clamp(31px, -2.5737704918px + 2.6229508197vw, 63px);
+  font-size: clamp(28px, -11.868852459px + 3.1147540984vw, 66px);
   max-width: clamp(1200px, 255.737704918px + 73.7704918033vw, 2100px);
   margin-inline: auto;
 }
@@ -516,11 +516,11 @@ body {
 .about__philosophy {
   margin-top: clamp(30px, 19.9278595159px + 2.5628856194vw, 84px);
   font-weight: 500;
-  font-size: clamp(31px, -2.5737704918px + 2.6229508197vw, 63px);
+  font-size: clamp(28px, -11.868852459px + 3.1147540984vw, 66px);
   background-color: var(--color--brown);
   color: var(--color--white);
   padding: clamp(22.5px, 20.075225439px + 0.6169909824vw, 35.5px) 19px;
-  max-width: clamp(560px, 3.9344262295px + 43.4426229508vw, 1090px);
+  max-width: clamp(540px, -162.9508196721px + 54.9180327869vw, 1210px);
   margin-inline: auto;
   border-radius: 10px;
 }
@@ -532,12 +532,12 @@ body {
     font-size: clamp(24px, 19.1262683202px + 1.2401352875vw, 35px);
   }
   .about__info {
-    font-size: clamp(20px, 15.1262683202px + 1.2401352875vw, 31px);
+    font-size: clamp(20px, 16.4554678692px + 0.9019165727vw, 28px);
     max-width: clamp(362px, -9.289740699px + 94.4757609921vw, 1200px);
   }
   .about__philosophy {
-    font-size: clamp(20px, 15.1262683202px + 1.2401352875vw, 31px);
-    max-width: clamp(362px, 274.2728297632px + 22.3224351747vw, 560px);
+    font-size: clamp(20px, 16.4554678692px + 0.9019165727vw, 28px);
+    max-width: clamp(362px, 283.1341600902px + 20.067643743vw, 540px);
   }
 }
 @media (max-width: 1024px) {
