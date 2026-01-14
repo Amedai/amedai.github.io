@@ -473,7 +473,7 @@ body {
   text-align: center;
 }
 .about__title {
-  font-size: clamp(33px, 3.6229508197px + 2.2950819672vw, 61px);
+  font-size: clamp(28px, -11.868852459px + 3.1147540984vw, 66px);
 }
 .about__skill-links {
   margin-top: clamp(45px, 31.0109159943px + 3.5595633602vw, 120px);
@@ -488,7 +488,7 @@ body {
   border-radius: 10px;
   background: #fff;
   padding: clamp(10px, 7.575225439px + 0.6169909824vw, 23px);
-  font-size: clamp(35px, 8.7704918033px + 2.0491803279vw, 60px);
+  font-size: clamp(28px, -11.868852459px + 3.1147540984vw, 66px);
   text-transform: uppercase;
   font-weight: 500;
   transition: transform 0.3s ease-in-out;
@@ -526,10 +526,10 @@ body {
 }
 @media (max-width: 1280px) {
   .about__title {
-    font-size: clamp(20px, 14.2401352875px + 1.4656144307vw, 33px);
+    font-size: clamp(20px, 16.4554678692px + 0.9019165727vw, 28px);
   }
   .about__skill-link {
-    font-size: clamp(24px, 19.1262683202px + 1.2401352875vw, 35px);
+    font-size: clamp(24px, 22.2277339346px + 0.4509582864vw, 28px);
   }
   .about__info {
     font-size: clamp(20px, 16.4554678692px + 0.9019165727vw, 28px);
