@@ -32,8 +32,60 @@ window.addEventListener('DOMContentLoaded',()=>{
         // Устанавливаем высоту контейнера
         container.style.height = maxColumnHeight + 'px';
     }
+
+    // Функция для инициализации расчета высоты после загрузки изображений
+    function initContainerHeight() {
+        const container = document.querySelector('.portfolio__gallery');
+        const images = container ? container.querySelectorAll('img') : [];
+        
+        if (images.length === 0) {
+            calculateContainerHeight();
+            return;
+        }
+
+        let loadedImages = 0;
+        let errorImages = 0;
+        const totalImages = images.length;
+        
+        // Таймаут на случай долгой загрузки изображений
+        const timeoutId = setTimeout(() => {
+            if (loadedImages + errorImages < totalImages) {
+                calculateContainerHeight();
+            }
+        }, 3000); // 3 секунды таймаут
+
+        images.forEach(img => {
+            if (img.complete) {
+                loadedImages++;
+            } else {
+                img.addEventListener('load', () => {
+                    loadedImages++;
+                    checkAllLoaded();
+                });
+                
+                img.addEventListener('error', () => {
+                    errorImages++;
+                    checkAllLoaded();
+                });
+            }
+        });
+
+        function checkAllLoaded() {
+            if (loadedImages + errorImages === totalImages) {
+                clearTimeout(timeoutId);
+                calculateContainerHeight();
+            }
+        }
+
+        // Если все изображения уже загружены
+        if (loadedImages + errorImages === totalImages) {
+            clearTimeout(timeoutId);
+            calculateContainerHeight();
+        }
+    }
+
     if(document.querySelector('.portfolio__gallery')){
-        calculateContainerHeight();
+        initContainerHeight();
         window.addEventListener('resize', calculateContainerHeight);
     }
 
@@ -66,21 +118,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     //scroll animation
     if(document.querySelector('.scroll-animation')){
-/*         window.addEventListener('load',()=>{
-            const scrollAnimationCallback = function(entries,observer){
-                entries.forEach(entry=>{
-                    if(entry.isIntersecting){
-                        const target = entry.target;
-                        target.classList.add('scroll-animation--active');
-                        observer.unobserve(target);
-                    }
-                });
-            };
-            const scrollAnimation = new IntersectionObserver(scrollAnimationCallback,{threshold:0.2});
-            document.querySelectorAll('.scroll-animation').forEach(el=>{
-                scrollAnimation.observe(el);
-            });
-        }); */
         const scrollAnimationCallback = function(entries,observer){
             entries.forEach(entry=>{
                 if(entry.isIntersecting){
@@ -98,34 +135,50 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
     //переход между страницами с сохранением позиции
 
-
-    // Проверяем, откуда пришли
-    function getNavigationHistory() {
-        return {
-            referrer: document.referrer,
-            historyLength: history.length
-        };
-    }
-    function smartNavigation() {
+    function smartNavigation(step) {
         const mainBack = document.querySelector('[data-name="main"]');
-        const curentPath = window.location.pathname;
         
-        const nav = getNavigationHistory();
+        mainBack.addEventListener('click',(e)=>{
+            e.preventDefault();
+            history.go(step);
+        });
+    }
+    
+    const currentPath = window.location.pathname.replace(/\/$/, ''); // убираем trailing slash
 
-        if(nav.referrer.includes('index')){
-            mainBack.addEventListener('click',(e)=>{
-                e.preventDefault();
-                history.go(-1);
-            });
+    const isAbout = currentPath.includes('about');
+    const isProject = currentPath.includes('project');
+    let isMain = false;
+    if(currentPath === '' || currentPath === '/'){
+        isMain = true;
+    }
+
+    if(isMain){
+        sessionStorage.setItem('isVisitMain', 1);
+    }
+    if(isAbout){
+        const aboutPage = document.querySelector('[data-name="about"]');
+        aboutPage.addEventListener('click',(e)=>{
+            e.preventDefault();
+        });
+
+        if(!document.referrer.includes('project') && +sessionStorage.getItem('isVisitMain')){
+            smartNavigation(-1);
         }
-        if(nav.referrer.includes('project') && curentPath.includes('about') && nav.historyLength > 2){
-            mainBack.addEventListener('click',(e)=>{
-                e.preventDefault();
-                history.go(-2);
-            });            
+        if(document.referrer.includes('project') && +sessionStorage.getItem('isAboutPageReadyForSmartNav')){
+            smartNavigation(-2);
         }
     }
-    smartNavigation();
+    if(isProject){
+        if(!document.referrer.includes('project') && +sessionStorage.getItem('isVisitMain')){
+            sessionStorage.setItem('isAboutPageReadyForSmartNav', 1);
+            smartNavigation(-1);
+        }else{
+            sessionStorage.setItem('isAboutPageReadyForSmartNav', 0);
+        }
+        
+    }
+
 
     // Фильтрация портфолио
     function initPortfolioFilter() {
@@ -147,9 +200,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                 const hiddenImages = [];
                 
                 images.forEach((img) => {
-                    const category = img.dataset.category;
+                    const categories = img.dataset.category ? img.dataset.category.split(',').map(cat => cat.trim().replace(/\s+/g, '-').toLowerCase()).filter(cat => cat) : [];
                     
-                    if (selectedCategory === 'all' || category === selectedCategory) {
+                    if (selectedCategory === 'all' || categories.includes(selectedCategory)) {
                         img.classList.remove('portfolio__img--hidden');
                         visibleImages.push(img);
                     } else {
@@ -245,6 +298,19 @@ window.addEventListener('DOMContentLoaded',()=>{
         
         // Открытие overlay для десктопа
         function openVideoOverlay(originalVideo) {
+            const overlayContent = document.querySelector('.project__video-overlay-content');
+            const overlayVideo = document.getElementById('overlayVideo');
+            
+            // Определяем класс размера у оригинального контейнера
+            const originalContainer = originalVideo.closest('.project__video-container');
+            const sizeClass = originalContainer.className.match(/project__img-(\d+x\d+)/);
+            
+            // Удаляем все классы размеров у overlay и добавляем нужный
+            overlayContent.className = 'project__video-overlay-content';
+            if (sizeClass) {
+                overlayContent.classList.add(`project__video-overlay-content-${sizeClass[1]}`);
+            }
+            
             const videoSrc = originalVideo.querySelector('source').src;
             const currentTime = originalVideo.currentTime;
             
