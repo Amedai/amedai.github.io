@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container container--tablet-lg-width">
+            <div class="header__inner">
+                <a href="index.html" class="header__logo hover-underline">tatarlar chae</a>
+                <nav class="header__menu">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item header__menu-item--hover">
+                            <a href="index.html" class="header__menu-link hover-underline">Главная</a>
+                            <nav class="header__submenu">
+                                <ul class="header__submenu-list">
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#offer" class="header__submenu-link hover-underline">Мы предлагаем</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#gallery" class="header__submenu-link hover-underline">Фотогалерея</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#about" class="header__submenu-link hover-underline">О  нас</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#review" class="header__submenu-link hover-underline">Отзывы</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#news" class="header__submenu-link hover-underline">Статьи  и  новости</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#faq" class="header__submenu-link hover-underline">FAQ</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="catalog.html" class="header__menu-link hover-underline">Каталог</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="cooperation.html" class="header__menu-link hover-underline">Сотрудничество</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="delivery.html" class="header__menu-link hover-underline">Доставка и оплата</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="furniture.html" class="header__menu-link hover-underline">Оборудование</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="present.html" class="header__menu-link hover-underline">Подарки</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__wrapper">
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                    </a>
+                    <button class="header__burger" type="button" title="Открыть меню" aria-label="Открыть меню">
+                        <img src="./images/icons/burger-btn.svg" alt="">
+                    </button>
+                </div>
+            </div>
+            <div class="header__mob-outer">
+                <div class="header__top-block">
+                    <a href="index.html" class="header__logo-mob">tatarlar chae</a>
+                    <button class="header__cross" type="button" title="Закрыть меню" aria-label="Закрыть меню">
+                        <img src="./images/icons/close.svg" alt="">
+                    </button>
+                </div>
+                <nav class="header__mob-menu">
+                    <ul class="header__menu-list">
+                        <li class="header__menu-item header__menu-item--hover">
+                            <a href="index.html" class="header__menu-link hover-underline">Главная</a>
+                            <nav class="header__submenu">
+                                <ul class="header__submenu-list">
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#offer" class="header__submenu-link hover-underline">Мы предлагаем</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#gallery" class="header__submenu-link hover-underline">Фотогалерея</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#about" class="header__submenu-link hover-underline">О  нас</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#review" class="header__submenu-link hover-underline">Отзывы</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#news" class="header__submenu-link hover-underline">Статьи  и  новости</a>
+                                    </li>
+                                    <li class="header__submenu-item">
+                                        <a href="index.html#faq" class="header__submenu-link hover-underline">FAQ</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="catalog.html" class="header__menu-link hover-underline">Каталог</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="cooperation.html" class="header__menu-link hover-underline">Сотрудничество</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="delivery.html" class="header__menu-link hover-underline">Доставка и оплата</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="furniture.html" class="header__menu-link hover-underline">Оборудование</a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="present.html" class="header__menu-link hover-underline">Подарки</a>
+                        </li>
+                    </ul>
+                </nav>
+                <ul class="header__social-links">
+                    <li class="header__social-item">
+                        <a href="" class="header__social-link">
+                            <img src="./images/icons/vk.svg" alt="">
+                        </a>
+                    </li>
+                    <li class="header__social-item">
+                        <a href="" class="header__social-link">
+                            <img src="./images/icons/tg.svg" alt="">
+                        </a>
+                    </li>
+                    <li class="header__social-item">
+                        <a href="" class="header__social-link">
+                            <img src="./images/icons/whatsapp.svg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="hero-secondary hero-secondary--catalog" data-section="hero">
+            <div class="container"> 
+                <div class="hero-secondary__inner">
+                    <h1 class="hero-secondary__title">чай и кофе в стаканчике</h1>
+                    <div class="hero-secondary__content">
+                        <div class="hero-secondary__content-block hero-secondary__content-block--max-width490">
+                            <div class="hero-secondary__text-block">
+                                <p class="hero-secondary__text">Натуральный, ароматный, полезный чай с фильтром прямо в стакане — удобно, красиво, по-настоящему.</p>
+                            </div>
+                            <div class="hero-secondary__link-block">
+                                <a href="catalog.html" class="hero-secondary__link hero-secondary__link--bg-white">Перейти в каталог</a>
+                                <a href="" class="hero-secondary__link hero-secondary__link--bg-transparent">Заказать звонок</a>
+                            </div>
+                        </div>
+                        <div class="natural-circle hero-secondary__natural-circle hero-secondary__natural-circle--ml hero-secondary__natural-circle--left">
+                            <div class="natural-circle__inner">
+                                <span class="natural-circle__percent">100%</span>
+                                <span class="natural-circle__subtext">натуральный</span>
+                                <div class="natural-circle__img">
+                                    <img src="./images/icons/leaf.svg" alt="">
+                                </div>
+                                <svg class="natural-circle__green-border" width="217" height="217" viewBox="0 0 217 217" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g filter="url(#filter0_dd_793_4730)">
+                                        <path d="M143.698 25.5796C144.618 23.4522 143.643 20.9722 141.476 20.1478C122.166 12.7993 100.929 12.0026 81.0615 17.9513C59.851 24.3021 41.5618 37.9335 29.4149 56.4448C17.268 74.9561 12.0426 97.1599 14.659 119.146C17.2754 141.131 27.5658 161.489 43.7178 176.632C59.8698 191.776 80.8474 200.734 102.956 201.93C125.064 203.125 146.886 196.481 164.577 183.168C182.267 169.854 194.693 150.726 199.665 129.15C204.323 108.941 202.16 87.7992 193.584 69.0021C192.622 66.8933 190.084 66.0793 188.02 67.1346C185.957 68.1898 185.149 70.7146 186.102 72.8276C193.784 89.8611 195.699 108.982 191.486 127.265C186.958 146.915 175.641 164.336 159.529 176.461C143.418 188.586 123.544 194.637 103.409 193.548C83.2742 192.459 64.1691 184.3 49.4589 170.509C34.7487 156.717 25.3769 138.177 22.994 118.154C20.6111 98.1305 25.3701 77.9087 36.4327 61.0498C47.4953 44.1909 64.152 31.7763 83.4691 25.9924C101.443 20.6107 120.648 21.2909 138.14 27.8603C140.31 28.6752 142.778 27.707 143.698 25.5796Z" fill="url(#paint0_linear_793_4730)" />
+                                    </g>
+                                    <defs>
+                                        <filter id="filter0_dd_793_4730" x="0" y="0" width="216.067" height="216.067" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                        <feOffset dx="4" dy="4" />
+                                        <feGaussianBlur stdDeviation="5" />
+                                        <feComposite in2="hardAlpha" operator="out" />
+                                        <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0" />
+                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_793_4730" />
+                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                        <feOffset dx="-4" dy="-4" />
+                                        <feGaussianBlur stdDeviation="5" />
+                                        <feComposite in2="hardAlpha" operator="out" />
+                                        <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0" />
+                                        <feBlend mode="normal" in2="effect1_dropShadow_793_4730" result="effect2_dropShadow_793_4730" />
+                                        <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_793_4730" result="shape" />
+                                        </filter>
+                                        <linearGradient id="paint0_linear_793_4730" x1="21.7277" y1="70.7027" x2="159.661" y2="116.133" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#152D00" />
+                                        <stop offset="1" stop-color="#459300" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <svg class="natural-circle__white-border" width="162" height="162" viewBox="0 0 162 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M26.1127 140.363C15.8663 130.91 8.22821 118.978 3.93706 105.719C-0.354087 92.4613 -1.15311 78.3263 1.61723 64.6812C4.38756 51.0361 10.6335 38.3426 19.7512 27.8281C28.8688 17.3137 40.5496 9.33404 53.6641 4.66079C65.5992 0.440194 78.3583 -0.94074 90.9299 0.62748C91.3968 0.685251 91.822 0.926078 92.1119 1.29697C92.4017 1.66787 92.5326 2.13845 92.4756 2.6052C92.4186 3.07195 92.1785 3.49663 91.808 3.78582C91.4376 4.07501 90.9671 4.20502 90.5002 4.14725C78.2721 2.59097 65.854 3.98135 54.2827 8.20233C42.7114 12.4233 32.3225 19.3524 23.9834 28.4112C16.0339 37.0342 10.1534 47.3556 6.78712 58.5944C3.42079 69.8331 2.65681 81.6947 4.553 93.2813C6.44918 104.868 10.9559 115.876 17.7319 125.472C24.508 135.068 33.3759 143.002 43.6644 148.671C53.953 154.341 65.3926 157.598 77.1174 158.197C88.8423 158.795 100.545 156.72 111.34 152.127C122.135 147.534 131.74 140.544 139.427 131.686C147.114 122.828 152.682 112.334 155.71 100.999C158.806 89.2923 159.133 77.0204 156.663 65.1558C156.616 64.9277 156.614 64.6926 156.657 64.4639C156.701 64.2352 156.789 64.0175 156.917 63.8231C157.045 63.6286 157.21 63.4614 157.403 63.3308C157.595 63.2003 157.812 63.109 158.04 63.0621C158.268 63.0153 158.503 63.0139 158.732 63.0579C158.961 63.102 159.179 63.1906 159.373 63.3188C159.568 63.447 159.736 63.6122 159.866 63.8051C159.997 63.9979 160.089 64.2146 160.136 64.4427C162.786 77.0568 162.384 90.116 158.963 102.533C155.543 114.95 149.204 126.365 140.474 135.827C125.935 151.59 105.719 160.923 84.2734 161.774C62.8274 162.624 41.907 154.923 26.1127 140.363Z" fill="url(#paint0_linear_793_4731)" />
+                                    <defs>
+                                        <linearGradient id="paint0_linear_793_4731" x1="125.762" y1="32.2939" x2="-81.7675" y2="264.823" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" />
+                                        <stop offset="1" stop-color="#004D1A" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="wrapper">
+            <section class="catalog">
+                <div class="section-pattern-right">
+                    <img src="./images/icons/section-pattern-right.png" alt="">
+                </div>
+                <div class="catalog__inner">
+                    <div class="container">
+                        <h2 class="section-title catalog__section-title">Каталог</h2>
+                        <div class="catalog__flex-block">
+                            <span class="sign catalog__sign">Удащщщливый чәй</span>
+                            <div class="catalog__flex-filter">
+                                <div class="catalog__filter-text catalog__filter-text--bg-green">Ассортимент</div>
+                                <div class="catalog__filter-item">
+                                    <div class="catalog__filter-dropdown">
+                                        <div class="catalog__filter-dropdown-text">категория</div>
+                                        <div class="catalog__filter-dropdown-arrow">
+                                            <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <ul class="catalog__filter-list">
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="tea">
+                                                <label class="catalog__checkbox-label" for="tea">Чай</label>
+                                            </div>
+                                        </li>
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="coffe">
+                                                <label class="catalog__checkbox-label" for="coffe">Кофе</label>
+                                            </div>
+                                        </li>
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="mulled-wine">
+                                                <label class="catalog__checkbox-label" for="mulled-wine">Глинтвейн</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="catalog__filter-item">
+                                    <div class="catalog__filter-dropdown">
+                                        <div class="catalog__filter-dropdown-text">Вид чая</div>
+                                        <div class="catalog__filter-dropdown-arrow">
+                                            <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <ul class="catalog__filter-list">
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="black">
+                                                <label class="catalog__checkbox-label" for="black">Черный</label>
+                                            </div>
+                                        </li>
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="green">
+                                                <label class="catalog__checkbox-label" for="green">Зеленый</label>
+                                            </div>
+                                        </li>
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="fruit">
+                                                <label class="catalog__checkbox-label" for="fruit">Фруктовый</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="catalog__filter-item">
+                                    <div class="catalog__filter-dropdown">
+                                        <div class="catalog__filter-dropdown-text">свойства чая</div>
+                                        <div class="catalog__filter-dropdown-arrow">
+                                            <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <ul class="catalog__filter-list">
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="tonizing">
+                                                <label class="catalog__checkbox-label" for="tonizing">Тонизирующий</label>
+                                            </div>
+                                        </li>
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="awakening">
+                                                <label class="catalog__checkbox-label" for="awakening">Бодрящий</label>
+                                            </div>
+                                        </li>
+                                        <li class="catalog__filter-list-item">
+                                            <div class="catalog__checkbox">
+                                                <input class="catalog__checkbox-input" type="checkbox" id="strengthening">
+                                                <label class="catalog__checkbox-label" for="strengthening">Укрепляющий</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="catalog__flex-item">
+                                <div class="catalog__search-wrapper">
+                                    <input type="search" placeholder="Поиск" class="catalog__input-search">
+                                    <button type="" class="catalog__btn-search">
+                                        <img src="./images/icons/search.svg" alt="">
+                                    </button>
+                                    <button type="" class="catalog__filter-open">
+                                        <span class="catalog__filter-text catalog__filter-text--mob-hidden">Ассортимент</span>
+                                        <div class="catalog__filter-dropdown-arrow catalog__filter-dropdown-arrow--mob-hidden">
+                                            <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                        </div>
+                                        <div class="catalog__filter-icon catalog__filter-icon--mob-visible">
+                                            <img src="./images/icons/filter.svg" alt="">
+                                        </div>
+                                    </button>
+                                    <div class="catalog__flex-filter catalog__flex-filter--tablet-visible">
+                                        <div class="catalog__filter-text catalog__filter-text--bg-green">Ассортимент</div>
+                                        <div class="catalog__filter-item">
+                                            <div class="catalog__filter-dropdown">
+                                                <div class="catalog__filter-dropdown-text">категория</div>
+                                                <div class="catalog__filter-dropdown-arrow">
+                                                    <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                                </div>
+                                            </div>
+                                            <ul class="catalog__filter-list">
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="tea">
+                                                        <label class="catalog__checkbox-label" for="tea">Чай</label>
+                                                    </div>
+                                                </li>
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="coffe">
+                                                        <label class="catalog__checkbox-label" for="coffe">Кофе</label>
+                                                    </div>
+                                                </li>
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="mulled-wine">
+                                                        <label class="catalog__checkbox-label" for="mulled-wine">Глинтвейн</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="catalog__filter-item">
+                                            <div class="catalog__filter-dropdown">
+                                                <div class="catalog__filter-dropdown-text">Вид чая</div>
+                                                <div class="catalog__filter-dropdown-arrow">
+                                                    <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                                </div>
+                                            </div>
+                                            <ul class="catalog__filter-list">
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="black">
+                                                        <label class="catalog__checkbox-label" for="black">Черный</label>
+                                                    </div>
+                                                </li>
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="green">
+                                                        <label class="catalog__checkbox-label" for="green">Зеленый</label>
+                                                    </div>
+                                                </li>
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="fruit">
+                                                        <label class="catalog__checkbox-label" for="fruit">Фруктовый</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="catalog__filter-item">
+                                            <div class="catalog__filter-dropdown">
+                                                <div class="catalog__filter-dropdown-text">свойства чая</div>
+                                                <div class="catalog__filter-dropdown-arrow">
+                                                    <img src="./images/icons/arrow-down-gray.svg" alt="">
+                                                </div>
+                                            </div>
+                                            <ul class="catalog__filter-list">
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="tonizing">
+                                                        <label class="catalog__checkbox-label" for="tonizing">Тонизирующий</label>
+                                                    </div>
+                                                </li>
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="awakening">
+                                                        <label class="catalog__checkbox-label" for="awakening">Бодрящий</label>
+                                                    </div>
+                                                </li>
+                                                <li class="catalog__filter-list-item">
+                                                    <div class="catalog__checkbox">
+                                                        <input class="catalog__checkbox-input" type="checkbox" id="strengthening">
+                                                        <label class="catalog__checkbox-label" for="strengthening">Укрепляющий</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="catalog__content">
+                                    <div class="catalog-card">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog-card1.jpg" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> молочный улун.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="1" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                        </div>
+                                    </div>
+                                    <div class="catalog-card">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog-card1.jpg" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> молочный улун.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="1" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                        </div>
+                                    </div>
+                                    <div class="catalog-card">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog-card1.jpg" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> молочный улун.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="1" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                        </div>
+                                    </div>
+                                    <div class="catalog-card">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog-card1.jpg" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> молочный улун.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="1" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="wrapper__pattern wrapper__pattern--left">
+                <img src="./images/icons/wrapper-left-pattern.png" alt="">
+            </div>
+            <section class="style">
+                <div class="container">
+                    <div class="style__wrapper">
+                        <div class="style__flex-wrapper">
+                            <div class="style__title-wrapper">
+                                <span class="small-title">фирменный стиль</span>
+                                <h2 class="section-title style__section-title">Чай и кофе в вашем стиле</h2>
+                                    <a href="" class="href-btn href-btn--tablet-visible style__href-btn">
+                                    <span class="href-btn__text">Заказать услугу</span>
+                                    <span class="href-btn__arrow">
+                                        <div class="href-btn__arrow-block">
+                                            <img src="./images/icons/arrow-right.svg" alt="">
+                                        </div>
+                                    </span>
+                                </a>    
+                            </div>
+                            <div class="style__text-wrapper">
+                                <p class="style__text">Хотите, чтобы напиток стал частью фирменного стиля? Без проблем! Мы бережно <span>наполним ваши брендированные стаканы</span> отборным натуральным крупнолистовым чаем или молотым кофе, <span>установим мембрану — и подготовим всё к подаче</span>.</p>
+                                <div class="style__list-title">Так вы:</div>
+                                <ul class="style__list">
+                                    <li class="style__list-item">экономите время сотрудников,</li>
+                                    <li class="style__list-item">упрощаете обслуживание,</li>
+                                    <li class="style__list-item">сохраняете фирменный стиль,</li>
+                                    <li class="style__list-item style__list-item--circle-top">дарите гостям возможность пить <span>настоящее, полезное, натуральное</span></li>
+                                </ul>
+                            </div>
+                            <a href="" class="href-btn href-btn--desktop-visible style__href-btn">
+                                <span class="href-btn__text">Заказать услугу</span>
+                                <span class="href-btn__arrow">
+                                    <div class="href-btn__arrow-block">
+                                        <img src="./images/icons/arrow-right.svg" alt="">
+                                    </div>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="style__cup-img">
+                            <img src="./images/main/style.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section class="wholesale">
+            <div class="container">
+                <div class="wholesale__inner">
+                    <div class="wholesale__img">
+                        <picture>
+                            <img src="./images/catalog/wholesale.jpg" alt="">
+                        </picture>
+                    </div>
+                    <div class="wholesale__info">
+                        <div class="small-title">Оптовая продажа</div>
+                        <h2 class="section-title wholesale__section-title">Хотите купить оптом?</h2>
+                        <p class="wholesale__text">Мы предлагаем специальные условия и выгодные цены для оптовых покупателей. Откройте для себя преимущества партнерства с нами и обеспечьте свой бизнес качественным натуральным продуктом.</p>
+                        <a href="" class="href-btn wholesale__href-btn">
+                            <span class="href-btn__text">Связаться</span>
+                            <span class="href-btn__arrow">
+                                <div class="href-btn__arrow-block">
+                                    <img src="./images/icons/arrow-right.svg" alt="">
+                                </div>
+                            </span>
+                        </a>
+                        <a href="" class="wholesale__btn-more">
+                            <span class="wholesale__btn-more-text">ПОДРОБНЕЕ</span>
+                            <span class="wholesale__btn-more-arrow">
+                                <div class="wholesale__btn-more-arrow-block">
+                                    <img src="./images/icons/arrow-right-green.svg" alt="">
+                                </div>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__form">
+            <div class="footer__form-pattern">
+                <img src="./images/icons/footer-form-pattern.svg" alt="">
+            </div>
+            <div class="container">
+                <div class="footer__flex-wrapper">
+                    <div class="footer__info">
+                        <div class="footer__text footer__text--lg">Всегда рядом</div>
+                        <p class="footer__text">Хотите узнать больше или остались вопросы? Оставьте заявку — мы обязательно перезвоним и поможем.</p>
+                        <p class="footer__text footer__text--desktop-visible">Или вы всегда можете связаться с нами в любом удобном для вас месенджере</p>
+                        <ul class="footer__social-list footer__social-list--desktop-visible">
+                            <li class="footer__social-item">
+                                <a href="" class="footer__social-link">
+                                    <img src="./images/icons/vk.svg" alt="">
+                                </a>
+                            </li>
+                            <li class="footer__social-item">
+                                <a href="" class="footer__social-link">
+                                    <img src="./images/icons/tg.svg" alt="">
+                                </a>
+                            </li>
+                            <li class="footer__social-item">
+                                <a href="" class="footer__social-link">
+                                    <img src="./images/icons/whatsapp.svg" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__form-block">
+                        <form action="">
+                            <div class="footer__input-wrapper">
+                                <input class="footer__input" type="name" name="feedname" required placeholder="Ваше Имя">
+                                <input class="footer__input" type="email" name="feedmail"required placeholder="Почта">
+                                <input class="footer__input" type="tel" name="feedphone"required placeholder="+7 999 000 00 00">
+                            </div>
+                            <p class="footer__policy-info">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой конфиденциальности</p>
+                            <button class="footer__btn">Отправить</button>
+                        </form>
+                    </div>
+                    <span class="footer__text footer__text--mobile-visible">...или напишите нам в мессенджеры:</span>
+                    <ul class="footer__social-list footer__social-list--mobile-visible">
+                        <li class="footer__social-item">
+                            <a href="" class="footer__social-link">
+                                <img src="./images/icons/vk.svg" alt="">
+                            </a>
+                        </li>
+                        <li class="footer__social-item">
+                            <a href="" class="footer__social-link">
+                                <img src="./images/icons/tg.svg" alt="">
+                            </a>
+                        </li>
+                        <li class="footer__social-item">
+                            <a href="" class="footer__social-link">
+                                <img src="./images/icons/whatsapp.svg" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer__links">
+            <div class="footer__links-pattern">
+                <img src="./images/icons/footer-links-pattern.svg" alt="">
+            </div>
+            <div class="container">
+                <a href="index.html" class="footer__logo">ТАТАРЛАР ЧәЕ</a>
+                <div class="footer__menu-wrapper">
+                    <div class="footer__menu-wrapper-item">
+                        <span class="footer__menu-title">Покупателям</span>
+                        <nav class="footer__menu">
+                            <ul class="footer__menu-list">
+                                <li class="footer__menu-item">
+                                    <a href="cooperation.html" class="footer__menu-link">Сотрудничество</a>
+                                </li>
+                                <li class="footer__menu-item">
+                                    <a href="index.html#review" class="footer__menu-link">Отзывы</a>
+                                </li>
+                                <li class="footer__menu-item">
+                                    <a href="delivery.html" class="footer__menu-link">Доставка и оплата</a>
+                                </li>
+                                <li class="footer__menu-item">
+                                    <a href="news.html" class="footer__menu-link">статьи и новости</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="footer__menu-wrapper-item">
+                        <span class="footer__menu-title">каталог</span>
+                        <nav class="footer__menu">
+                            <ul class="footer__menu-list footer__menu-list--template-columns-small">
+                                <li class="footer__menu-item footer__menu-item--full-width">
+                                    <a href="catalog.html" class="footer__menu-link">чай и кофе в стаканчике</a>
+                                </li>
+                                <li class="footer__menu-item">
+                                    <a href="furniture.html" class="footer__menu-link">оборудование</a>
+                                </li>
+                                <li class="footer__menu-item">
+                                    <a href="present.html" class="footer__menu-link">подарки</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="footer__menu-wrapper-item">
+                        <span class="footer__menu-title">контакты</span>
+                        <div class="footer__menu">
+                            <ul class="footer__menu-list footer__menu-list--column1">
+                                <li class="footer__menu-item">
+                                    <a href="" class="footer__menu-link footer__menu-link--ttn">+ 7 (999) 000 00 00</a>
+                                </li>
+                                <li class="footer__menu-item">
+                                    <a href="" class="footer__menu-link footer__menu-link--ttn">tatarlar@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <a href="" class="footer__policy">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+    <script src="./js/main.js"></script>
+    <script src="./js/swiper-bundle.min.js"></script>
+</body>
+</html>
