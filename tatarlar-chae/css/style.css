@@ -198,6 +198,10 @@ html,
   scroll-behavior: smooth;
 }
 
+img {
+  display: block;
+}
+
 /**
  * Swiper 11.0.6
  * Most modern mobile touch slider and framework with hardware accelerated transitions
@@ -1770,7 +1774,7 @@ body {
   }
 }
 .hero-secondary__natural-circle--ml {
-  margin-left: 150px;
+  margin-left: 50px;
 }
 .hero-secondary__natural-circle {
   align-self: flex-end;
@@ -1812,7 +1816,6 @@ body {
   z-index: 1;
 }
 .footer__form-pattern img {
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -1821,6 +1824,10 @@ body {
 @media (max-width: 767.98px) {
   .footer__form {
     padding: 80px 0;
+  }
+  .footer__form-pattern {
+    width: 100%;
+    height: 50%;
   }
 }
 .footer__flex-wrapper {
@@ -1837,11 +1844,11 @@ body {
   }
 }
 .footer__info {
-  width: 45%;
+  width: 43%;
 }
 @media (max-width: 1023.98px) {
   .footer__info {
-    width: 48%;
+    width: 45%;
   }
 }
 @media (max-width: 767.98px) {
@@ -1921,11 +1928,11 @@ body {
   }
 }
 .footer__form-block {
-  width: 55%;
+  width: 53%;
 }
 @media (max-width: 1023.98px) {
   .footer__form-block {
-    width: 52%;
+    width: 50%;
   }
 }
 @media (max-width: 767.98px) {
@@ -1975,7 +1982,7 @@ body {
 }
 @media (max-width: 767.98px) {
   .footer__policy-info {
-    font-size: 8px;
+    font-size: 10px;
     margin-top: 8px;
   }
 }
@@ -2012,7 +2019,6 @@ body {
   z-index: 1;
 }
 .footer__links-pattern img {
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -2022,6 +2028,10 @@ body {
   .footer__links {
     padding-top: 60px;
     padding-bottom: 80px;
+  }
+  .footer__links-pattern {
+    width: 100%;
+    height: 100%;
   }
 }
 .footer__logo {
@@ -2575,7 +2585,6 @@ body {
   height: clamp(510px, 264.8936170213px + 23.9361702128vw, 600px);
 }
 .supply__content-img img {
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -2609,7 +2618,6 @@ body {
   top: auto;
 }
 .section-pattern-right img {
-  display: block;
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
@@ -3369,13 +3377,15 @@ body {
     margin-top: 20px;
   }
 }
+.news__swiper {
+  padding-bottom: 5px;
+}
 .news__img {
   width: 100%;
   aspect-ratio: 360/385;
   border-radius: 20px;
 }
 .news__img img {
-  display: block;
   border-radius: 20px;
   width: 100%;
   height: 100%;
@@ -3410,6 +3420,7 @@ body {
   padding: 11px 37px;
   font-size: 18px;
   font-weight: 600;
+  background-color: var(--color-main-white);
 }
 @media (max-width: 767.98px) {
   .news__link {
@@ -3453,6 +3464,9 @@ body {
     padding: 0 0 35px 16px;
     margin-top: 20px;
   }
+}
+.review__swiper {
+  padding: 4px;
 }
 .review__swiper-slide {
   padding: 24px;
@@ -3578,6 +3592,7 @@ body {
 @media (max-width: 767.98px) {
   .about__text {
     margin-top: 15px;
+    font-size: 12px;
   }
 }
 .about__subtext {
@@ -3854,7 +3869,6 @@ body {
   aspect-ratio: 1253/750;
 }
 .gallery__swiper-slide img {
-  display: block;
   border-radius: 20px;
   width: 100%;
   height: 100%;
@@ -4085,6 +4099,7 @@ body {
   .start__flex-wrapper {
     flex-direction: column;
     margin-top: 30px;
+    gap: 20px;
   }
 }
 .start__grid {
@@ -4226,7 +4241,6 @@ body {
 }
 .delivery__img img {
   border-radius: 16px;
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -4583,7 +4597,6 @@ body {
 }
 .refund__img img {
   border-radius: 20px;
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -4797,7 +4810,6 @@ body {
   border-radius: 20px;
 }
 .news-flex__img img {
-  display: block;
   border-radius: 20px;
   width: 100%;
   height: 100%;
@@ -4830,7 +4842,6 @@ body {
   border-radius: 20px;
 }
 .news-flex__img-small img {
-  display: block;
   border-radius: 20px;
   width: 100%;
   height: 100%;
@@ -4846,6 +4857,7 @@ body {
 .furniture {
   padding: 190px 0;
   position: relative;
+  overflow: hidden;
 }
 @media (max-width: 1023.98px) {
   .furniture {
@@ -4872,6 +4884,9 @@ body {
 }
 .furniture__tabs--overflow {
   justify-content: flex-start;
+}
+.furniture__tabs--no-pointer-events {
+  pointer-events: none;
 }
 @media (max-width: 1023.98px) {
   .furniture__tabs {
@@ -4908,14 +4923,36 @@ body {
     font-size: 12px;
   }
 }
-.furniture__inner {
+.furniture__wrapper {
+  display: flex;
   margin-top: 80px;
-  display: none;
+  position: relative;
+}
+.furniture__inner {
+  display: flex;
   justify-content: space-between;
   gap: 10px;
+  min-width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 300%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
 }
 .furniture__inner--active {
-  display: flex;
+  position: relative;
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+}
+.furniture__inner--prev-active {
+  position: absolute;
+  left: -300%;
+  opacity: 0;
+  visibility: hidden;
 }
 @media (max-width: 767.98px) {
   .furniture__inner {
@@ -4930,7 +4967,6 @@ body {
   border-radius: 20px;
 }
 .furniture__img img {
-  display: block;
   border-radius: 20px;
   width: 100%;
   height: 100%;
@@ -5183,7 +5219,6 @@ body {
   right: 0;
 }
 .present__pattern img {
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -5198,7 +5233,6 @@ body {
 }
 .catalog-card__img img {
   border-radius: 20px;
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -5716,7 +5750,6 @@ body {
 }
 .wholesale__img img {
   border-radius: 20px;
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -5768,6 +5801,7 @@ body {
 @media (max-width: 767.98px) {
   .wholesale__text {
     margin-top: 20px;
+    font-size: 12px;
   }
 }
 .wholesale__href-btn {
@@ -5887,7 +5921,6 @@ body {
 }
 .details__img img {
   border-radius: 20px;
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -6468,7 +6501,6 @@ body {
   display: none;
 }
 .order__cart-img img {
-  display: block;
   border-radius: 20px;
   width: 100%;
   height: 100%;
@@ -7019,7 +7051,6 @@ body {
   z-index: -1;
 }
 .order__pattern-left img {
-  display: block;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;

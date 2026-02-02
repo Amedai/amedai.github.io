@@ -167,6 +167,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     // Функциональность табов
     function initTabs() {
+        const tabsContainer = document.querySelector('.furniture__tabs');
         const tabs = document.querySelectorAll('.furniture__tab');
         const inners = document.querySelectorAll('.furniture__inner');
 
@@ -174,12 +175,20 @@ window.addEventListener('DOMContentLoaded',()=>{
 
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', () => {
+                tabsContainer.classList.add('furniture__tabs--no-pointer-events');
+                const innerActive = document.querySelector('.furniture__inner--active');
+                innerActive.classList.add('furniture__inner--prev-active');
+                setTimeout(() => {
+                    innerActive.classList.remove('furniture__inner--active');
+                    innerActive.classList.remove('furniture__inner--prev-active');
+                    tabsContainer.classList.remove('furniture__tabs--no-pointer-events');
+                }, 301);
                 // Удаляем активный класс у всех табов и контента
                 tabs.forEach(t => t.classList.remove('furniture__tab--active'));
-                inners.forEach(inner => inner.classList.remove('furniture__inner--active'));
 
                 // Добавляем активный класс текущему табу
                 tab.classList.add('furniture__tab--active');
+
 
                 // Показываем соответствующий контент по индексу
                 if (inners[index]) {
@@ -409,7 +418,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 
             minusBtn.addEventListener('click', () => {
                 const currentValue = parseInt(input.value) || 0;
-                const newValue = Math.max(1, currentValue - incrementValue);
+                const minValue = incrementValue === 5 ? 15 : 1;
+                const newValue = Math.max(minValue, currentValue - incrementValue);
                 input.value = newValue;
             });
             
@@ -421,6 +431,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             });
         });
     }
+    
     // Catalog filter toggle
     function initCatalogFilter() {
         const filterOpenBtn = document.querySelector('.catalog__filter-open');
