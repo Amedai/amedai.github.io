@@ -4928,6 +4928,11 @@ body {
   margin-top: 80px;
   position: relative;
 }
+@media (max-width: 767.98px) {
+  .furniture__wrapper {
+    margin-top: 50px;
+  }
+}
 .furniture__inner {
   display: flex;
   justify-content: space-between;
@@ -4956,7 +4961,6 @@ body {
 }
 @media (max-width: 767.98px) {
   .furniture__inner {
-    margin-top: 50px;
     flex-direction: column;
     gap: 30px;
   }
