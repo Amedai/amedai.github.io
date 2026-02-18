@@ -11,78 +11,89 @@
 </head>
 <body>
     <header class="header">
-        <div class="header__outer container">
-            <div class="header__logo">
-                <img src="./images/icons/logo.svg" alt="">
-            </div>
-            <div class="header__inner">
-                <div class="header__logo header__logo--mob">
+        <div class="container">
+            <div class="header__outer">
+                <div class="header__logo">
                     <img src="./images/icons/logo.svg" alt="">
                 </div>
-                <nav class="header__menu">
-                    <ul class="header__menu-list">
-                        <li class="header__menu-item"><a href="" class="header__menu-link hover-underline">О НАС</a></li>
-                        <li class="header__menu-item"><a href="" class="header__menu-link hover-underline">СТАТИСТИКА</a></li>
-                        <li class="header__menu-item"><a href="" class="header__menu-link hover-underline">АРТИСТЫ</a></li>
-                        <li class="header__menu-item"><a href="" class="header__menu-link hover-underline">Нам доверяют</a></li>
+                <div class="header__inner">
+                    <div class="header__logo header__logo--mob">
+                        <img src="./images/icons/logo.svg" alt="">
+                    </div>
+                    <nav class="header__menu">
+                        <ul class="header__menu-list">
+                            <li class="header__menu-item"><a href="#about" class="header__menu-link hover-underline">О НАС</a></li>
+                            <li class="header__menu-item"><a href="#statistic" class="header__menu-link hover-underline">СТАТИСТИКА</a></li>
+                            <li class="header__menu-item"><a href="#artists" class="header__menu-link hover-underline">АРТИСТЫ</a></li>
+                            <li class="header__menu-item"><a href="#trust" class="header__menu-link hover-underline">Нам доверяют</a></li>
+                        </ul>
+                    </nav>
+                    <ul class="header__social header__social--mob">
+                        <li class="footer__social-item hover-scale"><a href="https://vk.com/gg_label" class="footer__social-link">
+                            <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
+                            <img src="./images/icons/footer-youtube.png" alt="" idwidth="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
+                            <img src="./images/icons/footer-star.png" alt="" w52idwidth="52" height="52">
+                        </a></li>
                     </ul>
-                </nav>
-                <ul class="header__social header__social--mob">
-                    <li class="footer__social-item hover-scale"><a href="" class="footer__social-link">
-                        <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
-                    </a></li>
-                    <li class="footer__social-item hover-scale"><a href="" class="footer__social-link">
-                        <img src="./images/icons/footer-youtube.png" alt="" idwidth="52" height="52">
-                    </a></li>
-                    <li class="footer__social-item hover-scale"><a href="" class="footer__social-link">
-                        <img src="./images/icons/footer-star.png" alt="" w52idwidth="52" height="52">
-                    </a></li>
-                </ul>
-                <ul class="header__social">
-                    <li class="header__social-item">
-                        <a href="" class="header__social-link hover-scale">
-                            <img src="./images/icons/vk.png" alt="" width="52" height="52">
-                        </a>
-                    </li>
-                    <li class="header__social-item">
-                        <a href="" class="header__social-link hover-scale">
-                            <img src="./images/icons/youtube.png" alt="" width="52" height="52">
-                        </a>
-                    </li>
-                    <li class="header__social-item">
-                        <a href="" class="header__social-link hover-scale">
-                            <img src="./images/icons/star.png" alt="" width="52" height="52">
-                        </a>
-                    </li>
-                </ul>
-                <button class="header__personal-account" style="display: none;"></button>
-            </div>
-            <div class="header__mob">
-                <button class="header__burger" type="button" title="Открыть меню" aria-label="Открыть меню">
-                    <span class="header__burger-stick"></span>
-                    <span class="header__burger-stick"></span>
-                    <span class="header__burger-stick"></span>
-                </button>
+                    <ul class="header__social">
+                        <li class="header__social-item">
+                            <a href="https://vk.com/gg_label" class="header__social-link hover-scale">
+                                <img src="./images/icons/vk.png" alt="" width="52" height="52">
+                            </a>
+                        </li>
+                        <li class="header__social-item">
+                            <a href="https://www.youtube.com/@gg.musiclabel/featured" class="header__social-link hover-scale">
+                                <img src="./images/icons/youtube.png" alt="" width="52" height="52">
+                            </a>
+                        </li>
+                        <li class="header__social-item">
+                            <a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="header__social-link hover-scale">
+                                <img src="./images/icons/star.png" alt="" width="52" height="52">
+                            </a>
+                        </li>
+                    </ul>
+                    <button class="header__personal-account"></button>
+                </div>
+                <div class="header__mob">
+                    <button class="header__burger" type="button" title="Открыть меню" aria-label="Открыть меню">
+                        <span class="header__burger-stick"></span>
+                        <span class="header__burger-stick"></span>
+                        <span class="header__burger-stick"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
     <main class="main">
         <section class="hero">
-            <div class="container">
-                <div class="hero__bg">
-                    <video class="hero__bg-video" poster="./images/hero-bg-fallback.jpg">
-                        <source src="./videos/hero-bg.mp4" type="video/mp4">
-                        <img class="hero__video-fallback" src="./images/hero-bg-fallback.jpg" alt="Фоновое изображение">
-                    </video>
+            <div class="hero__bg">
+                <video class="hero__bg-video" poster="./images/hero-bg-fallback.jpg" autoplay muted loop>
+                    <source src="./videos/hero-bg.mp4" type="video/mp4">
+                    <img class="hero__video-fallback" src="./images/hero-bg-fallback.jpg" alt="Фоновое изображение">
+                </video>
+            </div>
+            <div class="container hero__container">
+                <h1 class="hero__title scroll-animate">Музыкальный лейбл <br> <span data-text="GREEN GROOVE">GREEN GROOVE</span></h1>
+                <div class="hero__more">
+                    <div class="hero__sound-toggle">
+                        <div class="hero__sound-toggle-img hover-scale">
+                            <img class="hero__sound-toggle-off" src="./images/icons/sound-off.png" alt="">
+                            <img class="hero__sound-toggle-on" src="./images/icons/sound-on.png" alt="">
+                        </div>
+                        <div class="hero__sound-toggle-text">Включить звук</div>
+                    </div>
                 </div>
-                <h1 class="hero__title">Музыкальный лейбл <br> <span data-text="GREEN GROOVE">GREEN GROOVE</span></h1>
             </div>
         </section>
         <div class="wrapper-top">
-            <section class="about container">
+            <section class="about container" id="about">
                 <div class="about__grid">
-                    <h2 class="title about__title">О нас</h2>
-                    <div class="about__photos">
+                    <h2 class="title about__title scroll-animate">О нас</h2>
+                    <div class="about__photos scroll-animate">
                         <div class="about__quattroteque-img">
                             <img src="./images/quattroteque.jpg" alt="">
                             <span class="about__img-title">QUATTROTEQUE</span>
@@ -92,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="about__text-block">
+                    <div class="about__text-block scroll-animate">
                         <p class="about__text about__text--sm-width"><span class="about__text-green">Green Groove —</span><span class="about__text-bold"> независимый</span> 
                         <span class="about__text-green">музыкальный лейбл</span> <span class="about__text-bold">полного цикла</span>.
                         Мы — команда, для которой музыка не фон,
@@ -104,75 +115,75 @@
                     <button class="about__btn hover-dark-green">узнать больше</button>
                 </div>
             </section>
-            <section class="advantages container">
-                <h2 class="title advantages__title">Наши преимущества</h2>
-                <div class="advantages__flex">
+            <section class="advantages container" id="advantages">
+                <h2 class="title advantages__title scroll-animate">Наши преимущества</h2>
+                <div class="advantages__flex scroll-animate">
                     <div class="advantages__item">
-                        <span class="advantages__count">1</span>
-                        <div class="advantages__text-block">
-                            <h3 class="advantages__item-title">Прямые договоры <br>с агрегаторами</h3>
-                            <p class="advantages__text">Никаких посредников — только прямые контракты с ведущими агрегаторами ZVONKO Digital и Pulse (ex. S & P Digital). Честные и выгодные условия: вы не теряете роялти в бесконечных «мутных» цепочках</p>
+                        <div class="advantages__title-block">
+                            <span class="advantages__count">1</span>
+                            <h3 class="advantages__item-title">Прямые договоры с агрегаторами</h3>
+                            <button class="advantages__arrow-drop">
+                                <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
+                            </button>
                         </div>
-                        <button class="advantages__arrow-drop">
-                            <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
-                        </button>
+                        <p class="advantages__text">Никаких посредников — только прямые контракты с ведущими агрегаторами ZVONKO Digital и Pulse (ex. S & P Digital). Честные и выгодные условия: вы не теряете роялти в бесконечных «мутных» цепочках</p>
                     </div>
                     <div class="advantages__item">
-                        <span class="advantages__count">2</span>
-                        <div class="advantages__text-block">
+                        <div class="advantages__title-block">
+                            <span class="advantages__count">2</span>
                             <h3 class="advantages__item-title">Комплексное продвижение</h3>
-                            <p class="advantages__text">Системная работа с маркетингом и PR, постоянная актуализация инструментов и нестандартные решения, чтобы артист оставался заметным</p>
+                            <button class="advantages__arrow-drop">
+                                <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
+                            </button>
                         </div>
-                        <button class="advantages__arrow-drop">
-                            <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
-                        </button>
+                        <p class="advantages__text">Системная работа с маркетингом и PR, постоянная актуализация инструментов и нестандартные решения, чтобы артист оставался заметным</p>
                     </div>
                     <div class="advantages__item">
-                        <span class="advantages__count">3</span>
-                        <div class="advantages__text-block">
+                        <div class="advantages__title-block">
+                            <span class="advantages__count">3</span>
                             <h3 class="advantages__item-title">Прозрачная финансовая система</h3>
-                            <p class="advantages__text">Своевременные отчёты, полный доступ к статистике, абсолютная открытость — никаких скрытых удержаний и сюрпризов</p>
+                            <button class="advantages__arrow-drop">
+                                <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
+                            </button>
                         </div>
-                        <button class="advantages__arrow-drop">
-                            <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
-                        </button>
+                        <p class="advantages__text">Своевременные отчёты, полный доступ к статистике, абсолютная открытость — никаких скрытых удержаний и сюрпризов</p>
                     </div>
                     <div class="advantages__item">
-                        <span class="advantages__count">4</span>
-                        <div class="advantages__text-block">
+                        <div class="advantages__title-block">
+                            <span class="advantages__count">4</span>
                             <h3 class="advantages__item-title">Лицензионная модель работы</h3>
-                            <p class="advantages__text">Мы не присваиваем права и не забираем релизы. Всё закреплено понятными договорами — права остаются у артиста</p>
+                            <button class="advantages__arrow-drop">
+                                <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
+                            </button>
                         </div>
-                        <button class="advantages__arrow-drop">
-                            <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
-                        </button>
+                        <p class="advantages__text">Мы не присваиваем права и не забираем релизы. Всё закреплено понятными договорами — права остаются у артиста</p>
                     </div>
                     <div class="advantages__item">
-                        <span class="advantages__count">5</span>
-                        <div class="advantages__text-block">
-                            <h3 class="advantages__item-title">Корпоративная культура комьюнити</h3>
-                            <p class="advantages__text">Атмосфера поддержки и обмена опытом, совместный рост и собственные мероприятия для артистов и команды</p>
+                        <div class="advantages__title-block">
+                            <span class="advantages__count">5</span>
+                            <h3 class="advantages__item-title">Корпоративная культура и комьюнити</h3>
+                            <button class="advantages__arrow-drop">
+                                <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
+                            </button>
                         </div>
-                        <button class="advantages__arrow-drop">
-                            <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
-                        </button>
+                        <p class="advantages__text">Атмосфера поддержки и обмена опытом, совместный рост и собственные мероприятия для артистов и команды</p>
                     </div>
                     <div class="advantages__item">
-                        <span class="advantages__count">6</span>
-                        <div class="advantages__text-block">
-                            <h3 class="advantages__item-title">фокус на развитие</h3>
-                            <p class="advantages__text">Мы строим долгосрочное партнёрство, ищем новые возможности и пути развития карьеры артиста</p>
+                        <div class="advantages__title-block">
+                            <span class="advantages__count">6</span>
+                            <h3 class="advantages__item-title">Фокус на развитии</h3>
+                            <button class="advantages__arrow-drop">
+                                <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
+                            </button>
                         </div>
-                        <button class="advantages__arrow-drop">
-                            <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
-                        </button>
+                        <p class="advantages__text">Мы строим долгосрочное партнёрство, ищем новые возможности и пути развития карьеры артиста</p>
                     </div>
                 </div>
             </section>
         </div>
-        <section class="genres">
+        <section class="genres" id="genres">
             <div class="genres__flex container">
-                <div class="genres__item">
+                <div class="genres__item scroll-animate">
                     <div class="genres__listener">Сейчас слушают</div>
                     <span class="genres__count" id="listeners-counter"></span>
                     <br>
@@ -538,7 +549,7 @@
                     </div>
                 </div>
                 <div class="genres__item">
-                    <div class="genres__block">
+                    <div class="genres__block scroll-animate">
                         <h2 class="title genres__title">Жанры</h2>
                         <ul class="genres__list">
                             <li class="genres__list-item">Русский хип-хоп</li>
@@ -546,28 +557,28 @@
                             <li class="genres__list-item">Электроника</li>
                         </ul>
                     </div>
-                    <div class="genres__statistics">
-                        <div class="genres__statistics-cell">
+                    <div class="genres__statistics scroll-animate" id="statistic">
+                        <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count"></span>
                             <span class="genres__statistics-text"></span>
                         </div>
-                        <div class="genres__statistics-cell">
+                        <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">5000+</span>
                             <span class="genres__statistics-text">редакторских плейлистов</span>
                         </div>
-                        <div class="genres__statistics-cell">
+                        <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">5млн+</span>
                             <span class="genres__statistics-text">созданных роликов в Тик Ток</span>
                         </div>
-                        <div class="genres__statistics-cell">
+                        <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">300 млн+</span>
                             <span class="genres__statistics-text">просмотров + Ютуб</span>
                         </div>
-                        <div class="genres__statistics-cell">
+                        <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">11,5 млрд+</span>
                             <span class="genres__statistics-text">прослушиваний</span>
                         </div>
-                        <div class="genres__statistics-cell">
+                        <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">3млн+</span>
                             <span class="genres__statistics-text">ежедневная аудитория слушателей</span>
                         </div>
@@ -589,19 +600,10 @@
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-star.png" alt="" width="100" height="100">
-                        </div>
-                        <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-hifi.png" alt="" width="100" height="100">
-                        </div>
-                        <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-odnoklasniki.png" alt="" width="100" height="100">
-                        </div>
-                        <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
@@ -619,6 +621,12 @@
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
@@ -634,12 +642,18 @@
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-star.png" alt="" width="100" height="100">
                         </div>
-                                                <div class="social__carousel-img">
+                        <div class="social__carousel-img">
                             <img src="./images/icons/carousel-hifi.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
@@ -647,6 +661,33 @@
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-star.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-hifi.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-odnoklasniki.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
@@ -666,19 +707,10 @@
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-star.png" alt="" width="100" height="100">
-                        </div>
-                        <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-hifi.png" alt="" width="100" height="100">
-                        </div>
-                        <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-odnoklasniki.png" alt="" width="100" height="100">
-                        </div>
-                        <div class="social__carousel-img">
-                            <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
@@ -696,6 +728,12 @@
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
@@ -711,12 +749,18 @@
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-star.png" alt="" width="100" height="100">
                         </div>
-                                                <div class="social__carousel-img">
+                        <div class="social__carousel-img">
                             <img src="./images/icons/carousel-hifi.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
@@ -724,6 +768,33 @@
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-star.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-hifi.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-odnoklasniki.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-apple.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-kion.png" alt="" width="100" height="100">
+                        </div>
+                        <div class="social__carousel-img">
+                            <img src="./images/icons/carousel-spotify.png" alt="" width="100" height="100">
                         </div>
                         <div class="social__carousel-img">
                             <img src="./images/icons/carousel-vk.png" alt="" width="100" height="100">
@@ -734,9 +805,9 @@
                     </div>
                 </div>
             </div>
-            <section class="artists">
-                <h2 class="title artists__title">Наши Артисты</h2>
-                <div class="artists__slider swiper">
+            <section class="artists" id="artists">
+                <h2 class="title artists__title scroll-animate">Наши Артисты</h2>
+                <div class="artists__slider swiper scroll-animate">
                     <div class="artists__wrapper swiper-wrapper">
                       <div class="artists__slide swiper-slide">
                             <div class="artists__img">
@@ -796,238 +867,138 @@
                     </div>
                 </div>
             </section>
-            <section class="release container">
-                <h2 class="title release__title">Наши релизы</h2>
-                <ul class="release__audio-grid">
+            <section class="release container" id="release">
+                <h2 class="title release__title scroll-animate">Наши релизы</h2>
+                <ul class="release__audio-grid scroll-animate">
                     <li class="release__audio-item">
-                        <audio id="audioPlayer" src="./music/rain.mp3"></audio>
-                        <div class="release__audio-top">
-                        <button class="release__record hover-dark-green">
-                            <img class="release__record-play" src="./images/icons/play.svg" alt="">
-                            <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
-                        </button>
-                        <div class="release__poster">
-                            <img src="./images/music-poster.jpg" alt="">
-                        </div>
-                        <div class="release__name-block">
-                            <h3 class="release__name-artist">Химия</h3>
-                            <h4 class="release__name-music">NoНейма</h4>
-                        </div>
-                        <div class="release__audio-links">
-                            <a href="" class="release__platform-link hover-scale">
-                                <img src="./images/icons/add.svg" alt="">
-                            </a>
-                            <a href="./music/rain.mp3" download class="release__download-link hover-scale">
-                                <img src="./images/icons/tick.svg" alt="">
-                            </a>
-                        </div>  
-                        </div>
-                        <div class="release__audio-bottom">
-                            <div class="release__audio-progress-bar">
-                                <input type="range" id="progressBar" min="0" max="100" value="0">
-                                <span id="timeDisplay">0:00 / 0:00</span>
+                        <audio src="./music/rain.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster.jpg" alt="">
                             </div>
-                            <div class="release__audio-volume-bar">
-                                <div class="release__volume-img">
-                                    <!-- <img src="./images/icons/play.svg" alt=""> -->
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-artist">Химия</h3>
+                                        <h4 class="release__name-music">NoНейма</h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a download href="./music/rain.mp3" class="release__download-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
                                 </div>
-                                <input type="range" id="volumeBar" min="0" max="1" step="0.1">
-                            </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio id="audioPlayer" src="./music/rain.mp3"></audio>
-                        <div class="release__audio-top">
-                        <button class="release__record hover-dark-green">
-                            <img class="release__record-play" src="./images/icons/play.svg" alt="">
-                            <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
-                        </button>
-                        <div class="release__poster">
-                            <img src="./images/music-poster.jpg" alt="">
-                        </div>
-                        <div class="release__name-block">
-                            <h3 class="release__name-artist">Химия</h3>
-                            <h4 class="release__name-music">NoНейма</h4>
-                        </div>
-                        <div class="release__audio-links">
-                            <a href="" class="release__platform-link hover-scale">
-                                <img src="./images/icons/add.svg" alt="">
-                            </a>
-                            <a href="./music/rain.mp3" download class="release__download-link hover-scale">
-                                <img src="./images/icons/tick.svg" alt="">
-                            </a>
-                        </div>  
-                        </div>
-                        <div class="release__audio-bottom">
-                            <div class="release__audio-progress-bar">
-                                <input type="range" id="progressBar" min="0" max="100" value="0">
-                                <span id="timeDisplay">0:00 / 0:00</span>
+                        <audio src="./music/rain.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster.jpg" alt="">
                             </div>
-                            <div class="release__audio-volume-bar">
-                                <div class="release__volume-img">
-                                    <!-- <img src="./images/icons/play.svg" alt=""> -->
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-artist">Химия</h3>
+                                        <h4 class="release__name-music">NoНейма</h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a download href="./music/rain.mp3" class="release__download-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
                                 </div>
-                                <input type="range" id="volumeBar" min="0" max="1" step="0.1">
-                            </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio id="audioPlayer" src="./music/rain.mp3"></audio>
-                        <div class="release__audio-top">
-                        <button class="release__record hover-dark-green">
-                            <img class="release__record-play" src="./images/icons/play.svg" alt="">
-                            <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
-                        </button>
-                        <div class="release__poster">
-                            <img src="./images/music-poster.jpg" alt="">
-                        </div>
-                        <div class="release__name-block">
-                            <h3 class="release__name-artist">Химия</h3>
-                            <h4 class="release__name-music">NoНейма</h4>
-                        </div>
-                        <div class="release__audio-links">
-                            <a href="" class="release__platform-link hover-scale">
-                                <img src="./images/icons/add.svg" alt="">
-                            </a>
-                            <a href="./music/rain.mp3" download class="release__download-link hover-scale">
-                                <img src="./images/icons/tick.svg" alt="">
-                            </a>
-                        </div>  
-                        </div>
-                        <div class="release__audio-bottom">
-                            <div class="release__audio-progress-bar">
-                                <input type="range" id="progressBar" min="0" max="100" value="0">
-                                <span id="timeDisplay">0:00 / 0:00</span>
+                        <audio src="./music/rain.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster.jpg" alt="">
                             </div>
-                            <div class="release__audio-volume-bar">
-                                <div class="release__volume-img">
-                                    <!-- <img src="./images/icons/play.svg" alt=""> -->
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-artist">Химия</h3>
+                                        <h4 class="release__name-music">NoНейма</h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a download href="./music/rain.mp3" class="release__download-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
                                 </div>
-                                <input type="range" id="volumeBar" min="0" max="1" step="0.1">
-                            </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio id="audioPlayer" src="./music/rain.mp3"></audio>
-                        <div class="release__audio-top">
-                        <button class="release__record hover-dark-green">
-                            <img class="release__record-play" src="./images/icons/play.svg" alt="">
-                            <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
-                        </button>
-                        <div class="release__poster">
-                            <img src="./images/music-poster.jpg" alt="">
-                        </div>
-                        <div class="release__name-block">
-                            <h3 class="release__name-artist">Химия</h3>
-                            <h4 class="release__name-music">NoНейма</h4>
-                        </div>
-                        <div class="release__audio-links">
-                            <a href="" class="release__platform-link hover-scale">
-                                <img src="./images/icons/add.svg" alt="">
-                            </a>
-                            <a href="./music/rain.mp3" download class="release__download-link hover-scale">
-                                <img src="./images/icons/tick.svg" alt="">
-                            </a>
-                        </div>  
-                        </div>
-                        <div class="release__audio-bottom">
-                            <div class="release__audio-progress-bar">
-                                <input type="range" id="progressBar" min="0" max="100" value="0">
-                                <span id="timeDisplay">0:00 / 0:00</span>
+                        <audio src="./music/rain.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster.jpg" alt="">
                             </div>
-                            <div class="release__audio-volume-bar">
-                                <div class="release__volume-img">
-                                    <!-- <img src="./images/icons/play.svg" alt=""> -->
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-artist">Химия</h3>
+                                        <h4 class="release__name-music">NoНейма</h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a download href="./music/rain.mp3" class="release__download-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
                                 </div>
-                                <input type="range" id="volumeBar" min="0" max="1" step="0.1">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="release__audio-item">
-                        <audio id="audioPlayer" src="./music/rain.mp3"></audio>
-                        <div class="release__audio-top">
-                        <button class="release__record hover-dark-green">
-                            <img class="release__record-play" src="./images/icons/play.svg" alt="">
-                            <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
-                        </button>
-                        <div class="release__poster">
-                            <img src="./images/music-poster.jpg" alt="">
-                        </div>
-                        <div class="release__name-block">
-                            <h3 class="release__name-artist">Химия</h3>
-                            <h4 class="release__name-music">NoНейма</h4>
-                        </div>
-                        <div class="release__audio-links">
-                            <a href="" class="release__platform-link hover-scale">
-                                <img src="./images/icons/add.svg" alt="">
-                            </a>
-                            <a href="./music/rain.mp3" download class="release__download-link hover-scale">
-                                <img src="./images/icons/tick.svg" alt="">
-                            </a>
-                        </div>  
-                        </div>
-                        <div class="release__audio-bottom">
-                            <div class="release__audio-progress-bar">
-                                <input type="range" id="progressBar" min="0" max="100" value="0">
-                                <span id="timeDisplay">0:00 / 0:00</span>
-                            </div>
-                            <div class="release__audio-volume-bar">
-                                <div class="release__volume-img">
-                                    <!-- <img src="./images/icons/play.svg" alt=""> -->
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
                                 </div>
-                                <input type="range" id="volumeBar" min="0" max="1" step="0.1">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="release__audio-item">
-                        <audio id="audioPlayer" src="./music/rain.mp3"></audio>
-                        <div class="release__audio-top">
-                        <button class="release__record hover-dark-green">
-                            <img class="release__record-play" src="./images/icons/play.svg" alt="">
-                            <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
-                        </button>
-                        <div class="release__poster">
-                            <img src="./images/music-poster.jpg" alt="">
-                        </div>
-                        <div class="release__name-block">
-                            <h3 class="release__name-artist">Химия</h3>
-                            <h4 class="release__name-music">NoНейма</h4>
-                        </div>
-                        <div class="release__audio-links">
-                            <a href="" class="release__platform-link hover-scale">
-                                <img src="./images/icons/add.svg" alt="">
-                            </a>
-                            <a href="./music/rain.mp3" download class="release__download-link hover-scale">
-                                <img src="./images/icons/tick.svg" alt="">
-                            </a>
-                        </div>  
-                        </div>
-                        <div class="release__audio-bottom">
-                            <div class="release__audio-progress-bar">
-                                <input type="range" id="progressBar" min="0" max="100" value="0">
-                                <span id="timeDisplay">0:00 / 0:00</span>
-                            </div>
-                            <div class="release__audio-volume-bar">
-                                <div class="release__volume-img">
-                                    <!-- <img src="./images/icons/play.svg" alt=""> -->
-                                </div>
-                                <input type="range" id="volumeBar" min="0" max="1" step="0.1">
-                            </div>
+                            </div>  
                         </div>
                     </li>
                 </ul>
                 <div class="release__music-links">
-                    <a href="" class="release__music-link">
+                    <a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="release__music-link">
                         <div class="release__music-link-img">
                             <img src="./images/icons/yandex-music-lg.png" alt="">
                         </div>
                     </a>
-                    <a href="" class="release__music-link">
+                    <a href="https://vk.com/gg_label" class="release__music-link">
                         <div class="release__music-link-img">
                             <img src="./images/icons/vk-music-lg.png" alt="">
                         </div>
                     </a>
-                    <a href="" class="release__music-link">
+                    <a href="https://open.spotify.com/playlist/1SsfLrYpvcweJoMDIxspbT?si=GULUYpr4SPeBHrV0Cbbgkw&pi=3Y5WuT2zRkypB" class="release__music-link">
                         <div class="release__music-link-img">
                             <img src="./images/icons/spotify-lg.png" alt="">
                         </div>
@@ -1035,7 +1006,7 @@
                 </div>
             </section>
         </div>
-        <section class="trust">
+        <section class="trust" id="trust">
             <h2 class="title trust__title">Нам доверяют</h2>
             <div class="trust__carousel">
                 <div class="trust__carousel-top">
@@ -1066,6 +1037,10 @@
                         </div>
                         <div class="trust__carousel-img">
                             <img src="./images/trust-top7.jpg" alt="">
+                            <h3 class="trust__carousel-artist-name trust__carousel-artist-name--bottom-center">Melis <br> Treat</h3>
+                        </div>
+                        <div class="trust__carousel-img">
+                            <img src="./images/trust-top8.jpg" alt="">
                             <h3 class="trust__carousel-artist-name trust__carousel-artist-name--top-left">Daria <br> Kupr</h3>
                         </div>
                     </div>
@@ -1096,6 +1071,10 @@
                         </div>
                         <div class="trust__carousel-img">
                             <img src="./images/trust-top7.jpg" alt="">
+                            <h3 class="trust__carousel-artist-name trust__carousel-artist-name--bottom-center">Melis <br> Treat</h3>
+                        </div>
+                        <div class="trust__carousel-img">
+                            <img src="./images/trust-top8.jpg" alt="">
                             <h3 class="trust__carousel-artist-name trust__carousel-artist-name--top-left">Daria <br> Kupr</h3>
                         </div>
                     </div>
@@ -1117,6 +1096,10 @@
                             <h3 class="trust__carousel-artist-name trust__carousel-artist-name--top-center">Adam Jamar</h3>
                         </div>
                         <div class="trust__carousel-img">
+                            <img src="./images/trust-bottom5.jpg" alt="">
+                            <h3 class="trust__carousel-artist-name trust__carousel-artist-name--bottom-center">Йович</h3>
+                        </div>
+                        <div class="trust__carousel-img">
                             <img src="./images/trust-bottom7.jpg" alt="">
                             <h3 class="trust__carousel-artist-name trust__carousel-artist-name--top-center">Tim Dian</h3>
                         </div>
@@ -1149,6 +1132,10 @@
                         <div class="trust__carousel-img">
                             <img src="./images/trust-bottom4.jpg" alt="">
                             <h3 class="trust__carousel-artist-name trust__carousel-artist-name--top-center">Adam Jamar</h3>
+                        </div>
+                        <div class="trust__carousel-img">
+                            <img src="./images/trust-bottom5.jpg" alt="">
+                            <h3 class="trust__carousel-artist-name trust__carousel-artist-name--bottom-center">Йович</h3>
                         </div>
                         <div class="trust__carousel-img">
                             <img src="./images/trust-bottom7.jpg" alt="">
@@ -1176,24 +1163,25 @@
         </section>
         <div class="demo">
             <div class="demo__wrapper  container">
-                <p class="demo__text"><span class="demo__golden">Ты</span><br><span class="demo__green">Артист,</span><br> и Хочешь быть частью <br> нашей команды?</p>
+                <p class="demo__text scroll-animate"><span class="demo__golden">Ты</span><br><span class="demo__green">Артист,</span><br> и Хочешь быть частью <br> нашей команды?</p>
                 <button class="demo__btn hover-dark-green" data-overlay="modal">Отправить  демо</button>
             </div>
         </div>
-        <section class="questions">
+        <section class="questions" id="questions">
             <div class="questions__form container">
-                <h2 class="title questions__title">Коммерческие предложения, организация концертов, партнёрские инициативы и иные вопросы:</h2>
+                <h2 class="title questions__title scroll-animate">Коммерческие предложения, организация концертов, партнёрские инициативы и иные вопросы:</h2>
                 <form action="">
                     <div class="questions__grid">
                         <input class="questions__input" type="text" name="feedname" required placeholder="Имя">
                         <input class="questions__input" type="email" name="feedmail"required placeholder="Почта">
                         <textarea class="questions__textarea" name="feedarea"  placeholder="Сообщение"></textarea>
                         <input class="questions__input questions__real-upload" type="file" name="feedfile" id="feedfile" required>
-                        <label for="feedfile" class="questions__custom-input">
-                            <span class="questions__custom-upload">Прикрепить файл</span>    
+                        <label for="feedfile" class="questions__custom-input hover-dark-green">
+                        <span class="questions__custom-upload">Прикрепить файл</span>    
                         </label>
                     </div>
-                    <button class="questions__btn">Отправить</button>
+                    <p class="questions__policy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="policy.html" class="questions__policy-link">политикой конфиденциальности</a></p>
+                    <button class="questions__btn hover-scale">Отправить</button>
                 </form>
             </div>
         </section>
@@ -1207,62 +1195,37 @@
                 <div class="form-demo__logo">
                     <img src="./images/icons/logo.svg" alt="">
                 </div>
-                <h2 class="form-demo__title">ФОРМА ПРЕДОСТАВЛЕНИЯ КОНТЕНТА ДЛЯ ЗАГРУЗКИ:</h2>
+                <h2 class="form-demo__title">Отправить демо:</h2>
                 <div class="form-demo__form">
                     <form action="">
-                        <div class="form-demo__inner">
-                            <div class="form-demo__item">
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">Никнейм Артиста</div>
-                                    <input class="form-demo__input" type="text" name="nickname" required>
-                                </div>
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">Название трека</div>
-                                    <div class="form-demo__form-details">*Наименование должно быть полностью верным (Таким, каким будет на площадках)</div>
-                                    <input class="form-demo__input" type="text" name="trackname" required>
-                                </div>
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">Рингтон, не более 28 секунд, формат WAV</div>
-                                    <div class="form-demo__form-details">*Самый интересный фрагмент композиции,(как правило  припев, дроп)</div>
-                                    <input class="form-demo__real-upload" type="file" name="ringtone" id="ringtone" required>
-                                    <label for="ringtone" class="form-demo__custom-input">
-                                        <span class="form-demo__custom-upload">Загрузить</span>    
-                                    </label>
-                                </div>
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">Текст песни(ен), без ошибок.</div>
-                                    <div class="form-demo__form-details">*Например в формате txt (блокнот) или doc (word).   Требования к тексту тут,  а также тут.    Если это электронный трек – текст всё равно потребуется.   Перевести иностранные акапеллы в текст можно на этом сервисе: https://converter.app/ru/transcribe-text/</div>
-                                    <input class="form-demo__real-upload" type="file" name="musictext" id="musictext" required>
-                                    <label for="musictext" class="form-demo__custom-input">
-                                        <span class="form-demo__custom-upload">Загрузить</span>    
-                                    </label>
-                                </div>
+                        <div class="form-demo__item">
+                            <div class="form-demo__form-block">
+                                <div class="form-demo__form-info">Имя артиста</div>
+                                <input class="form-demo__input" type="text" name="nickname" required>
                             </div>
-                            <div class="form-demo__item">
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">Обложка 3000 x 3000</div>
-                                    <div class="form-demo__form-details">*(Обратите внимание, чтобы обложка была не сжатой, файл должен быть  полноразмерным)</div>
-                                    <input class="form-demo__real-upload" type="file" name="envelope" id="envelope" required>
-                                    <label for="envelope" class="form-demo__custom-input">
-                                        <span class="form-demo__custom-upload">Загрузить</span>    
-                                    </label>
-                                </div>
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">2-3 строчки про трек: чем вдохновлялся артист, какую идею хотел передать, какое настроение.</div>
-                                    <div class="form-demo__form-details">*Наименование должно быть полностью верным (Таким, каким будет на площадках)</div>
-                                    <input class="form-demo__input" type="text" name="trackdescription" required>
-                                </div>
-                                <div class="form-demo__form-block">
-                                    <div class="form-demo__form-info">Документы на бит с битмейкером</div>
-                                    <div class="form-demo__form-details">*(Исключительные права должны принадлежать вам), либо (если бит  сделан артистом) - скриншот проекта + архив самого проекта. Шаблон договора на бит можно запросить у  лейбла.</div>
-                                    <input class="form-demo__real-upload" type="file" name="docbit" id="docbit" required>
-                                    <label for="docbit" class="form-demo__custom-input">
-                                        <span class="form-demo__custom-upload">Загрузить</span>    
-                                    </label>
-                                </div>
+                            <div class="form-demo__form-block">
+                                <div class="form-demo__form-info">Ссылки на социальные сети</div>
+                                <div class="form-demo__form-details">VK  / YouTube /  TikTok / визуальные платформы / другие актуальные площадки — укажите все 
+                                    действующие ссылки</div>
+                                <input class="form-demo__input" type="text" name="social-links">
+                            </div>
+                            <div class="form-demo__form-block">
+                                <div class="form-demo__form-info">Ссылка на демо (облако)</div>
+                                <div class="form-demo__form-details">Google Drive / Яндекс Диск — доступ по ссылке без запроса прав</div>
+                                <input class="form-demo__input" type="text" name="demo-links" required>
+                            </div>
+                            <div class="form-demo__form-block">
+                                <div class="form-demo__form-info">Кратко о проекте</div>
+                                <ul class="form-demo__form-details-list">
+                                    <li class="form-demo__form-details-item">– жанр / стиль</li>
+                                    <li class="form-demo__form-details-item">– цель</li>
+                                    <li class="form-demo__form-details-item">– текущие результаты (прослушивания, охваты)</li>
+                                    <li class="form-demo__form-details-item">– чем ваш проект уникален</li>
+                                </ul>
+                                <textarea class="form-demo__area" type="text" name="about-project" required></textarea>
                             </div>
                         </div>
-                        <button class="form-demo__btn">Отправить</button>
+                        <button class="form-demo__btn hover-scale">Отправить</button>
                     </form>
                 </div>
             </div>
@@ -1275,36 +1238,35 @@
                     <img src="./images/icons/logo.svg" alt="" width="150" height="95">
                 </div>
                 <ul class="footer__links">
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>О НАС</li>
-                    <li class="footer__links-item hover-underline footer__links-item--tabliet-novisible"><a href="" class="footer__link"></a>GREEN GROOVE</li>
-                    <li class="footer__links-item hover-underline footer__links-item--tabliet-novisible"><a href="" class="footer__link"></a>Статистика</li>
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>Преимущества</li>
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>Нас слушают</li>
+                    <li class="footer__links-item"><a href="#about" class="footer__link hover-underline">О НАС</a></li>
+                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="index.html" class="footer__link hover-underline">GREEN GROOVE</a></li>
+                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="#statistic" class="footer__link hover-underline">Статистика</a></li>
+                    <li class="footer__links-item"><a href="#advantages" class="footer__link hover-underline">Преимущества</a></li>
+                    <li class="footer__links-item"><a href="#genres" class="footer__link hover-underline">Нас слушают</a></li>
                 </ul>
                 <ul class="footer__links">
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>АРТИСТЫ</li>
-                    <li class="footer__links-item hover-underline footer__links-item--tabliet-novisible"><a href="" class="footer__link"></a>НАШИ РЕЛИЗЫ</li>
-                    <li class="footer__links-item hover-underline footer__links-item--tabliet-novisible"><a href="" class="footer__link"></a>НАМ ДОВЕРЯЮТ</li>
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>ОТПРАВИТЬ ДЕМО</li>
+                    <li class="footer__links-item"><a href="#artists" class="footer__link hover-underline">АРТИСТЫ</a></li>
+                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="#release" class="footer__link hover-underline">НАШИ РЕЛИЗЫ</a></li>
+                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="#trust" class="footer__link hover-underline">НАМ ДОВЕРЯЮТ</a></li>
+                    <li class="footer__links-item"><button class="footer__btn hover-underline" data-overlay="modal">ОТПРАВИТЬ ДЕМО</button></li>
                 </ul>
                 <ul class="footer__links">
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link">Нам доверяют</a></li>
-                    <li class="footer__links-item hover-underline"><a href="" class="footer__link"></a>СВЯЗАТЬСЯ С НАМИ</li>
-                    <li class="footer__links-item hover-underline footer__links-item--tabliet-novisible"><a href="" class="footer__link"></a>КОНТАКТЫ</li>
+                    <li class="footer__links-item"><a href="#questions" class="footer__link hover-underline">СВЯЗАТЬСЯ С НАМИ</a></li>
+                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="" class="footer__link hover-underline">КОНТАКТЫ</a></li>
                 </ul>
                 <div class="footer__more-info">
                     <ul class="footer__social-links">
-                        <li class="footer__social-item hover-scale"><a href="" class="footer__social-link">
+                        <li class="footer__social-item hover-scale"><a href="https://vk.com/gg_label" class="footer__social-link">
                             <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
                         </a></li>
-                        <li class="footer__social-item hover-scale"><a href="" class="footer__social-link">
+                        <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
                             <img src="./images/icons/footer-youtube.png" alt="" idwidth="52" height="52">
                         </a></li>
-                        <li class="footer__social-item hover-scale"><a href="" class="footer__social-link">
+                        <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
                             <img src="./images/icons/footer-star.png" alt="" w52idwidth="52" height="52">
                         </a></li>
                     </ul>
-                    <a href="" class="footer__policy hover-underline">ПОЛИТИКА КОНФИДЕЦИАЛЬНОСТИ</a>
+                    <a href="policy.html" class="footer__policy hover-underline">ПОЛИТИКА КОНФИДЕЦИАЛЬНОСТИ</a>
                     <div class="footer__logo">
                         <img src="./images/icons/logo.svg" alt="" width="150" height="95">
                     </div>

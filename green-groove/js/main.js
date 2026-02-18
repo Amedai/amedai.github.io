@@ -1,199 +1,98 @@
 'use strict';
 window.addEventListener('DOMContentLoaded',()=>{
-    //mob menu
-    const inner = document.querySelector('.header__inner'),
-    burger = document.querySelector('.header__burger'),
-    menuitems = inner.querySelectorAll('header__menu-item');
-    
-    burger.addEventListener('click',()=>{
-        inner.classList.toggle('header__inner--active');
-        burger.classList.toggle('header__burger--active');
-    });
-    menuitems.forEach(item=>{
-        item.addEventListener('click',()=>{
-            inner.classList.toggle('header__inner--active');
-            burger.classList.toggle('header__burger--active');
-        });
-    });
+   //mob menu
+   const inner = document.querySelector('.header__inner'),
+   burger = document.querySelector('.header__burger'),
+   menuLinks = inner.querySelectorAll('.header__menu-link');
+
+   const closeMenu = () => {
+       inner.classList.remove('header__inner--active');
+       burger.classList.remove('header__burger--active');
+       document.body.classList.remove('no-scroll');
+   };
+
+   burger.addEventListener('click', () => {
+       const isActive = inner.classList.toggle('header__inner--active');
+       burger.classList.toggle('header__burger--active');
+       document.body.classList.toggle('no-scroll', isActive);
+   });
+
+   menuLinks.forEach(link => {
+       link.addEventListener('click', closeMenu);
+   });
 
 
     //фоновое видео
-    const video = document.querySelector('video');
-    
-    video.muted = true;
-    video.play();
-    
-    let isSoundEnabled = false;
-    let maxVolume = 0.5;
-    
-    function enableSound() {
-        if (video.muted) {
-            video.muted = false;
-            isSoundEnabled = true;
-            updateVideoVolume();
-            document.removeEventListener('click', enableSound);
-        }
+    const heroVideo = document.querySelector('.hero__bg-video');
+    const soundToggle = document.querySelector('.hero__sound-toggle');
+    const soundToggleImg = document.querySelector('.hero__sound-toggle-img');
+    const soundToggleText = document.querySelector('.hero__sound-toggle-text');
+
+    if (heroVideo && soundToggle) {
+        soundToggle.addEventListener('click', () => {
+            const isActive = soundToggleImg.classList.toggle('hero__sound-toggle-img--active');
+            if (isActive) {
+                heroVideo.muted = false;
+                heroVideo.volume = 0.4;
+                if (soundToggleText) soundToggleText.textContent = 'Выключить звук';
+            } else {
+                heroVideo.muted = true;
+                if (soundToggleText) soundToggleText.textContent = 'Включить звук';
+            }
+        });
     }
-    
-    function updateVideoVolume() {
-        if (!isSoundEnabled) return;
-        
-        const scrollY = window.scrollY;
-        
-        // Уменьшаем громкость: каждые 70px скролла = -0.02 громкости
-        const scrollSteps = Math.floor(scrollY / 70);
-        const volumeDecrease = scrollSteps * 0.02;
-        
-        // Вычисляем новую громкость
-        let newVolume = Math.max(0, maxVolume - volumeDecrease);
-        
-        video.volume = newVolume;
-        
-        // Приостанавливаем видео если громкость 0 
-        if (newVolume === 0) {
-            video.pause();
-        } else if (newVolume > 0) {
-            video.play();
-            video.loop = true;
-        }
-    }
-    
-    window.addEventListener('scroll', updateVideoVolume);
-    document.addEventListener('click', enableSound);
 
     //advantages animation
     const advantagesItems = document.querySelectorAll('.advantages__item');
-    const advantagesFlex = document.querySelector('.advantages__flex');
-    
-    // Проверяем, что мы на десктопе (не tablet и не mobile)
-    function isDesktop() {
-        return window.innerWidth >= 1024; // или другая точка перехода на tablet
+    const itemHeights = new Map();
+
+    function calcItemHeights() {
+        advantagesItems.forEach(item => {
+            itemHeights.set(item, {
+                collapsed: item.offsetHeight,
+                expanded: item.scrollHeight
+            });
+        });
     }
-    
-    if (isDesktop()) {
-        advantagesItems.forEach((item,i)=>{
-            const itemText = item.querySelector('.advantages__text');
-            item.addEventListener('click', ()=>{
-                // Если элемент уже активен, просто сворачиваем его
-                if(item.classList.contains('advantages__item--active')){
-                    item.classList.remove('advantages__item--active');
-                    itemText.style.display = 'none';
-                    
-                    // Удаляем все клоны
-                    const clones = advantagesFlex.querySelectorAll('.advantages__item--clone');
-                    clones.forEach(clone => clone.remove());
-                    
-                    // Показываем все скрытые элементы
-                    advantagesItems.forEach(originalItem => {
-                        originalItem.classList.remove('advantages__item--noactive');
-                    });
-                    return;
+
+    calcItemHeights();
+    window.addEventListener('load', calcItemHeights);
+    let prevWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+        const currentWidth = window.innerWidth;
+        if (currentWidth === prevWidth) return;
+        prevWidth = currentWidth;
+
+        advantagesItems.forEach(el => {
+            el.classList.remove('advantages__item--active');
+            el.style.height = '';
+        });
+        calcItemHeights();
+    });
+
+    advantagesItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('advantages__item--active');
+            const scrollY = window.scrollY;
+            const itemTop = item.getBoundingClientRect().top;
+
+            advantagesItems.forEach(el => {
+                if (el.classList.contains('advantages__item--active')) {
+                    el.classList.remove('advantages__item--active');
+                    el.style.height = itemHeights.get(el).collapsed + 'px';
                 }
-                
-                // Сначала сворачиваем все активные элементы
-                advantagesItems.forEach(originalItem => {
-                    if(originalItem.classList.contains('advantages__item--active')){
-                        originalItem.classList.remove('advantages__item--active');
-                        const originalText = originalItem.querySelector('.advantages__text');
-                        if(originalText) originalText.style.display = 'none';
-                    }
-                });
-                
-                // Удаляем все существующие клоны
-                const existingClones = advantagesFlex.querySelectorAll('.advantages__item--clone');
-                existingClones.forEach(clone => clone.remove());
-                
-                // Показываем все элементы перед тем как скрывать соседа
-                advantagesItems.forEach(originalItem => {
-                    originalItem.classList.remove('advantages__item--noactive');
-                });
-                
-                // Определяем соседний элемент и скрываем его
-                let siblingItem = null;
-                if((i + 1) % 2 == 0) {
-                    // Четный элемент, сосед слева
-                    siblingItem = advantagesItems[i-1];
-                } else {
-                    // Нечетный элемент, сосед справа
-                    siblingItem = advantagesItems[i+1];
-                }
-                
-                if(siblingItem) {
-                    siblingItem.classList.add('advantages__item--noactive');
-                    
-                    // Создаем клон исчезнувшего элемента
-                    const clone = siblingItem.cloneNode(true);
-                    clone.classList.add('advantages__item--clone');
-                    clone.classList.remove('advantages__item--noactive');
-                    
-                    // Вставляем клон сразу после расширяющегося элемента
-                    item.parentNode.insertBefore(clone, item.nextSibling);
-                    
-                    // Добавляем обработчик клика для клона
-                    const cloneText = clone.querySelector('.advantages__text');
-                    clone.addEventListener('click', () => {
-                        if(clone.classList.contains('advantages__item--active')){
-                            clone.classList.remove('advantages__item--active');
-                            cloneText.style.display = 'none';
-                        } else {
-                            // Сворачиваем все активные элементы
-                            document.querySelectorAll('.advantages__item--active').forEach(activeItem => {
-                                activeItem.classList.remove('advantages__item--active');
-                                const activeText = activeItem.querySelector('.advantages__text');
-                                if(activeText) activeText.style.display = 'none';
-                            });
-                            
-                            clone.classList.add('advantages__item--active');
-                            setTimeout(() => {
-                                cloneText.style.display = 'block';
-                            }, 300);
-                        }
-                    });
-                }
-                
-                // Расширяем текущий элемент
+            });
+
+            if (!isActive) {
                 item.classList.add('advantages__item--active');
-                setTimeout(() => {
-                    itemText.style.display = 'block';
-                }, 300);
-            });
-        });
-    } else {
-        // Для планшетов и мобильных - старая логика
-        advantagesItems.forEach((item,i)=>{
-            const itemText = item.querySelector('.advantages__text');
-            item.addEventListener('click', ()=>{
-                if((i + 1) % 2 == 0) {
-                    if(advantagesItems[i-1].classList.contains('advantages__item--noactive')){
-                        setTimeout(() => {
-                            advantagesItems[i-1].classList.toggle('advantages__item--noactive');
-                          }, 500);
-                    }else{
-                        advantagesItems[i-1].classList.toggle('advantages__item--noactive');
-                    }
+                item.style.height = itemHeights.get(item).expanded + 'px';
+            }
 
-                }
-                if((i + 1) % 2 !=0) {
-                    if(advantagesItems[i+1].classList.contains('advantages__item--noactive')){
-                        setTimeout(() => {
-                            advantagesItems[i+1].classList.toggle('advantages__item--noactive');
-                          }, 500);
-                    }else{
-                        advantagesItems[i+1].classList.toggle('advantages__item--noactive');
-                    }
-
-                }
-                if(item.classList.contains('advantages__item--active')){
-                    itemText.style.display = 'none';
-                }else{
-                    setTimeout(() => {
-                        itemText.style.display = 'block';
-                      }, 300);
-                }
-                item.classList.toggle('advantages__item--active');
-            });
+            const newItemTop = item.getBoundingClientRect().top;
+            window.scrollTo(0, scrollY + (newItemTop - itemTop));
         });
-    }
+    });
+
 
     //модалка
     function fadeIn (el, timeout, display){
@@ -283,7 +182,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 momentumRatio: 1,       // сила инерции
                 sticky: false           // без прилипания к слайдам (важно для полной плавности)
             },
-                        breakpoints: {
+             breakpoints: {
                 1400:{
                     slidesPerView: '4.2',
                     spaceBetween:30,
@@ -440,129 +339,107 @@ window.addEventListener('DOMContentLoaded',()=>{
     // Инициализация при загрузке страницы
     window.listenersCounter = new ListenersCounter();
 
-    // Audio controls
-    const progressBars = document.querySelectorAll('#progressBar');
-    const volumeBars = document.querySelectorAll('#volumeBar');
-    const audioPlayers = document.querySelectorAll('#audioPlayer');
-    const recordButtons = document.querySelectorAll('.release__record');
-    const timeDisplays = document.querySelectorAll('#timeDisplay');
-    const audioBottoms = document.querySelectorAll('.release__audio-bottom');
+    //scroll animation
+    if(document.querySelector('.scroll-animate')){
+        const scrollAnimationCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const target = entry.target;
+                    target.classList.add('scroll-animate--active');
+                    observer.unobserve(target);
+                }
+            });
+        };
+        const scrollAnimation = new IntersectionObserver(scrollAnimationCallback,{threshold:0.2});
+        document.querySelectorAll('.scroll-animate').forEach(el=>{
+            scrollAnimation.observe(el);
+        });        
 
-    // Функция обновления прогресс-бара
-    function updateProgressBar(input) {
-        const value = (input.value - input.min) / (input.max - input.min) * 100;
-        input.style.setProperty('--value', value + '%');
     }
-    
-    // Форматирование времени
+
+    // Audio controls
+    const audioItems = document.querySelectorAll('.release__audio-item');
+    let currentAudio = null;
+    let currentButton = null;
+
     function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
+        const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
-        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
-    
-    // Обновление времени
-    function updateTimeDisplay(audioPlayer, progressBar, timeDisplay) {
-        if (audioPlayer) {
-            const currentTime = audioPlayer.currentTime;
-            const duration = audioPlayer.duration || 0;
-            timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
-            
-            // Обновление прогресс-бара
-            if (progressBar && duration) {
-                const progressPercent = (currentTime / duration) * 100;
-                progressBar.value = progressPercent;
-                updateProgressBar(progressBar);
-            }
+
+    function setProgressFill(input, value) {
+        input.style.setProperty('--value', `${value}%`);
+    }
+
+    function stopCurrent() {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentButton.classList.remove('release__record--active');
+            currentAudio = null;
+            currentButton = null;
         }
     }
-    
-    // Переключение play/pause
-    function togglePlayPause(audioPlayer, recordButton, audioBottom, progressBar, volumeBar, timeDisplay) {
-        if (!audioPlayer) return;
-        
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-            recordButton.classList.add('release__record--active');
-            // Показать панель управления
-            if (audioBottom) {
-                audioBottom.style.display = 'flex';
+
+    audioItems.forEach(item => {
+        const audio = item.querySelector('audio');
+        const button = item.querySelector('.release__record');
+        const progressBar = item.querySelector('.release__audio-progress-bar input');
+        const timeDisplay = item.querySelector('.release__time-display');
+
+        button.addEventListener('click', () => {
+            if (currentAudio && currentAudio !== audio) {
+                stopCurrent();
             }
-        } else {
-            audioPlayer.pause();
-            recordButton.classList.remove('release__record--active');
-            // Скрыть панель управления
-            if (audioBottom) {
-                audioBottom.style.display = 'none';
+            if (audio.paused) {
+                audio.play();
+                button.classList.add('release__record--active');
+                currentAudio = audio;
+                currentButton = button;
+            } else {
+                audio.pause();
+                button.classList.remove('release__record--active');
+                currentAudio = null;
+                currentButton = null;
             }
-        }
-    }
-    
-    // Инициализация каждого аудиоплеера
-    audioPlayers.forEach((audioPlayer, index) => {
-        const progressBar = progressBars[index];
-        const volumeBar = volumeBars[index];
-        const recordButton = recordButtons[index];
-        const timeDisplay = timeDisplays[index];
-        const audioBottom = audioBottoms[index];
-        
-        // Инициализация прогресс-баров
-        if (progressBar) {
-            updateProgressBar(progressBar);
-            progressBar.addEventListener('input', () => {
-                if (audioPlayer && audioPlayer.duration) {
-                    const newTime = (progressBar.value / 100) * audioPlayer.duration;
-                    audioPlayer.currentTime = newTime;
-                }
-            });
-        }
-        
-        if (volumeBar) {
-            updateProgressBar(volumeBar);
-            volumeBar.addEventListener('input', () => {
-                if (audioPlayer) {
-                    audioPlayer.volume = volumeBar.value;
-                    updateProgressBar(volumeBar);
-                }
-            });
-        }
-        
-        // Клик по кнопке play/pause
-        if (recordButton) {
-            recordButton.addEventListener('click', () => {
-                togglePlayPause(audioPlayer, recordButton, audioBottom, progressBar, volumeBar, timeDisplay);
-            });
-        }
-        
-        // События аудио плеера
-        if (audioPlayer) {
-            // Установка начальной громкости
-            audioPlayer.volume = volumeBar ? volumeBar.value : 1;
-            
-            // Обновление времени во время воспроизведения
-            audioPlayer.addEventListener('timeupdate', () => {
-                updateTimeDisplay(audioPlayer, progressBar, timeDisplay);
-            });
-            
-            // Обновление при загрузке метаданных
-            audioPlayer.addEventListener('loadedmetadata', () => {
-                updateTimeDisplay(audioPlayer, progressBar, timeDisplay);
-                if (progressBar) {
-                    progressBar.max = 100;
-                    progressBar.value = 0;
-                    updateProgressBar(progressBar);
-                }
-            });
-            
-            // Окончание воспроизведения
-            audioPlayer.addEventListener('ended', () => {
-                recordButton.classList.remove('release__record--active');
-                if (progressBar) {
-                    progressBar.value = 0;
-                    updateProgressBar(progressBar);
-                }
-                updateTimeDisplay(audioPlayer, progressBar, timeDisplay);
-            });
-        }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (!progressBar._dragging && audio.duration) {
+                const val = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = val;
+                setProgressFill(progressBar, val);
+            }
+            if (timeDisplay) {
+                timeDisplay.textContent = formatTime(audio.currentTime);
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            button.classList.remove('release__record--active');
+            progressBar.value = 0;
+            setProgressFill(progressBar, 0);
+            if (timeDisplay) timeDisplay.textContent = '00:00';
+            currentAudio = null;
+            currentButton = null;
+        });
+
+        progressBar.addEventListener('mousedown', () => { progressBar._dragging = true; });
+        progressBar.addEventListener('touchstart', () => { progressBar._dragging = true; }, { passive: true });
+
+        progressBar.addEventListener('input', () => {
+            const val = parseFloat(progressBar.value);
+            setProgressFill(progressBar, val);
+            if (audio.duration) {
+                audio.currentTime = (val / 100) * audio.duration;
+            }
+            if (timeDisplay) {
+                timeDisplay.textContent = formatTime(audio.currentTime);
+            }
+        });
+
+        progressBar.addEventListener('mouseup', () => { progressBar._dragging = false; });
+        progressBar.addEventListener('touchend', () => { progressBar._dragging = false; });
     });
+
 });
