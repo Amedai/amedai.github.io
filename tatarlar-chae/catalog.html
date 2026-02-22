@@ -58,8 +58,9 @@
                     </ul>
                 </nav>
                 <div class="header__wrapper">
-                    <a href="order.html" class="header__basket">
+                    <a href="order.html" class="header__basket hover-scale">
                         <img src="./images/icons/basket.svg" alt="">
+                        <div class="header__basket-card-counter"></div>
                     </a>
                     <button class="header__burger" type="button" title="Открыть меню" aria-label="Открыть меню">
                         <img src="./images/icons/burger-btn.svg" alt="">
@@ -68,7 +69,7 @@
             </div>
             <div class="header__mob-outer">
                 <div class="header__top-block">
-                    <a href="index.html" class="header__logo-mob">tatarlar chae</a>
+                    <a href="index.html" class="header__logo-mob hover-underline">tatarlar chae</a>
                     <button class="header__cross" type="button" title="Закрыть меню" aria-label="Закрыть меню">
                         <img src="./images/icons/close.svg" alt="">
                     </button>
@@ -119,18 +120,18 @@
                 </nav>
                 <ul class="header__social-links">
                     <li class="header__social-item">
-                        <a href="" class="header__social-link">
+                        <a href="https://vk.ru/id1069498048" class="header__social-link hover-scale">
                             <img src="./images/icons/vk.svg" alt="">
                         </a>
                     </li>
                     <li class="header__social-item">
-                        <a href="" class="header__social-link">
+                        <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="header__social-link hover-scale">
                             <img src="./images/icons/tg.svg" alt="">
                         </a>
                     </li>
                     <li class="header__social-item">
-                        <a href="" class="header__social-link">
-                            <img src="./images/icons/whatsapp.svg" alt="">
+                        <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="header__social-link hover-scale">
+                            <img src="./images/icons/max.svg" alt="">
                         </a>
                     </li>
                 </ul>
@@ -148,8 +149,8 @@
                                 <p class="hero-secondary__text">Натуральный, ароматный, полезный чай с фильтром прямо в стакане — удобно, красиво, по-настоящему.</p>
                             </div>
                             <div class="hero-secondary__link-block">
-                                <a href="catalog.html" class="hero-secondary__link hero-secondary__link--bg-white">Перейти в каталог</a>
-                                <a href="" class="hero-secondary__link hero-secondary__link--bg-transparent">Заказать звонок</a>
+                                <a href="catalog.html" class="hero-secondary__link hero-secondary__link--bg-white hover-green">Перейти в каталог</a>
+                                <a href="index.html#order" class="hero-secondary__link hero-secondary__link--bg-transparent hover-blur">Заказать звонок</a>
                             </div>
                         </div>
                         <div class="natural-circle hero-secondary__natural-circle hero-secondary__natural-circle--ml hero-secondary__natural-circle--left">
@@ -241,7 +242,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="catalog__filter-item">
+                                <div class="catalog__filter-item catalog__filter-item--hidden">
                                     <div class="catalog__filter-dropdown">
                                         <div class="catalog__filter-dropdown-text">Вид чая</div>
                                         <div class="catalog__filter-dropdown-arrow">
@@ -269,7 +270,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="catalog__filter-item">
+                                <div class="catalog__filter-item catalog__filter-item--hidden">
                                     <div class="catalog__filter-dropdown">
                                         <div class="catalog__filter-dropdown-text">свойства чая</div>
                                         <div class="catalog__filter-dropdown-arrow">
@@ -297,6 +298,7 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <button class="catalog__filter-accept hover-white">Применить</button>
                             </div>
                             <div class="catalog__flex-item">
                                 <div class="catalog__search-wrapper">
@@ -304,7 +306,7 @@
                                     <button type="" class="catalog__btn-search">
                                         <img src="./images/icons/search.svg" alt="">
                                     </button>
-                                    <button type="" class="catalog__filter-open">
+                                    <button type="" class="catalog__filter-open hover-gray">
                                         <span class="catalog__filter-text catalog__filter-text--mob-hidden">Ассортимент</span>
                                         <div class="catalog__filter-dropdown-arrow catalog__filter-dropdown-arrow--mob-hidden">
                                             <img src="./images/icons/arrow-down-gray.svg" alt="">
@@ -343,7 +345,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="catalog__filter-item">
+                                        <div class="catalog__filter-item catalog__filter-item--hidden">
                                             <div class="catalog__filter-dropdown">
                                                 <div class="catalog__filter-dropdown-text">Вид чая</div>
                                                 <div class="catalog__filter-dropdown-arrow">
@@ -371,7 +373,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="catalog__filter-item">
+                                        <div class="catalog__filter-item catalog__filter-item--hidden">
                                             <div class="catalog__filter-dropdown">
                                                 <div class="catalog__filter-dropdown-text">свойства чая</div>
                                                 <div class="catalog__filter-dropdown-arrow">
@@ -399,85 +401,172 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        <button class="catalog__filter-accept hover-white">Применить</button>
                                     </div>
                                 </div>
                                 <div class="catalog__content">
-                                    <div class="catalog-card">
+                                    <div class="catalog-card" data-article="2" data-category="tea" data-type="green" data-property="tonizing">
                                         <div class="catalog-card__img">
-                                            <img src="./images/catalog-card1.jpg" alt="">
+                                            <img src="./images/catalog/catalog-card1.png" alt="">
                                         </div>
-                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
-                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__price"><span>40 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Зеленый чай</h3>
                                         <div class="catalog-card__compound">
                                             <span>Состав:</span> молочный улун.
                                         </div>
-                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
                                         <div class="catalog-card__buy-block">
                                             <div class="catalog-card__quantity" data-quantity="5">
                                                 <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
                                                 <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
                                                 <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
                                             </div>
-                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="catalog-card">
+                                    <div class="catalog-card" data-article="1" data-category="tea" data-type="black" data-property="awakening">
                                         <div class="catalog-card__img">
-                                            <img src="./images/catalog-card1.jpg" alt="">
+                                            <img src="./images/catalog/catalog-card2.png" alt="">
                                         </div>
-                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
-                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__price"><span>40 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Чай татарский</h3>
                                         <div class="catalog-card__compound">
-                                            <span>Состав:</span> молочный улун.
+                                            <span>Состав:</span> чай черный, мята, душица.
                                         </div>
-                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
                                         <div class="catalog-card__buy-block">
                                             <div class="catalog-card__quantity" data-quantity="5">
                                                 <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
                                                 <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
                                                 <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
                                             </div>
-                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="catalog-card">
+                                    <div class="catalog-card" data-article="0009922" data-category="tea" data-type="fruit" data-property="strengthening">
                                         <div class="catalog-card__img">
-                                            <img src="./images/catalog-card1.jpg" alt="">
+                                            <img src="./images/catalog/catalog-card3.png" alt="">
                                         </div>
-                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
-                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__price"><span>40 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Чай фруктовый</h3>
                                         <div class="catalog-card__compound">
-                                            <span>Состав:</span> молочный улун.
+                                            <span>Состав:</span> чай черный, гибискус цветы, ананас цукаты, изюм, боярышник, яблоки сушеные.
                                         </div>
-                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
                                         <div class="catalog-card__buy-block">
                                             <div class="catalog-card__quantity" data-quantity="5">
                                                 <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
                                                 <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
                                                 <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
                                             </div>
-                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="catalog-card">
+                                    <div class="catalog-card" data-article="3" data-category="tea" data-type="black" data-property="awakening">
                                         <div class="catalog-card__img">
-                                            <img src="./images/catalog-card1.jpg" alt="">
+                                            <img src="./images/catalog/catalog-card4.png" alt="">
                                         </div>
-                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
-                                        <h3 class="catalog-card__title">Подарочный набор</h3>
+                                        <div class="catalog-card__price"><span>40 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Чай черный</h3>
                                         <div class="catalog-card__compound">
-                                            <span>Состав:</span> молочный улун.
+                                            <span>Состав:</span> индийский крупнолистовой черный чай. Сорт Ассам.
                                         </div>
-                                        <a href="details-catalog.html" class="catalog-card__btn-more">Подробнее</a>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
                                         <div class="catalog-card__buy-block">
                                             <div class="catalog-card__quantity" data-quantity="5">
                                                 <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
                                                 <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
                                                 <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
                                             </div>
-                                            <a href="" class="catalog-card__btn-buy">Купить</a>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="catalog-card" data-article="4" data-category="mulled-wine">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog/catalog-card5.png" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>400 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Глинтвейн</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> каркаде, яблоко, душистый перец, имбирь, гвоздика, кориандр, кардамон, корица, анис.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="catalog-card" data-article="5" data-category="coffe">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog/catalog-card6.png" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>40 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Drip-cofe</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> молотый бархатистый бленд из Бразильской арабики с добавлением Вьетнамской робусты.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="catalog-card" data-article="6" data-category="coffe">
+                                        <div class="catalog-card__img">
+                                            <img src="./images/catalog/catalog-card6.png" alt="">
+                                        </div>
+                                        <div class="catalog-card__price"><span>40 ₽</span>/ шт</div>
+                                        <h3 class="catalog-card__title">Drip-cofe</h3>
+                                        <div class="catalog-card__compound">
+                                            <span>Состав:</span> молотый бархатистый бленд из Бразильской арабики с добавлением Вьетнамской робусты.
+                                        </div>
+                                        <a href="details-catalog.html" class="catalog-card__btn-more hover-gray">Подробнее</a>
+                                        <div class="catalog-card__buy-block">
+                                            <div class="catalog-card__quantity" data-quantity="5">
+                                                <button type="button" class="catalog-card__qty-minus-btn minus">-</button>
+                                                <input type="number" value="15" min="15" max="999" class="catalog-card__qty-input">
+                                                <button type="button" class="catalog-card__qty-plus-btn plus">+</button>
+                                            </div>
+                                            <div class="catalog-card__btns-block">
+                                                <button class="catalog-card__btn-item hover-white" data-btn="buy">Купить</button>
+                                                <a href="order.html" class="catalog-card__btn-item hover-white" data-btn="href-basket">В корзине</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-pagination">
+                                    <button class="card-pagination__arrow">
+                                        <img src="./images/icons/arrow-pagination-left.svg" alt="">
+                                    </button>
+                                    <button class="card-pagination__arrow">
+                                        <img src="./images/icons/arrow-pagination-right.svg" alt="">
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -494,7 +583,7 @@
                             <div class="style__title-wrapper">
                                 <span class="small-title">фирменный стиль</span>
                                 <h2 class="section-title style__section-title">Чай и кофе в вашем стиле</h2>
-                                    <a href="" class="href-btn href-btn--tablet-visible style__href-btn">
+                                    <a href="index.html#order" class="href-btn href-btn--tablet-visible style__href-btn">
                                     <span class="href-btn__text">Заказать услугу</span>
                                     <span class="href-btn__arrow">
                                         <div class="href-btn__arrow-block">
@@ -513,7 +602,7 @@
                                     <li class="style__list-item style__list-item--circle-top">дарите гостям возможность пить <span>настоящее, полезное, натуральное</span></li>
                                 </ul>
                             </div>
-                            <a href="" class="href-btn href-btn--desktop-visible style__href-btn">
+                            <a href="index.html#order" class="href-btn href-btn--desktop-visible style__href-btn">
                                 <span class="href-btn__text">Заказать услугу</span>
                                 <span class="href-btn__arrow">
                                     <div class="href-btn__arrow-block">
@@ -541,7 +630,7 @@
                         <div class="small-title">Оптовая продажа</div>
                         <h2 class="section-title wholesale__section-title">Хотите купить оптом?</h2>
                         <p class="wholesale__text">Мы предлагаем специальные условия и выгодные цены для оптовых покупателей. Откройте для себя преимущества партнерства с нами и обеспечьте свой бизнес качественным натуральным продуктом.</p>
-                        <a href="" class="href-btn wholesale__href-btn">
+                        <a href="index.html#order" class="href-btn wholesale__href-btn">
                             <span class="href-btn__text">Связаться</span>
                             <span class="href-btn__arrow">
                                 <div class="href-btn__arrow-block">
@@ -549,7 +638,7 @@
                                 </div>
                             </span>
                         </a>
-                        <a href="" class="wholesale__btn-more">
+                        <a href="cooperation.html" class="wholesale__btn-more hover-green">
                             <span class="wholesale__btn-more-text">ПОДРОБНЕЕ</span>
                             <span class="wholesale__btn-more-arrow">
                                 <div class="wholesale__btn-more-arrow-block">
@@ -575,18 +664,18 @@
                         <p class="footer__text footer__text--desktop-visible">Или вы всегда можете связаться с нами в любом удобном для вас месенджере</p>
                         <ul class="footer__social-list footer__social-list--desktop-visible">
                             <li class="footer__social-item">
-                                <a href="" class="footer__social-link hover-scale">
+                                <a href="https://vk.ru/id1069498048" class="footer__social-link hover-scale">
                                     <img src="./images/icons/vk.svg" alt="">
                                 </a>
                             </li>
                             <li class="footer__social-item">
-                                <a href="" class="footer__social-link hover-scale">
+                                <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
                                     <img src="./images/icons/tg.svg" alt="">
                                 </a>
                             </li>
                             <li class="footer__social-item">
-                                <a href="" class="footer__social-link hover-scale">
-                                    <img src="./images/icons/whatsapp.svg" alt="">
+                                <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
+                                    <img src="./images/icons/max.svg" alt="">
                                 </a>
                             </li>
                         </ul>
@@ -599,24 +688,24 @@
                                 <input class="footer__input" type="tel" name="feedphone"required placeholder="+7 999 000 00 00">
                             </div>
                             <p class="footer__policy-info">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой конфиденциальности</p>
-                            <button class="footer__btn">Отправить</button>
+                            <button class="footer__btn hover-scale">Отправить</button>
                         </form>
                     </div>
                     <span class="footer__text footer__text--mobile-visible">...или напишите нам в мессенджеры:</span>
                     <ul class="footer__social-list footer__social-list--mobile-visible">
                         <li class="footer__social-item">
-                            <a href="" class="footer__social-link">
+                            <a href="https://vk.ru/id1069498048" class="footer__social-link hover-scale">
                                 <img src="./images/icons/vk.svg" alt="">
                             </a>
                         </li>
                         <li class="footer__social-item">
-                            <a href="" class="footer__social-link">
+                            <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
                                 <img src="./images/icons/tg.svg" alt="">
                             </a>
                         </li>
                         <li class="footer__social-item">
-                            <a href="" class="footer__social-link">
-                                <img src="./images/icons/whatsapp.svg" alt="">
+                            <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
+                                <img src="./images/icons/max.svg" alt="">
                             </a>
                         </li>
                     </ul>
@@ -628,7 +717,7 @@
                 <img src="./images/icons/footer-links-pattern.svg" alt="">
             </div>
             <div class="container">
-                <a href="index.html" class="footer__logo">ТАТАРЛАР ЧәЕ</a>
+                <a href="index.html" class="footer__logo hover-underline">ТАТАРЛАР ЧәЕ</a>
                 <div class="footer__menu-wrapper">
                     <div class="footer__menu-wrapper-item">
                         <span class="footer__menu-title">Покупателям</span>
@@ -670,16 +759,16 @@
                         <div class="footer__menu">
                             <ul class="footer__menu-list footer__menu-list--column1">
                                 <li class="footer__menu-item">
-                                    <a href="" class="footer__menu-link hover-underline footer__menu-link--ttn">+ 7 (999) 000 00 00</a>
+                                    <a href="tel:+79178638866" class="footer__menu-link hover-underline footer__menu-link--ttn">+7 (917) 863-88-66</a>
                                 </li>
                                 <li class="footer__menu-item">
-                                    <a href="" class="footer__menu-link hover-underline footer__menu-link--ttn">tatarlar@gmail.com</a>
+                                    <a href="mailto:tatarlar@gmail.com" class="footer__menu-link hover-underline footer__menu-link--ttn">tatarlar@gmail.com</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <a href="" class="footer__policy hover-underline">Политика конфиденциальности</a>
+                <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
             </div>
         </div>
     </footer>

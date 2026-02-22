@@ -58,8 +58,9 @@
                     </ul>
                 </nav>
                 <div class="header__wrapper">
-                    <a href="order.html" class="header__basket">
+                    <a href="order.html" class="header__basket hover-scale">
                         <img src="./images/icons/basket.svg" alt="">
+                        <div class="header__basket-card-counter"></div>
                     </a>
                     <button class="header__burger" type="button" title="Открыть меню" aria-label="Открыть меню">
                         <img src="./images/icons/burger-btn.svg" alt="">
@@ -68,7 +69,7 @@
             </div>
             <div class="header__mob-outer header__mob-outer--scrolled">
                 <div class="header__top-block">
-                    <a href="index.html" class="header__logo-mob">tatarlar chae</a>
+                    <a href="index.html" class="header__logo-mob hover-underline">tatarlar chae</a>
                     <button class="header__cross" type="button" title="Закрыть меню" aria-label="Закрыть меню">
                         <img src="./images/icons/close.svg" alt="">
                     </button>
@@ -119,18 +120,18 @@
                 </nav>
                 <ul class="header__social-links">
                     <li class="header__social-item">
-                        <a href="" class="header__social-link">
+                        <a href="https://vk.ru/id1069498048" class="header__social-link hover-scale">
                             <img src="./images/icons/vk.svg" alt="">
                         </a>
                     </li>
                     <li class="header__social-item">
-                        <a href="" class="header__social-link">
+                        <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="header__social-link hover-scale">
                             <img src="./images/icons/tg.svg" alt="">
                         </a>
                     </li>
                     <li class="header__social-item">
-                        <a href="" class="header__social-link">
-                            <img src="./images/icons/whatsapp.svg" alt="">
+                        <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="header__social-link hover-scale">
+                            <img src="./images/icons/max.svg" alt="">
                         </a>
                     </li>
                 </ul>
@@ -147,9 +148,9 @@
                     <h1 class="section-title order__section-title">Оформление заказа</h1>
                     <div class="order__inner">
                         <div class="order__basket">
-                            <h2 class="order__inner-title">Корзина с покупками (2)</h2>
+                            <h2 class="order__inner-title">Корзина с покупками <span>(2)</span></h2>
                             <div class="order__cart-wrapper">
-                                <div class="order__cart">
+                                <!-- <div class="order__cart">
                                     <div class="order__cart-img">
                                         <img src="./images/order/order-cart.jpg" alt="">
                                     </div>
@@ -162,7 +163,7 @@
                                                 <h3 class="order__cart-title">Чай черный</h3>
                                                 <div class="order__cart-price"><span>40 ₽/</span> шт</div>
                                             </div>
-                                            <button class="order__cart-remove-btn" type="button">
+                                            <button class="order__cart-remove-btn hover-scale" type="button">
                                                 <img src="./images/icons/trash.svg" alt="">
                                             </button>
                                         </div>
@@ -175,37 +176,10 @@
                                             <span class="order__cart-total">600 ₽</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="order__cart">
-                                    <div class="order__cart-img">
-                                        <img src="./images/order/order-cart.jpg" alt="">
-                                    </div>
-                                    <div class="order__cart-info">
-                                        <div class="order__cart-info-block">
-                                            <div class="order__cart-img order__cart-img--mob-visible">
-                                                <img src="./images/order/order-cart.jpg" alt="">
-                                            </div>
-                                            <div class="order__cart-title-block">
-                                                <h3 class="order__cart-title">Чай черный</h3>
-                                                <div class="order__cart-price"><span>40 ₽/</span> шт</div>
-                                            </div>
-                                            <button class="order__cart-remove-btn" type="button">
-                                                <img src="./images/icons/trash.svg" alt="">
-                                            </button>
-                                        </div>
-                                        <div class="order__cart-info-block">
-                                            <div class="order__quantity" data-quantity="5">
-                                                <button type="button" class="order__qty-minus-btn minus">-</button>
-                                                <input type="number" value="15" min="15" max="999" class="order__qty-input">
-                                                <button type="button" class="order__qty-plus-btn plus">+</button>
-                                            </div>
-                                            <span class="order__cart-total">600 ₽</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                                 <div class="order__promo">
                                     <input type="text" class="order__promo-input" placeholder="TATARCHAI">
-                                    <button type="button" class="order__promo-btn">Активировать</button>
+                                    <button type="button" class="order__promo-btn hover-white">Активировать</button>
                                 </div>
                                 <div class="order__cost">
                                     <span class="order__cost-title">Общая стоимость</span>
@@ -305,7 +279,7 @@
                                         </div>
                                         <div class="order__accept">
                                             <input type="checkbox" id="accept" class="order__accept-input">
-                                            <label for="accept" class="order__accept-label">Я принимаю условия <a href="" class="order__accept-link hover-underline">публичной оферты</a> и даю согласие на <a href="" class="order__accept-link hover-underline">обработку персональных данных</a></label>
+                                            <label for="accept" class="order__accept-label">Я принимаю условия <a href="public-offer.html" class="order__accept-link hover-underline">публичной оферты</a> и даю согласие на <a href="policy.html" class="order__accept-link hover-underline">обработку персональных данных</a></label>
                                         </div>
                                         <button class="href-btn order__href-btn">
                                         <span class="href-btn__text">Оформить заказ</span>
@@ -340,18 +314,18 @@
                         <p class="footer__text footer__text--desktop-visible">Или вы всегда можете связаться с нами в любом удобном для вас месенджере</p>
                         <ul class="footer__social-list footer__social-list--desktop-visible">
                             <li class="footer__social-item">
-                                <a href="" class="footer__social-link hover-scale">
+                                <a href="https://vk.ru/id1069498048" class="footer__social-link hover-scale">
                                     <img src="./images/icons/vk.svg" alt="">
                                 </a>
                             </li>
                             <li class="footer__social-item">
-                                <a href="" class="footer__social-link hover-scale">
+                                <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
                                     <img src="./images/icons/tg.svg" alt="">
                                 </a>
                             </li>
                             <li class="footer__social-item">
-                                <a href="" class="footer__social-link hover-scale">
-                                    <img src="./images/icons/whatsapp.svg" alt="">
+                                <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
+                                    <img src="./images/icons/max.svg" alt="">
                                 </a>
                             </li>
                         </ul>
@@ -364,24 +338,24 @@
                                 <input class="footer__input" type="tel" name="feedphone"required placeholder="+7 999 000 00 00">
                             </div>
                             <p class="footer__policy-info">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой конфиденциальности</p>
-                            <button class="footer__btn">Отправить</button>
+                            <button class="footer__btn hover-scale">Отправить</button>
                         </form>
                     </div>
                     <span class="footer__text footer__text--mobile-visible">...или напишите нам в мессенджеры:</span>
                     <ul class="footer__social-list footer__social-list--mobile-visible">
                         <li class="footer__social-item">
-                            <a href="" class="footer__social-link">
+                            <a href="https://vk.ru/id1069498048" class="footer__social-link">
                                 <img src="./images/icons/vk.svg" alt="">
                             </a>
                         </li>
                         <li class="footer__social-item">
-                            <a href="" class="footer__social-link">
+                            <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link">
                                 <img src="./images/icons/tg.svg" alt="">
                             </a>
                         </li>
                         <li class="footer__social-item">
-                            <a href="" class="footer__social-link">
-                                <img src="./images/icons/whatsapp.svg" alt="">
+                            <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link">
+                                <img src="./images/icons/max.svg" alt="">
                             </a>
                         </li>
                     </ul>
@@ -393,7 +367,7 @@
                 <img src="./images/icons/footer-links-pattern.svg" alt="">
             </div>
             <div class="container">
-                <a href="index.html" class="footer__logo">ТАТАРЛАР ЧәЕ</a>
+                <a href="index.html" class="footer__logo hover-underline">ТАТАРЛАР ЧәЕ</a>
                 <div class="footer__menu-wrapper">
                     <div class="footer__menu-wrapper-item">
                         <span class="footer__menu-title">Покупателям</span>
@@ -419,7 +393,7 @@
                         <nav class="footer__menu">
                             <ul class="footer__menu-list footer__menu-list--template-columns-small">
                                 <li class="footer__menu-item footer__menu-item--full-width">
-                                    <a href="" class="footer__menu-link hover-underline">чай и кофе в стаканчике</a>
+                                    <a href="catalog.html" class="footer__menu-link hover-underline">чай и кофе в стаканчике</a>
                                 </li>
                                 <li class="footer__menu-item">
                                     <a href="furniture.html" class="footer__menu-link hover-underline">оборудование</a>
@@ -435,16 +409,16 @@
                         <div class="footer__menu">
                             <ul class="footer__menu-list footer__menu-list--column1">
                                 <li class="footer__menu-item">
-                                    <a href="" class="footer__menu-link hover-underline footer__menu-link--ttn">+ 7 (999) 000 00 00</a>
+                                    <a href="tel:+79178638866" class="footer__menu-link hover-underline footer__menu-link--ttn">+7 (917) 863-88-66</a>
                                 </li>
                                 <li class="footer__menu-item">
-                                    <a href="" class="footer__menu-link hover-underline footer__menu-link--ttn">tatarlar@gmail.com</a>
+                                    <a href="mailto:tatarlar@gmail.com" class="footer__menu-link hover-underline footer__menu-link--ttn">tatarlar@gmail.com</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <a href="" class="footer__policy hover-underline">Политика конфиденциальности</a>
+                <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
             </div>
         </div>
     </footer>
