@@ -287,40 +287,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
     const breakpoint = 767.98;
-    let offerSwiper = null;
     let sphereSwiper = null;
-
-    function initOfferSwiper() {
-        if (window.innerWidth <= breakpoint) {
-            if (!offerSwiper) {
-            offerSwiper = new Swiper('.offer__swiper', {
-                slidesPerView: 1,
-                centeredSlides: false,
-                grabCursor: true,
-                loop: false,
-                spaceBetween: 0,
-                navigation: {
-                nextEl: '.offer__arrows-next',
-                prevEl: '.offer__arrows-prev',
-                },
-                on: {
-                    init: function() {
-                        updateArrowColors(this, '.offer__arrows', '#F5F5F5', '#004D1A', '#5B5B5B', '#ffffff', '0.8', '1', '0.5', '1');
-                    },
-                    slideChange: function() {
-                        updateArrowColors(this, '.offer__arrows', '#F5F5F5', '#004D1A', '#5B5B5B', '#ffffff', '0.8', '1', '0.5', '1');
-                    },
-                },
-            });
-            }
-        } 
-        else {
-            if (offerSwiper) {
-            offerSwiper.destroy(true, true);   // true, true → полностью чистит стили и события
-            offerSwiper = null;
-            }
-        }
-    }
 
     function initSphereSwiper() {
         if (window.innerWidth <= breakpoint) {
@@ -343,13 +310,11 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
     // запускаем при загрузке
-    initOfferSwiper();
     initSphereSwiper();
 
     // и при изменении размера окна
     window.addEventListener('resize', () => {
         // небольшой debounce полезен, но можно и без него
-        initOfferSwiper();
         initSphereSwiper();
     });
     if(document.querySelector('.news__swiper')){
@@ -450,27 +415,29 @@ window.addEventListener('DOMContentLoaded',()=>{
         });
     }
 
-    // Quantity controls for catalog cards
+    // Quantity controls for catalog cards and any [data-quantity] block
     function initQuantityControls() {
         const quantityWrappers = document.querySelectorAll('[data-quantity]');
-        
+
         quantityWrappers.forEach(wrapper => {
             const minusBtn = wrapper.querySelector('.minus');
             const plusBtn = wrapper.querySelector('.plus');
             const input = wrapper.querySelector('input[type="number"]');
-            
+
             if (!minusBtn || !plusBtn || !input) return;
-            
-            // Get increment value from data-quantity attribute, default to 5 if not set
+
             const incrementValue = parseInt(wrapper.dataset.quantity) || 1;
+            const minValue = incrementValue === 5 ? 15 : 1;
+
+            input.min = minValue;
+            input.readOnly = true;
 
             minusBtn.addEventListener('click', () => {
                 const currentValue = parseInt(input.value) || 0;
-                const minValue = incrementValue === 5 ? 15 : 1;
                 const newValue = Math.max(minValue, currentValue - incrementValue);
                 input.value = newValue;
             });
-            
+
             plusBtn.addEventListener('click', () => {
                 const currentValue = parseInt(input.value) || 0;
                 const maxValue = parseInt(input.max) || 999;
@@ -881,21 +848,60 @@ window.addEventListener('DOMContentLoaded',()=>{
 
             setCardState(container, article in getCart());
 
+            const qtyInput   = container.querySelector('.catalog-card__qty-input, .details__qty-input');
+            const qtyWrapper = container.querySelector('[data-quantity]');
+
+            // При загрузке подставляем количество из localStorage
+            if (qtyInput && article in getCart()) {
+                const cart = getCart();
+                const step = qtyWrapper ? parseInt(qtyWrapper.dataset.quantity) || 1 : 1;
+                const minVal = step === 5 ? 15 : 1;
+                qtyInput.min = minVal;
+                qtyInput.readOnly = true;
+                const maxVal = parseInt(qtyInput.max) || 999;
+                const qty = Math.min(maxVal, Math.max(minVal, cart[article].quantity || step));
+                qtyInput.value = qty;
+            }
+
+            // При изменении количества (только +/-) обновляем quantity в localStorage; ввод в поле запрещён
+            if (qtyInput && qtyWrapper) {
+                const step = parseInt(qtyWrapper.dataset.quantity) || 1;
+                const minVal = step === 5 ? 15 : 1;
+                qtyInput.min = minVal;
+                qtyInput.readOnly = true;
+                const cur = parseInt(qtyInput.value, 10);
+                if (!(article in getCart()) && (isNaN(cur) || cur < minVal)) {
+                    qtyInput.value = minVal;
+                }
+                const syncQuantityToCart = () => {
+                    const cart = getCart();
+                    const val = parseInt(qtyInput.value) || step;
+                    if (article in cart) {
+                        cart[article].quantity = val;
+                        saveCart(cart);
+                    }
+                };
+                const minusBtn = qtyWrapper.querySelector('.minus');
+                const plusBtn = qtyWrapper.querySelector('.plus');
+                if (minusBtn) minusBtn.addEventListener('click', () => setTimeout(syncQuantityToCart, 0));
+                if (plusBtn) plusBtn.addEventListener('click', () => setTimeout(syncQuantityToCart, 0));
+            }
+
             const buyBtn = container.querySelector('[data-btn="buy"]');
             if (!buyBtn) return;
 
             buyBtn.addEventListener('click', () => {
-                const img      = container.querySelector('img');
-                const titleEl  = container.querySelector('.catalog-card__title, .details__title');
-                const priceEl  = container.querySelector('.catalog-card__price span, .details__price span');
-                const qtyInput = container.querySelector('.catalog-card__qty-input, .details__qty-input');
+                const img        = container.querySelector('img');
+                const titleEl    = container.querySelector('.catalog-card__title, .details__title');
+                const priceEl    = container.querySelector('.catalog-card__price span, .details__price span');
 
                 const cart = getCart();
                 cart[article] = {
-                    title:    titleEl  ? titleEl.textContent.trim()  : '',
-                    price:    priceEl  ? priceEl.textContent.trim()  : '',
-                    image:    img      ? img.getAttribute('src')     : '',
-                    quantity: qtyInput ? parseInt(qtyInput.value) || 1 : 1,
+                    title:    titleEl    ? titleEl.textContent.trim()              : '',
+                    price:    priceEl    ? priceEl.textContent.trim()              : '',
+                    image:    img        ? img.getAttribute('src')                 : '',
+                    quantity: qtyInput   ? parseInt(qtyInput.value) || 1           : 1,
+                    step:     qtyWrapper ? parseInt(qtyWrapper.dataset.quantity) || 1 : 1,
                 };
                 saveCart(cart);
                 setCardState(container, true);
@@ -908,7 +914,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     // Order page — cart rendering from localStorage
     function initOrderPage() {
-        if (!document.querySelector('.order__cart-wrapper')) return;
+        const wrapper = document.querySelector('.order__cart-wrapper');
+        if (!wrapper) return;
 
         const DELIVERY_COST = 400;
 
@@ -973,8 +980,10 @@ window.addEventListener('DOMContentLoaded',()=>{
             div.className = 'order__cart';
             div.dataset.article = article;
 
+            const step = item.step || 1;
+            const minQty = step === 5 ? 15 : 1;
             const priceNum = parsePrice(item.price);
-            const qty = item.quantity || 1;
+            const qty = Math.max(minQty, item.quantity || step);
             const itemTotal = priceNum * qty;
 
             div.innerHTML =
@@ -995,9 +1004,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                         '</button>' +
                     '</div>' +
                     '<div class="order__cart-info-block">' +
-                        '<div class="order__quantity" data-quantity="5">' +
+                        '<div class="order__quantity" data-quantity="' + step + '">' +
                             '<button type="button" class="order__qty-minus-btn minus">-</button>' +
-                            '<input type="number" value="' + qty + '" min="5" max="999" class="order__qty-input">' +
+                            '<input type="number" value="' + qty + '" min="' + minQty + '" max="999" class="order__qty-input">' +
                             '<button type="button" class="order__qty-plus-btn plus">+</button>' +
                         '</div>' +
                         '<span class="order__cart-total">' + formatPrice(itemTotal) + '</span>' +
@@ -1017,8 +1026,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             const input = div.querySelector('.order__qty-input');
 
             div.querySelector('.order__qty-minus-btn').addEventListener('click', () => {
-                const val = parseInt(input.value) || 5;
-                const newVal = Math.max(5, val - 5);
+                const val = parseInt(input.value) || step;
+                const newVal = Math.max(minQty, val - step);
                 input.value = newVal;
                 const cart = getCart();
                 if (cart[article]) { cart[article].quantity = newVal; saveCart(cart); }
@@ -1026,19 +1035,20 @@ window.addEventListener('DOMContentLoaded',()=>{
             });
 
             div.querySelector('.order__qty-plus-btn').addEventListener('click', () => {
-                const val = parseInt(input.value) || 5;
-                const newVal = Math.min(999, val + 5);
+                const val = parseInt(input.value) || step;
+                const newVal = Math.min(999, val + step);
                 input.value = newVal;
                 const cart = getCart();
                 if (cart[article]) { cart[article].quantity = newVal; saveCart(cart); }
                 recalcTotals();
             });
 
+            input.readOnly = true;
+
             return div;
         }
 
         function renderCart() {
-            const wrapper = document.querySelector('.order__cart-wrapper');
             const promoBlock = wrapper.querySelector('.order__promo');
             const cart = getCart();
 
@@ -1049,6 +1059,17 @@ window.addEventListener('DOMContentLoaded',()=>{
             updateCartTitle();
             recalcTotals();
             updateHeaderCounter();
+        }
+
+        const clearBtn = document.querySelector('.order__btn-clear');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                saveCart({});
+                wrapper.querySelectorAll('.order__cart').forEach(el => el.remove());
+                updateCartTitle();
+                recalcTotals();
+                updateHeaderCounter();
+            });
         }
 
         renderCart();

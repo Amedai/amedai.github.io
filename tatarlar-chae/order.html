@@ -126,11 +126,6 @@
                     </li>
                     <li class="header__social-item">
                         <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="header__social-link hover-scale">
-                            <img src="./images/icons/tg.svg" alt="">
-                        </a>
-                    </li>
-                    <li class="header__social-item">
-                        <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="header__social-link hover-scale">
                             <img src="./images/icons/max.svg" alt="">
                         </a>
                     </li>
@@ -148,35 +143,13 @@
                     <h1 class="section-title order__section-title">Оформление заказа</h1>
                     <div class="order__inner">
                         <div class="order__basket">
-                            <h2 class="order__inner-title">Корзина с покупками <span>(2)</span></h2>
+                            <div class="order__inner-title-wrapper">
+                                <h2 class="order__inner-title">Корзина с покупками <span>(2)</span></h2>
+                                <button class="order__btn-clear">
+                                    очистить корзину
+                                </button>
+                            </div>
                             <div class="order__cart-wrapper">
-                                <!-- <div class="order__cart">
-                                    <div class="order__cart-img">
-                                        <img src="./images/order/order-cart.jpg" alt="">
-                                    </div>
-                                    <div class="order__cart-info">
-                                        <div class="order__cart-info-block">
-                                            <div class="order__cart-img order__cart-img--mob-visible">
-                                                <img src="./images/order/order-cart.jpg" alt="">
-                                            </div>
-                                            <div class="order__cart-title-block">
-                                                <h3 class="order__cart-title">Чай черный</h3>
-                                                <div class="order__cart-price"><span>40 ₽/</span> шт</div>
-                                            </div>
-                                            <button class="order__cart-remove-btn hover-scale" type="button">
-                                                <img src="./images/icons/trash.svg" alt="">
-                                            </button>
-                                        </div>
-                                        <div class="order__cart-info-block">
-                                            <div class="order__quantity" data-quantity="5">
-                                                <button type="button" class="order__qty-minus-btn minus">-</button>
-                                                <input type="number" value="15" min="15" max="999" class="order__qty-input">
-                                                <button type="button" class="order__qty-plus-btn plus">+</button>
-                                            </div>
-                                            <span class="order__cart-total">600 ₽</span>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="order__promo">
                                     <input type="text" class="order__promo-input" placeholder="TATARCHAI">
                                     <button type="button" class="order__promo-btn hover-white">Активировать</button>
@@ -320,11 +293,6 @@
                             </li>
                             <li class="footer__social-item">
                                 <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
-                                    <img src="./images/icons/tg.svg" alt="">
-                                </a>
-                            </li>
-                            <li class="footer__social-item">
-                                <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link hover-scale">
                                     <img src="./images/icons/max.svg" alt="">
                                 </a>
                             </li>
@@ -346,11 +314,6 @@
                         <li class="footer__social-item">
                             <a href="https://vk.ru/id1069498048" class="footer__social-link">
                                 <img src="./images/icons/vk.svg" alt="">
-                            </a>
-                        </li>
-                        <li class="footer__social-item">
-                            <a href="https://max.ru/join/gakCt9OC05uC88t57FIP-w-QZvNvSmnOwgaIJrqj308" class="footer__social-link">
-                                <img src="./images/icons/tg.svg" alt="">
                             </a>
                         </li>
                         <li class="footer__social-item">
@@ -418,7 +381,10 @@
                         </div>
                     </div>
                 </div>
-                <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
+                <div class="footer__policy-wrapper">
+                    <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
+                    <a href="public-offer.html" class="footer__policy hover-underline">Публичная оферта</a>
+                </div>
             </div>
         </div>
     </footer>
