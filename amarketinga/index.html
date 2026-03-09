@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amarketinga</title>
 
+    <link rel="preload" href="./images/main/hero-poster.jpg" as="image">
+
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="header__inner">
-                <a href="index.html" class="logo">
+                <a href="index.html" class="logo hover-scale">
                     <div class="logo__circle">
                         <img src="./images/icons/am.svg" alt="" class="logo__img">
                     </div>
@@ -22,23 +24,23 @@
                 <nav class="header__nav header__nav--desktop">
                     <ul class="header__nav-list">
                         <li class="header__nav-item">
-                            <a href="#" class="header__nav-link">О нас</a>
+                            <a href="#about" class="header__nav-link hover-underline">О нас</a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="#" class="header__nav-link">Услуги</a>
+                            <a href="#services" class="header__nav-link hover-underline">Услуги</a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="#" class="header__nav-link">Клиенты</a>
+                            <a href="#clients" class="header__nav-link hover-underline">Клиенты</a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="#" class="header__nav-link">Кейсы</a>
+                            <a href="#cases" class="header__nav-link hover-underline">Кейсы</a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="#" class="header__nav-link">Контакты</a>
+                            <a href="#contacts" class="header__nav-link hover-underline">Контакты</a>
                         </li>
                     </ul>
                 </nav>
-                <a href="tel:+79683737597" class="header__tel header__tel--desktop">+7(968)373-75-97</a>
+                <a href="tel:+79683737597" class="header__tel header__tel--desktop hover-full-white">+7(968)373-75-97</a>
                 <div class="header__burger-wrapper">
                     <button class="header__burger">
                         <span class="header__burger-line"></span>
@@ -53,19 +55,19 @@
                         <nav class="header__nav header__nav--mob">
                             <ul class="header__nav-list">
                                 <li class="header__nav-item">
-                                    <a href="#" class="header__nav-link">О нас</a>
+                                    <a href="#about" class="header__nav-link hover-underline">О нас</a>
                                 </li>
                                 <li class="header__nav-item">
-                                    <a href="#" class="header__nav-link">Услуги</a>
+                                    <a href="#services" class="header__nav-link hover-underline">Услуги</a>
                                 </li>
                                 <li class="header__nav-item">
-                                    <a href="#" class="header__nav-link">Клиенты</a>
+                                    <a href="#clients" class="header__nav-link hover-underline">Клиенты</a>
                                 </li>
                                 <li class="header__nav-item">
-                                    <a href="#" class="header__nav-link">Кейсы</a>
+                                    <a href="#cases" class="header__nav-link hover-underline">Кейсы</a>
                                 </li>
                                 <li class="header__nav-item">
-                                    <a href="#" class="header__nav-link">Контакты</a>
+                                    <a href="#contacts" class="header__nav-link hover-underline">Контакты</a>
                                 </li>
                             </ul>
                         </nav>
@@ -78,9 +80,9 @@
     <main class="main">
         <section class="hero">
             <div class="hero__bg">
-                <video class="hero__bg-video" autoplay muted loop playsinline>
+                <video class="hero__bg-video" poster="./images/main/hero-poster.jpg" autoplay muted loop playsinline>
                     <source src="./video/card.mp4" type="video/mp4">
-                    <!-- <img class="hero__video-fallback" src="./images/hero-bg-fallback.jpg" alt="Фоновое изображение"> -->
+                    <img src="./images/main/hero-poster.jpg" alt="Фоновое изображение">
                 </video>
             </div>
             <div class="container">
@@ -88,8 +90,8 @@
                     <h1 class="hero__title">Один подрядчик для&nbsp;всех задач бренда</h1>
                     <h2 class="hero__subtitle">от мерча до государственной конференции</h2>
                     <div class="hero__links">
-                        <a href="#" class="button button--bg-white">Связаться</a>
-                        <a href="#" class="button button--bg-opacity">Изучить кейсы</a>
+                        <a href="#contacts" class="button button--bg-white hover-white">Связаться</a>
+                        <a href="#why" class="button button--bg-opacity hover-blur">Изучить кейсы</a>
                     </div>
                 </div>
             </div>
@@ -101,41 +103,61 @@
                 <div class="container">
                     <h2 class="trust__title">Нам доверяют</h2>
                     <ul class="trust__list">
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust1.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust2.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust3.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust4.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust5.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust6.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust7.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust8.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust9.png" alt="">
+                            </div>
                         </li>
-                        <li class="trust__item">
-                            нужна картинка
+                        <li class="trust__item hover-scale">
+                            <div class="trust__img">
+                                <img src="./images/main/trust10.png" alt="">
+                            </div>
                         </li>
                     </ul>
                     <div class="trust__title">...и многие другие</div>
                 </div>
             </section>
-            <section class="cases">
+            <section class="cases" id="cases">
                 <div class="cases__pattern cases__pattern--left">
                     <img src="./images/main/cases-pattern-left.png" alt="">
                 </div>
@@ -180,74 +202,263 @@
                             <button class="cases__inner-tab" data-tab="merch">
                                 <span class="cases__inner-tab-title">Мерч и подарки</span>
                             </button>
-                            <button class="button button--bg-white cases__button">Больше кейсов</button>
+                            <a href="design.html" class="button button--bg-white hover-white cases__button-more cases__button-more--tablet-hidden">Больше кейсов</a>
                         </div>
-                        <div class="swiper cases__swiper">
-                            <div class="swiper-wrapper cases__swiper-wrapper">
-                                <div class="swiper-slide cases__swiper-slide">
-                                    <div class="case__swiper-slide-img">
-                                        <img src="./images/cases/case-1.jpg" alt="">
+                        <div class="cases__inner-content cases__inner-content--active" data-tab-content="design">
+                            <div class="swiper cases__swiper">
+                                <div class="cases__arrows-wrapper">
+                                    <span class="cases__slide-text-mob">Дизайн</span>
+                                    <div class="cases__arrows arrows">
+                                        <a href="" class="button button--bg-opacity hover-scale cases__button-presentation cases__button-presentation--tablet-hidden">Скачать презентацию</a>
+                                        <button class="cases__arrows-prev arrows__prev arrows__prev--bg-gray hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.56988 5.17988C9.75988 5.17988 9.94988 5.24988 10.0999 5.39988C10.3899 5.68988 10.3899 6.16988 10.0999 6.45988L4.55988 11.9999L10.0999 17.5399C10.3899 17.8299 10.3899 18.3099 10.0999 18.5999C9.80988 18.8899 9.32988 18.8899 9.03988 18.5999L2.96988 12.5299C2.67988 12.2399 2.67988 11.7599 2.96988 11.4699L9.03988 5.39988C9.18988 5.24988 9.37988 5.17988 9.56988 5.17988Z" fill="white" />
+                                                <path d="M3.67 11.25L20.5 11.25C20.91 11.25 21.25 11.59 21.25 12C21.25 12.41 20.91 12.75 20.5 12.75L3.67 12.75C3.26 12.75 2.92 12.41 2.92 12C2.92 11.59 3.26 11.25 3.67 11.25Z" fill="white" />
+                                            </svg>
+                                        </button>
+                                        <button class="cases__arrows-next arrows__next arrows__next--bg-white hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14.4301 18.8201C14.2401 18.8201 14.0501 18.7501 13.9001 18.6001C13.6101 18.3101 13.6101 17.8301 13.9001 17.5401L19.4401 12.0001L13.9001 6.46012C13.6101 6.17012 13.6101 5.69012 13.9001 5.40012C14.1901 5.11012 14.6701 5.11012 14.9601 5.40012L21.0301 11.4701C21.3201 11.7601 21.3201 12.2401 21.0301 12.5301L14.9601 18.6001C14.8101 18.7501 14.6201 18.8201 14.4301 18.8201Z" fill="#292D32" />
+                                                <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill="#292D32" />
+                                            </svg>
+                                        </button>
                                     </div>
-                                    <h3 class="cases__slide-title"></h3>
-                                    <p class="cases__slide-text"></p>
-                                    <a href="" class="cases__slide-more"></a>
+                                </div>
+                                <div class="swiper-wrapper cases__swiper-wrapper">
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                </div>
+                                <div class="cases__links cases__links--mob-visible">
+                                    <a href="design.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                    <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper cases__swiper">
-                            <div class="swiper-wrapper cases__swiper-wrapper">
-                                <div class="swiper-slide cases__swiper-slide">
-                                    <div class="cases__swiper-slide-img">
-                                        <img src="./images/main/cases1.jpg" alt="">
-                                    </div>
-                                    <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
-                                    <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
-                                    <a href="" class="cases__slide-more">узнать больше</a>
-                                </div>
-                                <div class="swiper-slide cases__swiper-slide">
-                                    <div class="cases__swiper-slide-img">
-                                        <img src="./images/main/cases1.jpg" alt="">
-                                    </div>
-                                    <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
-                                    <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
-                                    <a href="" class="cases__slide-more">узнать больше</a>
-                                </div>
-                                <div class="swiper-slide cases__swiper-slide">
-                                    <div class="cases__swiper-slide-img">
-                                        <img src="./images/main/cases1.jpg" alt="">
-                                    </div>
-                                    <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
-                                    <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
-                                    <a href="" class="cases__slide-more">узнать больше</a>
-                                </div>
-                                <div class="swiper-slide cases__swiper-slide">
-                                    <div class="cases__swiper-slide-img">
-                                        <img src="./images/main/cases1.jpg" alt="">
-                                    </div>
-                                    <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
-                                    <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
-                                    <a href="" class="cases__slide-more">узнать больше</a>
-                                </div>
-                            </div>
-                            <div class="cases__arrows arrows">
-                                <button class="button button--bg-opacity">Скачать презентацию</button>
-                                <button class="cases__arrows-prev arrows__prev arrows__prev--bg-gray">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.56988 5.17988C9.75988 5.17988 9.94988 5.24988 10.0999 5.39988C10.3899 5.68988 10.3899 6.16988 10.0999 6.45988L4.55988 11.9999L10.0999 17.5399C10.3899 17.8299 10.3899 18.3099 10.0999 18.5999C9.80988 18.8899 9.32988 18.8899 9.03988 18.5999L2.96988 12.5299C2.67988 12.2399 2.67988 11.7599 2.96988 11.4699L9.03988 5.39988C9.18988 5.24988 9.37988 5.17988 9.56988 5.17988Z" fill="white" />
-                                        <path d="M3.67 11.25L20.5 11.25C20.91 11.25 21.25 11.59 21.25 12C21.25 12.41 20.91 12.75 20.5 12.75L3.67 12.75C3.26 12.75 2.92 12.41 2.92 12C2.92 11.59 3.26 11.25 3.67 11.25Z" fill="white" />
-                                    </svg>
-                                </button>
-                                <button class="cases__arrows-next arrows__next arrows__next--bg-white">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.4301 18.8201C14.2401 18.8201 14.0501 18.7501 13.9001 18.6001C13.6101 18.3101 13.6101 17.8301 13.9001 17.5401L19.4401 12.0001L13.9001 6.46012C13.6101 6.17012 13.6101 5.69012 13.9001 5.40012C14.1901 5.11012 14.6701 5.11012 14.9601 5.40012L21.0301 11.4701C21.3201 11.7601 21.3201 12.2401 21.0301 12.5301L14.9601 18.6001C14.8101 18.7501 14.6201 18.8201 14.4301 18.8201Z" fill="#292D32" />
-                                        <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill="#292D32" />
-                                    </svg>
-                                </button>
+                            <div class="cases__links cases__links--tablet-visible">
+                                <a href="design.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
                             </div>
                         </div>
-                        <div class="cases__links">
-                            <a href="" class="button button--bg-white">Больше кейсов</a>
-                            <a href="" class="button button--bg-opacity">Скачать презентацию</a>
+                        <div class="cases__inner-content" data-tab-content="stands">
+                            <div class="swiper cases__swiper">
+                                <div class="cases__arrows-wrapper">
+                                    <span class="cases__slide-text-mob">Стенды</span>
+                                    <div class="cases__arrows arrows">
+                                        <a href="" class="button button--bg-opacity hover-scale cases__button-presentation cases__button-presentation--tablet-hidden">Скачать презентацию</a>
+                                        <button class="cases__arrows-prev arrows__prev arrows__prev--bg-gray hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.56988 5.17988C9.75988 5.17988 9.94988 5.24988 10.0999 5.39988C10.3899 5.68988 10.3899 6.16988 10.0999 6.45988L4.55988 11.9999L10.0999 17.5399C10.3899 17.8299 10.3899 18.3099 10.0999 18.5999C9.80988 18.8899 9.32988 18.8899 9.03988 18.5999L2.96988 12.5299C2.67988 12.2399 2.67988 11.7599 2.96988 11.4699L9.03988 5.39988C9.18988 5.24988 9.37988 5.17988 9.56988 5.17988Z" fill="white" />
+                                                <path d="M3.67 11.25L20.5 11.25C20.91 11.25 21.25 11.59 21.25 12C21.25 12.41 20.91 12.75 20.5 12.75L3.67 12.75C3.26 12.75 2.92 12.41 2.92 12C2.92 11.59 3.26 11.25 3.67 11.25Z" fill="white" />
+                                            </svg>
+                                        </button>
+                                        <button class="cases__arrows-next arrows__next arrows__next--bg-white hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14.4301 18.8201C14.2401 18.8201 14.0501 18.7501 13.9001 18.6001C13.6101 18.3101 13.6101 17.8301 13.9001 17.5401L19.4401 12.0001L13.9001 6.46012C13.6101 6.17012 13.6101 5.69012 13.9001 5.40012C14.1901 5.11012 14.6701 5.11012 14.9601 5.40012L21.0301 11.4701C21.3201 11.7601 21.3201 12.2401 21.0301 12.5301L14.9601 18.6001C14.8101 18.7501 14.6201 18.8201 14.4301 18.8201Z" fill="#292D32" />
+                                                <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill="#292D32" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="swiper-wrapper cases__swiper-wrapper">
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                </div>
+                                <div class="cases__links cases__links--mob-visible">
+                                    <a href="stands.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                    <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
+                                </div>
+                            </div>
+                            <div class="cases__links cases__links--tablet-visible">
+                                <a href="stands.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
+                            </div>
+                        </div>
+                        <div class="cases__inner-content" data-tab-content="events">
+                            <div class="swiper cases__swiper">
+                                <div class="cases__arrows-wrapper">
+                                    <span class="cases__slide-text-mob">Мероприятия</span>
+                                    <div class="cases__arrows arrows">
+                                        <a href="" class="button button--bg-opacity hover-scale cases__button-presentation cases__button-presentation--tablet-hidden">Скачать презентацию</a>
+                                        <button class="cases__arrows-prev arrows__prev arrows__prev--bg-gray hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.56988 5.17988C9.75988 5.17988 9.94988 5.24988 10.0999 5.39988C10.3899 5.68988 10.3899 6.16988 10.0999 6.45988L4.55988 11.9999L10.0999 17.5399C10.3899 17.8299 10.3899 18.3099 10.0999 18.5999C9.80988 18.8899 9.32988 18.8899 9.03988 18.5999L2.96988 12.5299C2.67988 12.2399 2.67988 11.7599 2.96988 11.4699L9.03988 5.39988C9.18988 5.24988 9.37988 5.17988 9.56988 5.17988Z" fill="white" />
+                                                <path d="M3.67 11.25L20.5 11.25C20.91 11.25 21.25 11.59 21.25 12C21.25 12.41 20.91 12.75 20.5 12.75L3.67 12.75C3.26 12.75 2.92 12.41 2.92 12C2.92 11.59 3.26 11.25 3.67 11.25Z" fill="white" />
+                                            </svg>
+                                        </button>
+                                        <button class="cases__arrows-next arrows__next arrows__next--bg-white hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14.4301 18.8201C14.2401 18.8201 14.0501 18.7501 13.9001 18.6001C13.6101 18.3101 13.6101 17.8301 13.9001 17.5401L19.4401 12.0001L13.9001 6.46012C13.6101 6.17012 13.6101 5.69012 13.9001 5.40012C14.1901 5.11012 14.6701 5.11012 14.9601 5.40012L21.0301 11.4701C21.3201 11.7601 21.3201 12.2401 21.0301 12.5301L14.9601 18.6001C14.8101 18.7501 14.6201 18.8201 14.4301 18.8201Z" fill="#292D32" />
+                                                <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill="#292D32" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="swiper-wrapper cases__swiper-wrapper">
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                </div>
+                                <div class="cases__links cases__links--mob-visible">
+                                    <a href="events.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                    <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
+                                </div>
+                            </div>
+                            <div class="cases__links cases__links--tablet-visible">
+                                <a href="events.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
+                            </div>
+                        </div>
+                        <div class="cases__inner-content" data-tab-content="merch">
+                            <div class="swiper cases__swiper">
+                                <div class="cases__arrows-wrapper">
+                                    <span class="cases__slide-text-mob">Мерч и подарки</span>
+                                    <div class="cases__arrows arrows">
+                                        <a href="" class="button button--bg-opacity hover-scale cases__button-presentation cases__button-presentation--tablet-hidden">Скачать презентацию</a>
+                                        <button class="cases__arrows-prev arrows__prev arrows__prev--bg-gray hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.56988 5.17988C9.75988 5.17988 9.94988 5.24988 10.0999 5.39988C10.3899 5.68988 10.3899 6.16988 10.0999 6.45988L4.55988 11.9999L10.0999 17.5399C10.3899 17.8299 10.3899 18.3099 10.0999 18.5999C9.80988 18.8899 9.32988 18.8899 9.03988 18.5999L2.96988 12.5299C2.67988 12.2399 2.67988 11.7599 2.96988 11.4699L9.03988 5.39988C9.18988 5.24988 9.37988 5.17988 9.56988 5.17988Z" fill="white" />
+                                                <path d="M3.67 11.25L20.5 11.25C20.91 11.25 21.25 11.59 21.25 12C21.25 12.41 20.91 12.75 20.5 12.75L3.67 12.75C3.26 12.75 2.92 12.41 2.92 12C2.92 11.59 3.26 11.25 3.67 11.25Z" fill="white" />
+                                            </svg>
+                                        </button>
+                                        <button class="cases__arrows-next arrows__next arrows__next--bg-white hover-scale">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14.4301 18.8201C14.2401 18.8201 14.0501 18.7501 13.9001 18.6001C13.6101 18.3101 13.6101 17.8301 13.9001 17.5401L19.4401 12.0001L13.9001 6.46012C13.6101 6.17012 13.6101 5.69012 13.9001 5.40012C14.1901 5.11012 14.6701 5.11012 14.9601 5.40012L21.0301 11.4701C21.3201 11.7601 21.3201 12.2401 21.0301 12.5301L14.9601 18.6001C14.8101 18.7501 14.6201 18.8201 14.4301 18.8201Z" fill="#292D32" />
+                                                <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill="#292D32" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="swiper-wrapper cases__swiper-wrapper">
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                    <div class="swiper-slide cases__swiper-slide">
+                                        <div class="cases__swiper-slide-img">
+                                            <img src="./images/main/cases1.jpg" alt="">
+                                        </div>
+                                        <h3 class="cases__slide-title">«Код Роста»: корпоративный IT-конкурс ГК «Азот»</h3>
+                                        <p class="cases__slide-text">За 3 дня наша команда сделала современный и информативный сайт со всей доступной механикой и информацией для регистрации в конкурсе.</p>
+                                        <a href="" class="cases__slide-more">узнать больше</a>
+                                    </div>
+                                </div>
+                                <div class="cases__links cases__links--mob-visible">
+                                    <a href="merch.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                    <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
+                                </div>
+                            </div>
+                            <div class="cases__links cases__links--tablet-visible">
+                                <a href="merch.html" class="button button--bg-white hover-white">Больше кейсов</a>
+                                <a href="" class="button button--bg-opacity hover-blur">Скачать презентацию</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -263,7 +474,7 @@
                                     <h3 class="specifics__item-title">Мероприятия</h3>
                                 </div>
                                 <p class="specifics__item-text specifics__item-text--hidden">Берем на себя все — от идеи до настроения гостей, чтобы вам было спокойно, а событие запомнилось.</p>
-                                <a href="events.html" class="button button--bg-white">Подробнее</a>
+                                <a href="events.html" class="button button--bg-white hover-white">Подробнее</a>
                             </div>
                             <p class="specifics__item-text specifics__item-text--mob-visible">Берем на себя все — от идеи до настроения гостей, чтобы вам было спокойно, а событие запомнилось.</p>
                         </li>
@@ -274,7 +485,7 @@
                                     <h3 class="specifics__item-title">Стенды</h3>
                                 </div>
                                 <p class="specifics__item-text specifics__item-text--hidden">Создаем пространства, в которые хочется зайти, остаться и начать разговор.</p>
-                                <a href="stands.html" class="button button--bg-white">Подробнее</a>
+                                <a href="stands.html" class="button button--bg-white hover-white">Подробнее</a>
                             </div>
                             <p class="specifics__item-text specifics__item-text--mob-visible">Создаем пространства, в которые хочется зайти, остаться и начать разговор.</p>
                         </li>
@@ -285,7 +496,7 @@
                                     <h3 class="specifics__item-title">Дизайн</h3>
                                 </div>
                                 <p class="specifics__item-text specifics__item-text--hidden">Помогаем выглядеть стильно, уверенно и узнаваемо.</p>
-                                <a href="design.html" class="button button--bg-white">Подробнее</a>
+                                <a href="design.html" class="button button--bg-white hover-white">Подробнее</a>
                             </div>
                             <p class="specifics__item-text specifics__item-text--mob-visible">Помогаем выглядеть стильно, уверенно и узнаваемо.</p>
                         </li>
@@ -296,7 +507,7 @@
                                     <h3 class="specifics__item-title">Мерч и подарки</h3>
                                 </div>
                                 <p class="specifics__item-text specifics__item-text--hidden">Делаем вещи со смыслом, чтобы и в руках держать приятно, и дарить, и забирать с собой.</p>
-                                <a href="merch.html" class="button button--bg-white">Подробнее</a>
+                                <a href="merch.html" class="button button--bg-white hover-white">Подробнее</a>
                             </div>
                             <p class="specifics__item-text specifics__item-text--mob-visible">Делаем вещи со смыслом, чтобы и в руках держать приятно, и дарить, и забирать с собой.</p>
                         </li>
@@ -308,7 +519,7 @@
                     <h2 class="section-title why__section-title">Почему мы?</h2>
                     <p class="why__text"> Разбираемся в целях, думаем вместе с клиентом и предлагаем решения, которые действительно работают. Мы умеем объяснять сложное простым языком, честно говорить о бюджете и брать ответственность за результат. </p>
                     <ul class="why__list">
-                        <li class="why__item">
+                        <li class="why__item hover-scale">
                             <div class="why__item-pattern">
                                 <img src="./images/icons/why-pattern.png" alt="">
                             </div>
@@ -317,7 +528,7 @@
                                 <img src="./images/icons/trend-down.svg" alt="">
                             </div>
                         </li>
-                        <li class="why__item">
+                        <li class="why__item hover-scale">
                             <div class="why__item-pattern">
                                 <img src="./images/icons/why-pattern.png" alt="">
                             </div>
@@ -326,7 +537,7 @@
                                 <img src="./images/icons/doc.svg" alt="">
                             </div>
                         </li>
-                        <li class="why__item">
+                        <li class="why__item hover-scale">
                             <div class="why__item-pattern">
                                 <img src="./images/icons/why-pattern.png" alt="">
                             </div>
@@ -335,7 +546,7 @@
                                 <img src="./images/icons/team.svg" alt="">
                             </div>
                         </li>
-                        <li class="why__item">
+                        <li class="why__item hover-scale">
                             <div class="why__item-pattern">
                                 <img src="./images/icons/why-pattern.png" alt="">
                             </div>
@@ -457,7 +668,7 @@
         </div>
     </main>
     <footer class="footer footer--pt">
-        <section class="order order--posa">
+        <section class="order order--posa" id="contacts">
             <div class="container">
                 <div class="order__inner">
                     <div class="order__order-text">оставь заявку</div>
@@ -465,9 +676,9 @@
                     <div class="order__form-wrapper">
                         <form action="#" class="order__form">
                             <div class="order__form-inner">
-                                <input type="text" id="name" class="order__form-input" placeholder="Имя">
-                                <input type="tel" id="tel" class="order__form-input" placeholder="Номер телефона">
-                                <button class="button button--bg-white">Отправить</button>
+                                <input type="text" id="name" class="order__form-input focusout-js" placeholder="Имя">
+                                <input type="tel" id="tel" class="order__form-input focusout-js" placeholder="Номер телефона">
+                                <button class="button button--bg-white hover-white">Отправить</button>
                             </div>
                             <p class="order__policy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="" class="order__policy-link">политикой конфиденциальности</a></p>
                         </form>
@@ -478,13 +689,13 @@
                             <div class="order__contacts-title">Остались вопросы?</div>
                             <div class="order__order-text">Напиши нам и мы подробно на все ответим</div>
                             <div class="order__contacts-links">
-                                <a href="#" class="order__contacts-link">
+                                <a href="#" class="order__contacts-link hover-scale">
                                     <img src="./images/icons/tg.svg" alt="">
                                 </a>
-                                <a href="#" class="order__contacts-link">
+                                <a href="#" class="order__contacts-link hover-scale">
                                     <img src="./images/icons/tel.svg" alt="">
                                 </a>
-                                <a href="#" class="order__contacts-link">
+                                <a href="#" class="order__contacts-link hover-scale">
                                     <img src="./images/icons/mail.svg" alt="">
                                 </a>
                             </div>
@@ -493,7 +704,7 @@
                         <div class="order__contacts-item">
                             <div class="order__contacts-title">Будем на связи?</div>
                             <div class="order__order-text">Еще больше кейсов и внутрянки в телеграм-канале</div>
-                            <button class="button button--bg-white order__button">Перейти в тг-канал</button>
+                            <button class="button button--bg-white hover-white order__button">Перейти в тг-канал</button>
                         </div>
                     </div>
                     <div class="order__pattern">
@@ -505,7 +716,7 @@
         <div class="footer__outer">
             <div class="container">
                 <div class="footer__inner">
-                    <a href="index.html" class="logo">
+                    <a href="index.html" class="logo hover-scale">
                         <div class="logo__circle">
                             <img src="./images/icons/am.svg" alt="" class="logo__img">
                         </div>
@@ -517,29 +728,29 @@
                     <nav class="footer__nav">
                         <ul class="footer__nav-list">
                             <li class="footer__nav-item">
-                                <a href="#" class="footer__nav-link">О нас</a>
+                                <a href="#about" class="footer__nav-link hover-underline">О нас</a>
                             </li>
                             <li class="footer__nav-item">
-                                <a href="#" class="footer__nav-link">Услуги</a>
+                                <a href="#services" class="footer__nav-link hover-underline">Услуги</a>
                             </li>
                             <li class="footer__nav-item">
-                                <a href="#" class="footer__nav-link">Клиенты</a>
+                                <a href="#clients" class="footer__nav-link hover-underline">Клиенты</a>
                             </li>
                             <li class="footer__nav-item">
-                                <a href="#" class="footer__nav-link">Кейсы</a>
+                                <a href="#cases" class="footer__nav-link hover-underline">Кейсы</a>
                             </li>
                             <li class="footer__nav-item">
-                                <a href="#" class="footer__nav-link">Контакты</a>
+                                <a href="#contacts" class="footer__nav-link hover-underline">Контакты</a>
                             </li>
                         </ul>
                     </nav>
                     <div class="footer__divider"></div>
-                    <a href="#" class="footer__policy">Политика конфиденциальности</a>
+                    <a href="#" class="footer__policy hover-underline">Политика конфиденциальности</a>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="js/main.js"></script>
+    <script src="./js/main.js"></script>
     <script src="./js/swiper-bundle.min.js"></script>
 </body>
 </html>
