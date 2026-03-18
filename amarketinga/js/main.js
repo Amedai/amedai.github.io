@@ -32,6 +32,24 @@ window.addEventListener('DOMContentLoaded', () => {
         closeMenu();
     });
 
+    //scroll animation
+    if(document.querySelector('.scroll-animate')){
+        const scrollAnimationCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const target = entry.target;
+                    target.classList.add('scroll-animate--active');
+                    observer.unobserve(target);
+                }
+            });
+        };
+        const scrollAnimation = new IntersectionObserver(scrollAnimationCallback,{threshold:0.2});
+        document.querySelectorAll('.scroll-animate').forEach(el=>{
+            scrollAnimation.observe(el);
+        });        
+
+    }
+
 
     //slider
     function updateArrowColors(swiper, containerSelector, defaultColor, activeColor) {
