@@ -301,4 +301,26 @@ window.addEventListener('DOMContentLoaded', () => {
             inputPhone.addEventListener('input',onPhoneInput);
         }
 
+    // Мерч: вторая картинка по наведению (на тач-устройствах не вешаем — нет стабильного hover)
+    if (window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.merch__item-img[data-hover-img]').forEach((wrap) => {
+            const img = wrap.querySelector('img');
+            const hoverFile = wrap.getAttribute('data-hover-img');
+            if (!img || !hoverFile) return;
+
+            const originalSrc = img.getAttribute('src');
+            const hoverSrc = new URL(hoverFile, new URL(originalSrc, window.location.href)).href;
+
+            const preload = new Image();
+            preload.src = hoverSrc;
+
+            wrap.addEventListener('mouseenter', () => {
+                img.src = hoverSrc;
+            });
+            wrap.addEventListener('mouseleave', () => {
+                img.src = originalSrc;
+            });
+        });
+    }
+
 });
