@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробнее о товаре</title>
+    
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__outer">
+                <a href="#" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <div class="header__buttons">
+                    <button class="header__burger">
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                    </button>
+                    <a href="#" class="header__login">Войти</a>
+                    <a href="#" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="header__inner">
+                <button class="header__close">
+                    <img src="./images/icons/close.svg" alt="">
+                </button>
+                <a href="#" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="#" class="header__nav-link">Главная</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#" class="header__nav-link">Каталог</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#" class="header__nav-link">Спонсорство</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#" class="header__nav-link">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__buttons">
+                    <a href="#" class="header__login">Войти</a>
+                    <a href="#" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                    <a href="" class="button header__button button--bg-red">Войти в личный кабинет</a>
+                    <a href="" class="button header__button button--bg-white">Корзина</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main main--bg">
+        <div class="main__pattern-top">
+            <img src="./images/pattern.png" alt="">
+        </div>
+        <section class="catalog-more">
+            <div class="container">
+                <a href="#" class="catalog-more__back-link">Вернуться назад</a>
+                <div class="catalog-more__inner">
+                    <div class="catalog-more__img">
+                        <img src="./images/main/card.jpg" alt="">
+                    </div>
+                    <div class="catalog-more__info">
+                        <div class="catalog-more__titlbe-block">
+                            <h2 class="catalog-more__title">Шатер 5х7</h2>
+                            <span class="catalog-more__price">70 000 ₽</span>
+                        </div>
+                        <div class="catalog-more__description">Описание: -</div>
+                        <div class="catalog-more__description">Дополнительный вариант шатра и брендинг обсуждаются отдельно</div>
+                        <div class="catalog-more__buttons">
+                            <button class="button button--bg-red catalog-more__button" data-add-btn>Добавить</button>
+                            <a href="" class="button button--bg-red catalog-more__button" data-href-basket-btn>В корзине</a>
+                            <div class="catalog-more__card-qty">
+                                <button type="button" class="catalog-more__card-qty-minus-btn minus">-</button>
+                                <input type="number" value="1" min="1" max="999" class="catalog-more__card-qty-input">
+                                <button type="button" class="catalog-more__card-qty-plus-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="other">
+            <div class="container">
+                <h2 class="other__title">Другие товары в категории</h2>
+                <div class="other__inner">
+                    <div class="catalog__card">
+                        <div class="catalog__card-img">
+                            <img src="./images/main/card.jpg" alt="">
+                        </div>
+                        <div class="catalog__card-title-block">
+                            <h3 class="catalog__card-title">Шатер 5х7</h3>
+                            <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                        </div>
+                        <div class="catalog__card-info-block">
+                            <div class="catalog__card-price">145 000 ₽</div>
+                            <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                            <div class="catalog__card-buy-block">
+                                <div class="catalog__card-qty">
+                                    <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                    <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                    <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                </div>
+                                <div class="catalog__card-btns-block">
+                                    <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                    <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catalog__card">
+                        <div class="catalog__card-img">
+                            <img src="./images/main/card.jpg" alt="">
+                        </div>
+                        <div class="catalog__card-title-block">
+                            <h3 class="catalog__card-title">Шатер 5х7</h3>
+                            <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                        </div>
+                        <div class="catalog__card-info-block">
+                            <div class="catalog__card-price">145 000 ₽</div>
+                            <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                            <div class="catalog__card-buy-block">
+                                <div class="catalog__card-qty">
+                                    <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                    <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                    <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                </div>
+                                <div class="catalog__card-btns-block">
+                                    <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                    <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catalog__card">
+                        <div class="catalog__card-img">
+                            <img src="./images/main/card.jpg" alt="">
+                        </div>
+                        <div class="catalog__card-title-block">
+                            <h3 class="catalog__card-title">Шатер 5х7</h3>
+                            <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                        </div>
+                        <div class="catalog__card-info-block">
+                            <div class="catalog__card-price">145 000 ₽</div>
+                            <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                            <div class="catalog__card-buy-block">
+                                <div class="catalog__card-qty">
+                                    <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                    <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                    <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                </div>
+                                <div class="catalog__card-btns-block">
+                                    <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                    <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catalog__card">
+                        <div class="catalog__card-img">
+                            <img src="./images/main/card.jpg" alt="">
+                        </div>
+                        <div class="catalog__card-title-block">
+                            <h3 class="catalog__card-title">Шатер 5х7</h3>
+                            <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                        </div>
+                        <div class="catalog__card-info-block">
+                            <div class="catalog__card-price">145 000 ₽</div>
+                            <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                            <div class="catalog__card-buy-block">
+                                <div class="catalog__card-qty">
+                                    <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                    <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                    <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                </div>
+                                <div class="catalog__card-btns-block">
+                                    <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                    <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="./js/main.js"></script>
+</body>
+</html>

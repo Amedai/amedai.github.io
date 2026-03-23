@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробнее о товаре</title>
+    
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__outer">
+                <a href="index.html" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <div class="header__buttons">
+                    <button class="header__burger">
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                    </button>
+                    <a href="welcome.html" class="header__login">Войти</a>
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="header__inner">
+                <button class="header__close">
+                    <img src="./images/icons/close.svg" alt="">
+                </button>
+                <a href="index.html" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="index.html" class="header__nav-link hover-underline">Главная</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="index.html#catalog" class="header__nav-link hover-underline">Каталог</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="index.html#sponsorship" class="header__nav-link hover-underline">Спонсорство</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="index.html#contacts" class="header__nav-link hover-underline">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__buttons">
+                    <a href="welcome.html" class="header__login">Войти</a>
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                    <a href="welcome.html" class="button header__button button--bg-red">Войти в личный кабинет</a>
+                    <a href="order.html" class="button header__button button--bg-white">Корзина</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main main--bg">
+        <div class="main__pattern-top">
+            <img src="./images/pattern.png" alt="">
+        </div>
+        <section class="order">
+            <div class="container">
+                <h2 class="section-title order__title">корзина</h2>
+                <div class="order__inner">
+                    <div class="order__items">
+                        <ul class="order__list">
+                            <li class="order__item">
+                                <div class="order__item-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="order__item-wrapper">
+                                    <div class="order__item-info">
+                                        <div class="order__name-block">
+                                            <h3 class="order__name">Шатер 5х7</h3>
+                                            <p class="order__price">70 000 ₽/ шт</p>
+                                        </div>
+                                        <button class="order__delete-btn">
+                                            <img src="./images/icons/delete.svg" alt="">
+                                        </button>
+                                    </div>
+                                    <div class="order__item-qty-block">
+                                        <div class="order__card-qty">
+                                            <button type="button" class="order__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="order__card-qty-input">
+                                            <button type="button" class="order__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <span class="order__price-result">70 000 ₽</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="order__item">
+                                <div class="order__item-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="order__item-wrapper">
+                                    <div class="order__item-info">
+                                        <div class="order__name-block">
+                                            <h3 class="order__name">Шатер 5х7</h3>
+                                            <p class="order__price">70 000 ₽/ шт</p>
+                                        </div>
+                                        <button class="order__delete-btn">
+                                            <img src="./images/icons/delete.svg" alt="">
+                                        </button>
+                                    </div>
+                                    <div class="order__item-qty-block">
+                                        <div class="order__card-qty">
+                                            <button type="button" class="order__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="order__card-qty-input">
+                                            <button type="button" class="order__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <span class="order__price-result">70 000 ₽</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="order__item">
+                                <div class="order__item-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="order__item-wrapper">
+                                    <div class="order__item-info">
+                                        <div class="order__name-block">
+                                            <h3 class="order__name">Шатер 5х7</h3>
+                                            <p class="order__price">70 000 ₽/ шт</p>
+                                        </div>
+                                        <button class="order__delete-btn">
+                                            <img src="./images/icons/delete.svg" alt="">
+                                        </button>
+                                    </div>
+                                    <div class="order__item-qty-block">
+                                        <div class="order__card-qty">
+                                            <button type="button" class="order__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="order__card-qty-input">
+                                            <button type="button" class="order__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <span class="order__price-result">70 000 ₽</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="order__total-block">
+                            <span class="order__total-text">Итого</span>
+                            <span class="order__total-price">210 000 ₽</span>
+                        </div>
+                    </div>
+                    <div class="order__divider"></div>
+                    <div class="order__form">
+                        <form action="">
+                            <div class="order__form-inner">
+                                <div class="order__input-wrapper">
+                                    <label for="company-name" class="order__label">Название компании</label>
+                                    <input type="text" class="order__input" id="company-name" placeholder="АО “Компания”">
+                                </div>
+                                <div class="order__input-wrapper">
+                                    <label for="inn" class="order__label">ИНН</label>
+                                    <input type="text" class="order__input" id="inn" placeholder="0000 0000 0000 0000">
+                                </div>
+                                <div class="order__input-wrapper">
+                                    <label for="name" class="order__label">Ф.И.О. контактного лица</label>
+                                    <input type="text" class="order__input" id="name" placeholder="Иванов Иван Иванович">
+                                </div>
+                                <div class="order__input-wrapper">
+                                    <label for="tel" class="order__label">Номер телефона</label>
+                                    <input type="tel" class="order__input" id="tel" placeholder="+7 (999) 999-99-99">
+                                </div>
+                                <div class="order__input-wrapper">
+                                    <label for="email" class="order__label">Почта</label>
+                                    <input type="email" class="order__input" id="email" placeholder="example@mail.ru">
+                                </div>
+                                <button class="button button--bg-red order__button">
+                                    Получить коммерческое предложение
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="./js/main.js"></script>
+</body>
+</html>

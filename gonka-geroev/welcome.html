@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать!</title>
+    
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <main class="main main--bg">
+        <div class="main__pattern-top">
+            <img src="./images/pattern.png" alt="">
+        </div>
+        <section class="welcome">
+           <div class="container">
+            <div class="welcome__inner">
+                <a href="index.html" class="welcome__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <h1 class="section-title welcome__title">Добро пожаловать!</h1>
+                <p class="welcome__info-text">
+                    Логин и пароль для входа высылаются на почту после согласования коммерческого предложения. Если вы их не получили, свяжитесь, пожалуйста, с менеджером
+                </p>
+                <div class="welcome__form-wrapper">
+                    <form action="">
+                        <div class="welcome__form-inner">
+                            <div class="welcome__input-wrapper">
+                                <label for="login" class="welcome__label">Логин</label>
+                                <input type="text" class="welcome__input" id="login" placeholder="example@mail.ru">
+                            </div>
+                            <div class="welcome__input-wrapper">
+                                <label for="password" class="welcome__label">Пароль</label>
+                                <input type="password" class="welcome__input" id="password" placeholder="********">
+                            </div>
+                        </div>
+                        <div class="welcome__forgot-text">Забыли пароль? <a href="" class="welcome__forgot-link">Напишите нам</a></div>
+                        <button class="button button--bg-red welcome__button">Войти</button>
+                    </form>
+                </div>
+            </div>
+           </div>
+           <a href="personal.html" class="href">Временная ссылка в ЛК пока не настроил интеграцию с црм</a> 
+        </section>
+    </main>
+    <script src="./js/main.js"></script>
+</body>
+</html>

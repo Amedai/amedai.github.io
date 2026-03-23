@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гонка героев - Главная</title>
+
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__outer">
+                <a href="index.html" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <div class="header__buttons">
+                    <button class="header__burger">
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                    </button>
+                    <a href="welcome.html" class="header__login">Войти</a>
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="header__inner">
+                <button class="header__close">
+                    <img src="./images/icons/close.svg" alt="">
+                </button>
+                <a href="index.html" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="index.html" class="header__nav-link hover-underline">Главная</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#catalog" class="header__nav-link hover-underline">Каталог</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#sponsorship" class="header__nav-link hover-underline">Спонсорство</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#contacts" class="header__nav-link hover-underline">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__buttons">
+                    <a href="welcome.html" class="header__login">Войти</a>
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                    <a href="personal.html" class="button header__button button--bg-red">Войти в личный кабинет</a>
+                    <a href="order.html" class="button header__button button--bg-white">Корзина</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="main__pattern">
+            <img src="./images/pattern.png" alt="">
+        </div>
+        <div class="circle-behind"></div>
+        <div class="circle">
+            <div class="circle__bg-top">
+                <img src="./images/main/circle-bg1.png" alt="">
+            </div>
+            <div class="circle__bg-bottom">
+                <img src="./images/pattern.png" alt="">
+            </div>
+            <div class="circle__bg-bottom circle__bg-bottom--low">
+                <img src="./images/pattern.png" alt="">
+            </div>
+        </div>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero__title">гонка героев 2026: <br> <span>менделеевск</span></h1>
+                <div class="hero__btns">
+                    <a href="#catalog" class="button hero__button button--bg-red">В каталог</a>
+                    <a href="#" class="button hero__button button--bg-white">Регистрация на гонку</a>
+                </div>
+            </div>
+        </section>
+        <section class="catalog" id="catalog">
+            <div class="container">
+                <h2 class="section-title catalog__section-title">Каталог</h2>
+                <div class="catalog__flex">
+                    <div class="catalog__filter">
+                        <button class="button button--bg-red catalog__button" data-filter-drop-btn>
+                            <span>Ассортимент</span>
+                            <img src="./images/icons/filter.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="catalog__search">
+                        <input type="search" placeholder="Поиск" class="catalog__input-search">
+                        <button type="" class="catalog__btn-search">
+                            <img src="./images/icons/search.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="catalog__flex">
+                    <div class="catalog__filter-content">
+                        <ul class="catalog__filter-list">
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="all">
+                                <label for="all" class="catalog__filter-label">Выбрать все</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="tents">
+                                <label for="tents" class="catalog__filter-label">Шатры</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="furniture">
+                                <label for="furniture" class="catalog__filter-label">Мебель/оснащение</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="catering">
+                                <label for="catering" class="catalog__filter-label">Кейтеринг</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="equipment">
+                                <label for="equipment" class="catalog__filter-label">Экипировка</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="media">
+                                <label for="media" class="catalog__filter-label">Медиа-сопровождение</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="advertising">
+                                <label for="advertising" class="catalog__filter-label">Рекламное размещение</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="fan">
+                                <label for="fan" class="catalog__filter-label">Атрибуты болельщика</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="accessories">
+                                <label for="accessories" class="catalog__filter-label">Аксессуары</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="aerostats">
+                                <label for="aerostats" class="catalog__filter-label">Аэростаты</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="photozone">
+                                <label for="photozone" class="catalog__filter-label">Фотозона</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="activities">
+                                <label for="activities" class="catalog__filter-label">Активности</label>
+                            </li>
+                            <li class="catalog__filter-item">
+                                <input type="checkbox" class="catalog__filter-checkbox" id="paint">
+                                <label for="paint" class="catalog__filter-label">Аквагрим</label>
+                            </li>
+                        </ul>
+                        <button class="button button--bg-red catalog__button" data-filter-apply-btn>Применить</button>
+                    </div>
+                    <div class="catalog__content">
+                        <div class="catalog__cards">
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Шатер 5х7</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Атрибуты болельщика</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Рекламное размещение</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Аксессуары</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Экипировка</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Кейтеринг</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Фотозона</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Аквагрим</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="catalog__card">
+                                <div class="catalog__card-img">
+                                    <img src="./images/main/card.jpg" alt="">
+                                </div>
+                                <div class="catalog__card-title-block">
+                                    <h3 class="catalog__card-title">Аквагрим</h3>
+                                    <div class="catalog__card-description">пол, ковролин 50 кв. м.</div>
+                                </div>
+                                <div class="catalog__card-info-block">
+                                    <div class="catalog__card-price">145 000 ₽</div>
+                                    <a href="catalog-more.html" class="button button--bg-transparent catalog__button" data-more-btn>Подробнее</a>
+                                    <div class="catalog__card-buy-block">
+                                        <div class="catalog__card-qty">
+                                            <button type="button" class="catalog__card-qty-minus-btn minus">-</button>
+                                            <input type="number" value="1" min="1" max="999" class="catalog__card-qty-input">
+                                            <button type="button" class="catalog__card-qty-plus-btn plus">+</button>
+                                        </div>
+                                        <div class="catalog__card-btns-block">
+                                            <button class="button button--bg-red catalog__button" data-buy-btn>Заказать</button>
+                                            <a href="order.html" class="button button--bg-red catalog__button" data-href-basket-btn>В корзине</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="catalog__pagination">
+                            <button class="catalog__pagination-btn">
+                                <img src="./images/icons/arrow-pagination-left.svg" alt="">
+                            </button>
+                            <span class="catalog__pagination-count">1</span>
+                            <button class="catalog__pagination-btn">
+                                <img src="./images/icons/arrow-pagination-right.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+        <section class="sponsorship" id="sponsorship">    
+            <div class="container">
+                <h2 class="section-title sponsorship__section-title">Спонсорство</h2>
+                <div class="sponsorship__inner">
+                    <div class="sponsorship__inner-block">
+                        <h3 class="sponsorship__title">БРЕНДИРОВАНИЕ</h3>
+                        <div class="sponsorship__arrows">
+                            <button class="sponsorship__arrow-left">
+                                <img src="./images/icons/arrow-left.svg" alt="">
+                            </button>
+                            <button class="sponsorship__arrow-right">
+                                <img src="./images/icons/arrow-right.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sponsorship__columns-content">
+                        <div class="sponsorshop__column sponsorship__column--sm-width">
+                            <div class="sponsorship__column-top-text-block">
+                                
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--lg-height sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Спонсор</div>
+                                    <div class="sponsorship__column-text">300.000 ₽</div>
+                                </div>
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Партнер</div>
+                                    <div class="sponsorship__column-text">500.000 ₽</div>
+                                </div>
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Партнер <br>корп. зоны</div>
+                                    <div class="sponsorship__column-text">1.000.000 ₽</div>
+                                </div>
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Партнер <br>фанзоны</div>
+                                    <div class="sponsorship__column-text">1.500.000 ₽</div>
+                                </div>
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Инвестпартнер <br>«Аммоний 2»</div>
+                                    <div class="sponsorship__column-text">1.800.000 ₽</div>
+                                </div>
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Стратегический <br>партнер</div>
+                                    <div class="sponsorship__column-text">2.000.000 ₽</div>
+                                </div>
+                            </div>
+                            <div class="sponsorship__column-info-block sponsorship__column-info-block--jcfs">
+                                <div class="sponsorship__column-item">
+                                    <div class="sponsorship__column-title">Генеральный <br>партнер</div>
+                                    <div class="sponsorship__column-text">2.500.000 ₽</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sponsorship__column-slider swiper">
+                            <div class="swiper-wrapper">
+                                <div class="sponsorship__column-slide swiper-slide">
+                                    <div class="sponsorshop__column">
+                                        <div class="sponsorship__column-top-text-block">
+                                            Логотип партнера с указанием статуса на сайте проведения мероприятия
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsorship__column-slide swiper-slide">
+                                    <div class="sponsorshop__column">
+                                        <div class="sponsorship__column-top-text-block">
+                                            Логотип партнера на медиафасаде основной входной группы в фанзону
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsorship__column-slide swiper-slide">
+                                    <div class="sponsorshop__column">
+                                        <div class="sponsorship__column-top-text-block">
+                                            Логотип партнера на медиафасаде основной входной группы на въезде на территорию мероприятия
+                                        </div>
+                                        <div class="sponsorship__column-info-block sponsorship__column-info-block--sm-height">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsorship__column-slide swiper-slide">
+                                    <div class="sponsorshop__column">
+                                        <div class="sponsorship__column-top-text-block">
+                                            Логотип партнера на баннере-растяжке на въездев Менделеевск
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sponsorship__column-slide swiper-slide">
+                                    <div class="sponsorshop__column">
+                                        <div class="sponsorship__column-top-text-block">
+                                            Логотип партнера на флагах в Менделеевске(100 штук)
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sponsorship__column-info-block">
+                                            <div class="sponsorship__column-item">
+                                                <div class="sponsorship__column-availability">
+                                                    <img src="./images/icons/tick-circle.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="sponsorship__connect-text">Чтобы стать спонсором, <br><a href="" class="sponsorship__connect-link hover-underline">свяжитесь с менеджером</a></div>
+                </div>
+            </div>
+        </section>
+        <section class="questions" id="contacts">
+            <div class="container">
+                <h2 class="section-title questions__section-title">Остались вопросы?</h2>
+                <div class="questions__inner">
+                    <a href="" download class="button button--bg-red questions__button">Скачать F.A.Q</a>
+                    <a href="" download class="button button--bg-white questions__button">Связаться с менеджером</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <a href="index.html" class="footer__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <nav class="footer__nav">
+                    <ul class="footer__nav-list">
+                        <li class="footer__nav-item">
+                            <a href="index.html" class="header__nav-link hover-underline">Главная</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#catalog" class="header__nav-link hover-underline">Каталог</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#sponsorship" class="header__nav-link hover-underline">Спонсорство</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#contacts" class="header__nav-link hover-underline">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+                <a href="welcome.html" class="footer__login">Войти</a>
+                <a href="welcome.html" class="footer__login footer__login--mob-visible">Войти в личный кабинет</a>
+            </div>
+            <a href="" class="footer__policy-link hover-underline">Политика конфиденциальности</a>
+        </div>
+    </footer>
+    <script src="./js/swiper-bundle.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

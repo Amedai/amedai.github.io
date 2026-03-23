@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__outer">
+                <a href="index.html" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <div class="header__buttons">
+                    <button class="header__burger">
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                        <div class="header__burger-line"></div>
+                    </button>
+                    <a href="welcome.html" class="header__login">Войти</a>
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="header__inner">
+                <button class="header__close">
+                    <img src="./images/icons/close.svg" alt="">
+                </button>
+                <a href="index.html" class="header__logo">
+                    <img src="./images/icons/logo.svg" alt="">
+                </a>
+                <nav class="header__nav">
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item">
+                            <a href="index.html" class="header__nav-link hover-underline">Главная</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="index.html#catalog" class="header__nav-link hover-underline">Каталог</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="index.html#sponsorship" class="header__nav-link hover-underline">Спонсорство</a>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="index.html#contacts" class="header__nav-link hover-underline">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__buttons">
+                    <a href="welcome.html" class="header__login">Войти</a>
+                    <a href="order.html" class="header__basket">
+                        <img src="./images/icons/basket.svg" alt="">
+                        <span class="header__basket-count"></span>
+                    </a>
+                    <a href="welcome.html" class="button header__button button--bg-red">Войти в личный кабинет</a>
+                    <a href="order.html" class="button header__button button--bg-white">Корзина</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main main--bg">
+        <section class="personal">
+            <div class="container">
+                <h1 class="section-title personal__title">Личный кабинет</h1>
+                <div class="personal__company-block">
+                    <div class="personal__company-wrapper">
+                        <div class="personal__company-text">Компания</div>
+                        <div class="personal__company-info">
+                            <div class="personal__company-img">
+                                <img src="./images/personal/company1.png" alt="">
+                            </div>
+                            <div class="personal__company-text-block">
+                                <div class="personal__company-name">АО “Аммоний”</div>
+                                <div class="personal__company-count">2 команды</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="personal__btns">
+                        <button class="button button--bg-red personal__btn" data-upload-style>Загрузить фирменный стиль</button>
+                        <button class="button button--bg-white personal__btn" data-contact-curator>Связаться с куратором</button>
+                    </div>
+                </div>
+                <div class="personal__divider"></div>
+                <div class="personal__grid">
+                    <div class="personal__team-block">
+                        <div class="personal__team-block-top">
+                            <span class="personal__team-block-text">Команда</span>
+                            <div class="personal__team-block-dropdown" data-dropdown data-teams-dropdown>
+                                <span class="personal__team-current">Dream Team</span>
+                                <div class="personal__dropdown-img">
+                                    <img src="./images/icons/arrow-drop.svg" alt="">
+                                </div>
+                                <div class="personal__teams-list">
+                                    <div class="personal__teams-list-head">
+                                        <div class="personal__teams-list-title">Команды</div>
+                                        <button class="personal__teams-list-close" type="button" aria-label="Закрыть список команд">
+                                            <img src="./images/icons/close.svg" alt="">
+                                        </button>
+                                    </div>
+                                    <ul class="personal__teams-list-items">
+                                        <li class="personal__teams-list-item">
+                                            <button class="personal__teams-list-name" type="button" data-team-name>Dream Team</button>
+                                            <div class="personal__teams-list-actions">
+                                                <button class="personal__teams-list-action" type="button" aria-label="Редактировать команду">
+                                                    <img src="./images/icons/edit.svg" alt="">
+                                                </button>
+                                                <button class="personal__teams-list-action" type="button" aria-label="Удалить команду">
+                                                    <img src="./images/icons/delete.svg" alt="">
+                                                </button>
+                                            </div>
+                                        </li>
+                                        <li class="personal__teams-list-item">
+                                            <button class="personal__teams-list-name" type="button" data-team-name>Аммоний спорт</button>
+                                            <div class="personal__teams-list-actions">
+                                                <button class="personal__teams-list-action" type="button" aria-label="Редактировать команду">
+                                                    <img src="./images/icons/edit.svg" alt="">
+                                                </button>
+                                                <button class="personal__teams-list-action" type="button" aria-label="Удалить команду">
+                                                    <img src="./images/icons/delete.svg" alt="">
+                                                </button>
+                                            </div>
+                                        </li>
+                                        <li class="personal__teams-list-item">
+                                            <button class="personal__teams-list-name" type="button" data-team-name>Аммоний лайт</button>
+                                            <div class="personal__teams-list-actions">
+                                                <button class="personal__teams-list-action" type="button" aria-label="Редактировать команду">
+                                                    <img src="./images/icons/edit.svg" alt="">
+                                                </button>
+                                                <button class="personal__teams-list-action" type="button" aria-label="Удалить команду">
+                                                    <img src="./images/icons/delete.svg" alt="">
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <button class="personal__teams-list-add" type="button">+ Добавить команду</button>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="personal__team-block-list">
+                            <li class="personal__team-block-item" data-dropdown data-representative>
+                                <div class="personal__team-block-top">
+                                    <div class="personal__team-block-name">Иванов Иван Иванович</div>
+                                    <div class="personal__team-block-representative">представитель команды</div>
+                                    <div class="personal__dropdown-img">
+                                        <img src="./images/icons/arrow-drop.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="personal__team-block-bottom">
+                                    <div class="personal__team-block-attributes">
+                                        <div class="personal__team-block-attribute">Размер одежды</div>
+                                        <div class="personal__team-block-attribute">44-46</div>
+                                    </div>
+                                    <div class="personal__team-block-attributes">
+                                        <div class="personal__team-block-attribute">Размер обуви</div>
+                                        <div class="personal__team-block-attribute">43 (27,5 см)</div>
+                                    </div>
+                                    <div class="personal__team-block-attributes">
+                                        <div class="personal__team-block-attribute">Рост</div>
+                                        <div class="personal__team-block-attribute">175</div>
+                                    </div>
+                                    <button class="button button--bg-white personal__button button--small" data-edit-data>Редактировать данные</button>
+                                </div>
+                            </li>
+                            <li class="personal__team-block-item" data-dropdown>
+                                <div class="personal__team-block-top">
+                                    <div class="personal__team-block-name">Иванов Иван Иванович</div>
+                                    <div class="personal__team-block-representative">представитель команды</div>
+                                    <div class="personal__dropdown-img">
+                                        <img src="./images/icons/arrow-drop.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="personal__team-block-bottom">
+                                    <div class="personal__team-block-attributes">
+                                        <div class="personal__team-block-attribute">Размер одежды</div>
+                                        <div class="personal__team-block-attribute">44-46</div>
+                                    </div>
+                                    <div class="personal__team-block-attributes">
+                                        <div class="personal__team-block-attribute">Размер обуви</div>
+                                        <div class="personal__team-block-attribute">43 (27,5 см)</div>
+                                    </div>
+                                    <div class="personal__team-block-attributes">
+                                        <div class="personal__team-block-attribute">Рост</div>
+                                        <div class="personal__team-block-attribute">175</div>
+                                    </div>
+                                    <button class="button button--bg-white personal__button button--small" data-edit-data>Редактировать данные</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="personal__team-block-add-btn" data-add-btn>
+                            <span>Добавить участника</span>
+                            <span>+</span>
+                        </button>
+                        <div class="personal__warning">Внести данные и добавить участников можно до 29 июня</div>
+                    </div>
+                    <div class="personal__sponsor-block">
+                        <span class="personal__sponsor-block-text">Спонсорство</span>
+                        <div class="personal__sponsor-block-info">
+                            <div class="personal__sponsor-block-info-item">
+                                <div class="personal__sponsor-block-info-item-text">Выбранный пакет</div>
+                                <div class="personal__sponsor-block-info-item-name">Партнер фанзоны</div>
+                            </div>
+                            <button class="button button--bg-white button--small personal__button" data-change-sponsor>Сменить</button>
+                        </div>
+                    </div>
+                    <div class="personal__service-block">
+                        <span class="personal__service-block-text">Услуги</span>
+                        <ul class="personal__service-block-list">
+                            <li class="personal__service-block-item" data-dropdown data-status="accept">
+                                <div class="personal__service-block-top">
+                                    <div class="personal__service-block-name">Оснащение</div>
+                                    <div class="personal__service-block-status">подтверждено</div>
+                                    <div class="personal__service-block-dropdown-img">
+                                        <img src="./images/icons/arrow-drop.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="personal__service-block-attributes">
+                                    <div class="personal__service-block-attribute">Виндер 2 шт.</div>
+                                    <div class="personal__service-block-attribute">Стул 10 шт.</div>
+                                </div>
+                            </li>
+                            <li class="personal__service-block-item" data-dropdown data-status="no-data">
+                                <div class="personal__service-block-top">
+                                    <div class="personal__service-block-name">Шатры</div>
+                                    <div class="personal__service-block-status">заполните данные</div>
+                                    <div class="personal__service-block-dropdown-img">
+                                        <img src="./images/icons/arrow-drop.svg" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="personal__service-block-item" data-dropdown data-status="waiting">
+                                <div class="personal__service-block-top">
+                                    <div class="personal__service-block-name">Экипировка</div>
+                                    <div class="personal__service-block-status">ожидание</div>
+                                    <div class="personal__service-block-dropdown-img">
+                                        <img src="./images/icons/arrow-drop.svg" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="personal__bonus-block">Чтобы добавить услугу, свяжитесь с вашим куратором</div>
+                    </div>
+                </div>
+                <div class="personal-style" data-upload-style-modal>
+                    <button class="personal-style__close" type="button" aria-label="Закрыть форму" data-upload-style-close>
+                        <img src="./images/icons/close.svg" alt="">
+                    </button>
+                    <h2 class="personal-style__title">фирменный стиль</h2>
+                    <form class="personal-style__form" action="">
+                        <div class="personal-style__fields">
+                            <div class="personal-style__field" data-upload-field>
+                                <label class="personal-style__label">Логотип</label>
+                                <div class="personal-style__upload">
+                                    <span class="personal-style__placeholder">Прикрепить файлы</span>
+                                    <span class="personal-style__filename"></span>
+                                    <button class="personal-style__remove" type="button" aria-label="Удалить файл">
+                                        <img src="./images/icons/delete.svg" alt="">
+                                    </button>
+                                </div>
+                                <button class="personal-style__add-file" type="button">Добавить файл</button>
+                                <input class="personal-style__input" type="file">
+                            </div>
+                            <div class="personal-style__field" data-upload-field>
+                                <label class="personal-style__label">Брондбук</label>
+                                <div class="personal-style__upload">
+                                    <span class="personal-style__placeholder">Прикрепить файлы</span>
+                                    <span class="personal-style__filename"></span>
+                                    <button class="personal-style__remove" type="button" aria-label="Удалить файл">
+                                        <img src="./images/icons/delete.svg" alt="">
+                                    </button>
+                                </div>
+                                <button class="personal-style__add-file" type="button">Добавить файл</button>
+                                <input class="personal-style__input" type="file">
+                            </div>
+                            <div class="personal-style__field personal-style__field--wide">
+                                <label class="personal-style__label" for="style-note">Примечание</label>
+                                <textarea class="personal-style__note" id="style-note" placeholder="Пожелания по брендингу"></textarea>
+                            </div>
+                        </div>
+                        <button class="button button--bg-red personal-style__submit" type="submit">Добавить</button>
+                    </form>
+                </div>
+                <div class="personal-add" data-add-participant-modal>
+                    <button class="personal-add__close" type="button" aria-label="Закрыть форму" data-add-participant-close>
+                        <img src="./images/icons/close.svg" alt="">
+                    </button>
+                    <h2 class="personal-add__title">добавить участника</h2>
+
+                    <form class="personal-add__form" action="">
+                        <div class="personal-add__top">
+                            <div class="personal-add__top-left">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="participant-name">Ф.И.О.</label>
+                                    <input class="personal-add__input" id="participant-name" type="text" placeholder="Иванов Иван Иванович">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="participant-phone">Контактный номер</label>
+                                    <input class="personal-add__input" id="participant-phone" type="tel" placeholder="+7 (999) 999-99-99">
+                                </div>
+                                <label class="personal-add__check">
+                                    <input class="personal-add__check-input" type="checkbox">
+                                    <span class="personal-add__check-box"></span>
+                                    <span class="personal-add__check-text">Представитель команды</span>
+                                </label>
+                            </div>
+
+                            <div class="personal-add__services">
+                                <div class="personal-add__services-title">Необходимые услуги</div>
+                                <ul class="personal-add__services-list">
+                                    <li class="personal-add__services-item">
+                                        <input class="personal-add__services-checkbox" type="checkbox" id="service-uniform">
+                                        <label class="personal-add__services-label" for="service-uniform">Нужна спортивная форма</label>
+                                    </li>
+                                    <li class="personal-add__services-item">
+                                        <input class="personal-add__services-checkbox" type="checkbox" id="service-shoes">
+                                        <label class="personal-add__services-label" for="service-shoes">Нужна обувь</label>
+                                    </li>
+                                    <li class="personal-add__services-item">
+                                        <input class="personal-add__services-checkbox" type="checkbox" id="service-transfer">
+                                        <label class="personal-add__services-label" for="service-transfer">Нужен трансфер</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="personal-add__divider"></div>
+
+                        <div class="personal-add__content">
+                            <div class="personal-add__group">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="size-top">Размер одежды (верх)</label>
+                                    <select class="personal-add__select" id="size-top">
+                                        <option>42-44</option>
+                                    </select>
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="size-bottom">Размер одежды (низ)</label>
+                                    <select class="personal-add__select" id="size-bottom">
+                                        <option>42-44</option>
+                                    </select>
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="size-wear">Размер одежды (верх)</label>
+                                    <select class="personal-add__select" id="size-wear">
+                                        <option>42-44</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="personal-add__group">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="shoe-size">Размер обуви</label>
+                                    <select class="personal-add__select" id="shoe-size">
+                                        <option>43 (27,5 см)</option>
+                                    </select>
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="height">Рост</label>
+                                    <input class="personal-add__input" id="height" type="text" placeholder="175">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="note">Примечание</label>
+                                    <input class="personal-add__input" id="note" type="text" placeholder="Дополнительная информация">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="personal-add__divider"></div>
+
+                        <div class="personal-add__content">
+                            <div class="personal-add__group personal-add__group--short">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="arrival-date">Дата приезда</label>
+                                    <input class="personal-add__input" id="arrival-date" type="text" placeholder="29/06">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="arrival-time">Время приезда</label>
+                                    <input class="personal-add__input" id="arrival-time" type="text" placeholder="00:00">
+                                </div>
+                            </div>
+                            <div class="personal-add__group personal-add__group--short">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="departure-date">Дата отъезда</label>
+                                    <input class="personal-add__input" id="departure-date" type="text" placeholder="29/06">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="departure-time">Время отъезда</label>
+                                    <input class="personal-add__input" id="departure-time" type="text" placeholder="00:00">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="button button--bg-red personal-add__submit" type="submit">Добавить</button>
+                    </form>
+                </div>
+
+                <div class="personal-add personal-add--edit" data-edit-participant-modal>
+                    <button class="personal-add__close" type="button" aria-label="Закрыть форму" data-edit-participant-close>
+                        <img src="./images/icons/close.svg" alt="">
+                    </button>
+                    <h2 class="personal-add__title">участник #1</h2>
+
+                    <form class="personal-add__form" action="">
+                        <div class="personal-add__top">
+                            <div class="personal-add__top-left">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-participant-name">Ф.И.О.</label>
+                                    <input class="personal-add__input" id="edit-participant-name" type="text" placeholder="Иванов Иван Иванович">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-participant-phone">Контактный номер</label>
+                                    <input class="personal-add__input" id="edit-participant-phone" type="tel" placeholder="+7 (999) 999-99-99">
+                                </div>
+                                <label class="personal-add__check">
+                                    <input class="personal-add__check-input" type="checkbox">
+                                    <span class="personal-add__check-box"></span>
+                                    <span class="personal-add__check-text">Представитель команды</span>
+                                </label>
+                            </div>
+
+                            <div class="personal-add__services">
+                                <div class="personal-add__services-title">Необходимые услуги</div>
+                                <ul class="personal-add__services-list">
+                                    <li class="personal-add__services-item">
+                                        <input class="personal-add__services-checkbox" type="checkbox" id="edit-service-uniform">
+                                        <label class="personal-add__services-label" for="edit-service-uniform">Нужна спортивная форма</label>
+                                    </li>
+                                    <li class="personal-add__services-item">
+                                        <input class="personal-add__services-checkbox" type="checkbox" id="edit-service-shoes">
+                                        <label class="personal-add__services-label" for="edit-service-shoes">Нужна обувь</label>
+                                    </li>
+                                    <li class="personal-add__services-item">
+                                        <input class="personal-add__services-checkbox" type="checkbox" id="edit-service-transfer">
+                                        <label class="personal-add__services-label" for="edit-service-transfer">Нужен трансфер</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="personal-add__divider"></div>
+
+                        <div class="personal-add__content">
+                            <div class="personal-add__group">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-size-top">Размер одежды (верх)</label>
+                                    <select class="personal-add__select" id="edit-size-top">
+                                        <option>42-44</option>
+                                    </select>
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-size-bottom">Размер одежды (низ)</label>
+                                    <select class="personal-add__select" id="edit-size-bottom">
+                                        <option>42-44</option>
+                                    </select>
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-size-wear">Размер одежды (верх)</label>
+                                    <select class="personal-add__select" id="edit-size-wear">
+                                        <option>42-44</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="personal-add__group">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-shoe-size">Размер обуви</label>
+                                    <select class="personal-add__select" id="edit-shoe-size">
+                                        <option>43 (27,5 см)</option>
+                                    </select>
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-height">Рост</label>
+                                    <input class="personal-add__input" id="edit-height" type="text" placeholder="175">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-note">Примечание</label>
+                                    <input class="personal-add__input" id="edit-note" type="text" placeholder="Дополнительная информация">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="personal-add__divider"></div>
+
+                        <div class="personal-add__content">
+                            <div class="personal-add__group personal-add__group--short">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-arrival-date">Дата приезда</label>
+                                    <input class="personal-add__input" id="edit-arrival-date" type="text" placeholder="29/06">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-arrival-time">Время приезда</label>
+                                    <input class="personal-add__input" id="edit-arrival-time" type="text" placeholder="00:00">
+                                </div>
+                            </div>
+                            <div class="personal-add__group personal-add__group--short">
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-departure-date">Дата отъезда</label>
+                                    <input class="personal-add__input" id="edit-departure-date" type="text" placeholder="29/06">
+                                </div>
+                                <div class="personal-add__field">
+                                    <label class="personal-add__label" for="edit-departure-time">Время отъезда</label>
+                                    <input class="personal-add__input" id="edit-departure-time" type="text" placeholder="00:00">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="button button--bg-red personal-add__submit" type="submit">Сохранить</button>
+                    </form>
+                </div>
+
+                <div class="personal-contact" data-contact-curator-modal>
+                    <button class="personal-contact__close" type="button" aria-label="Закрыть форму" data-contact-curator-close>
+                        <img src="./images/icons/close.svg" alt="">
+                    </button>
+                    <h2 class="personal-contact__title">ваш куратор</h2>
+
+                    <div class="personal-contact__info">
+                        <div class="personal-contact__field">
+                            <div class="personal-contact__label">Имя</div>
+                            <div class="personal-contact__value">Бабыкина Влада</div>
+                        </div>
+                        <div class="personal-contact__field">
+                            <div class="personal-contact__label">Контактный номер</div>
+                            <a class="personal-contact__value" href="tel:+79196334933">+7 (919) 633-49-33</a>
+                        </div>
+                        <div class="personal-contact__field">
+                            <div class="personal-contact__label">Телеграмм</div>
+                            <a class="personal-contact__value" href="https://t.me/vlaadaa13" target="_blank" rel="noopener noreferrer">@vlaadaa13</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="./js/main.js"></script>
+</body>
+</html>
