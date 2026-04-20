@@ -427,7 +427,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             if (!minusBtn || !plusBtn || !input) return;
 
             const incrementValue = parseInt(wrapper.dataset.quantity) || 1;
-            const minValue = incrementValue === 5 ? 15 : 1;
+            const minValue = incrementValue === 5 ? 10 : 1;
 
             input.min = minValue;
             input.readOnly = true;
@@ -837,9 +837,11 @@ window.addEventListener('DOMContentLoaded',()=>{
         function setCardState(container, inCart) {
             const buyBtn    = container.querySelector('[data-btn="buy"]');
             const basketBtn = container.querySelector('[data-btn="href-basket"]');
-            if (!buyBtn || !basketBtn) return;
+            const removeBtn = container.querySelector('[data-btn="remove"]');
+            if (!buyBtn || (!basketBtn && !removeBtn)) return;
             setButtonActive(buyBtn,    !inCart);
-            setButtonActive(basketBtn,  inCart);
+            if (basketBtn) setButtonActive(basketBtn, inCart);
+            if (removeBtn) setButtonActive(removeBtn, inCart);
         }
 
         document.querySelectorAll('[data-article]').forEach(container => {
@@ -855,7 +857,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             if (qtyInput && article in getCart()) {
                 const cart = getCart();
                 const step = qtyWrapper ? parseInt(qtyWrapper.dataset.quantity) || 1 : 1;
-                const minVal = step === 5 ? 15 : 1;
+                const minVal = step === 5 ? 10 : 1;
                 qtyInput.min = minVal;
                 qtyInput.readOnly = true;
                 const maxVal = parseInt(qtyInput.max) || 999;
@@ -866,7 +868,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             // При изменении количества (только +/-) обновляем quantity в localStorage; ввод в поле запрещён
             if (qtyInput && qtyWrapper) {
                 const step = parseInt(qtyWrapper.dataset.quantity) || 1;
-                const minVal = step === 5 ? 15 : 1;
+                const minVal = step === 5 ? 10 : 1;
                 qtyInput.min = minVal;
                 qtyInput.readOnly = true;
                 const cur = parseInt(qtyInput.value, 10);
@@ -907,6 +909,18 @@ window.addEventListener('DOMContentLoaded',()=>{
                 setCardState(container, true);
                 updateCounter();
             });
+
+            const removeBtn = container.querySelector('[data-btn="remove"]');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    const cart = getCart();
+                    if (!(article in cart)) return;
+                    delete cart[article];
+                    saveCart(cart);
+                    setCardState(container, false);
+                    updateCounter();
+                });
+            }
         });
         
         updateCounter();
@@ -981,7 +995,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             div.dataset.article = article;
 
             const step = item.step || 1;
-            const minQty = step === 5 ? 15 : 1;
+            const minQty = step === 5 ? 10 : 1;
             const priceNum = parsePrice(item.price);
             const qty = Math.max(minQty, item.quantity || step);
             const itemTotal = priceNum * qty;
