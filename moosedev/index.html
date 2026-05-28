@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>moosedev</title>
-    <link rel="stylesheet" href="./css/style.min.css">
+    <title>moosedev — IT-разработка и цифровые решения для бизнеса</title>
+    <meta name="description" content="Помогаем бизнесу ориентироваться в сложных IT-технологиях: веб-сайты, мобильные приложения, UX/UI, облачные сервисы и консалтинг. 30+ специалистов, 50+ проектов.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://amedai.github.io/amarketinga/">
+    <meta property="og:title" content="moosedev — IT-разработка и цифровые решения для бизнеса">
+    <meta property="og:description" content="Помогаем бизнесу ориентироваться в сложных IT-технологиях: веб-сайты, мобильные приложения, UX/UI, облачные сервисы и консалтинг. 30+ специалистов, 50+ проектов.">
+    <meta property="og:image" content="https://amedai.github.io/amarketinga/images/main-promo-bg.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://amedai.github.io/amarketinga/">
+    <meta property="twitter:title" content="moosedev — IT-разработка и цифровые решения для бизнеса">
+    <meta property="twitter:description" content="Помогаем бизнесу ориентироваться в сложных IT-технологиях: веб-сайты, мобильные приложения, UX/UI, облачные сервисы и консалтинг. 30+ специалистов, 50+ проектов.">
+    <meta property="twitter:image" content="https://amedai.github.io/amarketinga/images/main-promo-bg.webp">
+    
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="preload" as="image" type="image/webp" href="./images/planet.png"/>
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="header__inner-first">
+                <div class="header__inner-first-pattern-leaf">
+                    <img src="./images/header-pattern-leaf.png" alt="">
+                </div>
+                <div class="header__inner-first-pattern">
+                    <img src="./images/header-pattern.png" alt="">
+                </div>
                 <button class="header__inner-first-close">
                     <img src="./images/icons/close.svg" alt="close">
                 </button>
@@ -29,8 +50,49 @@
                             <a href="#stages" class="header__nav-link hover-underline">Как мы работаем</a>
                         </li>
                     </ul>
+                    <button class="header__lang header__lang--mob">
+                        <div class="header__country-img">
+                            <img src="./images/icons/russia.svg" alt="russia">
+                        </div>
+                        <span class="header__lang-link">RU</span>
+                        <div class="header__dropdown-img">
+                            <img src="./images/icons/dropdown-white.svg" alt="">
+                        </div>
+                        <div class="header__lang-dropdown header__lang-dropdown--mob">
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/britain.svg" alt="en">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">EN</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/france.svg" alt="fr">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">FR</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/turkey.svg" alt="tr">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">TR</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/china.svg" alt="cn">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">CN</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/spain.svg" alt="es">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">ES</span>
+                            </a>
+                        </div>
+                    </button>
                 </nav>
-                <a href="#order" class="header__connection header__connection--mr">Связаться с нами</a>
+                <a href="#order" class="header__connection header__connection--zindex header__connection--mr">Связаться с нами</a>
                 <button class="header__lang">
                     <div class="header__country-img">
                         <img src="./images/icons/russia.svg" alt="russia">
@@ -40,8 +102,36 @@
                         <img src="./images/icons/dropdown.svg" alt="">
                     </div>
                     <div class="header__lang-dropdown">
-                        <a href="index.html" class="header__lang-link">EN</a>
-                        <a href="index.html" class="header__lang-link">UA</a>
+                        <a href="index.html" class="header__lang-link">
+                            <div class="header__lang-link-img">
+                                <img src="./images/icons/britain.svg" alt="en">
+                            </div>
+                            <span class="header__lang-link-text hover-underline">EN</span>
+                        </a>
+                        <a href="index.html" class="header__lang-link">
+                            <div class="header__lang-link-img">
+                                <img src="./images/icons/france.svg" alt="fr">
+                            </div>
+                            <span class="header__lang-link-text hover-underline">FR</span>
+                        </a>
+                        <a href="index.html" class="header__lang-link">
+                            <div class="header__lang-link-img">
+                                <img src="./images/icons/turkey.svg" alt="tr">
+                            </div>
+                            <span class="header__lang-link-text hover-underline">TR</span>
+                        </a>
+                        <a href="index.html" class="header__lang-link">
+                            <div class="header__lang-link-img">
+                                <img src="./images/icons/china.svg" alt="cn">
+                            </div>
+                            <span class="header__lang-link-text hover-underline">CN</span>
+                        </a>
+                        <a href="index.html" class="header__lang-link">
+                            <div class="header__lang-link-img">
+                                <img src="./images/icons/spain.svg" alt="es">
+                            </div>
+                            <span class="header__lang-link-text hover-underline">ES</span>
+                        </a>
                     </div>
                 </button>
             </div>
@@ -58,8 +148,36 @@
                             <img src="./images/icons/dropdown.svg" alt="">
                         </div>
                         <div class="header__lang-dropdown">
-                            <a href="index.html" class="header__lang-link">EN</a>
-                            <a href="index.html" class="header__lang-link">UA</a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/britain.svg" alt="en">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">EN</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/france.svg" alt="fr">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">FR</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/turkey.svg" alt="tr">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">TR</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/china.svg" alt="cn">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">CN</span>
+                            </a>
+                            <a href="index.html" class="header__lang-link">
+                                <div class="header__lang-link-img">
+                                    <img src="./images/icons/spain.svg" alt="es">
+                                </div>
+                                <span class="header__lang-link-text hover-underline">ES</span>
+                            </a>
                         </div>
                     </button>
                     <button class="header__burger">
@@ -72,80 +190,50 @@
         </div>
     </header>
     <main class="main">
-        <section class="hero">
-            <div class="hero__top">
-                <div class="container">
-                    <div class="hero__block-subtitle">
-                        <h3 class="hero__subtitle">Прокладываем тропы <span>в цифровом лесу</span></h3>
-                        <a href="#cases" class="hero__case-link">
-                            <span>Наши кейсы</span>
-                            <div class="circle-arrow circle-arrow--small">
-                                <img src="./images/icons/arrow-rotate.svg" alt="">
+        <div class="hero__wrapper">
+            <section class="hero">
+                <div class="hero__top">
+                    <div class="container">
+                        <div class="hero__block-subtitle">
+                            <p class="hero__subtitle">Прокладываем тропы <span>в цифровом лесу</span></p>
+                            <a href="#cases" class="hero__case-link">
+                                <span>Наши кейсы</span>
+                                <div class="circle-arrow circle-arrow--small">
+                                    <img src="./images/icons/arrow-rotate.svg" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="hero__block-title">
+                            <h1 class="hero__title">Помогаем бизнесу уверенно ориентироваться в сложных IT-технологиях.</h1>
+                            <a href="#cases" class="hero__case-link">
+                                <span>Наши кейсы</span>
+                                <div class="circle-arrow circle-arrow--small">
+                                    <img src="./images/icons/arrow-rotate.svg" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <a href="#order" class="hero__connection">Связаться с нами</a>
+                        <div class="hero__companies">
+                            <div class="hero__company">
+                                <img src="./images/company1.png" alt="">
                             </div>
-                        </a>
-                    </div>
-                    <div class="hero__block-title">
-                        <h2 class="hero__title">Помогаем бизнесу уверенно ориентироваться в сложных IT-технологиях.</h2>
-                        <a href="#cases" class="hero__case-link">
-                            <span>Наши кейсы</span>
-                            <div class="circle-arrow circle-arrow--small">
-                                <img src="./images/icons/arrow-rotate.svg" alt="">
+                            <div class="hero__company">
+                                <img src="./images/company2.png" alt="">
                             </div>
-                        </a>
-                    </div>
-                    <a href="#cases" class="hero__case-link hero__case-link--mob-visible">
-                        <span>Наши кейсы</span>
-                        <div class="circle-arrow circle-arrow--small">
-                            <img src="./images/icons/arrow-rotate.svg" alt="">
-                        </div>
-                    </a>
-                    <div class="hero__companies">
-                        <div class="hero__company">
-                            <img src="./images/company1.png" alt="">
-                        </div>
-                        <div class="hero__company">
-                            <img src="./images/company2.png" alt="">
-                        </div>
-                        <div class="hero__company">
-                            <img src="./images/company3.png" alt="">
-                        </div>
-                        <div class="hero__company">
-                            <img src="./images/company4.png" alt="">
-                        </div>
-                        <div class="hero__company">
-                            <img src="./images/company5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero__bottom" id="about">
-                <div class="container">
-                    <div class="hero__bottom-inner">
-                        <div class="hero__bottom-item">
-                            <h2 class="hero__bottom-title">О НАС</h2>
-                        </div>
-                        <div class="hero__bottom-item">
-                            <h3 class="hero__bottom-subtitle">Создаем надежные маршруты для вашего цифрового роста</h3>
-                            <p class="hero__bottom-text">Мы всегда рады новым вызовам, которые помогают нам развиваться и преодолевать свои пределы.</p>
-                            <div class="hero__bottom-count-block">
-                                <div class="hero__bottom-count-item">
-                                    <div class="hero__bottom-count-item-number">6+</div>
-                                    <div class="hero__bottom-count-item-text">лет в индустрии</div>
-                                </div>
-                                <div class="hero__bottom-count-item">
-                                    <div class="hero__bottom-count-item-number">50+</div>
-                                    <div class="hero__bottom-count-item-text">успешных проектов</div>
-                                </div>
-                                <div class="hero__bottom-count-item">
-                                    <div class="hero__bottom-count-item-number">20+</div>
-                                    <div class="hero__bottom-count-item-text">сфер бизнеса клиентов</div>
-                                </div>
+                            <div class="hero__company">
+                                <img src="./images/company0.svg" alt="">
+                            </div>
+                            <div class="hero__company">
+                                <img src="./images/company4.png" alt="">
+                            </div>
+                            <div class="hero__company">
+                                <img src="./images/company5.png" alt="">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
         <section class="team">
             <div class="team__pattern">
                 <img src="./images/team-pattern.png" alt="">
@@ -195,7 +283,42 @@
                         </a>
                     </div>
                     <div class="team__planet-img">
-                        <img src="./images/planet.png" alt="">
+                        <video
+                            src="./video/planet-video.mov"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            poster="./images/planet.png"
+                            aria-hidden="true"
+                        ></video>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about__inner">
+                    <div class="about__item">
+                        <h2 class="about__title">О НАС</h2>
+                    </div>
+                    <div class="about__item">
+                        <h3 class="about__subtitle">Создаем надежные маршруты для вашего цифрового роста</h3>
+                        <p class="about__text">Мы всегда рады новым вызовам, которые помогают нам развиваться и преодолевать свои пределы.</p>
+                        <div class="about__count-block">
+                            <div class="about__count-item">
+                                <div class="about__count-item-number">6+</div>
+                                <div class="about__count-item-text">лет в индустрии</div>
+                            </div>
+                            <div class="about__count-item">
+                                <div class="about__count-item-number">50+</div>
+                                <div class="about__count-item-text">успешных проектов</div>
+                            </div>
+                            <div class="about__count-item">
+                                <div class="about__count-item-number">20+</div>
+                                <div class="about__count-item-text">сфер бизнеса клиентов</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,10 +465,25 @@
                         <div class="swiper cases__swiper">
                             <div class="swiper-wrapper cases__swiper-wrapper">
                                 <div class="swiper-slide cases__swiper-slide">
-                                    <img src="./images/cases1.jpg" alt="">
+                                    <img src="./images/cases4.jpg" alt="">
                                 </div>
                                 <div class="swiper-slide cases__swiper-slide">
                                     <img src="./images/cases1.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide cases__swiper-slide">
+                                    <img src="./images/cases2.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide cases__swiper-slide">
+                                    <img src="./images/cases3.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide cases__swiper-slide">
+                                    <img src="./images/cases5.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide cases__swiper-slide">
+                                    <img src="./images/cases6.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide cases__swiper-slide">
+                                    <img src="./images/cases7.jpg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -354,8 +492,8 @@
             </section>
             <section class="stages" id="stages">
                 <div class="container">
-                    <h2 class="stages__title">этапы работы</h2>
-                    <h3 class="stages__subtitle">Как мы работаем</h3>
+                    <h2 class="stages__title">Как мы работаем</h2>
+                    <h3 class="stages__subtitle">Этапы работы</h3>
                     <div class="stages__flex-wrapper">
                         <div class="stages__tabs">
                             <button type="button" class="stages__tab stages__tab--active">01 / { Знакомство }</button>
@@ -592,13 +730,13 @@
                 <div class="footer__order-left">
                     <h3 class="footer__order-subtitle">Свяжитесь с нами</h3>
                     <div class="footer__order-subtext">для обсуждения вашего проекта</div>
-                    <a href="" class="footer__order-tel footer__order-tel--mob-hidden">+7 (999) 999-99-99</a>
-                    <a href="" class="footer__order-mail footer__order-mail--mob-hidden">example@gmail.com</a>
+                    <a href="tel:+79377720240" class="footer__order-tel footer__order-tel--mob-hidden">+7 (937) 772-02-40</a>
+                    <a href="mailto:contact@moosedev.pro" class="footer__order-mail footer__order-mail--mob-hidden">contact@moosedev.pro</a>
                     <div class="footer__order-links footer__order-links--mob-hidden">
-                        <a href="" class="footer__order-link">
+                        <a href="https://www.linkedin.com/company/moosedev/" class="footer__order-link">
                             <img src="./images/icons/in.svg" alt="">
                         </a>
-                        <a href="" class="footer__order-link">
+                        <a href="https://www.instagram.com/moosedev.pro?igsh=NWRlYzRydGxteHk3&utm_source=qr" class="footer__order-link">
                             <img src="./images/icons/inst.svg" alt="">
                         </a>
                     </div>
@@ -609,7 +747,7 @@
                     <input class="footer__order-input" type="text" placeholder="Немного о проекте">
                     <input class="footer__order-input" type="file" id="file">
                     <label class="footer__order-input" for="file">Прикрепить файл</label>
-                    <p class="footer__order-policy-text">Нажимая эту кнопку - вы соглашаетесь с <a href="" class="footer__order-policy-link">политикой конфиденциальности</a></p>
+                    <p class="footer__order-policy-text">Нажимая эту кнопку - вы соглашаетесь с <a href="policy.html" class="footer__order-policy-link">политикой конфиденциальности</a></p>
                     <button class="footer__order-button" type="submit">
                         <span>Отправить</span>
                         <div class="circle-arrow circle-arrow--green circle-arrow--small">
@@ -619,23 +757,23 @@
                 </form>
             </div>
             <div class="footer__contact-block">
-                <a href="" class="footer__order-tel">+7 (999) 999-99-99</a>
-                <a href="" class="footer__order-mail">example@gmail.com</a>
+                <a href="tel:+79377720240" class="footer__order-tel">+7 (937) 772-02-40</a>
+                <a href="mailto:contact@moosedev.pro" class="footer__order-mail">contact@moosedev.pro</a>
             </div>
             <div class="footer__policy-block">
                 <div class="footer__order-links footer__order-links--mob-visible">
-                    <a href="" class="footer__order-link">
+                    <a href="https://www.linkedin.com/company/moosedev/" class="footer__order-link">
                         <img src="./images/icons/in.svg" alt="">
                     </a>
-                    <a href="" class="footer__order-link">
+                    <a href="https://www.instagram.com/moosedev.pro?igsh=NWRlYzRydGxteHk3&utm_source=qr" class="footer__order-link">
                         <img src="./images/icons/inst.svg" alt="">
                     </a>
                 </div>
                 <a href="index.html" class="footer__logo">moosedev { : }</a>
-                <a href="" class="footer__policy hover-underline">Политика конфиденциальности</a>
+                <a href="policy.html" class="footer__policy hover-underline">Политика конфиденциальности</a>
             </div>
             <div class="footer__grand-title-wrap">
-                <h1 class="footer__grand-title">moosedev</h1>
+                <h6 class="footer__grand-title">moosedev</h6>
             </div>
         </div>
     </footer>

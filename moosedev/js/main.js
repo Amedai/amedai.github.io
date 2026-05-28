@@ -36,6 +36,10 @@ window.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', closeMenu);
     });
 
+    innerFirst.querySelectorAll('.header__connection').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+
     const langButtons = document.querySelectorAll('.header__lang');
 
     const closeLangDropdowns = (exceptButton = null) => {
@@ -228,4 +232,66 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    const heroSection = document.querySelector('.hero');
+    const teamTextBlock = document.querySelector('.team__text-block');
+    const teamPlanetImg = document.querySelector('.team__planet-img');
+
+    if (heroSection && teamTextBlock && teamPlanetImg) {
+        // Сколько px секции .hero должно «уйти» вверх за верх viewport до старта анимации.
+        // Пример: hero 800px, значение 700 → старт, когда ушло 700px (осталось ~100px до полного выхода).
+        const heroScrollPastPx = 500;
+        const isTabletSOrBelow = window.matchMedia('(max-width: 935.98px)').matches;
+        let isTeamActivated = false;
+
+        const activateTeam = () => {
+            if (isTeamActivated) {
+                return;
+            }
+
+            isTeamActivated = true;
+            teamTextBlock.classList.add('team__text-block--active');
+            teamPlanetImg.classList.add('team__planet-img--active');
+            window.removeEventListener('scroll', checkHeroTeamAnimation);
+            window.removeEventListener('resize', checkHeroTeamAnimation);
+        };
+
+        const checkHeroTeamAnimation = () => {
+            const heroTop = heroSection.getBoundingClientRect().top;
+            const scrolledPastPx = -heroTop;
+
+            if (scrolledPastPx >= heroScrollPastPx) {
+                activateTeam();
+            }
+        };
+
+        if (isTabletSOrBelow) {
+            activateTeam();
+        } else {
+            window.addEventListener('scroll', checkHeroTeamAnimation, { passive: true });
+            window.addEventListener('resize', checkHeroTeamAnimation, { passive: true });
+            checkHeroTeamAnimation();
+        }
+    }
+
+    //scroll animation
+    if(document.querySelector('.scroll-animate')){
+        const scrollAnimationCallback = function(entries,observer){
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const target = entry.target;
+                    target.classList.add('scroll-animate--active');
+                    observer.unobserve(target);
+                }
+            });
+        };
+        const scrollAnimation = new IntersectionObserver(scrollAnimationCallback,{threshold:0.2});
+        document.querySelectorAll('.scroll-animate').forEach(el=>{
+            scrollAnimation.observe(el);
+        });        
+
+    }
+    
+
+
 });
