@@ -2370,7 +2370,7 @@ main {
   position: relative;
   padding: var(--section-distane) 0;
   background-color: var(--color-white);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 .awards__title-wrapper {
   display: flex;
@@ -2416,7 +2416,6 @@ main {
     max-width: none;
     justify-content: flex-start;
     overflow-x: auto;
-    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
