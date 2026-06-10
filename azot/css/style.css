@@ -2533,19 +2533,40 @@ main {
   }
 }
 .awards__block {
+  position: relative;
   width: 48%;
   padding: 48px 25px;
-  background-color: var(--color-white-dark);
+  background-color: transparent;
+}
+.awards__block::before, .awards__block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   clip-path: polygon(0% 0%, 80% 0%, 100% 30%, 100% 100%, 0% 100%);
   transition: clip-path 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.awards__block:hover {
+.awards__block::before {
+  background-color: var(--color-green);
+  z-index: 0;
+}
+.awards__block::after {
+  inset: 1px;
+  background-color: var(--color-white-dark);
+  z-index: 0;
+}
+.awards__block:hover::before, .awards__block:hover::after {
   clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.awards__block > * {
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 1023.98px) {
   .awards__block {
-    clip-path: polygon(0% 0%, 65% 0%, 100% 30%, 100% 100%, 0% 100%);
     padding: 45px 20px;
+  }
+  .awards__block::before, .awards__block::after {
+    clip-path: polygon(0% 0%, 65% 0%, 100% 30%, 100% 100%, 0% 100%);
   }
 }
 @media (max-width: 767.98px) {
@@ -2554,7 +2575,7 @@ main {
   }
 }
 @media (max-width: 480.98px) {
-  .awards__block {
+  .awards__block::before, .awards__block::after {
     clip-path: polygon(0% 0%, 70% 0%, 100% 20%, 100% 100%, 0% 100%);
   }
 }
