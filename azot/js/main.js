@@ -44,20 +44,66 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
     //slider
+    const equalizeSlideHeights = (swiper)=>{
+        swiper.slides.forEach((slide)=>{
+            slide.style.height = '';
+        });
+
+        let maxHeight = 0;
+        swiper.slides.forEach((slide)=>{
+            maxHeight = Math.max(maxHeight, slide.offsetHeight);
+        });
+
+        if(maxHeight){
+            swiper.slides.forEach((slide)=>{
+                slide.style.height = `${maxHeight}px`;
+            });
+        }
+
+        swiper.update();
+    };
+
+    const updateSliderArrows = (swiper, prevEl, nextEl, block)=>{
+        prevEl?.classList.toggle(`${block}__arrows-prev--active`, !swiper.isBeginning);
+        nextEl?.classList.toggle(`${block}__arrows-next--active`, !swiper.isEnd);
+    };
+
+    const initSliderControls = (swiper, {prevEl, nextEl, block})=>{
+        const update = ()=>{
+            equalizeSlideHeights(swiper);
+            updateSliderArrows(swiper, prevEl, nextEl, block);
+        };
+
+        update();
+        swiper.on('slideChange', ()=>{
+            updateSliderArrows(swiper, prevEl, nextEl, block);
+        });
+        swiper.on('resize', update);
+    };
+
     if(document.querySelector('.stages__slider')){
-        new Swiper('.stages__slider', {
+        const stagesPrev = document.querySelector('.stages__arrows-prev');
+        const stagesNext = document.querySelector('.stages__arrows-next');
+        const stagesSwiper = new Swiper('.stages__slider', {
             speed:500,
             slidesPerView:1,
 
             navigation: {
-                nextEl: '.stages__arrows-next',
-                prevEl: '.stages__arrows-prev',
+                nextEl: stagesNext,
+                prevEl: stagesPrev,
             },
-    
+        });
+
+        initSliderControls(stagesSwiper, {
+            prevEl: stagesPrev,
+            nextEl: stagesNext,
+            block: 'stages',
         });
     }
     if(document.querySelector('.about__slider')){
-        new Swiper('.about__slider', {
+        const aboutPrev = document.querySelector('.about__arrows-prev');
+        const aboutNext = document.querySelector('.about__arrows-next');
+        const aboutSwiper = new Swiper('.about__slider', {
             speed:800,
             slidesPerView:2,
             spaceBetween:60,
@@ -78,23 +124,51 @@ window.addEventListener('DOMContentLoaded',()=>{
             },
 
             navigation: {
-                nextEl: '.about__arrows-next',
-                prevEl: '.about__arrows-prev',
+                nextEl: aboutNext,
+                prevEl: aboutPrev,
             },
-    
+        });
+
+        initSliderControls(aboutSwiper, {
+            prevEl: aboutPrev,
+            nextEl: aboutNext,
+            block: 'about',
         });
     }
-    if(document.querySelector('.test__slider')){
-        new Swiper('.test__slider', {
+    document.querySelectorAll('.test__wrapper').forEach((wrapper)=>{
+        const slider = wrapper.querySelector('.test__slider');
+        const testPrev = wrapper.querySelector('.test__arrows-prev');
+        const testNext = wrapper.querySelector('.test__arrows-next');
+        const testArrows = wrapper.querySelector('.test__arrows');
+
+        if(!slider){
+            return;
+        }
+
+        const testSwiper = new Swiper(slider, {
             speed:500,
-            slidesPerView:1.4,
+            slidesPerView:'auto',
             spaceBetween:20,
+            watchOverflow:true,
 
             navigation: {
-                nextEl: '.test__arrows-next',
-                prevEl: '.test__arrows-prev',
+                nextEl: testNext,
+                prevEl: testPrev,
             },
-    
         });
-    }
+
+        const updateTestArrowsVisibility = ()=>{
+            testArrows?.classList.toggle('test__arrows--hidden', testSwiper.isLocked);
+        };
+
+        initSliderControls(testSwiper, {
+            prevEl: testPrev,
+            nextEl: testNext,
+            block: 'test',
+        });
+
+        updateTestArrowsVisibility();
+        testSwiper.on('resize', updateTestArrowsVisibility);
+        testSwiper.on('slideChange', updateTestArrowsVisibility);
+    });
 });
