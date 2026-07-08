@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Корзина — АЙДА SPORT</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header__top">
+      <div class="container header__topinner">
+        <a class="header__logo" href="index.html">АЙДАSPORT</a>
+        <nav class="header__topnav">
+          <a href="about-brand.html">О нас</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="corporate.html">Корпоративным клиентам</a>
+          <a href="index.html#contacts">Контакты</a>
+        </nav>
+        <div class="header__actions">
+          <a class="header__phone" href="tel:+79999999999">+7 (999) 999-99-99</a>
+          <a class="header__icon" href="cart.html" aria-label="Корзина">
+            <img src="./images/icons/shopping-bag.svg" alt="" width="24" height="24">
+          </a>
+          <button class="header__icon header__icon--burger" type="button" aria-label="Меню" aria-controls="mobilemenu" aria-expanded="false">
+            <img src="./images/icons/burger-menu.svg" alt="" width="24" height="24">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="header__sub">
+      <div class="container header__subinner">
+        <nav class="header__subnav">
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Мужчинам
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="vests">Жилеты, безрукавки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="winter-parks">Зимние парки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="winter-suits">Зимние костюмы</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="hoodies">Худи и толстовки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="men" data-catalog-tab="tshirts">Футболки и поло</a>
+            </div>
+          </div>
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Женщинам
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="vests">Жилеты, безрукавки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="winter-parks">Зимние парки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="winter-suits">Зимние костюмы</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="hoodies">Худи и толстовки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="women" data-catalog-tab="tshirts">Футболки и поло</a>
+            </div>
+          </div>
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Детям
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="kids" data-catalog-tab="vests-bombers">Жилеты и бомберы</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="kids" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="kids" data-catalog-tab="parks-jackets">Парки и куртки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="kids" data-catalog-tab="hoodies">Худи и толстовки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="kids" data-catalog-tab="tshirts">Футболки</a>
+            </div>
+          </div>
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Аксессуары
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="accessories" data-catalog-tab="caps">Кепки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="accessories" data-catalog-tab="hats">Шапки</a>
+              <a class="header__submenu-link" href="index.html#catalog" data-catalog-category="accessories" data-catalog-tab="mittens">Варежки</a>
+            </div>
+          </div>
+          <a class="header__subnavlink--accent" href="#">FAMILY LOOK</a>
+          <a class="header__subnavlink--accent" href="#">МЕРЧ</a>
+          <a class="header__subnavlink--accent" href="index.html#showcase">ХИТЫ</a>
+        </nav>
+        <label class="header__search">
+          <span class="header__search-icon">
+            <img src="./images/icons/search.svg" alt="" width="20" height="20">
+          </span>
+          <input type="text" placeholder="Поиск товара">
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobilemenu" id="mobilemenu" aria-hidden="true">
+    <div class="mobilemenu__panel">
+      <div class="mobilemenu__head">
+        <p class="mobilemenu__logo">АЙДАSPORT</p>
+        <button class="mobilemenu__close" type="button" aria-label="Закрыть меню">✕</button>
+      </div>
+
+      <nav class="mobilemenu__nav">
+        <a href="index.html#about">О нас</a>
+        <div class="mobilemenu__subnav">
+          <a href="#">О бренде</a>
+          <a href="#">Доставка и оплата</a>
+          <a href="#">Возврат и обмен</a>
+          <a href="index.html#contacts">Контакты и адреса</a>
+        </div>
+        <div class="mobilemenu__line"></div>
+        <a href="index.html#catalog">Каталог</a>
+        <a href="corporate.html">Корпоративным клиентам</a>
+        <a href="index.html#contacts">Контакты</a>
+      </nav>
+
+      <div class="mobilemenu__contacts">
+        <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+        <a href="mailto:example@mail.ru">example@mail.ru</a>
+      </div>
+
+      <div class="mobilemenu__socials">
+        <a href="#" aria-label="VK">
+          <img src="./images/icons/vk.svg" alt="" width="40" height="40">
+        </a>
+        <a href="#" aria-label="Telegram">
+          <img src="./images/icons/tg.svg" alt="" width="40" height="40">
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <img src="./images/icons/wa.svg" alt="" width="40" height="40">
+        </a>
+        <a href="#" aria-label="MAX">
+          <img src="./images/icons/max.svg" alt="" width="40" height="40">
+        </a>
+      </div>
+
+      <button class="mobilemenu__catalog btn btn--white" type="button">В каталог</button>
+    </div>
+  </div>
+
+  <main class="cartpage">
+    <div class="container">
+      <a class="return" href="index.html#catalog">Вернуться в каталог</a>
+
+      <div class="cartpage__inner">
+        <section class="cartpage__basket" aria-labelledby="cart-title">
+          <h1 class="cartpage__title" id="cart-title">Корзина с покупками (4)</h1>
+
+          <div class="cartpage__list">
+            <article class="cartpage__item">
+              <a class="cartpage__thumb" href="product.html">
+                <img src="./images/cart/item.jpg" alt="Демисезонная куртка" width="120" height="120" loading="lazy">
+              </a>
+              <div class="cartpage__itembody">
+                <div class="cartpage__itemhead">
+                  <div class="cartpage__iteminfo">
+                    <h2 class="cartpage__itemname">Демисезонная куртка</h2>
+                    <p class="cartpage__itemunit">12 500 ₽ / шт</p>
+                  </div>
+                  <button class="cartpage__remove" type="button" aria-label="Удалить товар">
+                    <img src="./images/icons/trash.svg" alt="" width="24" height="24">
+                  </button>
+                </div>
+                <div class="cartpage__itemfoot">
+                  <div class="cartpage__controls">
+                    <div class="cartpage__qty" aria-label="Количество">
+                      <button class="cartpage__qtybtn" type="button" aria-label="Уменьшить количество">-</button>
+                      <span class="cartpage__qtyvalue">1</span>
+                      <button class="cartpage__qtybtn" type="button" aria-label="Увеличить количество">+</button>
+                    </div>
+                    <div class="cartpage__size">
+                      <select class="cartpage__sizeselect" id="cart-size-1" name="size-1" aria-label="Размер">
+                        <option value="s" selected>S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                      </select>
+                    </div>
+                  </div>
+                  <p class="cartpage__itemprice">12 500 ₽</p>
+                </div>
+              </div>
+            </article>
+
+            <hr class="cartpage__divider">
+
+            <article class="cartpage__item">
+              <a class="cartpage__thumb" href="product.html">
+                <img src="./images/cart/item.jpg" alt="Демисезонная куртка" width="120" height="120" loading="lazy">
+              </a>
+              <div class="cartpage__itembody">
+                <div class="cartpage__itemhead">
+                  <div class="cartpage__iteminfo">
+                    <h2 class="cartpage__itemname">Демисезонная куртка</h2>
+                    <p class="cartpage__itemunit">12 500 ₽ / шт</p>
+                  </div>
+                  <button class="cartpage__remove" type="button" aria-label="Удалить товар">
+                    <img src="./images/icons/trash.svg" alt="" width="24" height="24">
+                  </button>
+                </div>
+                <div class="cartpage__itemfoot">
+                  <div class="cartpage__controls">
+                    <div class="cartpage__qty" aria-label="Количество">
+                      <button class="cartpage__qtybtn" type="button" aria-label="Уменьшить количество">-</button>
+                      <span class="cartpage__qtyvalue">1</span>
+                      <button class="cartpage__qtybtn" type="button" aria-label="Увеличить количество">+</button>
+                    </div>
+                    <div class="cartpage__size">
+                      <select class="cartpage__sizeselect" id="cart-size-2" name="size-2" aria-label="Размер">
+                        <option value="s" selected>S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                      </select>
+                    </div>
+                  </div>
+                  <p class="cartpage__itemprice">12 500 ₽</p>
+                </div>
+              </div>
+            </article>
+
+            <hr class="cartpage__divider">
+
+            <article class="cartpage__item">
+              <a class="cartpage__thumb" href="product.html">
+                <img src="./images/cart/item.jpg" alt="Демисезонная куртка" width="120" height="120" loading="lazy">
+              </a>
+              <div class="cartpage__itembody">
+                <div class="cartpage__itemhead">
+                  <div class="cartpage__iteminfo">
+                    <h2 class="cartpage__itemname">Демисезонная куртка</h2>
+                    <p class="cartpage__itemunit">12 500 ₽ / шт</p>
+                  </div>
+                  <button class="cartpage__remove" type="button" aria-label="Удалить товар">
+                    <img src="./images/icons/trash.svg" alt="" width="24" height="24">
+                  </button>
+                </div>
+                <div class="cartpage__itemfoot">
+                  <div class="cartpage__controls">
+                    <div class="cartpage__qty" aria-label="Количество">
+                      <button class="cartpage__qtybtn" type="button" aria-label="Уменьшить количество">-</button>
+                      <span class="cartpage__qtyvalue">1</span>
+                      <button class="cartpage__qtybtn" type="button" aria-label="Увеличить количество">+</button>
+                    </div>
+                    <div class="cartpage__size">
+                      <select class="cartpage__sizeselect" id="cart-size-3" name="size-3" aria-label="Размер">
+                        <option value="s" selected>S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="cartpage__pricebox">
+                    <p class="cartpage__priceold">17 500 ₽</p>
+                    <p class="cartpage__itemprice">12 500 ₽</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <hr class="cartpage__divider">
+
+            <article class="cartpage__item">
+              <a class="cartpage__thumb" href="product.html">
+                <img src="./images/cart/item.jpg" alt="Демисезонная куртка" width="120" height="120" loading="lazy">
+              </a>
+              <div class="cartpage__itembody">
+                <div class="cartpage__itemhead">
+                  <div class="cartpage__iteminfo">
+                    <h2 class="cartpage__itemname">Демисезонная куртка</h2>
+                    <p class="cartpage__itemunit">12 500 ₽ / шт</p>
+                  </div>
+                  <button class="cartpage__remove" type="button" aria-label="Удалить товар">
+                    <img src="./images/icons/trash.svg" alt="" width="24" height="24">
+                  </button>
+                </div>
+                <div class="cartpage__itemfoot">
+                  <div class="cartpage__controls">
+                    <div class="cartpage__qty" aria-label="Количество">
+                      <button class="cartpage__qtybtn" type="button" aria-label="Уменьшить количество">-</button>
+                      <span class="cartpage__qtyvalue">1</span>
+                      <button class="cartpage__qtybtn" type="button" aria-label="Увеличить количество">+</button>
+                    </div>
+                    <div class="cartpage__size">
+                      <select class="cartpage__sizeselect" id="cart-size-4" name="size-4" aria-label="Размер">
+                        <option value="s" selected>S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                      </select>
+                    </div>
+                  </div>
+                  <p class="cartpage__itemprice">12 500 ₽</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="cartpage__promo">
+            <input class="cartpage__promoinput" id="cart-promo" type="text" placeholder="Промокод" aria-label="Промокод">
+            <button class="cartpage__promobtn" type="button">Активировать</button>
+          </div>
+
+          <div class="cartpage__totals">
+            <div class="cartpage__totalrows">
+              <div class="cartpage__totalrow">
+                <span>Общая стоимость</span>
+                <span>3 400 ₽</span>
+              </div>
+              <div class="cartpage__totalrow">
+                <span>Стоимость доставки</span>
+                <span>400 ₽</span>
+              </div>
+              <div class="cartpage__totalrow">
+                <span>Скидка</span>
+                <span>- 400 ₽</span>
+              </div>
+            </div>
+            <hr class="cartpage__divider">
+            <div class="cartpage__totalrow cartpage__totalrow--grand">
+              <span>ИТОГО</span>
+              <span>3 800 ₽</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="cartpage__checkout" aria-labelledby="checkout-title">
+          <h2 class="cartpage__title" id="checkout-title">Оформление заказа</h2>
+
+          <form class="cartpage__form" action="#" method="post">
+            <div class="cartpage__section">
+              <h3 class="cartpage__sectiontitle">Контактные данные</h3>
+              <div class="cartpage__fields">
+                <label class="cartpage__field">
+                  <span class="cartpage__label">ФИО</span>
+                  <input class="cartpage__input" type="text" name="name" placeholder="Иванов Иван" autocomplete="name">
+                </label>
+                <label class="cartpage__field">
+                  <span class="cartpage__label">Номер телефона</span>
+                  <input class="cartpage__input" type="tel" name="phone" placeholder="+7 (999) 000-00-00" autocomplete="tel">
+                </label>
+                <label class="cartpage__field">
+                  <span class="cartpage__label">Электронная почта</span>
+                  <input class="cartpage__input" type="email" name="email" placeholder="example@mail.ru" autocomplete="email">
+                </label>
+              </div>
+            </div>
+
+            <div class="cartpage__section">
+              <h3 class="cartpage__sectiontitle">Способ доставки</h3>
+              <div class="cartpage__radios">
+                <label class="cartpage__radio">
+                  <input type="radio" name="delivery" value="cdek">
+                  <span class="cartpage__radiomark"></span>
+                  <span class="cartpage__radiotext">ПВЗ Сдэк</span>
+                </label>
+                <label class="cartpage__radio">
+                  <input type="radio" name="delivery" value="pickup" checked>
+                  <span class="cartpage__radiomark"></span>
+                  <span class="cartpage__radiotext">Самовывоз</span>
+                </label>
+              </div>
+              <div class="cartpage__fields">
+                <label class="cartpage__field">
+                  <span class="cartpage__label">Город</span>
+                  <input class="cartpage__input" type="text" name="city" placeholder="Город" autocomplete="address-level2">
+                </label>
+                <label class="cartpage__field">
+                  <span class="cartpage__label">Улица</span>
+                  <input class="cartpage__input" type="text" name="street" placeholder="Улица" autocomplete="street-address">
+                </label>
+                <div class="cartpage__row cartpage__row--3">
+                  <label class="cartpage__field">
+                    <span class="cartpage__label">Дом</span>
+                    <input class="cartpage__input" type="text" name="house" placeholder="22">
+                  </label>
+                  <label class="cartpage__field">
+                    <span class="cartpage__label">Корпус</span>
+                    <input class="cartpage__input" type="text" name="building" placeholder="1">
+                  </label>
+                  <label class="cartpage__field">
+                    <span class="cartpage__label">Квартира</span>
+                    <input class="cartpage__input" type="text" name="apartment" placeholder="15">
+                  </label>
+                </div>
+                <label class="cartpage__field">
+                  <span class="cartpage__label">Индекс</span>
+                  <input class="cartpage__input" type="text" name="zip" placeholder="Индекс" autocomplete="postal-code">
+                </label>
+              </div>
+            </div>
+
+            <div class="cartpage__section">
+              <h3 class="cartpage__sectiontitle">Оплата</h3>
+              <div class="cartpage__radios">
+                <label class="cartpage__radio">
+                  <input type="radio" name="payment" value="sbp">
+                  <span class="cartpage__radiomark"></span>
+                  <span class="cartpage__radiotext">СПБ (Система быстрых платежей)</span>
+                </label>
+                <label class="cartpage__radio">
+                  <input type="radio" name="payment" value="card" checked>
+                  <span class="cartpage__radiomark"></span>
+                  <span class="cartpage__radiotext">Банковская карта</span>
+                </label>
+              </div>
+              <div class="cartpage__fields">
+                <label class="cartpage__field">
+                  <span class="cartpage__label">Номер карты</span>
+                  <input class="cartpage__input" type="text" name="card-number" placeholder="Номер карты" inputmode="numeric" autocomplete="cc-number">
+                </label>
+                <div class="cartpage__row cartpage__row--2">
+                  <label class="cartpage__field">
+                    <span class="cartpage__label">Дата</span>
+                    <input class="cartpage__input" type="text" name="card-date" placeholder="ГГ/ММ" inputmode="numeric" autocomplete="cc-exp">
+                  </label>
+                  <label class="cartpage__field">
+                    <span class="cartpage__label">CVV/CVC</span>
+                    <input class="cartpage__input" type="text" name="card-cvv" placeholder="123" inputmode="numeric" autocomplete="cc-csc">
+                  </label>
+                </div>
+              </div>
+              <label class="cartpage__agree">
+                <input type="checkbox" name="agree" checked>
+                <span class="cartpage__checkbox"></span>
+                <span>Я принимаю условия <a href="#">публичной оферты</a> и даю согласие на <a href="#">обработку персональных данных</a></span>
+              </label>
+            </div>
+
+            <button class="cartpage__submit" type="submit">Оформить заказ</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p>АЙДАSPORT</p>
+          <a href="#">ИП Сулейманова Сафина Рустэмовна</a>
+        </div>
+        <div class="footer__columns">
+          <div>
+            <h3>Каталог</h3>
+            <a href="#">Мужчинам</a>
+            <a href="#">Женщинам</a>
+            <a href="#">Детям</a>
+            <a href="#">Аксессуары</a>
+          </div>
+          <div>
+            <h3>Партнерам</h3>
+            <a href="#">Экипировка</a>
+            <a href="#">Мерч</a>
+            <a href="#">Партнерство</a>
+            <a href="#">Этапы работы</a>
+          </div>
+          <div>
+            <h3>О нас</h3>
+            <a href="#">О бренде</a>
+            <a href="#">Доставка и оплата</a>
+            <a href="#">Возврат и обмен</a>
+            <a href="#">Контакты и адреса</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__line"></div>
+      <div class="footer__bottom">
+        <div class="footer__legal">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Публичная оферта</a>
+        </div>
+        <div class="footer__contact">
+          <p>+7 (999) 999-99-99</p>
+          <p>example@mail.ru</p>
+        </div>
+        <div class="footer__socials">
+          <a href="#" aria-label="VK">
+            <img src="./images/icons/vk.svg" alt="" width="50" height="50">
+          </a>
+          <a href="#" aria-label="Telegram">
+            <img src="./images/icons/tg.svg" alt="" width="50" height="50">
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <img src="./images/icons/wa.svg" alt="" width="50" height="50">
+          </a>
+          <a href="#" aria-label="MAX">
+            <img src="./images/icons/max.svg" alt="" width="50" height="50">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

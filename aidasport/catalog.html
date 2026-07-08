@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог — АЙДА SPORT</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header__top">
+      <div class="container header__topinner">
+        <a class="header__logo" href="index.html">АЙДАSPORT</a>
+        <nav class="header__topnav">
+          <a href="about-brand.html">О нас</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="corporate.html">Корпоративным клиентам</a>
+          <a href="index.html#contacts">Контакты</a>
+        </nav>
+        <div class="header__actions">
+          <a class="header__phone" href="tel:+79999999999">+7 (999) 999-99-99</a>
+          <a class="header__icon" href="cart.html" aria-label="Корзина">
+            <img src="./images/icons/shopping-bag.svg" alt="" width="24" height="24">
+          </a>
+          <button class="header__icon header__icon--burger" type="button" aria-label="Меню" aria-controls="mobilemenu" aria-expanded="false">
+            <img src="./images/icons/burger-menu.svg" alt="" width="24" height="24">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="header__sub">
+      <div class="container header__subinner">
+        <nav class="header__subnav">
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Мужчинам
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=vests" data-catalog-category="men" data-catalog-tab="vests">Жилеты, безрукавки</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=bombers" data-catalog-category="men" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=midseason-jackets" data-catalog-category="men" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=winter-parks" data-catalog-category="men" data-catalog-tab="winter-parks">Зимние парки</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=winter-suits" data-catalog-category="men" data-catalog-tab="winter-suits">Зимние костюмы</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=tracksuits" data-catalog-category="men" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=hoodies" data-catalog-category="men" data-catalog-tab="hoodies">Худи и толстовки</a>
+              <a class="header__submenu-link" href="catalog.html?category=men&amp;tab=tshirts" data-catalog-category="men" data-catalog-tab="tshirts">Футболки и поло</a>
+            </div>
+          </div>
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Женщинам
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=vests" data-catalog-category="women" data-catalog-tab="vests">Жилеты, безрукавки</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=bombers" data-catalog-category="women" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=midseason-jackets" data-catalog-category="women" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=winter-parks" data-catalog-category="women" data-catalog-tab="winter-parks">Зимние парки</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=winter-suits" data-catalog-category="women" data-catalog-tab="winter-suits">Зимние костюмы</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=tracksuits" data-catalog-category="women" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=hoodies" data-catalog-category="women" data-catalog-tab="hoodies">Худи и толстовки</a>
+              <a class="header__submenu-link" href="catalog.html?category=women&amp;tab=tshirts" data-catalog-category="women" data-catalog-tab="tshirts">Футболки и поло</a>
+            </div>
+          </div>
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Детям
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="catalog.html?category=kids&amp;tab=vests-bombers" data-catalog-category="kids" data-catalog-tab="vests-bombers">Жилеты и бомберы</a>
+              <a class="header__submenu-link" href="catalog.html?category=kids&amp;tab=tracksuits" data-catalog-category="kids" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+              <a class="header__submenu-link" href="catalog.html?category=kids&amp;tab=parks-jackets" data-catalog-category="kids" data-catalog-tab="parks-jackets">Парки и куртки</a>
+              <a class="header__submenu-link" href="catalog.html?category=kids&amp;tab=hoodies" data-catalog-category="kids" data-catalog-tab="hoodies">Худи и толстовки</a>
+              <a class="header__submenu-link" href="catalog.html?category=kids&amp;tab=tshirts" data-catalog-category="kids" data-catalog-tab="tshirts">Футболки</a>
+            </div>
+          </div>
+          <div class="header__subitem">
+            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+              Аксессуары
+              <span class="header__subicon">
+                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+              </span>
+            </button>
+            <div class="header__submenu">
+              <a class="header__submenu-link" href="catalog.html?category=accessories&amp;tab=caps" data-catalog-category="accessories" data-catalog-tab="caps">Кепки</a>
+              <a class="header__submenu-link" href="catalog.html?category=accessories&amp;tab=hats" data-catalog-category="accessories" data-catalog-tab="hats">Шапки</a>
+              <a class="header__submenu-link" href="catalog.html?category=accessories&amp;tab=mittens" data-catalog-category="accessories" data-catalog-tab="mittens">Варежки</a>
+            </div>
+          </div>
+          <a class="header__subnavlink--accent" href="catalog.html#familylook">FAMILY LOOK</a>
+          <a class="header__subnavlink--accent" href="catalog.html#merch">МЕРЧ</a>
+          <a class="header__subnavlink--accent" href="catalog.html#hits">ХИТЫ</a>
+        </nav>
+        <label class="header__search">
+          <span class="header__search-icon">
+            <img src="./images/icons/search.svg" alt="" width="20" height="20">
+          </span>
+          <input type="text" placeholder="Поиск товара">
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobilemenu" id="mobilemenu" aria-hidden="true">
+    <div class="mobilemenu__panel">
+      <div class="mobilemenu__head">
+        <p class="mobilemenu__logo">АЙДАSPORT</p>
+        <button class="mobilemenu__close" type="button" aria-label="Закрыть меню">✕</button>
+      </div>
+
+      <nav class="mobilemenu__nav">
+        <a href="index.html#about">О нас</a>
+        <div class="mobilemenu__subnav">
+          <a href="#">О бренде</a>
+          <a href="#">Доставка и оплата</a>
+          <a href="#">Возврат и обмен</a>
+          <a href="index.html#contacts">Контакты и адреса</a>
+        </div>
+        <div class="mobilemenu__line"></div>
+        <a href="catalog.html">Каталог</a>
+        <a href="corporate.html">Корпоративным клиентам</a>
+        <a href="index.html#contacts">Контакты</a>
+      </nav>
+
+      <div class="mobilemenu__contacts">
+        <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+        <a href="mailto:example@mail.ru">example@mail.ru</a>
+      </div>
+
+      <div class="mobilemenu__socials">
+        <a href="#" aria-label="VK">
+          <img src="./images/icons/vk.svg" alt="" width="40" height="40">
+        </a>
+        <a href="#" aria-label="Telegram">
+          <img src="./images/icons/tg.svg" alt="" width="40" height="40">
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <img src="./images/icons/wa.svg" alt="" width="40" height="40">
+        </a>
+        <a href="#" aria-label="MAX">
+          <img src="./images/icons/max.svg" alt="" width="40" height="40">
+        </a>
+      </div>
+
+      <button class="mobilemenu__catalog btn btn--white" type="button">В каталог</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <a class="return" href="index.html">Вернуться на главную</a>
+    </div>
+
+    <section class="catalogpage" data-active-category="women" data-active-tab="vests">
+      <div class="container">
+        <div class="catalogpage__genders" role="tablist" aria-label="Раздел каталога">
+          <button class="catalogpage__gender catalogpage__gender--active" type="button" role="tab" data-catalog-category="women" aria-selected="true">Женщинам</button>
+          <button class="catalogpage__gender" type="button" role="tab" data-catalog-category="men" aria-selected="false">Мужчинам</button>
+          <button class="catalogpage__gender" type="button" role="tab" data-catalog-category="kids" aria-selected="false">Детям</button>
+          <button class="catalogpage__gender" type="button" role="tab" data-catalog-category="accessories" aria-selected="false">Аксессуары</button>
+        </div>
+
+        <div class="catalogpage__layout">
+          <aside class="catalogpage__sidebar">
+            <ul class="catalogpage__nav"></ul>
+          </aside>
+
+          <div class="catalogpage__content">
+            <div class="catalogpage__toolbar">
+              <button class="catalogpage__categoryselect" type="button" aria-expanded="false">
+                Все товары
+                <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+              </button>
+              <button class="catalogpage__filterstoggle" type="button" aria-expanded="false">
+                Фильтры
+                <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+              </button>
+              <label class="catalogpage__search catalogpage__search--toolbar">
+                <img src="./images/icons/search.svg" alt="" width="20" height="20">
+                <input type="search" placeholder="Поиск">
+              </label>
+              <button class="catalogpage__searchbtn" type="button" aria-label="Поиск">
+                <img src="./images/icons/search.svg" alt="" width="16" height="16">
+              </button>
+            </div>
+            <div class="catalogpage__categorymenu" hidden></div>
+
+            <div class="catalogpage__filterspanel">
+              <div class="catalogpage__filtersdropdown">
+                <button class="catalogpage__filterssection" type="button" aria-expanded="true" data-filters-toggle="color">
+                  <span>Цвет</span>
+                  <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+                </button>
+
+                <div class="catalogpage__filtersbody catalogpage__filtersbody--open" data-filters-body="color">
+                  <div class="catalogpage__filterscolors">
+                    <label class="catalogpage__filterscolor">
+                      <span class="catalogpage__filtersdot catalogpage__filtersdot--white"></span>
+                      <span>Белый</span>
+                      <input type="checkbox" name="color-white">
+                      <span class="catalogpage__filterscheck"></span>
+                    </label>
+                    <label class="catalogpage__filterscolor">
+                      <span class="catalogpage__filtersdot catalogpage__filtersdot--black"></span>
+                      <span>Черный</span>
+                      <input type="checkbox" name="color-black" checked>
+                      <span class="catalogpage__filterscheck"></span>
+                    </label>
+                    <label class="catalogpage__filterscolor">
+                      <span class="catalogpage__filtersdot catalogpage__filtersdot--beige"></span>
+                      <span>Бежевый</span>
+                      <input type="checkbox" name="color-beige">
+                      <span class="catalogpage__filterscheck"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="catalogpage__filtersline"></div>
+
+                <button class="catalogpage__filterssection" type="button" aria-expanded="false" data-filters-toggle="size">
+                  <span>Размер</span>
+                  <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+                </button>
+                <div class="catalogpage__filtersbody" data-filters-body="size">
+                  <div class="catalogpage__filterssizes">
+                    <label class="catalogpage__filterssize">
+                      <input type="checkbox" name="size-xs">
+                      <span>XS</span>
+                    </label>
+                    <label class="catalogpage__filterssize">
+                      <input type="checkbox" name="size-s">
+                      <span>S</span>
+                    </label>
+                    <label class="catalogpage__filterssize">
+                      <input type="checkbox" name="size-m" checked>
+                      <span>M</span>
+                    </label>
+                    <label class="catalogpage__filterssize">
+                      <input type="checkbox" name="size-l">
+                      <span>L</span>
+                    </label>
+                    <label class="catalogpage__filterssize">
+                      <input type="checkbox" name="size-xl">
+                      <span>XL</span>
+                    </label>
+                    <label class="catalogpage__filterssize">
+                      <input type="checkbox" name="size-xxl">
+                      <span>XXL</span>
+                    </label>
+                  </div>
+                </div>
+
+                <button class="catalogpage__filterssection" type="button" aria-expanded="false" data-filters-toggle="price">
+                  <span>Цена</span>
+                  <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+                </button>
+                <div class="catalogpage__filtersbody" data-filters-body="price">
+                  <div class="catalogpage__priceslider" data-price-slider>
+                    <div class="catalogpage__priceslidertrack"></div>
+                    <div class="catalogpage__pricesliderfill" data-price-fill></div>
+                    <input class="catalogpage__pricerange catalogpage__pricerange--min" type="range" min="999" max="27999" step="100" value="999" data-price-min>
+                    <input class="catalogpage__pricerange catalogpage__pricerange--max" type="range" min="999" max="27999" step="100" value="27999" data-price-max>
+                  </div>
+                  <div class="catalogpage__pricesummary">
+                    <p data-price-min-label>от 999₽</p>
+                    <p data-price-max-label>до 27 999₽</p>
+                  </div>
+                  <label class="catalogpage__priceorder">
+                    <select name="price-order">
+                      <option value="desc">Сначала дороже</option>
+                      <option value="asc">Сначала дешевле</option>
+                    </select>
+                    <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+                  </label>
+                </div>
+
+                <button class="catalogpage__filterssection" type="button" aria-expanded="false" data-filters-toggle="availability">
+                  <span>Наличие</span>
+                  <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+                </button>
+                <div class="catalogpage__filtersbody" data-filters-body="availability">
+                  <label class="catalogpage__filtersprice">
+                    <input type="checkbox" name="availability-instock" checked>
+                    <span>В наличии</span>
+                  </label>
+                  <label class="catalogpage__filtersprice">
+                    <input type="checkbox" name="availability-preorder">
+                    <span>Под заказ</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="catalogpage__filters">
+              <button class="catalogpage__filter" type="button" data-filters-open="color">
+                Цвет
+                <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+              </button>
+              <button class="catalogpage__filter" type="button" data-filters-open="size">
+                Размер
+                <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+              </button>
+              <button class="catalogpage__filter" type="button" data-filters-open="price">
+                Цена
+                <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+              </button>
+              <button class="catalogpage__filter" type="button" data-filters-open="availability">
+                Наличие
+                <img src="./images/icons/dropdown.svg" alt="" width="11" height="13">
+              </button>
+              <label class="catalogpage__search">
+                <img src="./images/icons/search.svg" alt="" width="20" height="20">
+                <input type="search" placeholder="Поиск">
+              </label>
+            </div>
+
+            <div class="catalogpage__grid">
+              <article class="product product__card catalogpage__card" data-price="14995" data-sale="14">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits2.jpg" alt="Парка зимняя" width="274" height="400" loading="lazy">
+                </a>
+                <span class="product__sale"></span>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Парка зимняя</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="2700">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits3.jpg" alt="Футболка" width="274" height="400" loading="lazy">
+                </a>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Футболка</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="17500">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+                </a>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Спортивный костюм</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="14995" data-sale="14">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits2.jpg" alt="Парка зимняя" width="274" height="400" loading="lazy">
+                </a>
+                <span class="product__sale"></span>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Парка зимняя</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="2700">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits3.jpg" alt="Футболка" width="274" height="400" loading="lazy">
+                </a>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Футболка</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="17500">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+                </a>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Спортивный костюм</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="14995" data-sale="14">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits2.jpg" alt="Парка зимняя" width="274" height="400" loading="lazy">
+                </a>
+                <span class="product__sale"></span>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Парка зимняя</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="2700">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits3.jpg" alt="Футболка" width="274" height="400" loading="lazy">
+                </a>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Футболка</h3>
+                <p class="product__price"></p>
+              </article>
+              <article class="product product__card catalogpage__card" data-price="17500">
+                <a class="product__image" href="product.html">
+                  <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+                </a>
+                <button class="product__cart" type="button" aria-label="В корзину">
+                  <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                </button>
+                <h3>Спортивный костюм</h3>
+                <p class="product__price"></p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section banner" id="new-collection">
+      <div class="container">
+        <div class="banner__wrapper">
+          <div class="container banner__container">
+            <div class="banner__content">
+              <h2>НОВАЯ<br>КОЛЛЕКЦИЯ</h2>
+              <button class="btn btn--transparent" type="button">Перейти к товарам</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section familylook" id="familylook">
+      <div class="container">
+        <div class="section__head">
+          <h2>Family look</h2>
+          <div class="familylook__controls">
+            <button class="familylook__swiperprev" type="button" aria-label="Назад">
+              <img src="./images/icons/left-arrow.svg" alt="" width="18" height="18">
+            </button>
+            <button class="familylook__swipernext" type="button" aria-label="Вперед">
+              <img src="./images/icons/right-arrow.svg" alt="" width="18" height="18">
+            </button>
+          </div>
+        </div>
+
+        <div class="familylook__slider swiper">
+          <div class="familylook__swiperwrapper">
+            <div class="familylook__slide familylook__swiperslide">
+              <div class="familylook__hero">
+                <img src="./images/familylook/main.jpg" alt="Family look" width="554" height="649" loading="lazy">
+              </div>
+              <div class="familylook__products">
+                <article class="product product__card familylook__card">
+                  <a class="product__image" href="product.html">
+                    <img src="./images/hits1.jpg" alt="Зимний костюм детский" width="271" height="260" loading="lazy">
+                  </a>
+                  <button class="product__cart" type="button" aria-label="В корзину">
+                    <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                  </button>
+                  <div class="familylook__info">
+                    <h3>Зимний костюм детский</h3>
+                    <p class="product__price">ХХХ ₽</p>
+                  </div>
+                </article>
+                <article class="product product__card familylook__card">
+                  <a class="product__image" href="product.html">
+                    <img src="./images/hits2.jpg" alt="Зимний костюм женский" width="271" height="260" loading="lazy">
+                  </a>
+                  <button class="product__cart" type="button" aria-label="В корзину">
+                    <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                  </button>
+                  <div class="familylook__info">
+                    <h3>Зимний костюм женский</h3>
+                    <p class="product__price">ХХХ ₽</p>
+                  </div>
+                </article>
+                <article class="product product__card familylook__card">
+                  <a class="product__image" href="product.html">
+                    <img src="./images/hits4.jpg" alt="Зимний костюм мужской" width="271" height="260" loading="lazy">
+                  </a>
+                  <button class="product__cart" type="button" aria-label="В корзину">
+                    <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                  </button>
+                  <div class="familylook__info">
+                    <h3>Зимний костюм мужской</h3>
+                    <p class="product__price">ХХХ ₽</p>
+                  </div>
+                </article>
+                <article class="product product__card familylook__card" data-price="14995" data-sale="14">
+                  <a class="product__image" href="product.html">
+                    <img src="./images/hits2.jpg" alt="Парка зимняя" width="271" height="260" loading="lazy">
+                  </a>
+                  <span class="product__sale"></span>
+                  <button class="product__cart" type="button" aria-label="В корзину">
+                    <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+                  </button>
+                  <div class="familylook__info">
+                    <h3>Парка зимняя</h3>
+                    <p class="product__price"></p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="familylook__swiperpagination" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="section showcase" id="hits">
+      <div class="container">
+        <div class="section__head">
+          <h2>Хиты продаж</h2>
+          <div class="showcase__controls">
+            <button class="showcase__swiperprev" type="button" aria-label="Назад">
+              <img src="./images/icons/left-arrow.svg" alt="" width="18" height="18">
+            </button>
+            <button class="showcase__swipernext" type="button" aria-label="Вперед">
+              <img src="./images/icons/right-arrow.svg" alt="" width="18" height="18">
+            </button>
+          </div>
+        </div>
+
+        <div class="showcase__slider swiper">
+          <div class="showcase__swiperwrapper">
+            <article class="product product__card showcase__swiperslide" data-price="5900">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits1.jpg" alt="Женский жилет" width="274" height="400" loading="lazy">
+              </a>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Женский жилет</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="17500" data-sale="14">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits2.jpg" alt="Парка зимняя" width="274" height="400" loading="lazy">
+              </a>
+              <span class="product__sale"></span>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Парка зимняя</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="2700">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits3.jpg" alt="Футболка" width="274" height="400" loading="lazy">
+              </a>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Футболка</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="17500">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+              </a>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Спортивный костюм</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="17500">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+              </a>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Спортивный костюм</h3>
+              <p class="product__price"></p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section showcase" id="sales">
+      <div class="container">
+        <div class="section__head">
+          <h2>Акции</h2>
+          <div class="showcase__controls">
+            <button class="showcase__swiperprev" type="button" aria-label="Назад">
+              <img src="./images/icons/left-arrow.svg" alt="" width="18" height="18">
+            </button>
+            <button class="showcase__swipernext" type="button" aria-label="Вперед">
+              <img src="./images/icons/right-arrow.svg" alt="" width="18" height="18">
+            </button>
+          </div>
+        </div>
+
+        <div class="showcase__slider swiper">
+          <div class="showcase__swiperwrapper">
+            <article class="product product__card showcase__swiperslide" data-price="14995" data-sale="14">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits2.jpg" alt="Парка зимняя" width="274" height="400" loading="lazy">
+              </a>
+              <span class="product__sale"></span>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Парка зимняя</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="17500" data-sale="14">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+              </a>
+              <span class="product__sale"></span>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Спортивный костюм</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="5900" data-sale="10">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits1.jpg" alt="Женский жилет" width="274" height="400" loading="lazy">
+              </a>
+              <span class="product__sale"></span>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Женский жилет</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="2700">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits3.jpg" alt="Футболка" width="274" height="400" loading="lazy">
+              </a>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Футболка</h3>
+              <p class="product__price"></p>
+            </article>
+            <article class="product product__card showcase__swiperslide" data-price="17500" data-sale="14">
+              <a class="product__image" href="product.html">
+                <img src="./images/hits4.jpg" alt="Спортивный костюм" width="274" height="400" loading="lazy">
+              </a>
+              <span class="product__sale"></span>
+              <button class="product__cart" type="button" aria-label="В корзину">
+                <img src="./images/icons/shopping-bag-add.svg" alt="" width="24" height="24">
+              </button>
+              <h3>Спортивный костюм</h3>
+              <p class="product__price"></p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section banner banner--merch" id="merch">
+      <div class="container">
+        <div class="banner__wrapper">
+          <div class="container banner__container">
+            <div class="banner__content">
+              <h2>Мерч<br>и экипировка</h2>
+              <button class="btn btn--transparent" type="button">Перейти к товарам</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalogcta">
+      <div class="container catalogcta__inner">
+        <p class="catalogcta__text">Хотите стать партнером или заказать персональный мерч/экипировку?</p>
+        <a class="btn btn--dark" href="corporate.html">Больше о сотрудничестве</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p>АЙДАSPORT</p>
+          <a href="#">ИП Сулейманова Сафина Рустэмовна</a>
+        </div>
+        <div class="footer__columns">
+          <div>
+            <h3>Каталог</h3>
+            <a href="catalog.html?category=men">Мужчинам</a>
+            <a href="catalog.html?category=women">Женщинам</a>
+            <a href="catalog.html?category=kids">Детям</a>
+            <a href="catalog.html?category=accessories">Аксессуары</a>
+          </div>
+          <div>
+            <h3>Партнерам</h3>
+            <a href="#">Экипировка</a>
+            <a href="#">Мерч</a>
+            <a href="#">Партнерство</a>
+            <a href="#">Этапы работы</a>
+          </div>
+          <div>
+            <h3>О нас</h3>
+            <a href="#">О бренде</a>
+            <a href="#">Доставка и оплата</a>
+            <a href="#">Возврат и обмен</a>
+            <a href="index.html#contacts">Контакты и адреса</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__line"></div>
+      <div class="footer__bottom">
+        <div class="footer__legal">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Публичная оферта</a>
+        </div>
+        <div class="footer__contact">
+          <p>+7 (999) 999-99-99</p>
+          <p>example@mail.ru</p>
+        </div>
+        <div class="footer__socials">
+          <a href="#" aria-label="VK">
+            <img src="./images/icons/vk.svg" alt="" width="50" height="50">
+          </a>
+          <a href="#" aria-label="Telegram">
+            <img src="./images/icons/tg.svg" alt="" width="50" height="50">
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <img src="./images/icons/wa.svg" alt="" width="50" height="50">
+          </a>
+          <a href="#" aria-label="MAX">
+            <img src="./images/icons/max.svg" alt="" width="50" height="50">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/swiper-bundle.min.js"></script>
+  <script src="./js/catalog-page.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
