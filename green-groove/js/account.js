@@ -5,14 +5,332 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!account) return;
 
     initAccountSidebarTabs(account);
+    initAccountProfile(account);
     initAccountAnalytics(account);
+    initAccountFinance(account);
+    initReportActions(account);
+    initReportApproveModals(account);
+});
 
+const ACCOUNT_PROFILE_FIELDS = ['full-name', 'age', 'city', 'about'];
+const ACCOUNT_PROFILE_STORAGE_KEY = 'green-groove-account-profile';
+
+function initAccountProfile(account) {
+    const profile = account.querySelector('.account-profile');
+    if (!profile) return;
+
+    const editBtn = profile.querySelector('[data-profile-edit]');
+    const saveBtn = profile.querySelector('[data-profile-save]');
+    const photo = profile.querySelector('[data-profile-photo]');
+    const photoOpenBtn = profile.querySelector('[data-profile-photo-open]');
+    const photoModal = document.getElementById('account-profile-photo-modal');
+    const photoPreview = photoModal?.querySelector('[data-profile-preview]');
+    const photoFileInput = photoModal?.querySelector('[data-profile-file]');
+    const photoAddBtn = photoModal?.querySelector('[data-profile-file-trigger]');
+
+    loadAccountProfileData(profile, photo, photoPreview);
+    setEditing(false);
+
+    function setEditing(isEditing) {
+        profile.classList.toggle('account-profile--editing', isEditing);
+
+        if (editBtn) editBtn.hidden = isEditing;
+        if (saveBtn) saveBtn.hidden = !isEditing;
+
+        if (isEditing) {
+            ACCOUNT_PROFILE_FIELDS.forEach((fieldName) => {
+                const display = profile.querySelector(`[data-profile-display="${fieldName}"]`);
+                const input = profile.querySelector(`[data-profile-input="${fieldName}"]`);
+
+                if (display && input) {
+                    input.value = display.textContent.trim();
+                }
+            });
+        }
+    }
+
+    function saveProfile() {
+        const data = {};
+
+        ACCOUNT_PROFILE_FIELDS.forEach((fieldName) => {
+            const input = profile.querySelector(`[data-profile-input="${fieldName}"]`);
+            const display = profile.querySelector(`[data-profile-display="${fieldName}"]`);
+
+            if (!input || !display) return;
+
+            const value = input.value.trim();
+            display.textContent = value;
+            data[fieldName] = value;
+        });
+
+        if (photo?.src && !photo.src.startsWith('blob:')) {
+            data.photo = photo.src;
+        }
+
+        try {
+            localStorage.setItem(ACCOUNT_PROFILE_STORAGE_KEY, JSON.stringify(data));
+        } catch (error) {
+            // Демо-режим: если localStorage недоступен, данные остаются в DOM.
+        }
+
+        setEditing(false);
+    }
+
+    function openPhotoModal() {
+        if (!photoModal) return;
+
+        if (photoPreview && photo?.src) {
+            photoPreview.src = photo.src;
+        }
+
+        photoModal.hidden = false;
+        photoModal.setAttribute('aria-hidden', 'false');
+        photoModal.classList.add('account-profile__modal--open');
+    }
+
+    function closePhotoModal() {
+        if (!photoModal) return;
+
+        photoModal.hidden = true;
+        photoModal.setAttribute('aria-hidden', 'true');
+        photoModal.classList.remove('account-profile__modal--open');
+
+        if (photoFileInput) {
+            photoFileInput.value = '';
+        }
+    }
+
+    function applyPhoto(file) {
+        if (!file || !photo) return;
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const dataUrl = typeof reader.result === 'string' ? reader.result : '';
+            if (!dataUrl) return;
+
+            photo.src = dataUrl;
+
+            if (photoPreview) {
+                photoPreview.src = dataUrl;
+            }
+
+            try {
+                const stored = JSON.parse(localStorage.getItem(ACCOUNT_PROFILE_STORAGE_KEY) || '{}');
+                stored.photo = dataUrl;
+                localStorage.setItem(ACCOUNT_PROFILE_STORAGE_KEY, JSON.stringify(stored));
+            } catch (error) {
+                // localStorage может быть недоступен или переполнен в демо.
+            }
+
+            closePhotoModal();
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    editBtn?.addEventListener('click', () => {
+        setEditing(true);
+    });
+
+    saveBtn?.addEventListener('click', () => {
+        saveProfile();
+    });
+
+    photoOpenBtn?.addEventListener('click', () => {
+        openPhotoModal();
+    });
+
+    photoAddBtn?.addEventListener('click', () => {
+        photoFileInput?.click();
+    });
+
+    photoFileInput?.addEventListener('change', () => {
+        const file = photoFileInput.files?.[0];
+        if (file) {
+            applyPhoto(file);
+        }
+    });
+
+    photoModal?.querySelectorAll('[data-profile-modal-close]').forEach((closeEl) => {
+        closeEl.addEventListener('click', () => {
+            closePhotoModal();
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && photoModal && !photoModal.hidden) {
+            closePhotoModal();
+        }
+    });
+}
+
+function loadAccountProfileData(profile, photo, photoPreview) {
+    let data = null;
+
+    try {
+        data = JSON.parse(localStorage.getItem(ACCOUNT_PROFILE_STORAGE_KEY) || 'null');
+    } catch (error) {
+        data = null;
+    }
+
+    if (!data) return;
+
+    ACCOUNT_PROFILE_FIELDS.forEach((fieldName) => {
+        if (!data[fieldName]) return;
+
+        const display = profile.querySelector(`[data-profile-display="${fieldName}"]`);
+        const input = profile.querySelector(`[data-profile-input="${fieldName}"]`);
+
+        if (display) display.textContent = data[fieldName];
+        if (input) input.value = data[fieldName];
+    });
+
+    if (data.photo && photo && !data.photo.startsWith('blob:')) {
+        photo.src = data.photo;
+
+        if (photoPreview) {
+            photoPreview.src = data.photo;
+        }
+    }
+}
+
+function initAccountFinance(account) {
     const finance = account.querySelector('.account-finance');
     if (!finance) return;
 
     const yearPanels = finance.querySelectorAll('.account-finance__year-panel');
     const yearTabs = finance.querySelectorAll('.account-finance__year-btn');
     const yearFallbackPanel = finance.querySelector('.account-finance__year-panel[data-year-fallback]');
+
+    function setActiveTab(tabs, activeTab, activeClass) {
+        tabs.forEach((tab) => {
+            const isActive = tab === activeTab;
+            tab.classList.toggle(activeClass, isActive);
+            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+    }
+
+    function setActivePanel(panels, activePanel, activeClass) {
+        panels.forEach((panel) => {
+            const isActive = panel === activePanel;
+            panel.classList.toggle(activeClass, isActive);
+            panel.hidden = !isActive;
+        });
+    }
+
+    function syncFinanceSortDropdown(yearPanel, quarter) {
+        const options = yearPanel.querySelectorAll('[data-finance-quarter]');
+        const activeOption = yearPanel.querySelector(`[data-finance-quarter="${quarter}"]`);
+
+        options.forEach((option) => {
+            option.classList.toggle('account-finance__sort-option--active', option === activeOption);
+        });
+    }
+
+    function activateQuarter(yearPanel, quarter) {
+        const quarterTabs = yearPanel.querySelectorAll('.account-finance__quarter-btn');
+        const quarterPanels = yearPanel.querySelectorAll('.account-finance__quarter-panel');
+        const tab = yearPanel.querySelector(`.account-finance__quarter-btn[data-quarter="${quarter}"]`);
+        const panel = yearPanel.querySelector(`.account-finance__quarter-panel[data-quarter="${quarter}"]`);
+
+        if (!tab || !panel) return;
+
+        setActiveTab(quarterTabs, tab, 'account-finance__quarter-btn--active');
+        setActivePanel(quarterPanels, panel, 'account-finance__quarter-panel--active');
+
+        quarterTabs.forEach((quarterTab) => {
+            const isActive = quarterTab === tab;
+            quarterTab.classList.toggle('hover-dark-green', isActive);
+            quarterTab.classList.toggle('hover-dark-gray', !isActive);
+        });
+
+        syncFinanceSortDropdown(yearPanel, quarter);
+    }
+
+    function initFinanceSortDropdown(yearPanel) {
+        const dropdown = yearPanel.querySelector('.account-finance__sort-dropdown');
+        if (!dropdown) return;
+
+        const toggle = dropdown.querySelector('.account-finance__sort');
+        const menu = dropdown.querySelector('.account-finance__sort-menu');
+        const options = dropdown.querySelectorAll('[data-finance-quarter]');
+
+        if (!toggle || !menu) return;
+
+        function closeDropdown() {
+            dropdown.classList.remove('account-finance__sort-dropdown--open');
+            toggle.setAttribute('aria-expanded', 'false');
+            menu.hidden = true;
+        }
+
+        function openDropdown() {
+            finance.querySelectorAll('.account-finance__sort-dropdown--open').forEach((openDropdown) => {
+                if (openDropdown === dropdown) return;
+
+                openDropdown.classList.remove('account-finance__sort-dropdown--open');
+                openDropdown.querySelector('.account-finance__sort')?.setAttribute('aria-expanded', 'false');
+                const openMenu = openDropdown.querySelector('.account-finance__sort-menu');
+                if (openMenu) openMenu.hidden = true;
+            });
+
+            dropdown.classList.add('account-finance__sort-dropdown--open');
+            toggle.setAttribute('aria-expanded', 'true');
+            menu.hidden = false;
+        }
+
+        toggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            if (dropdown.classList.contains('account-finance__sort-dropdown--open')) {
+                closeDropdown();
+            } else {
+                openDropdown();
+            }
+        });
+
+        options.forEach((option) => {
+            option.addEventListener('click', () => {
+                const quarter = option.dataset.financeQuarter;
+                if (!quarter) return;
+
+                activateQuarter(yearPanel, quarter);
+                closeDropdown();
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target)) {
+                closeDropdown();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeDropdown();
+            }
+        });
+    }
+
+    function initQuarterTabs(yearPanel) {
+        const quarterTabs = yearPanel.querySelectorAll('.account-finance__quarter-btn');
+
+        if (!quarterTabs.length) return;
+
+        quarterTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                activateQuarter(yearPanel, tab.dataset.quarter);
+            });
+        });
+
+        initFinanceSortDropdown(yearPanel);
+    }
+
+    function activateFirstQuarter(yearPanel) {
+        const activeQuarterTab = yearPanel.querySelector('.account-finance__quarter-btn--active');
+        const quarter = activeQuarterTab?.dataset.quarter || '1';
+        activateQuarter(yearPanel, quarter);
+    }
 
     yearPanels.forEach((panel) => {
         initQuarterTabs(panel);
@@ -36,58 +354,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             setActiveTab(yearTabs, tab, 'account-finance__year-btn--active');
-            yearTabs.forEach((yearTab) => {
-                yearTab.classList.toggle('hover-dark-green', yearTab === tab);
-            });
             setActivePanel(yearPanels, panel, 'account-finance__year-panel--active');
             activateFirstQuarter(panel);
         });
     });
 
-    function initQuarterTabs(yearPanel) {
-        const quarterTabs = yearPanel.querySelectorAll('.account-finance__quarter-btn');
-        const quarterPanels = yearPanel.querySelectorAll('.account-finance__quarter-panel');
-
-        if (!quarterTabs.length || !quarterPanels.length) return;
-
-        quarterTabs.forEach((tab) => {
-            tab.addEventListener('click', () => {
-                const quarter = tab.dataset.quarter;
-                const panel = yearPanel.querySelector(`.account-finance__quarter-panel[data-quarter="${quarter}"]`);
-                if (!panel) return;
-
-                setActiveTab(quarterTabs, tab, 'account-finance__quarter-btn--active');
-                setActivePanel(quarterPanels, panel, 'account-finance__quarter-panel--active');
-            });
-        });
+    const activeYearPanel = finance.querySelector('.account-finance__year-panel--active');
+    if (activeYearPanel) {
+        activateFirstQuarter(activeYearPanel);
     }
-
-    function activateFirstQuarter(yearPanel) {
-        const firstQuarterTab = yearPanel.querySelector('.account-finance__quarter-btn');
-        if (firstQuarterTab) {
-            firstQuarterTab.click();
-        }
-    }
-
-    function setActiveTab(tabs, activeTab, activeClass) {
-        tabs.forEach((tab) => {
-            const isActive = tab === activeTab;
-            tab.classList.toggle(activeClass, isActive);
-            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        });
-    }
-
-    function setActivePanel(panels, activePanel, activeClass) {
-        panels.forEach((panel) => {
-            const isActive = panel === activePanel;
-            panel.classList.toggle(activeClass, isActive);
-            panel.hidden = !isActive;
-        });
-    }
-
-    initReportActions(account);
-    initReportApproveModals(account);
-});
+}
 
 function initAccountSidebarTabs(account) {
     const sidebarLinks = account.querySelectorAll('[data-account-tab]');
@@ -187,8 +463,13 @@ function initReportApproveModals(account) {
         btn.addEventListener('click', () => {
             if (activeReport) {
                 activeReport.classList.add('account-finance__report--confirmed');
-                activeReport.querySelector('.account-finance__report-icon--approved')?.classList.add('hover-dark-green');
-                activeReport.querySelector('.account-finance__report-btn--approved')?.classList.add('hover-dark-green');
+                const icon = activeReport.querySelector('.account-finance__report-icon--approved');
+                const btn = activeReport.querySelector('.account-finance__report-btn--approved');
+
+                icon?.classList.remove('hover-dark-gray');
+                btn?.classList.remove('hover-dark-gray');
+                icon?.classList.add('hover-dark-green');
+                btn?.classList.add('hover-dark-green');
             }
 
             closeAllModals();
@@ -241,55 +522,18 @@ function initReportApproveModals(account) {
 
 const ACCOUNT_ANALYTICS_Y_MAX = 1600000;
 
-const ACCOUNT_ANALYTICS_PERIODS = {
-    week: {
-        label: 'Неделя',
-        context: 'Январь',
-        showContext: true,
-        points: [
-            { label: '1', date: '1 нед. янв' },
-            { label: '2', date: '2 нед. янв' },
-            { label: '3', date: '3 нед. янв' },
-            { label: '4', date: '4 нед. янв' },
-        ],
-    },
-    month: {
-        label: 'Месяц',
-        context: '1 квартал',
-        showContext: true,
-        points: [
-            { label: 'Январь', date: '01.01' },
-            { label: 'Февраль', date: '01.02' },
-            { label: 'Март', date: '01.03' },
-        ],
-    },
-    quarter: {
-        label: 'Квартал',
-        showContext: false,
-        points: [
-            { label: '1 квартал', date: '1 кв. 2026' },
-            { label: '2 квартал', date: '2 кв. 2026' },
-            { label: '3 квартал', date: '3 кв. 2026' },
-            { label: '4 квартал', date: '4 кв. 2026' },
-        ],
-    },
-    year: {
-        label: 'Год',
-        showContext: false,
-        points: [
-            { label: '2023', date: '2023' },
-            { label: '2024', date: '2024' },
-            { label: '2025', date: '2025' },
-            { label: '2026', date: '2026' },
-        ],
-    },
+const ACCOUNT_ANALYTICS_PERIOD_LABELS = {
+    week: 'Неделя',
+    month: 'Месяц',
+    quarter: 'Квартал',
+    year: 'Год',
 };
 
-const ACCOUNT_ANALYTICS_PERIOD_SALTS = {
-    week: 11,
-    month: 22,
-    quarter: 33,
-    year: 44,
+const ACCOUNT_ANALYTICS_RANGE_LABELS = {
+    7: 'Последние 7 дней',
+    30: 'Последние 30 дней',
+    90: 'Последние 90 дней',
+    365: 'Последний год',
 };
 
 const ACCOUNT_ANALYTICS_PLATFORM_LINES = [
@@ -297,19 +541,19 @@ const ACCOUNT_ANALYTICS_PLATFORM_LINES = [
     { id: 'yam', color: '#e5cf09', min: 50000, max: 1020000 },
     { id: 'zvuk', color: '#ff2a2d', min: 40000, max: 880000 },
     { id: 'kion', color: '#ff3fd5', min: 35000, max: 760000 },
+    { id: 'apple', color: '#0bc9de', min: 45000, max: 980000 },
     { id: 'spotify', color: '#14ce2e', min: 60000, max: 1120000 },
     { id: 'ok', color: '#ff891b', min: 30000, max: 620000 },
-    { id: 'apple', color: '#0bc9de', min: 45000, max: 980000 },
 ];
 
-const ACCOUNT_ANALYTICS_PLATFORM_SHORT_LABELS = {
-    vk: 'VK',
-    yam: 'ЯМ',
-    zvuk: 'ЗВ',
-    kion: 'КМ',
-    apple: 'AM',
-    spotify: 'SP',
-    ok: 'ОД',
+const ACCOUNT_ANALYTICS_PLATFORM_ICONS = {
+    vk: './images/icons/analytics/vk.png',
+    yam: './images/icons/analytics/ym.png',
+    zvuk: './images/icons/analytics/zv.png',
+    kion: './images/icons/analytics/km.png',
+    spotify: './images/icons/analytics/sp.png',
+    ok: './images/icons/analytics/od.png',
+    apple: './images/icons/analytics/am.png',
 };
 
 const accountAnalyticsChartStore = new WeakMap();
@@ -319,16 +563,16 @@ function initAccountAnalytics(account) {
     if (!section) return;
 
     if (!section.dataset.analyticsPeriod) {
-        section.dataset.analyticsPeriod = 'quarter';
+        section.dataset.analyticsPeriod = 'month';
     }
+
+    initAccountAnalyticsFilters(section);
+    initAccountAnalyticsSort(section, () => renderAccountAnalyticsSection(section));
+    bindAccountAnalyticsHover(section);
 
     function renderCharts() {
-        section.querySelectorAll('.account-analytics__chart').forEach((chartEl) => {
-            renderAccountAnalyticsChart(chartEl, section);
-        });
+        renderAccountAnalyticsSection(section);
     }
-
-    initAccountAnalyticsSort(section, renderCharts);
 
     renderCharts();
 
@@ -341,20 +585,283 @@ function initAccountAnalytics(account) {
     account.querySelector('[data-account-tab="analytics"]')?.addEventListener('click', () => {
         requestAnimationFrame(renderCharts);
     });
+}
+
+function initAccountAnalyticsFilters(section) {
+    const form = section.querySelector('[data-analytics-filters]');
+    const searchInput = section.querySelector('[data-analytics-search]');
+    const dateInput = section.querySelector('[data-analytics-date]');
+    const rangeDropdown = section.querySelector('.account-analytics__range-dropdown');
+
+    if (dateInput && !dateInput.value) {
+        const now = new Date();
+        dateInput.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    }
+
+    if (rangeDropdown) {
+        initAccountAnalyticsRangeDropdown(section, rangeDropdown);
+    }
+
+    form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const activeRange = section.querySelector('.account-analytics__range-option--active');
+
+        section.dataset.analyticsSearch = searchInput?.value.trim() || '';
+        section.dataset.analyticsDate = dateInput?.value || '';
+        section.dataset.analyticsRange = activeRange?.dataset.analyticsRange
+            || section.dataset.analyticsRangePending
+            || '30';
+        section.dataset.analyticsFiltersApplied = 'true';
+
+        invalidateAccountAnalyticsCharts(section);
+        clearAccountAnalyticsActiveState(section);
+        renderAccountAnalyticsSection(section);
+    });
+}
+
+function initAccountAnalyticsRangeDropdown(section, dropdown) {
+    const toggle = dropdown.querySelector('[data-analytics-range-toggle]');
+    const menu = dropdown.querySelector('.account-analytics__range-menu');
+    const labelEl = dropdown.querySelector('[data-analytics-range-label]');
+    const options = dropdown.querySelectorAll('[data-analytics-range]');
+
+    if (!toggle || !menu) return;
+
+    function closeDropdown() {
+        dropdown.classList.remove('account-analytics__range-dropdown--open');
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.hidden = true;
+    }
+
+    function openDropdown() {
+        dropdown.classList.add('account-analytics__range-dropdown--open');
+        toggle.setAttribute('aria-expanded', 'true');
+        menu.hidden = false;
+    }
+
+    toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        if (dropdown.classList.contains('account-analytics__range-dropdown--open')) {
+            closeDropdown();
+        } else {
+            openDropdown();
+        }
+    });
+
+    options.forEach((option) => {
+        option.addEventListener('click', () => {
+            const range = option.dataset.analyticsRange;
+            if (!range) return;
+
+            options.forEach((item) => {
+                item.classList.remove('account-analytics__range-option--active');
+            });
+            option.classList.add('account-analytics__range-option--active');
+
+            section.dataset.analyticsRangePending = range;
+
+            if (labelEl) {
+                labelEl.textContent = option.textContent.trim();
+            }
+
+            closeDropdown();
+        });
+    });
 
     document.addEventListener('click', (event) => {
-        if (event.target.closest('.account-analytics__point-btn')) return;
+        if (!dropdown.contains(event.target)) {
+            closeDropdown();
+        }
+    });
+}
 
-        clearAccountAnalyticsActiveState(section);
+function renderAccountAnalyticsSection(section) {
+    section.querySelectorAll('.account-analytics__chart').forEach((chartEl) => {
+        renderAccountAnalyticsChart(chartEl, section);
+    });
+
+    updateAccountAnalyticsTotal(section);
+}
+
+function getAccountAnalyticsReferenceDate(section) {
+    if (section.dataset.analyticsFiltersApplied !== 'true') {
+        return startOfDay(new Date());
+    }
+
+    const monthValue = section.dataset.analyticsDate;
+    if (monthValue) {
+        const [year, month] = monthValue.split('-').map(Number);
+        if (year && month) {
+            const monthEnd = new Date(year, month, 0);
+            const today = startOfDay(new Date());
+            return monthEnd > today ? today : monthEnd;
+        }
+    }
+
+    return startOfDay(new Date());
+}
+
+function buildAccountAnalyticsPeriodConfig(period, section) {
+    const referenceDate = getAccountAnalyticsReferenceDate(section);
+    const label = ACCOUNT_ANALYTICS_PERIOD_LABELS[period] || ACCOUNT_ANALYTICS_PERIOD_LABELS.month;
+    let periodStart;
+    let periodEnd;
+
+    switch (period) {
+        case 'week': {
+            const mondayOffset = (referenceDate.getDay() + 6) % 7;
+            periodStart = addDays(referenceDate, -mondayOffset);
+            periodEnd = addDays(periodStart, 6);
+            break;
+        }
+        case 'quarter': {
+            const quarter = Math.floor(referenceDate.getMonth() / 3);
+            periodStart = new Date(referenceDate.getFullYear(), quarter * 3, 1);
+            periodEnd = new Date(referenceDate.getFullYear(), quarter * 3 + 3, 0);
+            break;
+        }
+        case 'year': {
+            periodStart = new Date(referenceDate.getFullYear(), 0, 1);
+            periodEnd = new Date(referenceDate.getFullYear(), 11, 31);
+            break;
+        }
+        case 'month':
+        default: {
+            periodStart = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), 1);
+            periodEnd = new Date(referenceDate.getFullYear(), referenceDate.getMonth() + 1, 0);
+            break;
+        }
+    }
+
+    periodStart = startOfDay(periodStart);
+    periodEnd = startOfDay(periodEnd);
+
+    const today = startOfDay(new Date());
+    const dataEnd = periodEnd > today ? today : periodEnd;
+    const filtersApplied = section.dataset.analyticsFiltersApplied === 'true';
+    let rangeStart = periodStart;
+
+    if (filtersApplied) {
+        const rangeDays = Number(section.dataset.analyticsRange) || 30;
+        rangeStart = addDays(today, -(rangeDays - 1));
+    }
+
+    let cursor = new Date(periodStart);
+    const points = [];
+
+    while (cursor <= dataEnd) {
+        if (!filtersApplied || cursor >= rangeStart) {
+            const day = cursor.getDate();
+            const month = cursor.getMonth() + 1;
+            const dateLabel = `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}`;
+
+            points.push({
+                label: '',
+                date: dateLabel,
+                timestamp: cursor.getTime(),
+                isFriday: cursor.getDay() === 5,
+            });
+        }
+
+        cursor = addDays(cursor, 1);
+    }
+
+    if (!points.length) {
+        points.push({
+            label: formatAccountAnalyticsAxisLabel(referenceDate),
+            date: formatAccountAnalyticsAxisLabel(referenceDate),
+            timestamp: referenceDate.getTime(),
+            isFriday: referenceDate.getDay() === 5,
+        });
+    }
+
+    applyAccountAnalyticsAxisMarkers(points, period);
+
+    return {
+        label,
+        points,
+    };
+}
+
+const ACCOUNT_ANALYTICS_MONTH_SHORT = [
+    'янв', 'фев', 'мар', 'апр', 'май', 'июн',
+    'июл', 'авг', 'сен', 'окт', 'ноя', 'дек',
+];
+
+function applyAccountAnalyticsAxisMarkers(points, period) {
+    points.forEach((point, index) => {
+        const date = new Date(point.timestamp);
+        const prevDate = index > 0 ? new Date(points[index - 1].timestamp) : null;
+        const isMonthStart = index === 0
+            || date.getDate() === 1
+            || (prevDate && prevDate.getMonth() !== date.getMonth());
+        const isWeekStart = index === 0 || date.getDay() === 1;
+
+        point.axisMajor = false;
+        point.axisLabel = '';
+
+        switch (period) {
+            case 'week':
+                point.axisMajor = true;
+                point.axisLabel = point.date;
+                break;
+            case 'month':
+                point.axisMajor = isWeekStart;
+                if (isWeekStart) {
+                    point.axisLabel = point.date;
+                }
+                break;
+            case 'quarter':
+            case 'year':
+                point.axisMajor = isMonthStart;
+                if (isMonthStart) {
+                    point.axisLabel = ACCOUNT_ANALYTICS_MONTH_SHORT[date.getMonth()];
+                }
+                break;
+            default:
+                point.axisMajor = isWeekStart;
+                if (isWeekStart) {
+                    point.axisLabel = point.date;
+                }
+                break;
+        }
+
+        point.label = point.axisLabel;
+    });
+}
+
+function drawAccountAnalyticsFridayStripes(ctx, state, metrics, stripeTop, stripeHeight) {
+    const pointCount = state.points.length;
+    const daySpacing = pointCount > 1
+        ? metrics.chartWidth / (pointCount - 1)
+        : metrics.chartWidth;
+    const barWidth = Math.max(8, Math.min(71, daySpacing * 0.9));
+
+    state.points.forEach((point, index) => {
+        if (!point.isFriday) return;
+
+        const x = metrics.indexToX(index);
+        ctx.fillStyle = '#d7ece4';
+        ctx.fillRect(x - barWidth / 2, stripeTop, barWidth, stripeHeight);
     });
 }
 
 function getAccountAnalyticsPeriod(section) {
-    return section.dataset.analyticsPeriod || 'quarter';
+    return section.dataset.analyticsPeriod || 'month';
 }
 
-function getAccountAnalyticsPeriodConfig(period) {
-    return ACCOUNT_ANALYTICS_PERIODS[period] || ACCOUNT_ANALYTICS_PERIODS.quarter;
+function getAccountAnalyticsFilterKey(section) {
+    if (section.dataset.analyticsFiltersApplied !== 'true') {
+        return '';
+    }
+
+    return [
+        section.dataset.analyticsSearch || '',
+        section.dataset.analyticsRange || '30',
+        section.dataset.analyticsDate || '',
+    ].join('|');
 }
 
 function clearAccountAnalyticsActiveState(section) {
@@ -362,11 +869,12 @@ function clearAccountAnalyticsActiveState(section) {
         tooltip.hidden = true;
     });
 
-    section.querySelectorAll('.account-analytics__point-btn--active').forEach((btn) => {
-        btn.classList.remove('account-analytics__point-btn--active');
+    section.querySelectorAll('.account-analytics__plot--hovering').forEach((plot) => {
+        plot.classList.remove('account-analytics__plot--hovering');
     });
 
     section.querySelectorAll('.account-analytics__points').forEach((layer) => {
+        layer.replaceChildren();
         delete layer.dataset.activeIndex;
         delete layer.dataset.activeLineId;
     });
@@ -450,54 +958,72 @@ function initAccountAnalyticsSort(section, renderCharts) {
     });
 }
 
-function getAccountAnalyticsChartState(chartEl, type, period) {
+function getAccountAnalyticsChartState(chartEl, type, section) {
+    const period = getAccountAnalyticsPeriod(section);
+    const filterKey = getAccountAnalyticsFilterKey(section);
     const cached = accountAnalyticsChartStore.get(chartEl);
 
-    if (cached && cached.type === type && cached.period === period) {
+    if (cached && cached.type === type && cached.period === period && cached.filterKey === filterKey) {
         return cached;
     }
 
-    const state = createAccountAnalyticsChartState(type, period);
+    const state = createAccountAnalyticsChartState(type, period, section, filterKey);
     accountAnalyticsChartStore.set(chartEl, state);
     return state;
 }
 
-function createAccountAnalyticsChartState(type, period) {
-    const periodConfig = getAccountAnalyticsPeriodConfig(period);
+function createAccountAnalyticsChartState(type, period, section, filterKey) {
+    const periodConfig = buildAccountAnalyticsPeriodConfig(period, section);
     const pointCount = periodConfig.points.length;
-    const periodSalt = ACCOUNT_ANALYTICS_PERIOD_SALTS[period] || 33;
+    const searchSeed = section.dataset.analyticsFiltersApplied === 'true'
+        ? hashAccountAnalyticsString(section.dataset.analyticsSearch || '')
+        : 0;
+    const periodSalt = hashAccountAnalyticsString(`${period}|${filterKey}`);
 
     if (type === 'total') {
+        const platformValues = ACCOUNT_ANALYTICS_PLATFORM_LINES.map((line, lineIndex) => (
+            generateSmoothAccountAnalyticsLine(
+                pointCount,
+                line.min,
+                line.max,
+                periodSalt + lineIndex + 1 + searchSeed
+            )
+        ));
+
         return {
             type,
             period,
+            filterKey,
             points: periodConfig.points,
-            context: periodConfig.context || '',
-            showContext: Boolean(periodConfig.showContext),
             lines: [{
                 id: 'total',
-                color: '#000000',
+                color: '#009a5f',
                 width: 3,
-                values: generateAccountAnalyticsLine(pointCount, 120000, 1480000, periodSalt),
+                values: generateSmoothAccountAnalyticsLine(
+                    pointCount,
+                    120000,
+                    1480000,
+                    periodSalt + searchSeed
+                ),
             }],
+            platformValues,
         };
     }
 
     return {
         type,
         period,
+        filterKey,
         points: periodConfig.points,
-        context: periodConfig.context || '',
-        showContext: Boolean(periodConfig.showContext),
         lines: ACCOUNT_ANALYTICS_PLATFORM_LINES.map((line, lineIndex) => ({
             id: line.id,
             color: line.color,
             width: 2,
-            values: generateAccountAnalyticsLine(
+            values: generateWavyAccountAnalyticsLine(
                 pointCount,
                 line.min,
                 line.max,
-                periodSalt + lineIndex + 1
+                periodSalt + lineIndex + 1 + searchSeed
             ),
         })),
     };
@@ -536,8 +1062,7 @@ function renderAccountAnalyticsChart(chartEl, section) {
     if (!plot || !canvas || !pointsLayer || !tooltip) return;
 
     const type = chartEl.dataset.chart;
-    const period = getAccountAnalyticsPeriod(section);
-    const state = getAccountAnalyticsChartState(chartEl, type, period);
+    const state = getAccountAnalyticsChartState(chartEl, type, section);
     const width = plot.clientWidth;
     const height = plot.clientHeight;
 
@@ -546,7 +1071,127 @@ function renderAccountAnalyticsChart(chartEl, section) {
     if (!width || !height) return;
 
     drawAccountAnalyticsChart(canvas, state, width, height);
-    renderAccountAnalyticsPoints(plot, pointsLayer, tooltip, state, width, height);
+
+    const activeIndex = Number(pointsLayer.dataset.activeIndex);
+    const activeLineId = pointsLayer.dataset.activeLineId || '';
+
+    if (!Number.isNaN(activeIndex) && activeLineId) {
+        renderAccountAnalyticsHoverPoint(plot, pointsLayer, state, width, height, activeIndex, activeLineId);
+        const activeButton = pointsLayer.querySelector('.account-analytics__point-btn');
+
+        if (activeButton) {
+            showAccountAnalyticsTooltip(plot, tooltip, state, activeButton, activeIndex, activeLineId);
+        }
+    } else {
+        pointsLayer.replaceChildren();
+        tooltip.hidden = true;
+    }
+}
+
+function bindAccountAnalyticsHover(section) {
+    section.querySelectorAll('.account-analytics__plot').forEach((plot) => {
+        if (plot.dataset.hoverBound) return;
+        plot.dataset.hoverBound = 'true';
+
+        plot.addEventListener('mousemove', (event) => {
+            const chartEl = plot.closest('.account-analytics__chart');
+            const pointsLayer = plot.querySelector('.account-analytics__points');
+            const tooltip = plot.querySelector('.account-analytics__tooltip');
+            if (!chartEl || !pointsLayer || !tooltip) return;
+
+            const state = getAccountAnalyticsChartState(chartEl, chartEl.dataset.chart, section);
+            const width = plot.clientWidth;
+            const height = plot.clientHeight;
+            if (!width || !height || !state.points.length) return;
+
+            const rect = plot.getBoundingClientRect();
+            const relativeX = event.clientX - rect.left;
+            const relativeY = event.clientY - rect.top;
+            const metrics = getAccountAnalyticsMetrics(width, height, state.points.length);
+            const chartX = Math.max(metrics.padding.left, Math.min(metrics.padding.left + metrics.chartWidth, relativeX));
+            const rawIndex = metrics.chartWidth
+                ? ((chartX - metrics.padding.left) / metrics.chartWidth) * (state.points.length - 1)
+                : 0;
+            const index = Math.round(rawIndex);
+            const clampedIndex = Math.max(0, Math.min(state.points.length - 1, index));
+
+            let lineId = state.lines[0]?.id || 'total';
+
+            if (state.type === 'platforms') {
+                lineId = findNearestAccountAnalyticsLineId(state, metrics, clampedIndex, relativeY) || lineId;
+            }
+
+            plot.classList.add('account-analytics__plot--hovering');
+            pointsLayer.dataset.activeIndex = String(clampedIndex);
+            pointsLayer.dataset.activeLineId = lineId;
+
+            renderAccountAnalyticsHoverPoint(plot, pointsLayer, state, width, height, clampedIndex, lineId);
+
+            const button = pointsLayer.querySelector('.account-analytics__point-btn');
+            if (button) {
+                showAccountAnalyticsTooltip(plot, tooltip, state, button, clampedIndex, lineId);
+            }
+        });
+
+        plot.addEventListener('mouseleave', () => {
+            plot.classList.remove('account-analytics__plot--hovering');
+
+            const pointsLayerEl = plot.querySelector('.account-analytics__points');
+            if (pointsLayerEl) {
+                pointsLayerEl.replaceChildren();
+                delete pointsLayerEl.dataset.activeIndex;
+                delete pointsLayerEl.dataset.activeLineId;
+            }
+
+            const tooltipEl = plot.querySelector('.account-analytics__tooltip');
+            if (tooltipEl) {
+                tooltipEl.hidden = true;
+            }
+        });
+    });
+}
+
+function findNearestAccountAnalyticsLineId(state, metrics, index, relativeY) {
+    let nearestLineId = state.lines[0]?.id || '';
+    let nearestDistance = Infinity;
+
+    state.lines.forEach((line) => {
+        const value = line.values[index];
+        if (typeof value !== 'number') return;
+
+        const pointY = metrics.valueToY(value);
+        const distance = Math.abs(pointY - relativeY);
+
+        if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestLineId = line.id;
+        }
+    });
+
+    return nearestLineId;
+}
+
+function renderAccountAnalyticsHoverPoint(plot, pointsLayer, state, width, height, index, lineId) {
+    const line = state.lines.find((item) => item.id === lineId) || state.lines[0];
+    if (!line) {
+        pointsLayer.replaceChildren();
+        return;
+    }
+
+    const metrics = getAccountAnalyticsMetrics(width, height, state.points.length);
+    const value = line.values[index];
+    const x = metrics.indexToX(index);
+    const y = metrics.valueToY(value);
+    const button = document.createElement('button');
+
+    button.type = 'button';
+    button.className = `account-analytics__point-btn account-analytics__point-btn--visible account-analytics__point-btn--line-${line.id}`;
+    button.style.left = `${(x / width) * 100}%`;
+    button.style.top = `${(y / height) * 100}%`;
+    button.setAttribute('aria-hidden', 'true');
+    button.tabIndex = -1;
+
+    pointsLayer.replaceChildren(button);
 }
 
 function drawAccountAnalyticsChart(canvas, state, width, height) {
@@ -562,8 +1207,13 @@ function drawAccountAnalyticsChart(canvas, state, width, height) {
 
     const metrics = getAccountAnalyticsMetrics(width, height, state.points.length);
     const yTicks = [1600000, 1400000, 1200000, 1000000, 800000, 600000, 400000, 200000, 0];
+    const baseY = metrics.valueToY(0);
+    const stripeTop = metrics.padding.top - 8;
+    const stripeHeight = baseY - stripeTop;
 
-    ctx.strokeStyle = '#c5c5c5';
+    drawAccountAnalyticsFridayStripes(ctx, state, metrics, stripeTop, stripeHeight);
+
+    ctx.strokeStyle = '#9b9b9b';
     ctx.lineWidth = 1;
 
     yTicks.forEach((tick) => {
@@ -574,7 +1224,6 @@ function drawAccountAnalyticsChart(canvas, state, width, height) {
         ctx.stroke();
     });
 
-    const baseY = metrics.valueToY(0);
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 3;
     ctx.beginPath();
@@ -582,21 +1231,8 @@ function drawAccountAnalyticsChart(canvas, state, width, height) {
     ctx.lineTo(metrics.padding.left + metrics.chartWidth, baseY);
     ctx.stroke();
 
-    if (state.points.length > 1) {
-        ctx.strokeStyle = '#8f8f8f';
-        ctx.lineWidth = 2;
-
-        for (let segment = 1; segment < state.points.length; segment += 1) {
-            const x = metrics.padding.left + (metrics.chartWidth / (state.points.length - 1)) * segment;
-            ctx.beginPath();
-            ctx.moveTo(x, metrics.padding.top - 8);
-            ctx.lineTo(x, baseY);
-            ctx.stroke();
-        }
-    }
-
     state.lines.forEach((line) => {
-        drawAccountAnalyticsLine(
+        drawSmoothAccountAnalyticsLine(
             ctx,
             line.values,
             line.color,
@@ -605,65 +1241,6 @@ function drawAccountAnalyticsChart(canvas, state, width, height) {
             metrics.valueToY
         );
     });
-}
-
-function renderAccountAnalyticsPoints(plot, pointsLayer, tooltip, state, width, height) {
-    const metrics = getAccountAnalyticsMetrics(width, height, state.points.length);
-    const activeIndex = Number(pointsLayer.dataset.activeIndex);
-    const activeLineId = pointsLayer.dataset.activeLineId || '';
-    const fragment = document.createDocumentFragment();
-
-    state.lines.forEach((line) => {
-        line.values.forEach((value, index) => {
-            const x = metrics.indexToX(index);
-            const y = metrics.valueToY(value);
-            const button = document.createElement('button');
-            const isActive = activeIndex === index && activeLineId === line.id;
-            const dateLabel = getAccountAnalyticsDateLabel(state, index);
-
-            button.type = 'button';
-            button.className = `account-analytics__point-btn account-analytics__point-btn--line-${line.id}`;
-            button.dataset.index = String(index);
-            button.dataset.lineId = line.id;
-            button.style.left = `${(x / width) * 100}%`;
-            button.style.top = `${(y / height) * 100}%`;
-            button.setAttribute('aria-label', `Показать данные за ${dateLabel}`);
-
-            if (isActive) {
-                button.classList.add('account-analytics__point-btn--active');
-            }
-
-            button.addEventListener('click', (event) => {
-                event.stopPropagation();
-                activateAccountAnalyticsPoint(plot, pointsLayer, tooltip, state, button, index, line.id);
-            });
-
-            fragment.appendChild(button);
-        });
-    });
-
-    pointsLayer.replaceChildren(fragment);
-
-    if (!Number.isNaN(activeIndex) && activeLineId) {
-        const activeButton = pointsLayer.querySelector(
-            `[data-index="${activeIndex}"][data-line-id="${activeLineId}"]`
-        );
-
-        if (activeButton) {
-            showAccountAnalyticsTooltip(plot, tooltip, state, activeButton, activeIndex, activeLineId);
-        }
-    }
-}
-
-function activateAccountAnalyticsPoint(plot, pointsLayer, tooltip, state, button, index, lineId) {
-    pointsLayer.dataset.activeIndex = String(index);
-    pointsLayer.dataset.activeLineId = lineId;
-
-    pointsLayer.querySelectorAll('.account-analytics__point-btn').forEach((pointBtn) => {
-        pointBtn.classList.toggle('account-analytics__point-btn--active', pointBtn === button);
-    });
-
-    showAccountAnalyticsTooltip(plot, tooltip, state, button, index, lineId);
 }
 
 function showAccountAnalyticsTooltip(plot, tooltip, state, button, index, lineId) {
@@ -677,33 +1254,45 @@ function showAccountAnalyticsTooltip(plot, tooltip, state, button, index, lineId
     const buttonTop = (parseFloat(button.style.top) / 100) * plotHeight;
     const isPlatforms = state.type === 'platforms';
     const bubble = tooltip.querySelector('.account-analytics__tooltip-bubble');
-    const tooltipWidth = bubble ? bubble.offsetWidth : tooltip.offsetWidth;
-    const tooltipHeight = tooltip.offsetHeight;
+    const tooltipBox = isPlatforms && bubble ? bubble : tooltip;
+    const tooltipWidth = tooltipBox.offsetWidth;
+    const tooltipHeight = tooltipBox.offsetHeight;
     const offset = 14;
-    const tailOffset = isPlatforms ? 32 : tooltipWidth / 2;
-    let left = isPlatforms ? buttonLeft - tailOffset : buttonLeft;
-    let top = buttonTop - tooltipHeight - offset;
+    const tailHeight = isPlatforms ? 10 : 0;
+    const minTop = 8;
+    let left;
+    let top = buttonTop - tooltipHeight - offset - tailHeight;
 
     if (isPlatforms) {
+        const tailTipLeft = 50;
+        left = buttonLeft - tailTipLeft;
+
         if (left < 8) {
             left = 8;
         } else if (left + tooltipWidth > plotWidth - 8) {
             left = plotWidth - tooltipWidth - 8;
         }
 
+        top = Math.max(minTop, top);
         tooltip.style.transform = 'none';
-    } else if (left - tooltipWidth / 2 < 8) {
-        left = tooltipWidth / 2 + 8;
-        tooltip.style.transform = 'translateX(-50%)';
-    } else if (left + tooltipWidth / 2 > plotWidth - 8) {
-        left = plotWidth - tooltipWidth / 2 - 8;
-        tooltip.style.transform = 'translateX(-50%)';
     } else {
-        tooltip.style.transform = 'translateX(-50%)';
-    }
+        left = buttonLeft;
 
-    if (top < 0) {
-        top = buttonTop + offset;
+        if (left - tooltipWidth / 2 < 8) {
+            left = tooltipWidth / 2 + 8;
+            tooltip.style.transform = 'translateX(-50%)';
+        } else if (left + tooltipWidth / 2 > plotWidth - 8) {
+            left = plotWidth - tooltipWidth / 2 - 8;
+            tooltip.style.transform = 'translateX(-50%)';
+        } else {
+            tooltip.style.transform = 'translateX(-50%)';
+        }
+
+        if (top < minTop) {
+            top = buttonTop + offset;
+        }
+
+        top = Math.max(minTop, Math.min(plotHeight - tooltipHeight - 8, top));
     }
 
     tooltip.style.left = `${left}px`;
@@ -712,61 +1301,64 @@ function showAccountAnalyticsTooltip(plot, tooltip, state, button, index, lineId
 
 function updateAccountAnalyticsTooltipContent(tooltip, state, index, lineId = 'vk') {
     const dateLabel = getAccountAnalyticsDateLabel(state, index);
+    const dateEl = tooltip.querySelector('.account-analytics__tooltip-date');
+    if (dateEl) dateEl.textContent = dateLabel;
 
     if (state.type === 'total') {
-        const dateEl = tooltip.querySelector('.account-analytics__tooltip-date');
-        if (dateEl) dateEl.textContent = dateLabel;
+        const platformIds = ACCOUNT_ANALYTICS_PLATFORM_LINES.map((line) => line.id);
 
         tooltip.querySelectorAll('.account-analytics__tooltip-row').forEach((row, rowIndex) => {
+            const platformId = platformIds[rowIndex];
             const valueEl = row.querySelector('.account-analytics__tooltip-value');
+            const platformValues = state.platformValues?.[rowIndex];
+            const value = platformValues
+                ? platformValues[index]
+                : deriveAccountAnalyticsValue(index, rowIndex, 12000, 98000);
+
             if (valueEl) {
-                valueEl.textContent = formatAccountAnalyticsNumber(deriveAccountAnalyticsValue(index, rowIndex, 12000, 98000));
+                valueEl.textContent = formatAccountAnalyticsNumber(value);
+            }
+
+            if (platformId) {
+                row.className = `account-analytics__tooltip-row account-analytics__tooltip-row--${platformId}`;
             }
         });
 
         return;
     }
 
-    const dateEl = tooltip.querySelector('.account-analytics__tooltip-date');
-    if (dateEl) dateEl.textContent = dateLabel;
-
     const activeLine = state.lines.find((line) => line.id === lineId) || state.lines[0];
-    const platformLabelEl = tooltip.querySelector('.account-analytics__tooltip-label--platform');
-    const statValueEl = tooltip.querySelector('.account-analytics__tooltip-summary > .account-analytics__tooltip-stat .account-analytics__tooltip-value');
+    const iconEl = tooltip.querySelector('[data-analytics-platform-icon]');
+    const valueEl = tooltip.querySelector('[data-analytics-platform-value]');
 
-    if (platformLabelEl && activeLine) {
-        const shortLabel = ACCOUNT_ANALYTICS_PLATFORM_SHORT_LABELS[activeLine.id] || activeLine.id.toUpperCase();
-        platformLabelEl.textContent = `${shortLabel}:`;
-        platformLabelEl.className = `account-analytics__tooltip-label account-analytics__tooltip-label--platform account-analytics__tooltip-label--${activeLine.id}`;
+    if (iconEl && activeLine) {
+        iconEl.src = ACCOUNT_ANALYTICS_PLATFORM_ICONS[activeLine.id] || iconEl.src;
+        iconEl.alt = activeLine.id;
     }
 
-    if (statValueEl && activeLine) {
-        statValueEl.textContent = `+ ${formatAccountAnalyticsNumber(activeLine.values[index])}`;
+    if (valueEl && activeLine) {
+        valueEl.textContent = formatAccountAnalyticsNumber(activeLine.values[index]);
+    }
+}
+
+function updateAccountAnalyticsTotal(section) {
+    const totalEl = section.querySelector('[data-analytics-total]');
+    const chartEl = section.querySelector('[data-chart="total"]');
+    if (!totalEl || !chartEl) return;
+
+    const state = getAccountAnalyticsChartState(chartEl, 'total', section);
+
+    if (state.platformValues?.length) {
+        const totalValue = state.platformValues.reduce(
+            (sum, values) => sum + values.reduce((lineSum, value) => lineSum + value, 0),
+            0
+        );
+        totalEl.textContent = formatAccountAnalyticsNumber(totalValue);
+        return;
     }
 
-    const indicatorValues = tooltip.querySelectorAll('.account-analytics__tooltip-indicators .account-analytics__tooltip-value');
-    if (indicatorValues[0]) {
-        indicatorValues[0].textContent = `+ ${formatAccountAnalyticsNumber(deriveAccountAnalyticsValue(index, 1, 4000, 28000))}`;
-    }
-    if (indicatorValues[1]) {
-        indicatorValues[1].textContent = `- ${formatAccountAnalyticsNumber(deriveAccountAnalyticsValue(index, 2, 1000, 12000))}`;
-    }
-
-    tooltip.querySelectorAll('.account-analytics__tooltip-track').forEach((track, trackIndex) => {
-        const changeEl = track.querySelector('.account-analytics__tooltip-change');
-        const percent = deriveAccountAnalyticsValue(index, trackIndex + 3, 3, 18);
-        const isUp = trackIndex === 0;
-
-        if (!changeEl) return;
-
-        changeEl.className = `account-analytics__tooltip-change account-analytics__tooltip-change--${isUp ? 'up' : 'down'}`;
-
-        if (isUp) {
-            changeEl.innerHTML = `<span class="account-analytics__tooltip-change-sign">+</span>${percent}<span class="account-analytics__tooltip-change-sign">%</span>`;
-        } else {
-            changeEl.innerHTML = `- ${percent}<span class="account-analytics__tooltip-change-sign">%</span>`;
-        }
-    });
+    const totalValue = state.lines[0]?.values.reduce((sum, value) => sum + value, 0) || 0;
+    totalEl.textContent = formatAccountAnalyticsNumber(totalValue);
 }
 
 function getAccountAnalyticsDateLabel(state, index) {
@@ -782,23 +1374,23 @@ function renderAccountAnalyticsXAxis(chartEl, state, plotWidth) {
 
     const width = plotWidth || chartEl.querySelector('.account-analytics__plot')?.clientWidth || 0;
     const metrics = getAccountAnalyticsMetrics(width, 1, state.points.length);
+    const period = state.period || 'month';
     const labelsHtml = state.points
         .map((point, index) => {
+            if (!point.axisLabel) return '';
+
             const x = metrics.indexToX(index);
             const left = width ? (x / width) * 100 : 0;
+            const alignClass = 'account-analytics__x-label--align-center';
 
-            return `<span class="account-analytics__x-label" style="left: ${left}%">${point.label}</span>`;
+            return `<span class="account-analytics__x-label ${alignClass}" style="left: ${left}%">${point.axisLabel}</span>`;
         })
         .join('');
-    const contextHtml = state.showContext && state.context
-        ? `<p class="account-analytics__x-context">${state.context}</p>`
-        : '';
 
     axis.innerHTML = `
-        <div class="account-analytics__x-labels">
+        <div class="account-analytics__x-labels account-analytics__x-labels--${period}">
             ${labelsHtml}
         </div>
-        ${contextHtml}
     `;
 }
 
@@ -811,42 +1403,111 @@ function formatAccountAnalyticsNumber(value) {
     return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
-function generateAccountAnalyticsLine(count, min, max, seedSalt = 0) {
+function generateWavyAccountAnalyticsLine(count, min, max, seedSalt = 0) {
     if (count <= 0) return [];
 
     const range = max - min;
-    const levelPattern = [0.14, 0.86, 0.28, 0.92, 0.38, 0.78, 0.22, 0.84];
+    const mid = min + range * 0.52;
+    const phase = (seedSalt % 7) * 0.45;
     const values = [];
 
     for (let i = 0; i < count; i += 1) {
-        const phase = deriveAccountAnalyticsValue(i, seedSalt, 0, 1000) / 1000;
-        const baseLevel = levelPattern[(i + seedSalt) % levelPattern.length];
-        const offset = (phase - 0.5) * 0.16;
-        const normalized = Math.max(0.08, Math.min(0.96, baseLevel + offset));
+        const waveA = Math.sin((i * 0.95) + phase) * range * 0.3;
+        const waveB = Math.sin((i * 1.85) + phase + 1.2) * range * 0.14;
+        const waveC = Math.cos((i * 0.55) + phase * 0.7) * range * 0.08;
+        const noise = (deriveAccountAnalyticsValue(i, seedSalt, -6, 6) / 100) * range;
+        let value = mid + waveA + waveB + waveC + noise;
 
-        values.push(min + normalized * range);
+        value = Math.max(min, Math.min(max, value));
+        values.push(value);
     }
 
     return values;
 }
 
-function drawAccountAnalyticsLine(ctx, values, color, lineWidth, indexToX, valueToY) {
+function generateSmoothAccountAnalyticsLine(count, min, max, seedSalt = 0) {
+    if (count <= 0) return [];
+
+    const range = max - min;
+    let current = min + range * (0.35 + (deriveAccountAnalyticsValue(0, seedSalt, 0, 30) / 100));
+    const values = [];
+
+    for (let i = 0; i < count; i += 1) {
+        const drift = (deriveAccountAnalyticsValue(i, seedSalt + 3, -8, 8) / 100) * range;
+        const target = min + range * (0.25 + (deriveAccountAnalyticsValue(i, seedSalt + 7, 10, 90) / 100));
+        current += (target - current) * 0.18 + drift * 0.04;
+        current = Math.max(min, Math.min(max, current));
+        values.push(current);
+    }
+
+    return values;
+}
+
+function drawSmoothAccountAnalyticsLine(ctx, values, color, lineWidth, indexToX, valueToY) {
+    if (!values.length) return;
+
+    const points = values.map((value, index) => ({
+        x: indexToX(index),
+        y: valueToY(value),
+    }));
+
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
     ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
 
-    values.forEach((value, index) => {
-        const x = indexToX(index);
-        const y = valueToY(value);
+    if (points.length === 1) {
+        ctx.stroke();
+        return;
+    }
 
-        if (index === 0) {
-            ctx.moveTo(x, y);
-        } else {
-            ctx.lineTo(x, y);
-        }
-    });
+    if (points.length === 2) {
+        ctx.lineTo(points[1].x, points[1].y);
+        ctx.stroke();
+        return;
+    }
+
+    for (let i = 0; i < points.length - 1; i += 1) {
+        const p0 = points[i - 1] || points[i];
+        const p1 = points[i];
+        const p2 = points[i + 1];
+        const p3 = points[i + 2] || p2;
+        const cp1x = p1.x + (p2.x - p0.x) / 6;
+        const cp1y = p1.y + (p2.y - p0.y) / 6;
+        const cp2x = p2.x - (p3.x - p1.x) / 6;
+        const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+    }
 
     ctx.stroke();
+}
+
+function startOfDay(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function addDays(date, days) {
+    const next = new Date(date);
+    next.setDate(next.getDate() + days);
+    return startOfDay(next);
+}
+
+function formatAccountAnalyticsAxisLabel(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return `${day}.${month}`;
+}
+
+function hashAccountAnalyticsString(value) {
+    let hash = 0;
+
+    for (let i = 0; i < value.length; i += 1) {
+        hash = ((hash << 5) - hash) + value.charCodeAt(i);
+        hash |= 0;
+    }
+
+    return Math.abs(hash);
 }
