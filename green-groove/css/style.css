@@ -1304,7 +1304,6 @@ body {
   }
 }
 .header__personal-account {
-  display: none;
   width: clamp(35px, 28.9393939394px + 1.8939393939vw, 60px);
   height: clamp(35px, 28.9393939394px + 1.8939393939vw, 60px);
 }
@@ -1313,9 +1312,6 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-}
-.header__personal-account--visible {
-  display: block;
 }
 .header__mob {
   display: none;
