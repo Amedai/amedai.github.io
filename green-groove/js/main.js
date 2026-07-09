@@ -22,16 +22,58 @@ window.addEventListener('DOMContentLoaded',()=>{
    });
 
 
-    //фоновое видео
+    // Общие переменные для видео и треков release (взаимное отключение звука)
     const heroVideo = document.querySelector('.hero__bg-video');
     const soundToggle = document.querySelector('.hero__sound-toggle');
     const soundToggleImg = document.querySelector('.hero__sound-toggle-img');
     const soundToggleText = document.querySelector('.hero__sound-toggle-text');
+    const audioItems = document.querySelectorAll('.release__audio-item');
+    let currentAudio = null;
+    let currentButton = null;
+
+    function stopCurrent() {
+        if (currentAudio) {
+            currentAudio.pause();
+            if (currentButton) currentButton.classList.remove('release__record--active');
+            currentAudio = null;
+            currentButton = null;
+        }
+    }
+
+    function muteHeroVideo() {
+        if (heroVideo) {
+            heroVideo.muted = true;
+            if (soundToggleImg) soundToggleImg.classList.remove('hero__sound-toggle-img--active');
+            if (soundToggleText) soundToggleText.textContent = 'Включить звук';
+        }
+    }
+
+    //фоновое видео
+
+    const isVideoReady = () => heroVideo && heroVideo.readyState >= 2 && !heroVideo.paused;
 
     if (heroVideo && soundToggle) {
+        soundToggle.classList.add('hero__sound-toggle--disabled');
+
+        const enableToggle = () => {
+            if (isVideoReady()) {
+                soundToggle.classList.remove('hero__sound-toggle--disabled');
+                heroVideo.removeEventListener('canplay', enableToggle);
+                heroVideo.removeEventListener('playing', enableToggle);
+            }
+        };
+
+        if (isVideoReady()) enableToggle();
+        else {
+            heroVideo.addEventListener('canplay', enableToggle);
+            heroVideo.addEventListener('playing', enableToggle);
+        }
+
         soundToggle.addEventListener('click', () => {
+            if (!isVideoReady()) return;
             const isActive = soundToggleImg.classList.toggle('hero__sound-toggle-img--active');
             if (isActive) {
+                stopCurrent();
                 heroVideo.muted = false;
                 heroVideo.volume = 0.4;
                 if (soundToggleText) soundToggleText.textContent = 'Выключить звук';
@@ -116,55 +158,46 @@ window.addEventListener('DOMContentLoaded',()=>{
     overlay = document.querySelector('.overlay'),
     closeElement = document.querySelector('[data-overlay="close"]');
 
-    const body = document.body;
+    if(overlay){
+        const body = document.body;
 
-    let scrollPosition = 0;
+        let scrollPosition = 0;
 
-    contactButtons.forEach(btn=>{
-        btn.addEventListener('click',()=>{
-            fadeIn(overlay, 100, 'block');
-            scrollPosition = window.pageYOffset;
-            body.classList.add('no-scroll');
-            body.style.top = `-${scrollPosition}px`;
-        });
-    });
-    closeElement.addEventListener('click',()=>{
-        fadeOut(overlay,30);
-        body.classList.remove('no-scroll');
-        window.scrollTo(0, scrollPosition);
-    });
-    overlay.addEventListener('click', (e)=>{
-        const target = e.target;
-        if(target && target.classList.contains('overlay')){
-            fadeOut(overlay,30);
-            body.classList.remove('no-scroll');
-            window.scrollTo(0, scrollPosition);
-        }
-    });
-    document.addEventListener('keydown',(e)=>{
-        if(overlay.style.opacity === '1' && e.code == 'Escape'){
-            fadeOut(overlay,30);
-            body.classList.remove('no-scroll');
-            window.scrollTo(0, scrollPosition);
-    }
-    });
-
-    //slider
-    if(document.querySelector('.artists__slider')){
-        const artistImages = document.querySelectorAll('.artists__img');
-
-        artistImages.forEach(img => {
-            img.addEventListener('touchstart', function() {
-                this.classList.toggle('artists__img--active');
-
-                artistImages.forEach(otherImg => {
-                    if (otherImg !== this) {
-                        otherImg.classList.remove('artists__img--active');
-                    }
-                });
+        contactButtons.forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                fadeIn(overlay, 100, 'block');
+                scrollPosition = window.pageYOffset;
+                body.classList.add('no-scroll');
+                body.style.top = `-${scrollPosition}px`;
             });
         });
-        
+        closeElement.addEventListener('click',()=>{
+            fadeOut(overlay,30);
+            body.classList.remove('no-scroll');
+            body.style.top = '';
+            window.scrollTo(0, scrollPosition);
+        });
+        overlay.addEventListener('click', (e)=>{
+            const target = e.target;
+            if(target && target.classList.contains('overlay')){
+                fadeOut(overlay,30);
+                body.classList.remove('no-scroll');
+                body.style.top = '';
+                window.scrollTo(0, scrollPosition);
+            }
+        });
+        document.addEventListener('keydown',(e)=>{
+            if(overlay.style.opacity === '1' && e.code == 'Escape'){
+                fadeOut(overlay,30);
+                body.classList.remove('no-scroll');
+                body.style.top = '';
+                window.scrollTo(0, scrollPosition);
+        }
+        });
+    }
+
+    //slider
+    if(document.querySelector('.artists__slider')){        
         new Swiper('.artists__slider', {
             loop: true,
             grabCursor:true,
@@ -183,8 +216,16 @@ window.addEventListener('DOMContentLoaded',()=>{
                 sticky: false           // без прилипания к слайдам (важно для полной плавности)
             },
              breakpoints: {
+                3000:{
+                    slidesPerView: '6.2',
+                    spaceBetween:60,
+                },
+                1600:{
+                    slidesPerView: '5.4',
+                    spaceBetween:30,
+                },
                 1400:{
-                    slidesPerView: '4.2',
+                    slidesPerView: '4.7',
                     spaceBetween:30,
                 },
                 1024:{
@@ -192,11 +233,15 @@ window.addEventListener('DOMContentLoaded',()=>{
                     spaceBetween:30,
                 },
                 768:{
-                    slidesPerView: '2.2',
+                    slidesPerView: '3.1',
+                    spaceBetween:25,
+                },
+                500:{
+                    slidesPerView: '2.7',
                     spaceBetween:25,
                 },
                 320:{
-                    slidesPerView: '2.1',
+                    slidesPerView: '1.9',
                     spaceBetween:15,
                 },
             }
@@ -231,14 +276,21 @@ window.addEventListener('DOMContentLoaded',()=>{
         listenersCounter.textContent = currentListeners.toLocaleString('ru-RU');
 
         setInterval(() => {
-            const { h } = getMskTime();
-            const sameHours = listenersTable[h] === listenersTable[(h + 1) % 24];
             const target = getListenersTarget();
+            const diff = target - currentListeners;
 
-            const randomChange = currentListeners * (Math.random() * 0.1 - 0.05);
-            const drift = sameHours ? 0 : (target - currentListeners) * 0.2;
+            // Более агрессивное движение к целевому числу
+            const pullStrength = 0.5;
+            const step = diff * pullStrength;
 
-            currentListeners = Math.min(Math.round(currentListeners + randomChange + drift), 77000);
+            // Случайный шум примерно ±500
+            const noise = (Math.random() - 0.5) * 2000;
+
+            const margin = 5000;
+            currentListeners = Math.round(currentListeners + step + noise);
+            // Не уходим от целевого значения дальше чем на margin
+            currentListeners = Math.max(target - margin, Math.min(target + margin, currentListeners));
+            currentListeners = Math.max(40000, Math.min(77000, Math.round(currentListeners)));
             listenersCounter.textContent = currentListeners.toLocaleString('ru-RU');
         }, 5000);
     }
@@ -262,10 +314,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
 
     // Audio controls
-    const audioItems = document.querySelectorAll('.release__audio-item');
-    let currentAudio = null;
-    let currentButton = null;
-
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
@@ -274,15 +322,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 
     function setProgressFill(input, value) {
         input.style.setProperty('--value', `${value}%`);
-    }
-
-    function stopCurrent() {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentButton.classList.remove('release__record--active');
-            currentAudio = null;
-            currentButton = null;
-        }
     }
 
     audioItems.forEach(item => {
@@ -296,6 +335,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 stopCurrent();
             }
             if (audio.paused) {
+                muteHeroVideo();
                 audio.volume = 0.4;
                 audio.play();
                 button.classList.add('release__record--active');
@@ -346,5 +386,57 @@ window.addEventListener('DOMContentLoaded',()=>{
         progressBar.addEventListener('mouseup', () => { progressBar._dragging = false; });
         progressBar.addEventListener('touchend', () => { progressBar._dragging = false; });
     });
+
+    // succes-message (CF7)
+    const succesMessage = document.querySelector('.succes-message');
+    if (succesMessage) {
+        const succesClose = succesMessage.querySelector('[data-succes-message="close"]');
+        const succesContents = succesMessage.querySelectorAll('.succes-message__content');
+
+        const openSuccesMessage = (type) => {
+            succesContents.forEach((content) => {
+                const contentType = content.getAttribute('data-succes-message');
+                content.style.display = contentType === type ? 'block' : 'none';
+            });
+            succesMessage.classList.add('succes-message--visible');
+        };
+
+        const closeSuccesMessage = () => {
+            succesMessage.classList.remove('succes-message--visible');
+        };
+
+        if (succesClose) {
+            succesClose.addEventListener('click', closeSuccesMessage);
+        }
+
+        succesMessage.addEventListener('click', (e) => {
+            if (e.target === succesMessage) {
+                closeSuccesMessage();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Escape' && succesMessage.classList.contains('succes-message--visible')) {
+                closeSuccesMessage();
+            }
+        });
+
+        document.addEventListener('wpcf7mailsent', (event) => {
+            const form = event.target;
+            if (!form) return;
+
+            let formType = form.getAttribute('data-form');
+            if (!formType) {
+                const formButton = form.querySelector('[data-form]');
+                if (formButton) {
+                    formType = formButton.getAttribute('data-form');
+                }
+            }
+
+            if (formType === 'demo' || formType === 'main') {
+                openSuccesMessage(formType);
+            }
+        });
+    }
 
 });

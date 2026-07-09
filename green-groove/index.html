@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Green Groove</title>
-    <meta name="description" content="Green Groove — независимый музыкальный лейбл полного цикла. Продвижение артистов, менеджмент, прозрачные условия и развитие карьеры. Отправь демо и присоединяйся к команде!">
+    <meta name="description" content="Продвижение и менеджмент артистов, помощь в донесении творчества артистов до максимально широкой аудитории и создание возможностей для роста.">
+
+    <link rel="preload" href="./images/hero-bg-fallback.jpg" as="image">
 
     <link rel="stylesheet" href="./css/style.min.css">
 </head>
@@ -13,19 +15,19 @@
     <header class="header">
         <div class="container">
             <div class="header__outer">
-                <div class="header__logo">
-                    <img src="./images/icons/logo.svg" alt="">
+                <div class="header__logo header__logo--mob">
+                    <img src="./images/icons/logo.png" alt="">
                 </div>
                 <div class="header__inner">
-                    <div class="header__logo header__logo--mob">
-                        <img src="./images/icons/logo.svg" alt="">
+                    <div class="header__logo">
+                        <img src="./images/icons/logo.png" alt="">
                     </div>
                     <nav class="header__menu">
                         <ul class="header__menu-list">
                             <li class="header__menu-item"><a href="#about" class="header__menu-link hover-underline">О НАС</a></li>
-                            <li class="header__menu-item"><a href="#statistic" class="header__menu-link hover-underline">СТАТИСТИКА</a></li>
                             <li class="header__menu-item"><a href="#artists" class="header__menu-link hover-underline">АРТИСТЫ</a></li>
-                            <li class="header__menu-item"><a href="#trust" class="header__menu-link hover-underline">Нам доверяют</a></li>
+                            <li class="header__menu-item"><a href="#demo" class="header__menu-link hover-underline">Демо</a></li>
+                            <li class="header__menu-item"><a href="#questions" class="header__menu-link hover-underline">Контакты</a></li>
                         </ul>
                     </nav>
                     <ul class="header__social header__social--mob">
@@ -33,10 +35,10 @@
                             <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
                         </a></li>
                         <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
-                            <img src="./images/icons/footer-youtube.png" alt="" idwidth="52" height="52">
+                            <img src="./images/icons/footer-youtube.png" alt="" width="52" height="52">
                         </a></li>
                         <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
-                            <img src="./images/icons/footer-star.png" alt="" w52idwidth="52" height="52">
+                            <img src="./images/icons/footer-star.png" alt="" width="52" height="52">
                         </a></li>
                     </ul>
                     <ul class="header__social">
@@ -71,8 +73,8 @@
     <main class="main">
         <section class="hero">
             <div class="hero__bg">
-                <video class="hero__bg-video" poster="./images/hero-bg-fallback.jpg" autoplay muted loop>
-                    <source src="./videos/hero-bg.mp4" type="video/mp4">
+                <video class="hero__bg-video" poster="./images/hero-bg-fallback.jpg" autoplay muted loop playsinline>
+                    <source src="./video/hero-bg.mp4" type="video/mp4">
                     <img class="hero__video-fallback" src="./images/hero-bg-fallback.jpg" alt="Фоновое изображение">
                 </video>
             </div>
@@ -97,19 +99,17 @@
                         <div class="about__quattroteque-img">
                             <img src="./images/quattroteque.jpg" alt="">
                             <span class="about__img-title">QUATTROTEQUE</span>
-                            <div class="about__disks-img">
-                                <img src="./images/disks.jpg" alt="">
-                                <span class="about__img-title">Церемония вручения золотых <br> и платиновых дисков</span>
-                            </div>
+                        </div>
+                        <div class="about__disks-img">
+                            <img src="./images/disks.jpg" alt="">
+                            <span class="about__img-title">Церемония вручения золотых <br> и платиновых дисков</span>
                         </div>
                     </div>
                     <div class="about__text-block scroll-animate">
-                        <p class="about__text about__text--sm-width"><span class="about__text-green">Green Groove —</span><span class="about__text-bold"> независимый</span> 
-                        <span class="about__text-green">музыкальный лейбл</span> <span class="about__text-bold">полного цикла</span>.
-                        Мы — команда, для которой музыка не фон,
-                        а дело жизни.</p>
+                        <p class="about__text about__text--sm-width"><span class="about__text-green">Green Groove —</span><span class="about__text-bold"> Независимый</span> 
+                        <span class="about__text-green">музыкальный лейбл</span> <span class="about__text-bold">полного цикла</span>. Мы — команда, для которой музыка не&nbsp;фон, а&nbsp;дело жизни.</p>
                         <p class="about__text">Мы занимаемся <span class="about__text-green">продвижением
-                        и менеджментом артистов,</span> помогаем <span class="about__text-green">донести их творчество</span> до максимально широкой аудитории и <span class="about__text-green">создаём возможности для роста.</span></p>
+                        и&nbsp;менеджментом артистов,</span> помогаем <span class="about__text-green">донести их творчество</span> до&nbsp;максимально широкой аудитории и&nbsp;<span class="about__text-green">создаём возможности для роста.</span></p>
                         <p class="about__text"><span class="about__text-bold">Наши ценности: честность, прозрачность, эффективность. </span>Именно на них строим работу внутри команды и партнёрство с артистами.</p>
                     </div>
                     <a href="#advantages" class="about__btn hover-dark-green">узнать больше</a>
@@ -121,12 +121,12 @@
                     <div class="advantages__item">
                         <div class="advantages__title-block">
                             <span class="advantages__count">1</span>
-                            <h3 class="advantages__item-title">Прямые договоры с агрегаторами</h3>
+                            <h3 class="advantages__item-title">Прямые договоры с&nbsp;агрегаторами</h3>
                             <button class="advantages__arrow-drop">
                                 <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
                             </button>
                         </div>
-                        <p class="advantages__text">Никаких посредников — только прямые контракты с ведущими агрегаторами ZVONKO Digital и Pulse (ex. S & P Digital). Честные и выгодные условия: вы не теряете роялти в бесконечных «мутных» цепочках</p>
+                        <p class="advantages__text">Никаких посредников — только прямые контракты с&nbsp;ведущими агрегаторами ZVONKO Digital и&nbsp;Pulse (ex. S & P Digital). Честные и&nbsp;выгодные условия: вы не&nbsp;теряете роялти в&nbsp;бесконечных «мутных» цепочках</p>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__title-block">
@@ -136,7 +136,7 @@
                                 <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
                             </button>
                         </div>
-                        <p class="advantages__text">Системная работа с маркетингом и PR, постоянная актуализация инструментов и нестандартные решения, чтобы артист оставался заметным</p>
+                        <p class="advantages__text">Системная работа с&nbsp;маркетингом и&nbsp;PR, постоянная актуализация инструментов и&nbsp;нестандартные решения, чтобы артист оставался заметным</p>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__title-block">
@@ -146,7 +146,7 @@
                                 <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
                             </button>
                         </div>
-                        <p class="advantages__text">Своевременные отчёты, полный доступ к статистике, абсолютная открытость — никаких скрытых удержаний и сюрпризов</p>
+                        <p class="advantages__text">Своевременные отчёты, полный доступ к&nbsp;статистике, абсолютная открытость — никаких скрытых удержаний и&nbsp;сюрпризов</p>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__title-block">
@@ -156,27 +156,27 @@
                                 <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
                             </button>
                         </div>
-                        <p class="advantages__text">Мы не присваиваем права и не забираем релизы. Всё закреплено понятными договорами — права остаются у артиста</p>
+                        <p class="advantages__text">Мы не&nbsp;присваиваем права и&nbsp;не&nbsp;забираем релизы. Всё закреплено понятными договорами — права остаются у&nbsp;артиста</p>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__title-block">
                             <span class="advantages__count">5</span>
-                            <h3 class="advantages__item-title">Корпоративная культура и комьюнити</h3>
+                            <h3 class="advantages__item-title">Корпоративная культура и&nbsp;комьюнити</h3>
                             <button class="advantages__arrow-drop">
                                 <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
                             </button>
                         </div>
-                        <p class="advantages__text">Атмосфера поддержки и обмена опытом, совместный рост и собственные мероприятия для артистов и команды</p>
+                        <p class="advantages__text">Атмосфера поддержки и&nbsp;обмена опытом, совместный рост и&nbsp;собственные мероприятия для&nbsp;артистов и&nbsp;команды</p>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__title-block">
                             <span class="advantages__count">6</span>
-                            <h3 class="advantages__item-title">Фокус на развитии</h3>
+                            <h3 class="advantages__item-title">Фокус на&nbsp;развитии</h3>
                             <button class="advantages__arrow-drop">
                                 <img src="./images/icons/arrow-drop.svg" alt="" width="42" height="42">
                             </button>
                         </div>
-                        <p class="advantages__text">Мы строим долгосрочное партнёрство, ищем новые возможности и пути развития карьеры артиста</p>
+                        <p class="advantages__text">Мы строим долгосрочное партнёрство, ищем новые возможности и&nbsp;пути развития карьеры артиста</p>
                     </div>
                 </div>
             </section>
@@ -550,17 +550,17 @@
                 </div>
                 <div class="genres__item">
                     <div class="genres__block scroll-animate">
-                        <h2 class="title genres__title">Жанры</h2>
+                        <h2 class="title genres__title">Основные жанры</h2>
                         <ul class="genres__list">
                             <li class="genres__list-item">Русский хип-хоп</li>
                             <li class="genres__list-item">Поп-музыка</li>
                             <li class="genres__list-item">Электроника</li>
                         </ul>
                     </div>
-                    <div class="genres__statistics scroll-animate" id="statistic">
+                    <div class="genres__statistics scroll-animate">
                         <div class="genres__statistics-cell hover-scale">
-                            <span class="genres__statistics-count"></span>
-                            <span class="genres__statistics-text"></span>
+                            <span class="genres__statistics-count">1500+</span>
+                            <span class="genres__statistics-text">выпущено релизов</span>
                         </div>
                         <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">5000+</span>
@@ -568,19 +568,19 @@
                         </div>
                         <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">5млн+</span>
-                            <span class="genres__statistics-text">созданных роликов в Тик Ток</span>
+                            <span class="genres__statistics-text">созданных роликов в TikTok</span>
                         </div>
                         <div class="genres__statistics-cell hover-scale">
-                            <span class="genres__statistics-count">300 млн+</span>
-                            <span class="genres__statistics-text">просмотров + Ютуб</span>
+                            <span class="genres__statistics-count">3млн+</span>
+                            <span class="genres__statistics-text">ежедневная аудитория слушателей</span>
                         </div>
                         <div class="genres__statistics-cell hover-scale">
                             <span class="genres__statistics-count">7,5 млрд+</span>
                             <span class="genres__statistics-text">прослушиваний</span>
                         </div>
                         <div class="genres__statistics-cell hover-scale">
-                            <span class="genres__statistics-count">3млн+</span>
-                            <span class="genres__statistics-text">ежедневная аудитория слушателей</span>
+                            <span class="genres__statistics-count">300 млн+</span>
+                            <span class="genres__statistics-text">просмотров на YouTube</span>
                         </div>
                     </div>
                 </div>
@@ -806,89 +806,89 @@
                 </div>
             </div>
             <section class="artists" id="artists">
-                <h2 class="title artists__title scroll-animate">Наши Артисты</h2>
+                <h2 class="title artists__title scroll-animate">АРТИСТЫ ЛЕЙБЛА</h2>
                 <div class="artists__slider swiper scroll-animate">
                     <div class="artists__wrapper swiper-wrapper">
-                      <div class="artists__slide swiper-slide">
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist11.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist10.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist9.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist8.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist7.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist6.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist5.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist4.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist3.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist2.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist1.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist12.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist13.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist14.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist15.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
-                      <div class="artists__slide swiper-slide">
+                      </a>
+                      <a class="artists__slide swiper-slide" href="#">
                             <div class="artists__img">
                                 <img src="./images/artist16.jpg" alt="" width="427" height="641">
                             </div>
-                      </div>
+                      </a>
                     </div>
                 </div>
             </section>
@@ -896,7 +896,7 @@
                 <h2 class="title release__title scroll-animate">Наши релизы</h2>
                 <ul class="release__audio-grid scroll-animate">
                     <li class="release__audio-item">
-                        <audio src="./music/KLLIN, BartiZ - Пират (BartiZ Remix).mp3"></audio>
+                        <audio src="./audio/pirat.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -908,8 +908,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Пират (BartiZ Remix)</h3>
-                                        <h4 class="release__name-music">KLLIN, BartiZ</h4>
+                                        <h3 class="release__name-music">Пират (BartiZ Remix)</h3>
+                                        <h4 class="release__name-artist">KLLIN, BartiZ</h4>
                                     </div>
                                     <div class="release__audio-links">
                                         <a href="https://zvonko.link/132A4E8" class="release__platform-link hover-scale">
@@ -925,7 +925,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/NoНейма, AnufriEva, BartiZ, BERSKIY, COBRV - Revela (Remix).mp3"></audio>
+                        <audio src="./audio/revela.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -937,8 +937,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Revela</h3>
-                                        <h4 class="release__name-music">NoНейма, AnufriEva, BartiZ, BERSKIY, COBRV</h4>
+                                        <h3 class="release__name-music">Revela</h3>
+                                        <h4 class="release__name-artist">NoНейма, AnufriEva, BartiZ, BERSKIY, COBRV</h4>
                                     </div>
                                     <div class="release__audio-links">
                                         <a href="https://band.link/0iVWj" class="release__platform-link hover-scale">
@@ -954,7 +954,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/QUATTROTEQUE, DVRVIX - Base.mp3"></audio>
+                        <audio src="./audio/base.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -966,8 +966,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Base</h3>
-                                        <h4 class="release__name-music">QUATTROTEQUE, DVRVIX
+                                        <h3 class="release__name-music">Base</h3>
+                                        <h4 class="release__name-artist">QUATTROTEQUE, DVRVIX
                                         </h4>
                                     </div>
                                     <div class="release__audio-links">
@@ -984,7 +984,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/TRETIAKOVA, DJ TINOKI - В этот вечер.mp3"></audio>
+                        <audio src="./audio/vecher.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -996,8 +996,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">В этот вечер</h3>
-                                        <h4 class="release__name-music">TRETIAKOVA, DJ TINOKI
+                                        <h3 class="release__name-music">В этот вечер</h3>
+                                        <h4 class="release__name-artist">TRETIAKOVA, DJ TINOKI
                                         </h4>
                                     </div>
                                     <div class="release__audio-links">
@@ -1014,7 +1014,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/2109, Товаръkи - Ночная молодежь.mp3"></audio>
+                        <audio src="./audio/young-people.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -1026,8 +1026,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Ночная молодежь</h3>
-                                        <h4 class="release__name-music">2109, Товаръkи
+                                        <h3 class="release__name-music">Ночная молодежь</h3>
+                                        <h4 class="release__name-artist">2109, Товаръkи
                                         </h4>
                                     </div>
                                     <div class="release__audio-links">
@@ -1044,7 +1044,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/DJ TINOKI, NoНейма, AnufriEva - Этажи.mp3"></audio>
+                        <audio src="./audio/floors.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -1056,8 +1056,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Этажи</h3>
-                                        <h4 class="release__name-music">DJ TINOKI, NoНейма, AnufriEva
+                                        <h3 class="release__name-music">Этажи</h3>
+                                        <h4 class="release__name-artist">DJ TINOKI, NoНейма, AnufriEva
                                         </h4>
                                     </div>
                                     <div class="release__audio-links">
@@ -1074,7 +1074,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/Degede - Бездыханная.mp3"></audio>
+                        <audio src="./audio/no-breath.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -1086,8 +1086,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Бездыханная</h3>
-                                        <h4 class="release__name-music">Degede
+                                        <h3 class="release__name-music">Бездыханная</h3>
+                                        <h4 class="release__name-artist">Degede
                                         </h4>
                                     </div>
                                     <div class="release__audio-links">
@@ -1104,7 +1104,7 @@
                         </div>
                     </li>
                     <li class="release__audio-item">
-                        <audio src="./music/DJ TINOKI, KLLIN - Суета.mp3"></audio>
+                        <audio src="./audio/sueta.mp3"></audio>
                         <div class="release__audio-wrapper">
                             <button class="release__record hover-dark-green">
                                 <img class="release__record-play" src="./images/icons/play.svg" alt="">
@@ -1116,8 +1116,8 @@
                             <div class="release__audio-info">
                                 <div class="release__audio-info-top">
                                     <div class="release__name-block">
-                                        <h3 class="release__name-artist">Суета</h3>
-                                        <h4 class="release__name-music">DJ TINOKI
+                                        <h3 class="release__name-music">Суета</h3>
+                                        <h4 class="release__name-artist">DJ TINOKI, KLLIN
                                         </h4>
                                     </div>
                                     <div class="release__audio-links">
@@ -1154,7 +1154,7 @@
             </section>
         </div>
         <section class="trust" id="trust">
-            <h2 class="title trust__title">Нам доверяют</h2>
+            <h2 class="title trust__title">В КАТАЛОГЕ:</h2>
             <div class="trust__carousel">
                 <div class="trust__carousel-top">
                     <div class="trust__carousel-item">
@@ -1326,19 +1326,23 @@
                 </div>
             </div>
         </section>
-        <div class="demo">
+        <div class="demo" id="demo">
             <div class="demo__wrapper  container">
-                <p class="demo__text scroll-animate"><span class="demo__golden">Ты</span><br><span class="demo__green">Артист,</span><br> и Хочешь быть частью <br> нашей команды?</p>
+                <p class="demo__text scroll-animate">
+                    <span class="demo__text demo__text--golden demo__text--fz-lg">Вы Артист</span>
+                    <span class="demo__text demo__text--golden demo__text--fz-md">с сильным материалом?</span>
+                    <span>Мы готовы его услышать</span>
+                </p>
                 <button class="demo__btn hover-dark-green" data-overlay="modal">Отправить  демо</button>
             </div>
         </div>
         <section class="questions" id="questions">
             <div class="questions__form container">
-                <h2 class="title title--fz-sm questions__title scroll-animate">Коммерческие предложения, организация концертов, партнёрские инициативы и иные вопросы:</h2>
+                <h2 class="title title--fz-sm questions__title scroll-animate">Коммерческие предложения, организация концертов, партнёрские инициативы и&nbsp;иные вопросы:</h2>
                 <form action="">
                     <div class="questions__grid">
                         <input class="questions__input" type="text" name="feedname" required placeholder="Имя">
-                        <input class="questions__input" type="email" name="feedmail"required placeholder="Почта">
+                        <input class="questions__input" type="email" name="feedmail" required placeholder="Почта">
                         <textarea class="questions__textarea" name="feedarea"  placeholder="Сообщение"></textarea>
                         <input class="questions__input questions__real-upload" type="file" name="feedfile" id="feedfile" required>
                         <label for="feedfile" class="questions__custom-input hover-dark-green">
@@ -1346,7 +1350,7 @@
                         </label>
                     </div>
                     <p class="questions__policy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="policy.html" class="questions__policy-link">политикой конфиденциальности</a></p>
-                    <button class="questions__btn hover-scale">Отправить</button>
+                    <button class="questions__btn hover-scale" data-form="main">Отправить</button>
                 </form>
             </div>
         </section>
@@ -1358,7 +1362,7 @@
                     <img src="./images/icons/close.svg" alt="">
                 </button>
                 <div class="form-demo__logo">
-                    <img src="./images/icons/logo.svg" alt="">
+                    <img src="./images/icons/logo.png" alt="">
                 </div>
                 <h2 class="form-demo__title">Отправить демо:</h2>
                 <div class="form-demo__form">
@@ -1387,37 +1391,60 @@
                                     <li class="form-demo__form-details-item">– текущие результаты (прослушивания, охваты)</li>
                                     <li class="form-demo__form-details-item">– чем ваш проект уникален</li>
                                 </ul>
-                                <textarea class="form-demo__area" type="text" name="about-project" required></textarea>
+                                <textarea class="form-demo__area" name="about-project" required></textarea>
+                            </div>
+                            <div class="form-demo__form-block">
+                                <div class="form-demo__form-info">Контакт для связи (Telegram / ВКонтакте)</div>
+                                <input class="form-demo__input" type="text" name="contact-links" required>
                             </div>
                         </div>
-                        <button class="form-demo__btn hover-scale">Отправить</button>
+                        <button class="form-demo__btn hover-scale"  data-form="demo">Отправить</button>
                     </form>
                 </div>
             </div>
         </section>
     </div>
+    <div class="succes-message">
+        <div class="succes-message__inner">
+            <button class="succes-message__close" data-succes-message="close">
+                <img src="./images/icons/close.svg" alt="">
+            </button>
+            <div class="succes-message__img">
+                <img src="./images/icons/succes.png" alt="">
+            </div>
+            <div class="succes-message__content" data-succes-message="demo">
+                <div class="succes-message__text">Ваша заявка успешно отправлена!</div>
+                <p class="succes-message__subtext">Если ваш материал нас&nbsp;заинтересует, мы&nbsp;обязательно с&nbsp;вами свяжемся</p>
+            </div>
+            <div class="succes-message__content" data-succes-message="main">
+                <div class="succes-message__text">Ваша заявка успешно отправлена!</div>
+                <div class="succes-message__text">Спасибо!</div>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <div class="footer__top">
-            <div class="footer__top-inner container">
-                <div class="footer__logo-tablet">
-                    <img src="./images/icons/logo.svg" alt="" width="150" height="95">
-                </div>
-                <ul class="footer__links">
-                    <li class="footer__links-item"><a href="#about" class="footer__link hover-underline">О НАС</a></li>
-                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="index.html" class="footer__link hover-underline">GREEN GROOVE</a></li>
-                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="#statistic" class="footer__link hover-underline">Статистика</a></li>
-                    <li class="footer__links-item"><a href="#advantages" class="footer__link hover-underline">Преимущества</a></li>
-                    <li class="footer__links-item"><a href="#genres" class="footer__link hover-underline">Нас слушают</a></li>
-                </ul>
-                <ul class="footer__links">
-                    <li class="footer__links-item"><a href="#artists" class="footer__link hover-underline">АРТИСТЫ</a></li>
-                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="#release" class="footer__link hover-underline">НАШИ РЕЛИЗЫ</a></li>
-                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="#trust" class="footer__link hover-underline">НАМ ДОВЕРЯЮТ</a></li>
-                    <li class="footer__links-item"><button class="footer__btn hover-underline" data-overlay="modal">ОТПРАВИТЬ ДЕМО</button></li>
-                </ul>
-                <ul class="footer__links">
-                    <li class="footer__links-item"><a href="#questions" class="footer__link hover-underline">СВЯЗАТЬСЯ С НАМИ</a></li>
-                    <li class="footer__links-item footer__links-item--tabliet-novisible"><a href="" class="footer__link hover-underline">КОНТАКТЫ</a></li>
+            <div class="container">
+                <h2 class="footer__list-title">КОНТАКТЫ</h2>
+                <ul class="footer__list">
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">PR и медиа</div>
+                        <a href="mailto:info@green-groove.com" class="footer__list-item-link hover-underline">info@green-groove.com</a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Синхронизация и лицензирование</div>
+                        <a href="mailto:sync@green-groove.ru" class="footer__list-item-link hover-underline">sync@green-groove.ru</a>
+                        </a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Коммерческие предложения и партнёрства</div>
+                        <a href="mailto:info@green-groove.com" class="footer__list-item-link hover-underline">partners@green-groove.ru
+                        </a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Юридические вопросы</div>
+                        <a href="mailto:legal@green-groove.ru" class="footer__list-item-link hover-underline">legal@green-groove.ru</a>
+                    </li>
                 </ul>
                 <div class="footer__more-info">
                     <ul class="footer__social-links">
@@ -1425,16 +1452,12 @@
                             <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
                         </a></li>
                         <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
-                            <img src="./images/icons/footer-youtube.png" alt="" idwidth="52" height="52">
+                            <img src="./images/icons/footer-youtube.png" alt="" width="52" height="52">
                         </a></li>
                         <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
-                            <img src="./images/icons/footer-star.png" alt="" w52idwidth="52" height="52">
+                            <img src="./images/icons/footer-star.png" alt="" width="52" height="52">
                         </a></li>
                     </ul>
-                    <a href="policy.html" class="footer__policy hover-underline">ПОЛИТИКА КОНФИДЕЦИАЛЬНОСТИ</a>
-                    <div class="footer__logo">
-                        <img src="./images/icons/logo.svg" alt="" width="150" height="95">
-                    </div>
                 </div>
             </div>
         </div>

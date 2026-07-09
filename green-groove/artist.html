@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QUATTROTEQUE - Глеб Горельчаник</title>
+    <meta name="description" content="Небольшая инфа об артисте и его творчестве">
+
+    <link rel="preload" href="./images/hero-bg-fallback.jpg" as="image">
+
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__outer">
+                <div class="header__logo header__logo--mob">
+                    <img src="./images/icons/logo.png" alt="">
+                </div>
+                <div class="header__inner">
+                    <div class="header__logo">
+                        <img src="./images/icons/logo.png" alt="">
+                    </div>
+                    <nav class="header__menu">
+                        <ul class="header__menu-list">
+                            <li class="header__menu-item"><a href="#about" class="header__menu-link hover-underline">О НАС</a></li>
+                            <li class="header__menu-item"><a href="#artists" class="header__menu-link hover-underline">АРТИСТЫ</a></li>
+                            <li class="header__menu-item"><a href="#demo" class="header__menu-link hover-underline">Демо</a></li>
+                            <li class="header__menu-item"><a href="#questions" class="header__menu-link hover-underline">Контакты</a></li>
+                        </ul>
+                    </nav>
+                    <ul class="header__social header__social--mob">
+                        <li class="footer__social-item hover-scale"><a href="https://vk.com/gg_label" class="footer__social-link">
+                            <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
+                            <img src="./images/icons/footer-youtube.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
+                            <img src="./images/icons/footer-star.png" alt="" width="52" height="52">
+                        </a></li>
+                    </ul>
+                    <ul class="header__social">
+                        <li class="header__social-item">
+                            <a href="https://vk.com/gg_label" class="header__social-link hover-scale">
+                                <img src="./images/icons/vk.png" alt="" width="52" height="52">
+                            </a>
+                        </li>
+                        <li class="header__social-item">
+                            <a href="https://www.youtube.com/@gg.musiclabel/featured" class="header__social-link hover-scale">
+                                <img src="./images/icons/youtube.png" alt="" width="52" height="52">
+                            </a>
+                        </li>
+                        <li class="header__social-item">
+                            <a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="header__social-link hover-scale">
+                                <img src="./images/icons/star.png" alt="" width="52" height="52">
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="account.html" class="header__personal-account header__personal-account--visible hover-scale ">
+                        <img src="./images/icons/personal-acc.svg" alt="" width="60" height="60">
+                    </a>
+                </div>
+                <div class="header__mob">
+                    <button class="header__burger" type="button" title="Открыть меню" aria-label="Открыть меню">
+                        <span class="header__burger-stick"></span>
+                        <span class="header__burger-stick"></span>
+                        <span class="header__burger-stick"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="hero">
+            <div class="hero__bg">
+                <img src="./images/artist/hero-bg-artist.jpg" alt="" width="100%" height="100%">
+            </div>
+            <div class="container hero__container hero__container--right">
+                <h1 class="hero__artist-title scroll-animate"><span class="hero__artist-title-top">QUATTROTEQUE</span> <br> <span class="hero__artist-title-bottom">Глеб Горельчаник</span></h1>
+            </div>
+        </section>
+        <section class="biography" id="biography">
+            <div class="biography__wrapper-top">
+                <div class="container">
+                    <div class="biography__inner">
+                        <div class="biography__cell">
+                            <h2 class="title biography__title">Биография</h2>
+                            <p class="biography__text biography__text--mt"><span class="biography__text-green">Глеб Горельчаник (QUATTROTEQUE)  — </span><span class="biography__text-bold">российский электронный продюсер</span> и один из наиболее заметных представителей <span class="biography__text-bold">Deep House-сцены в России и СНГ</span>. Его авторские треки и ремиксы регулярно <span class="biography__text-bold">получают широкий отклик у слушателей:</span> фрагменты релизов расходятся в соцсетях, включая звезд уровня <span class="biography__text-green">Кэти Перри,</span> а сами работы <span class="biography__text-bold">стабильно попадают в подборки главных электронных треков недели и редакционные витрины стримингов</span></p>
+                        </div>
+                        <div class="biography__cell">
+                            <div class="biography__img biography__img--sm" style="background-image: url('./images/artist/biography1.jpg');">
+                            </div>
+                        </div>
+                        <div class="biography__cell">
+                            <div class="biography__img" style="background-image: url('./images/artist/biography2.jpg');">
+                            </div>
+                        </div>
+                        <div class="biography__cell">
+                            <p class="biography__text"><span class="biography__text-green">Музыка QUATTROTEQUE —</span> это узнаваемое сочетание мелодичного <span class="biography__text-bold">Deep House-настроения,</span> атмосферных синтов и <span class="biography__text-bold">“ночной” динамики,</span> которая одинаково хорошо работает и в клубном контексте, и как саундтрек к городу: на дороге, в наушниках, дома. <span class="biography__text-green">При этом артист не ограничивает себя одним звучанием —</span> в его каталоге встречаются эксперименты 
+                                и в смежных направлениях танцевальной музыки, 
+                                а также коллаборации с самыми разными музыкантами, что расширяет палитру и удерживает интерес аудитории от релиза к релизу</p>
+                        </div>
+                    </div>
+                    <div class="release__music-links">
+                        <a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="release__music-link">
+                            <div class="release__music-link-img">
+                                <img src="./images/icons/yandex-music-lg.png" alt="">
+                            </div>
+                        </a>
+                        <a href="https://vk.com/gg_label" class="release__music-link">
+                            <div class="release__music-link-img">
+                                <img src="./images/icons/vk-music-lg.png" alt="">
+                            </div>
+                        </a>
+                        <a href="https://open.spotify.com/playlist/1SsfLrYpvcweJoMDIxspbT?si=GULUYpr4SPeBHrV0Cbbgkw&pi=3Y5WuT2zRkypB" class="release__music-link">
+                            <div class="release__music-link-img">
+                                <img src="./images/icons/spotify-lg.png" alt="">
+                            </div>
+                        </a>
+                        <a href="" class="release__music-link">
+                            <div class="release__music-link-img">
+                                <img src="./images/icons/zvuk-lg.png" alt="">
+                            </div>
+                        </a>
+                        <a href="" class="release__music-link">
+                            <div class="release__music-link-img">
+                                <img src="./images/icons/apple-lg.png" alt="">
+                            </div>
+                        </a>
+                        <a href="" class="release__music-link">
+                            <div class="release__music-link-img">
+                                <img src="./images/icons/music-lg.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="biography__wrapper-bottom">
+                <div class="biography__dark-bg-layer"></div>
+                <div class="container biography__container">
+                    <div class="biography__info-inner">
+                        <p class="biography__text biography__text--sm-width">Отдельного внимания заслуживают коммерческие результаты: <span class="biography__text-green">QUATTROTEQUE —</span> <span class="biography__text-bold">обладатель золотых сертификаций за треки</span> <span class="biography__text-green">“Rain”, “Stories”, “Memorries”</span> <span class="biography__text-bold">и</span> <span class="biography__text-green">"I Feel Like"</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="wrapper-bottom wrapper-bottom--padding">
+            <section class="release container" id="release">
+                <h2 class="title scroll-animate">Топ-треки артиста</h2>
+                <ul class="release__audio-grid scroll-animate">
+                    <li class="release__audio-item">
+                        <audio src="./audio/pirat.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Пират (BartiZ Remix)</h3>
+                                        <h4 class="release__name-artist">KLLIN, BartiZ</h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://zvonko.link/132A4E8" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/revela.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster2.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Revela</h3>
+                                        <h4 class="release__name-artist">NoНейма, AnufriEva, BartiZ, BERSKIY, COBRV</h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://band.link/0iVWj" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/base.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster3.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Base</h3>
+                                        <h4 class="release__name-artist">QUATTROTEQUE, DVRVIX
+                                        </h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://zvonko.link/1ADF61A" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/vecher.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster4.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">В этот вечер</h3>
+                                        <h4 class="release__name-artist">TRETIAKOVA, DJ TINOKI
+                                        </h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://zvonko.link/1AAF921" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/young-people.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster5.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Ночная молодежь</h3>
+                                        <h4 class="release__name-artist">2109, Товаръkи
+                                        </h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://zvonko.link/1D01F18" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/floors.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster6.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Этажи</h3>
+                                        <h4 class="release__name-artist">DJ TINOKI, NoНейма, AnufriEva
+                                        </h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://band.link/Pz7wn" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/no-breath.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster7.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Бездыханная</h3>
+                                        <h4 class="release__name-artist">Degede
+                                        </h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://band.link/vGpWX" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                    <li class="release__audio-item">
+                        <audio src="./audio/sueta.mp3"></audio>
+                        <div class="release__audio-wrapper">
+                            <button class="release__record hover-dark-green">
+                                <img class="release__record-play" src="./images/icons/play.svg" alt="">
+                                <img class="release__record-pause" src="./images/icons/pause.svg" alt="">
+                            </button>
+                            <div class="release__poster">
+                                <img src="./images/music-poster8.jpg" alt="">
+                            </div>
+                            <div class="release__audio-info">
+                                <div class="release__audio-info-top">
+                                    <div class="release__name-block">
+                                        <h3 class="release__name-music">Суета</h3>
+                                        <h4 class="release__name-artist">DJ TINOKI, KLLIN
+                                        </h4>
+                                    </div>
+                                    <div class="release__audio-links">
+                                        <a href="https://band.link/aOBRP" class="release__platform-link hover-scale">
+                                            <img src="./images/icons/add.svg" alt="">
+                                        </a>
+                                        <span class="release__time-display">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="release__audio-progress-bar">
+                                    <input type="range" min="0" max="100" value="0" step="0.1">
+                                </div>
+                            </div>  
+                        </div>
+                    </li>
+                </ul>
+
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__top">
+            <div class="container">
+                <h2 class="footer__list-title">КОНТАКТЫ</h2>
+                <ul class="footer__list">
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">PR и медиа</div>
+                        <a href="mailto:info@green-groove.com" class="footer__list-item-link hover-underline">info@green-groove.com</a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Синхронизация и лицензирование</div>
+                        <a href="mailto:sync@green-groove.ru" class="footer__list-item-link hover-underline">sync@green-groove.ru</a>
+                        </a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Коммерческие предложения и партнёрства</div>
+                        <a href="mailto:info@green-groove.com" class="footer__list-item-link hover-underline">partners@green-groove.ru
+                        </a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Юридические вопросы</div>
+                        <a href="mailto:legal@green-groove.ru" class="footer__list-item-link hover-underline">legal@green-groove.ru</a>
+                    </li>
+                </ul>
+                <div class="footer__more-info">
+                    <ul class="footer__social-links">
+                        <li class="footer__social-item hover-scale"><a href="https://vk.com/gg_label" class="footer__social-link">
+                            <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
+                            <img src="./images/icons/footer-youtube.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
+                            <img src="./images/icons/footer-star.png" alt="" width="52" height="52">
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__bottom-inner container">
+                <span class="footer__copyright">© 2026</span>
+                <span class="footer__allrights">All Rights Reserved Green groove</span>
+            </div>
+        </div>
+    </footer>
+    <script src="./js/main.js"></script>
+    <script src="./js/swiper-bundle.min.js"></script>
+</body>
+</html>

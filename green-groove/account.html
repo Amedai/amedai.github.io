@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Личный кабинет — Green Groove</title>
+    <meta name="description" content="Личный кабинет артиста Green Groove">
+
+    <link rel="stylesheet" href="./css/style.min.css">
+</head>
+<body class="account-page">
+    <div class="account">
+        <header class="account-header">
+            <a href="./index.html" class="account-header__logo">
+                <img src="./images/icons/logo-lk.svg" alt="Green Groove" width="157" height="157">
+            </a>
+            <div class="account-header__user">
+                <button class="account-header__notification" type="button" aria-label="Уведомления">
+                    <img src="./images/icons/notification.svg" alt="" width="40" height="40">
+                </button>
+                <div class="account-header__profile">
+                    <img class="account-header__avatar" src="./images/account/personal.jpg" alt="" width="74" height="74">
+                    <p class="account-header__name">Глеб Горельчаник</p>
+                </div>
+            </div>
+        </header>
+
+        <aside class="account-sidebar">
+            <nav class="account-sidebar__nav" aria-label="Меню личного кабинета">
+                <ul class="account-sidebar__list">
+                    <li class="account-sidebar__item account-sidebar__item--active">
+                        <a href="#" class="account-sidebar__link" data-account-tab="profile">Личный кабинет</a>
+                    </li>
+                    <li class="account-sidebar__item">
+                        <a href="#" class="account-sidebar__link" data-account-tab="contracts">Договоры</a>
+                    </li>
+                    <li class="account-sidebar__item">
+                        <a href="#" class="account-sidebar__link" data-account-tab="finance">Финансы и отчеты</a>
+                    </li>
+                    <li class="account-sidebar__item">
+                        <a href="#" class="account-sidebar__link" data-account-tab="analytics">Аналитика</a>
+                    </li>
+                    <li class="account-sidebar__item">
+                        <a href="#" class="account-sidebar__link" data-account-tab="news">Новости</a>
+                    </li>
+                    <li class="account-sidebar__item">
+                        <a href="#" class="account-sidebar__link" data-account-tab="questions">Вопросы</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="account__main">
+                <section class="account-profile account__panel account__panel--active" id="account-panel-profile" data-account-panel="profile" aria-hidden="false">
+                    <h1 class="account-profile__title">Добро пожаловать, Глеб</h1>
+
+                    <div class="account-profile__card">
+                        <div class="account-profile__photo-wrap">
+                            <img class="account-profile__photo" src="./images/account/personal2.jpg" alt="Глеб Горельчаник" width="377" height="372">
+                        </div>
+
+                        <div class="account-profile__info">
+                            <ul class="account-profile__fields">
+                                <li class="account-profile__field">ФИО:</li>
+                                <li class="account-profile__field">Возраст:</li>
+                                <li class="account-profile__field">Город:</li>
+                                <li class="account-profile__field">О себе:</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="account-finance account__panel" id="account-panel-finance" data-account-panel="finance" hidden aria-hidden="true">
+                    <h1 class="account-finance__title">Финансы и отчеты</h1>
+
+                    <div class="account-finance__summary">
+                        <article class="account-finance__payment">
+                            <h2 class="account-finance__payment-label">К выплате<br>лицензиару</h2>
+                            <p class="account-finance__payment-amount">196 194, 36</p>
+                            <div class="account-finance__payment-footer">
+                                <span class="account-finance__payment-status">Выплачено</span>
+                                <span class="account-finance__payment-icon" aria-hidden="true"></span>
+                            </div>
+                        </article>
+
+                        <article class="account-finance__contract">
+                            <p class="account-finance__contract-row">
+                                <span class="account-finance__contract-label">Лицензиар:</span>
+                                Груденов Дмитрий Леонидович
+                            </p>
+                            <p class="account-finance__contract-row account-finance__contract-row--multiline">
+                                <span class="account-finance__contract-label">Лицензиат:</span>
+                                Музыкальный лейбл «Green Groove» (ИП Весельский Александр Викторович)
+                            </p>
+                            <p class="account-finance__contract-number">Лицензионный договор № GGL-0004</p>
+                        </article>
+                    </div>
+
+                    <div class="account-finance__years-wrap">
+                        <div class="account-finance__years" role="tablist" aria-label="Выбор года">
+                            <button class="account-finance__year-btn" type="button" role="tab" id="account-finance-year-tab-2025" aria-controls="account-finance-year-2025" aria-selected="false" data-year="2025">2025</button>
+                            <button class="account-finance__year-btn account-finance__year-btn--active hover-dark-green" type="button" role="tab" id="account-finance-year-tab-2026" aria-controls="account-finance-year-2026" aria-selected="true" data-year="2026">2026</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2027">2027</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2028">2028</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2029">2029</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2030">2030</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2031">2031</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2032">2032</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2033">2033</button>
+                            <button class="account-finance__year-btn" type="button" role="tab" aria-selected="false" data-year="2034">2034</button>
+                        </div>
+                    </div>
+
+                    <div class="account-finance__year-panels">
+                        <div class="account-finance__year-panel account-finance__year-panel--active" id="account-finance-year-2026" role="tabpanel" aria-labelledby="account-finance-year-tab-2026" data-year="2026">
+                            <div class="account-finance__reports-toolbar">
+                                <button class="account-finance__reports-sort" type="button">Сортировать</button>
+                            </div>
+
+                            <div class="account-finance__quarter-panels">
+                                <div class="account-finance__quarter-panel account-finance__quarter-panel--active" id="account-finance-quarter-2026-1" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2026-1" data-quarter="1">
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">1 кв. 2026</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list">
+                                            <li class="account-finance__report" data-report-file="./files/reports/report-january-2026.pdf">
+                                                <div class="account-finance__report-row">
+                                                    <button class="account-finance__report-icon account-finance__report-icon--approved" type="button" aria-label="Согласовать отчёт">
+                                                        <img class="account-finance__report-doc" src="./images/icons/account-doc.png" alt="" width="38" height="37">
+                                                        <img class="account-finance__report-time" src="./images/icons/account-time.png" alt="" width="16" height="16">
+                                                    </button>
+                                                    <div class="account-finance__report-body">
+                                                        <span class="account-finance__report-name">Отчёт за январь 2026</span>
+                                                        <span class="account-finance__report-date">12.03.26</span>
+                                                    </div>
+                                                </div>
+                                                <div class="account-finance__report-actions">
+                                                    <button class="account-finance__report-action account-finance__report-action--download" type="button">Скачать</button>
+                                                    <button class="account-finance__report-action account-finance__report-action--delete" type="button">Удалить</button>
+                                                </div>
+                                                <button class="account-finance__report-btn account-finance__report-btn--approved" type="button">Согласовано</button>
+                                            </li>
+
+                                            <li class="account-finance__report" data-report-file="./files/reports/report-february-2026.pdf">
+                                                <div class="account-finance__report-row">
+                                                    <button class="account-finance__report-icon account-finance__report-icon--approved" type="button" aria-label="Согласовать отчёт">
+                                                        <img class="account-finance__report-doc" src="./images/icons/account-doc.png" alt="" width="38" height="37">
+                                                        <img class="account-finance__report-time" src="./images/icons/account-time.png" alt="" width="16" height="16">
+                                                    </button>
+                                                    <div class="account-finance__report-body">
+                                                        <span class="account-finance__report-name">Отчёт за февраль 2026</span>
+                                                        <span class="account-finance__report-date">12.03.26</span>
+                                                    </div>
+                                                </div>
+                                                <div class="account-finance__report-actions">
+                                                    <button class="account-finance__report-action account-finance__report-action--download" type="button">Скачать</button>
+                                                    <button class="account-finance__report-action account-finance__report-action--delete" type="button">Удалить</button>
+                                                </div>
+                                                <button class="account-finance__report-btn account-finance__report-btn--approved" type="button">Согласовано</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" id="account-finance-quarter-2026-2" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2026-2" data-quarter="2" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">2 кв. 2026</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list">
+                                            <li class="account-finance__report" data-report-file="./files/reports/report-april-2026.pdf">
+                                                <div class="account-finance__report-row">
+                                                    <button class="account-finance__report-icon account-finance__report-icon--approved" type="button" aria-label="Согласовать отчёт">
+                                                        <img class="account-finance__report-doc" src="./images/icons/account-doc.png" alt="" width="38" height="37">
+                                                        <img class="account-finance__report-time" src="./images/icons/account-time.png" alt="" width="16" height="16">
+                                                    </button>
+                                                    <div class="account-finance__report-body">
+                                                        <span class="account-finance__report-name">Отчёт за апрель 2026</span>
+                                                        <span class="account-finance__report-date">12.06.26</span>
+                                                    </div>
+                                                </div>
+                                                <div class="account-finance__report-actions">
+                                                    <button class="account-finance__report-action account-finance__report-action--download" type="button">Скачать</button>
+                                                    <button class="account-finance__report-action account-finance__report-action--delete" type="button">Удалить</button>
+                                                </div>
+                                                <button class="account-finance__report-btn account-finance__report-btn--approved" type="button">Согласовано</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" id="account-finance-quarter-2026-3" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2026-3" data-quarter="3" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">3 кв. 2026</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" id="account-finance-quarter-2026-4" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2026-4" data-quarter="4" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">4 кв. 2026</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="account-finance__quarters" role="tablist" aria-label="Выбор квартала">
+                                <button class="account-finance__quarter-btn account-finance__quarter-btn--active" type="button" role="tab" id="account-finance-quarter-tab-2026-1" aria-controls="account-finance-quarter-2026-1" aria-selected="true" data-quarter="1">1 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" id="account-finance-quarter-tab-2026-2" aria-controls="account-finance-quarter-2026-2" aria-selected="false" data-quarter="2">2 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" id="account-finance-quarter-tab-2026-3" aria-controls="account-finance-quarter-2026-3" aria-selected="false" data-quarter="3">3 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" id="account-finance-quarter-tab-2026-4" aria-controls="account-finance-quarter-2026-4" aria-selected="false" data-quarter="4">4 квартал</button>
+                            </div>
+                        </div>
+
+                        <div class="account-finance__year-panel" id="account-finance-year-2025" role="tabpanel" aria-labelledby="account-finance-year-tab-2025" data-year="2025" hidden>
+                            <div class="account-finance__reports-toolbar">
+                                <button class="account-finance__reports-sort" type="button">Сортировать</button>
+                            </div>
+
+                            <div class="account-finance__quarter-panels">
+                                <div class="account-finance__quarter-panel account-finance__quarter-panel--active" id="account-finance-quarter-2025-1" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2025-1" data-quarter="1">
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">1 кв. 2025</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" id="account-finance-quarter-2025-2" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2025-2" data-quarter="2" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">2 кв. 2025</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" id="account-finance-quarter-2025-3" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2025-3" data-quarter="3" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">3 кв. 2025</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" id="account-finance-quarter-2025-4" role="tabpanel" aria-labelledby="account-finance-quarter-tab-2025-4" data-quarter="4" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">4 кв. 2025</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="account-finance__quarters" role="tablist" aria-label="Выбор квартала">
+                                <button class="account-finance__quarter-btn account-finance__quarter-btn--active" type="button" role="tab" id="account-finance-quarter-tab-2025-1" aria-controls="account-finance-quarter-2025-1" aria-selected="true" data-quarter="1">1 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" id="account-finance-quarter-tab-2025-2" aria-controls="account-finance-quarter-2025-2" aria-selected="false" data-quarter="2">2 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" id="account-finance-quarter-tab-2025-3" aria-controls="account-finance-quarter-2025-3" aria-selected="false" data-quarter="3">3 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" id="account-finance-quarter-tab-2025-4" aria-controls="account-finance-quarter-2025-4" aria-selected="false" data-quarter="4">4 квартал</button>
+                            </div>
+                        </div>
+
+                        <div class="account-finance__year-panel" id="account-finance-year-empty" role="tabpanel" data-year-fallback hidden>
+                            <div class="account-finance__reports-toolbar">
+                                <button class="account-finance__reports-sort" type="button">Сортировать</button>
+                            </div>
+
+                            <div class="account-finance__quarter-panels">
+                                <div class="account-finance__quarter-panel account-finance__quarter-panel--active" data-quarter="1">
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">1 кв.</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" data-quarter="2" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">2 кв.</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" data-quarter="3" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">3 кв.</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="account-finance__quarter-panel" data-quarter="4" hidden>
+                                    <div class="account-finance__reports">
+                                        <div class="account-finance__reports-head">
+                                            <h2 class="account-finance__reports-title">Отчет на утверждении</h2>
+                                            <span class="account-finance__report-period">4 кв.</span>
+                                        </div>
+
+                                        <ul class="account-finance__reports-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="account-finance__quarters" role="tablist" aria-label="Выбор квартала">
+                                <button class="account-finance__quarter-btn account-finance__quarter-btn--active" type="button" role="tab" aria-selected="true" data-quarter="1">1 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" aria-selected="false" data-quarter="2">2 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" aria-selected="false" data-quarter="3">3 квартал</button>
+                                <button class="account-finance__quarter-btn" type="button" role="tab" aria-selected="false" data-quarter="4">4 квартал</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="account-analytics account__panel" id="account-panel-analytics" data-account-panel="analytics" data-analytics-period="quarter" hidden aria-hidden="true">
+                    <div class="account-analytics__head">
+                        <h1 class="account-analytics__title">Аналитика</h1>
+
+                        <div class="account-analytics__controls">
+                            <div class="account-analytics__sort-dropdown">
+                                <button class="account-analytics__sort hover-dark-green" type="button" aria-expanded="false" aria-controls="account-analytics-sort-menu">
+                                    Сортировать
+                                    <svg class="account-analytics__sort-icon" width="12" height="7" viewBox="0 0 12 7" fill="none" aria-hidden="true">
+                                        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+
+                                <div class="account-analytics__sort-menu" id="account-analytics-sort-menu" hidden>
+                                    <ul class="account-analytics__sort-list">
+                                        <li class="account-analytics__sort-item">
+                                            <button class="account-analytics__sort-option" type="button" data-analytics-period="week">Неделя</button>
+                                        </li>
+                                        <li class="account-analytics__sort-item">
+                                            <button class="account-analytics__sort-option" type="button" data-analytics-period="month">Месяц</button>
+                                        </li>
+                                        <li class="account-analytics__sort-item">
+                                            <button class="account-analytics__sort-option account-analytics__sort-option--active" type="button" data-analytics-period="quarter">Квартал</button>
+                                        </li>
+                                        <li class="account-analytics__sort-item">
+                                            <button class="account-analytics__sort-option" type="button" data-analytics-period="year">Год</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p class="account-analytics__period-label">Квартал</p>
+                        </div>
+                    </div>
+
+                    <article class="account-analytics__block">
+                        <h2 class="account-analytics__block-title">Общее прослушивания по площадкам</h2>
+
+                        <div class="account-analytics__chart" data-chart="total">
+                            <div class="account-analytics__chart-inner">
+                                <div class="account-analytics__y-axis" aria-hidden="true">
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.6</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.4</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.2</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.0</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">800</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">600</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">400</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">200</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">0.0</span></div>
+                                </div>
+
+                                <div class="account-analytics__plot">
+                                    <canvas class="account-analytics__canvas" aria-hidden="true"></canvas>
+                                    <div class="account-analytics__points"></div>
+
+                                    <div class="account-analytics__tooltip account-analytics__tooltip--total" hidden>
+                                        <p class="account-analytics__tooltip-date">06.01</p>
+                                        <ul class="account-analytics__tooltip-list">
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--vk"><span class="account-analytics__tooltip-label">VK:</span><span class="account-analytics__tooltip-value">48 291</span></li>
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--yam"><span class="account-analytics__tooltip-label">ЯнМ:</span><span class="account-analytics__tooltip-value">31 567</span></li>
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--zvuk"><span class="account-analytics__tooltip-label">Звук:</span><span class="account-analytics__tooltip-value">12 804</span></li>
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--kion"><span class="account-analytics__tooltip-label">Кион:</span><span class="account-analytics__tooltip-value">9 432</span></li>
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--spotify"><span class="account-analytics__tooltip-label">Spotify:</span><span class="account-analytics__tooltip-value">27 118</span></li>
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--ok"><span class="account-analytics__tooltip-label">Однок:</span><span class="account-analytics__tooltip-value">6 905</span></li>
+                                            <li class="account-analytics__tooltip-row account-analytics__tooltip-row--apple"><span class="account-analytics__tooltip-label">Apple<br>Music:</span><span class="account-analytics__tooltip-value">18 673</span></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="account-analytics__x-axis" aria-hidden="true"></div>
+                        </div>
+                    </article>
+
+                    <article class="account-analytics__block">
+                        <h2 class="account-analytics__block-title">Прослушивания по площадкам</h2>
+
+                        <div class="account-analytics__chart" data-chart="platforms">
+                            <div class="account-analytics__chart-inner">
+                                <div class="account-analytics__y-axis" aria-hidden="true">
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.6</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.4</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.2</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">1.0</span><span class="account-analytics__y-unit">млн</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">800</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">600</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">400</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">200</span><span class="account-analytics__y-unit">тыс</span></div>
+                                    <div class="account-analytics__y-tick"><span class="account-analytics__y-value">0.0</span></div>
+                                </div>
+
+                                <div class="account-analytics__plot">
+                                    <canvas class="account-analytics__canvas" aria-hidden="true"></canvas>
+                                    <div class="account-analytics__points"></div>
+
+                                    <div class="account-analytics__tooltip account-analytics__tooltip--platforms" hidden>
+                                        <div class="account-analytics__tooltip-bubble">
+                                            <div class="account-analytics__tooltip-card">
+                                                <p class="account-analytics__tooltip-date">06.01</p>
+
+                                                <div class="account-analytics__tooltip-summary">
+                                                    <div class="account-analytics__tooltip-stat">
+                                                        <span class="account-analytics__tooltip-label account-analytics__tooltip-label--platform account-analytics__tooltip-label--vk">VK:</span>
+                                                        <span class="account-analytics__tooltip-value">+ 48 291</span>
+                                                    </div>
+
+                                                    <div class="account-analytics__tooltip-indicators">
+                                                        <div class="account-analytics__tooltip-stat account-analytics__tooltip-stat--arrow">
+                                                            <img class="account-analytics__tooltip-arrow" src="./images/icons/arrow-up.svg" alt="" width="20" height="12">
+                                                            <span class="account-analytics__tooltip-value">+ 12 480</span>
+                                                        </div>
+
+                                                        <div class="account-analytics__tooltip-stat account-analytics__tooltip-stat--arrow">
+                                                            <img class="account-analytics__tooltip-arrow" src="./images/icons/arrow-down.svg" alt="" width="20" height="12">
+                                                            <span class="account-analytics__tooltip-value">- 3 920</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <ul class="account-analytics__tooltip-tracks">
+                                                <li class="account-analytics__tooltip-track">
+                                                    <span class="account-analytics__tooltip-change account-analytics__tooltip-change--up"><span class="account-analytics__tooltip-change-sign">+</span>10<span class="account-analytics__tooltip-change-sign">%</span></span>
+                                                    <span class="account-analytics__tooltip-track-name">Название трека - имя исполнителя</span>
+                                                </li>
+                                                <li class="account-analytics__tooltip-track">
+                                                    <span class="account-analytics__tooltip-change account-analytics__tooltip-change--down">- 10<span class="account-analytics__tooltip-change-sign">%</span></span>
+                                                    <span class="account-analytics__tooltip-track-name">Название трека - имя исполнителя</span>
+                                                </li>
+                                                <li class="account-analytics__tooltip-track">
+                                                    <span class="account-analytics__tooltip-change account-analytics__tooltip-change--down">- 10<span class="account-analytics__tooltip-change-sign">%</span></span>
+                                                    <span class="account-analytics__tooltip-track-name">Название трека - имя исполнителя</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="account-analytics__x-axis" aria-hidden="true"></div>
+                        </div>
+
+                        <ul class="account-analytics__legend">
+                            <li class="account-analytics__legend-item account-analytics__legend-item--vk"><span class="account-analytics__legend-dot" aria-hidden="true"></span>VKонтакте</li>
+                            <li class="account-analytics__legend-item account-analytics__legend-item--yam"><span class="account-analytics__legend-dot" aria-hidden="true"></span>Яндекс Музыка</li>
+                            <li class="account-analytics__legend-item account-analytics__legend-item--zvuk"><span class="account-analytics__legend-dot" aria-hidden="true"></span>Звук</li>
+                            <li class="account-analytics__legend-item account-analytics__legend-item--kion"><span class="account-analytics__legend-dot" aria-hidden="true"></span>Кион Музыка</li>
+                            <li class="account-analytics__legend-item account-analytics__legend-item--apple"><span class="account-analytics__legend-dot" aria-hidden="true"></span>Apple Music</li>
+                            <li class="account-analytics__legend-item account-analytics__legend-item--spotify"><span class="account-analytics__legend-dot" aria-hidden="true"></span>Spotify</li>
+                            <li class="account-analytics__legend-item account-analytics__legend-item--ok"><span class="account-analytics__legend-dot" aria-hidden="true"></span>Одноклассники</li>
+                        </ul>
+                    </article>
+                </section>
+        </main>
+    </div>
+
+    <div class="account-finance__modal" id="account-finance-modal-confirm" hidden aria-hidden="true">
+        <div class="account-finance__modal-overlay" data-modal-close></div>
+        <div class="account-finance__modal-dialog account-finance__modal-dialog--confirm" role="dialog" aria-modal="true" aria-labelledby="account-finance-modal-confirm-title">
+            <button class="account-finance__modal-close" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <h2 class="account-finance__modal-title" id="account-finance-modal-confirm-title">Подтвердите реквизиты</h2>
+            <p class="account-finance__modal-subtitle">Подтвердите ваши реквизиты, чтобы утвердить отчет</p>
+            <div class="account-finance__modal-section">
+                <p class="account-finance__modal-label">Статус субъекта деятельности:</p>
+                <p class="account-finance__modal-value account-finance__modal-value--muted">Самозанятый</p>
+            </div>
+            <div class="account-finance__modal-section">
+                <p class="account-finance__modal-label">Банковские реквизиты:</p>
+                <div class="account-finance__modal-details">
+                    <p>ИНН: 424603616866</p>
+                    <p>Телефон: +79236141077</p>
+                    <p>Банковские реквизиты:<br>«ОЗОН БАНК»</p>
+                    <p>р/с: 40817810400008519536</p>
+                    <p>БИК: 044525068</p>
+                    <p>к/с: 30101810645374525068</p>
+                </div>
+            </div>
+            <div class="account-finance__modal-actions">
+                <button class="account-finance__modal-btn account-finance__modal-btn--primary hover-dark-green" type="button" data-modal-action="confirm-requisites">Информация актуальна, подтверждаю</button>
+                <button class="account-finance__modal-btn account-finance__modal-btn--primary hover-dark-green" type="button" data-modal-action="open-edit">Реквизиты изменились</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-finance__modal" id="account-finance-modal-edit" hidden aria-hidden="true">
+        <div class="account-finance__modal-overlay" data-modal-close></div>
+        <div class="account-finance__modal-dialog account-finance__modal-dialog--edit" role="dialog" aria-modal="true" aria-labelledby="account-finance-modal-edit-title">
+            <button class="account-finance__modal-close" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <h2 class="account-finance__modal-title" id="account-finance-modal-edit-title">Ваши реквизиты</h2>
+            <form class="account-finance__modal-form account-finance__modal-form--edit" id="account-finance-requisites-form">
+                <fieldset class="account-finance__modal-section account-finance__modal-section--status">
+                    <legend class="account-finance__modal-label">Статус субъекта деятельности:</legend>
+                    <div class="account-finance__modal-status-grid" role="radiogroup" aria-label="Статус субъекта деятельности">
+                        <label class="account-finance__modal-status">
+                            <input class="account-finance__modal-status-input" type="radio" name="status" value="self-employed" checked>
+                            <span class="account-finance__modal-status-box" aria-hidden="true"></span>
+                            <span class="account-finance__modal-status-text">Самозанятый</span>
+                        </label>
+                        <label class="account-finance__modal-status">
+                            <input class="account-finance__modal-status-input" type="radio" name="status" value="individual">
+                            <span class="account-finance__modal-status-box" aria-hidden="true"></span>
+                            <span class="account-finance__modal-status-text">Физ.лицо</span>
+                        </label>
+                        <label class="account-finance__modal-status">
+                            <input class="account-finance__modal-status-input" type="radio" name="status" value="ip">
+                            <span class="account-finance__modal-status-box" aria-hidden="true"></span>
+                            <span class="account-finance__modal-status-text">ИП</span>
+                        </label>
+                        <label class="account-finance__modal-status">
+                            <input class="account-finance__modal-status-input" type="radio" name="status" value="llc">
+                            <span class="account-finance__modal-status-box" aria-hidden="true"></span>
+                            <span class="account-finance__modal-status-text">ООО</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <label class="account-finance__modal-phone">
+                    <span class="account-finance__modal-phone-flag" aria-hidden="true"></span>
+                    <span class="account-finance__modal-phone-prefix">+7</span>
+                    <input class="account-finance__modal-input account-finance__modal-input--phone" name="phone" type="tel" value="9236141077" aria-label="Телефон">
+                </label>
+
+                <label class="account-finance__modal-field">
+                    <span class="account-finance__modal-label">ИНН</span>
+                    <input class="account-finance__modal-input account-finance__modal-input--bar" name="inn" type="text" value="424603616866">
+                </label>
+
+                <div class="account-finance__modal-section">
+                    <p class="account-finance__modal-label">Банковские реквизиты:</p>
+                    <div class="account-finance__modal-bank-fields">
+                        <label class="account-finance__modal-field">
+                            <span class="account-finance__modal-label">БАНК:</span>
+                            <input class="account-finance__modal-input account-finance__modal-input--bar" name="bank" type="text" value="«ОЗОН БАНК»">
+                        </label>
+                        <label class="account-finance__modal-field">
+                            <span class="account-finance__modal-label">р/с:</span>
+                            <input class="account-finance__modal-input account-finance__modal-input--bar" name="account" type="text" value="40817810400008519536">
+                        </label>
+                        <label class="account-finance__modal-field">
+                            <span class="account-finance__modal-label">БИК</span>
+                            <input class="account-finance__modal-input account-finance__modal-input--bar" name="bik" type="text" value="044525068">
+                        </label>
+                        <label class="account-finance__modal-field">
+                            <span class="account-finance__modal-label">к/с:</span>
+                            <input class="account-finance__modal-input account-finance__modal-input--bar" name="corr-account" type="text" value="30101810645374525068">
+                        </label>
+                    </div>
+                </div>
+
+                <label class="account-finance__modal-agree">
+                    <input class="account-finance__modal-agree-input" type="checkbox" name="agree" required>
+                    <span class="account-finance__modal-agree-box" aria-hidden="true"></span>
+                    <span class="account-finance__modal-agree-text">ТекстТекст</span>
+                </label>
+
+                <button class="account-finance__modal-btn account-finance__modal-btn--primary hover-dark-green" type="submit">Подтвердить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="account-finance__modal" id="account-finance-modal-manager" hidden aria-hidden="true">
+        <div class="account-finance__modal-overlay" data-modal-close></div>
+        <div class="account-finance__modal-dialog account-finance__modal-dialog--manager" role="dialog" aria-modal="true" aria-labelledby="account-finance-modal-manager-title">
+            <button class="account-finance__modal-close account-finance__modal-close--white" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <div class="account-finance__modal-notice">
+                <p class="account-finance__modal-notice-text" id="account-finance-modal-manager-title">Если реквизиты изменились, свяжитесь с менеджером</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__top">
+            <div class="container">
+                <h2 class="footer__list-title">КОНТАКТЫ</h2>
+                <ul class="footer__list">
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">PR и медиа</div>
+                        <a href="mailto:info@green-groove.com" class="footer__list-item-link hover-underline">info@green-groove.com</a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Синхронизация и лицензирование</div>
+                        <a href="mailto:sync@green-groove.ru" class="footer__list-item-link hover-underline">sync@green-groove.ru</a>
+                        </a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Коммерческие предложения и партнёрства</div>
+                        <a href="mailto:info@green-groove.com" class="footer__list-item-link hover-underline">partners@green-groove.ru
+                        </a>
+                    </li>
+                    <li class="footer__list-item">
+                        <div class="footer__list-item-title">Юридические вопросы</div>
+                        <a href="mailto:legal@green-groove.ru" class="footer__list-item-link hover-underline">legal@green-groove.ru</a>
+                    </li>
+                </ul>
+                <div class="footer__more-info">
+                    <ul class="footer__social-links">
+                        <li class="footer__social-item hover-scale"><a href="https://vk.com/gg_label" class="footer__social-link">
+                            <img src="./images/icons/footer-vk.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://www.youtube.com/@gg.musiclabel/featured" class="footer__social-link">
+                            <img src="./images/icons/footer-youtube.png" alt="" width="52" height="52">
+                        </a></li>
+                        <li class="footer__social-item hover-scale"><a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="footer__social-link">
+                            <img src="./images/icons/footer-star.png" alt="" width="52" height="52">
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__bottom-inner container">
+                <span class="footer__copyright">© 2026</span>
+                <span class="footer__allrights">All Rights Reserved Green groove</span>
+            </div>
+        </div>
+    </footer>
+    <script src="./js/account.js"></script>
+</body>
+</html>
