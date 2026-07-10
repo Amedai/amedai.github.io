@@ -10,16 +10,16 @@
   <header class="header">
     <div class="header__top">
       <div class="container header__topinner">
-        <a class="header__logo" href="index.html">АЙДАSPORT</a>
+        <a class="header__logo hover-underline" href="index.html">АЙДАSPORT</a>
         <nav class="header__topnav">
-          <a href="about-brand.html">О нас</a>
-          <a href="catalog.html">Каталог</a>
-          <a href="corporate.html">Корпоративным клиентам</a>
-          <a href="index.html#contacts">Контакты</a>
+          <button class="header__topbtn hover-underline" type="button" data-header-panel="about" aria-expanded="false" aria-controls="header-panel-about">О нас</button>
+          <button class="header__topbtn hover-underline" type="button" data-header-panel="catalog" aria-expanded="false" aria-controls="header-panel-catalog">Каталог</button>
+          <button class="header__topbtn hover-underline" type="button" data-header-panel="corporate" aria-expanded="false" aria-controls="header-panel-corporate">Корпоративным клиентам</button>
+          <a class="header__toplink hover-underline" href="index.html#contacts">Контакты</a>
         </nav>
         <div class="header__actions">
-          <a class="header__phone" href="tel:+79999999999">+7 (999) 999-99-99</a>
-          <a class="header__icon" href="cart.html" aria-label="Корзина">
+          <a class="header__phone hover-underline" href="tel:+79167800305">+7 (916) 780-03-05</a>
+          <a class="header__icon hover-scale" href="cart.html" aria-label="Корзина">
             <img src="./images/icons/shopping-bag.svg" alt="" width="24" height="24">
           </a>
           <button class="header__icon header__icon--burger" type="button" aria-label="Меню" aria-controls="mobilemenu" aria-expanded="false">
@@ -29,83 +29,117 @@
       </div>
     </div>
 
-    <div class="header__sub">
+    <div class="header__sub" aria-hidden="true">
       <div class="container header__subinner">
-        <nav class="header__subnav">
-          <div class="header__subitem">
-            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
-              Мужчинам
-              <span class="header__subicon">
-                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
-              </span>
-            </button>
-            <div class="header__submenu">
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=vests" data-catalog-category="men" data-catalog-tab="vests">Жилеты, безрукавки</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=bombers" data-catalog-category="men" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=midseason-jackets" data-catalog-category="men" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=winter-parks" data-catalog-category="men" data-catalog-tab="winter-parks">Зимние парки</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=winter-suits" data-catalog-category="men" data-catalog-tab="winter-suits">Зимние костюмы</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=tracksuits" data-catalog-category="men" data-catalog-tab="tracksuits">Спортивные костюмы</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=hoodies" data-catalog-category="men" data-catalog-tab="hoodies">Худи и толстовки</a>
-              <a class="header__submenu-link" href="catalog.html?category=men&tab=tshirts" data-catalog-category="men" data-catalog-tab="tshirts">Футболки и поло</a>
+        <div class="header__subpanel header__subpanel--catalog" id="header-panel-catalog" hidden>
+          <nav class="header__subnav">
+            <div class="header__subitem">
+              <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+                Мужчинам
+                <span class="header__subicon">
+                  <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+                </span>
+              </button>
+              <div class="header__submenu">
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=vests" data-catalog-category="men" data-catalog-tab="vests">Жилеты, безрукавки</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=bombers" data-catalog-category="men" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=midseason-jackets" data-catalog-category="men" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=winter-parks" data-catalog-category="men" data-catalog-tab="winter-parks">Зимние парки</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=winter-suits" data-catalog-category="men" data-catalog-tab="winter-suits">Зимние костюмы</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=tracksuits" data-catalog-category="men" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=hoodies" data-catalog-category="men" data-catalog-tab="hoodies">Худи и толстовки</a>
+                <a class="header__submenu-link" href="catalog.html?category=men&tab=tshirts" data-catalog-category="men" data-catalog-tab="tshirts">Футболки и поло</a>
+              </div>
             </div>
-          </div>
-          <div class="header__subitem">
-            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
-              Женщинам
-              <span class="header__subicon">
-                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
-              </span>
-            </button>
-            <div class="header__submenu">
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=vests" data-catalog-category="women" data-catalog-tab="vests">Жилеты, безрукавки</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=bombers" data-catalog-category="women" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=midseason-jackets" data-catalog-category="women" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=winter-parks" data-catalog-category="women" data-catalog-tab="winter-parks">Зимние парки</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=winter-suits" data-catalog-category="women" data-catalog-tab="winter-suits">Зимние костюмы</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=tracksuits" data-catalog-category="women" data-catalog-tab="tracksuits">Спортивные костюмы</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=hoodies" data-catalog-category="women" data-catalog-tab="hoodies">Худи и толстовки</a>
-              <a class="header__submenu-link" href="catalog.html?category=women&tab=tshirts" data-catalog-category="women" data-catalog-tab="tshirts">Футболки и поло</a>
+            <div class="header__subitem">
+              <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+                Женщинам
+                <span class="header__subicon">
+                  <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+                </span>
+              </button>
+              <div class="header__submenu">
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=vests" data-catalog-category="women" data-catalog-tab="vests">Жилеты, безрукавки</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=bombers" data-catalog-category="women" data-catalog-tab="bombers">Бомберы, плащи, ветровки</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=midseason-jackets" data-catalog-category="women" data-catalog-tab="midseason-jackets">Демисезонные куртки</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=winter-parks" data-catalog-category="women" data-catalog-tab="winter-parks">Зимние парки</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=winter-suits" data-catalog-category="women" data-catalog-tab="winter-suits">Зимние костюмы</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=tracksuits" data-catalog-category="women" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=hoodies" data-catalog-category="women" data-catalog-tab="hoodies">Худи и толстовки</a>
+                <a class="header__submenu-link" href="catalog.html?category=women&tab=tshirts" data-catalog-category="women" data-catalog-tab="tshirts">Футболки и поло</a>
+              </div>
             </div>
-          </div>
-          <div class="header__subitem">
-            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
-              Детям
-              <span class="header__subicon">
-                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
-              </span>
-            </button>
-            <div class="header__submenu">
-              <a class="header__submenu-link" href="catalog.html?category=kids&tab=vests-bombers" data-catalog-category="kids" data-catalog-tab="vests-bombers">Жилеты и бомберы</a>
-              <a class="header__submenu-link" href="catalog.html?category=kids&tab=tracksuits" data-catalog-category="kids" data-catalog-tab="tracksuits">Спортивные костюмы</a>
-              <a class="header__submenu-link" href="catalog.html?category=kids&tab=parks-jackets" data-catalog-category="kids" data-catalog-tab="parks-jackets">Парки и куртки</a>
-              <a class="header__submenu-link" href="catalog.html?category=kids&tab=hoodies" data-catalog-category="kids" data-catalog-tab="hoodies">Худи и толстовки</a>
-              <a class="header__submenu-link" href="catalog.html?category=kids&tab=tshirts" data-catalog-category="kids" data-catalog-tab="tshirts">Футболки</a>
+            <div class="header__subitem">
+              <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+                Детям
+                <span class="header__subicon">
+                  <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+                </span>
+              </button>
+              <div class="header__submenu">
+                <a class="header__submenu-link" href="catalog.html?category=kids&tab=vests-bombers" data-catalog-category="kids" data-catalog-tab="vests-bombers">Жилеты и бомберы</a>
+                <a class="header__submenu-link" href="catalog.html?category=kids&tab=tracksuits" data-catalog-category="kids" data-catalog-tab="tracksuits">Спортивные костюмы</a>
+                <a class="header__submenu-link" href="catalog.html?category=kids&tab=parks-jackets" data-catalog-category="kids" data-catalog-tab="parks-jackets">Парки и куртки</a>
+                <a class="header__submenu-link" href="catalog.html?category=kids&tab=hoodies" data-catalog-category="kids" data-catalog-tab="hoodies">Худи и толстовки</a>
+                <a class="header__submenu-link" href="catalog.html?category=kids&tab=tshirts" data-catalog-category="kids" data-catalog-tab="tshirts">Футболки</a>
+              </div>
             </div>
-          </div>
-          <div class="header__subitem">
-            <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
-              Аксессуары
-              <span class="header__subicon">
-                <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
-              </span>
-            </button>
-            <div class="header__submenu">
-              <a class="header__submenu-link" href="catalog.html?category=accessories&tab=caps" data-catalog-category="accessories" data-catalog-tab="caps">Кепки</a>
-              <a class="header__submenu-link" href="catalog.html?category=accessories&tab=hats" data-catalog-category="accessories" data-catalog-tab="hats">Шапки</a>
-              <a class="header__submenu-link" href="catalog.html?category=accessories&tab=mittens" data-catalog-category="accessories" data-catalog-tab="mittens">Варежки</a>
+            <div class="header__subitem">
+              <button class="header__subtoggle" type="button" aria-expanded="false" aria-haspopup="true">
+                Аксессуары
+                <span class="header__subicon">
+                  <img src="./images/icons/dropdown.svg" alt="" width="13" height="13">
+                </span>
+              </button>
+              <div class="header__submenu">
+                <a class="header__submenu-link" href="catalog.html?category=accessories&tab=caps" data-catalog-category="accessories" data-catalog-tab="caps">Кепки</a>
+                <a class="header__submenu-link" href="catalog.html?category=accessories&tab=hats" data-catalog-category="accessories" data-catalog-tab="hats">Шапки</a>
+                <a class="header__submenu-link" href="catalog.html?category=accessories&tab=mittens" data-catalog-category="accessories" data-catalog-tab="mittens">Варежки</a>
+              </div>
             </div>
-          </div>
-          <a class="header__subnavlink--accent" href="catalog.html#familylook">FAMILY LOOK</a>
-          <a class="header__subnavlink--accent" href="catalog.html#merch">МЕРЧ</a>
-          <a class="header__subnavlink--accent" href="index.html#showcase">ХИТЫ</a>
-        </nav>
-        <label class="header__search">
-          <span class="header__search-icon">
-            <img src="./images/icons/search.svg" alt="" width="20" height="20">
-          </span>
-          <input type="text" placeholder="Поиск товара">
-        </label>
+            <a class="header__subnavlink--accent hover-underline" href="catalog.html#familylook">FAMILY LOOK</a>
+            <a class="header__subnavlink--accent hover-underline" href="index.html#showcase">ХИТЫ</a>
+            <a class="header__subnavlink--accent hover-underline" href="catalog.html#sales">Акции</a>
+          </nav>
+          <label class="header__search">
+            <span class="header__search-icon">
+              <img src="./images/icons/search.svg" alt="" width="20" height="20">
+            </span>
+            <input type="text" placeholder="Поиск товара">
+          </label>
+        </div>
+
+        <div class="header__subpanel header__subpanel--about" id="header-panel-about" hidden>
+          <nav class="header__subnav">
+            <a class="header__subnavlink hover-underline" href="about-brand.html">О нас</a>
+            <a class="header__subnavlink hover-underline" href="about-brand.html#about">О бренде</a>
+            <a class="header__subnavlink hover-underline" href="about-brand.html#founder">Основатель</a>
+            <a class="header__subnavlink hover-underline" href="about-brand.html#trust">Партнеры</a>
+            <a class="header__subnavlink hover-underline" href="about-brand.html#gallery">Галерея</a>
+          </nav>
+          <label class="header__search">
+            <span class="header__search-icon">
+              <img src="./images/icons/search.svg" alt="" width="20" height="20">
+            </span>
+            <input type="text" placeholder="Поиск товара">
+          </label>
+        </div>
+
+        <div class="header__subpanel header__subpanel--corporate" id="header-panel-corporate" hidden>
+          <nav class="header__subnav">
+            <a class="header__subnavlink hover-underline" href="corporate.html">Партнерам</a>
+            <a class="header__subnavlink hover-underline" href="corporate.html#directions">Направления</a>
+            <a class="header__subnavlink hover-underline" href="corporate.html#steps">Этапы работы</a>
+            <a class="header__subnavlink hover-underline" href="corporate.html#cases">Кейсы</a>
+            <a class="header__subnavlink hover-underline" href="corporate.html#form">Заявка</a>
+          </nav>
+          <label class="header__search">
+            <span class="header__search-icon">
+              <img src="./images/icons/search.svg" alt="" width="20" height="20">
+            </span>
+            <input type="text" placeholder="Поиск товара">
+          </label>
+        </div>
       </div>
     </div>
   </header>
@@ -113,40 +147,59 @@
   <div class="mobilemenu" id="mobilemenu" aria-hidden="true">
     <div class="mobilemenu__panel">
       <div class="mobilemenu__head">
-        <p class="mobilemenu__logo">АЙДАSPORT</p>
+        <a class="mobilemenu__logo hover-underline" href="index.html">АЙДАSPORT</a>
         <button class="mobilemenu__close" type="button" aria-label="Закрыть меню">✕</button>
       </div>
 
       <nav class="mobilemenu__nav">
-        <a href="#">О нас</a>
-        <div class="mobilemenu__subnav">
-          <a href="#">О бренде</a>
-          <a href="#">Доставка и оплата</a>
-          <a href="#">Возврат и обмен</a>
-          <a href="index.html#contacts">Контакты и адреса</a>
+        <button class="mobilemenu__btn hover-underline" type="button" data-mobilemenu-panel="about" aria-expanded="false" aria-controls="mobilemenu-panel-about">О нас</button>
+        <div class="mobilemenu__subnav" id="mobilemenu-panel-about" hidden>
+          <a class="hover-underline" href="about-brand.html">О нас</a>
+          <a class="hover-underline" href="about-brand.html#about">О бренде</a>
+          <a class="hover-underline" href="about-brand.html#founder">Основатель</a>
+          <a class="hover-underline" href="about-brand.html#trust">Партнеры</a>
+          <a class="hover-underline" href="about-brand.html#gallery">Галерея</a>
+          <div class="mobilemenu__line" aria-hidden="true"></div>
         </div>
-        <div class="mobilemenu__line"></div>
-        <a href="catalog.html">Каталог</a>
-        <a href="corporate.html">Корпоративным клиентам</a>
-        <a href="index.html#contacts">Контакты</a>
+
+        <button class="mobilemenu__btn hover-underline" type="button" data-mobilemenu-panel="catalog" aria-expanded="false" aria-controls="mobilemenu-panel-catalog">Каталог</button>
+        <div class="mobilemenu__subnav" id="mobilemenu-panel-catalog" hidden>
+          <a class="hover-underline" href="catalog.html?category=men">Мужчинам</a>
+          <a class="hover-underline" href="catalog.html?category=women">Женщинам</a>
+          <a class="hover-underline" href="catalog.html?category=kids">Детям</a>
+          <a class="hover-underline" href="catalog.html?category=accessories">Аксессуары</a>
+          <div class="mobilemenu__line" aria-hidden="true"></div>
+        </div>
+
+        <button class="mobilemenu__btn hover-underline" type="button" data-mobilemenu-panel="corporate" aria-expanded="false" aria-controls="mobilemenu-panel-corporate">Корпоративным клиентам</button>
+        <div class="mobilemenu__subnav" id="mobilemenu-panel-corporate" hidden>
+          <a class="hover-underline" href="corporate.html">Партнерам</a>
+          <a class="hover-underline" href="corporate.html#directions">Направления</a>
+          <a class="hover-underline" href="corporate.html#steps">Этапы работы</a>
+          <a class="hover-underline" href="corporate.html#cases">Кейсы</a>
+          <a class="hover-underline" href="corporate.html#form">Заявка</a>
+          <div class="mobilemenu__line" aria-hidden="true"></div>
+        </div>
+
+        <a class="mobilemenu__link hover-underline" href="index.html#contacts">Контакты</a>
       </nav>
 
       <div class="mobilemenu__contacts">
-        <a href="tel:+79999999999">+7 (999) 999-99-99</a>
-        <a href="mailto:example@mail.ru">example@mail.ru</a>
+        <a class="hover-underline" href="tel:+79167800305">+7 (916) 780-03-05</a>
+        <a class="hover-underline" href="mailto:ida.sportwear@gmail.com">ida.sportwear@gmail.com</a>
       </div>
 
       <div class="mobilemenu__socials">
-        <a href="#" aria-label="VK">
+        <a class="hover-scale" href="#" aria-label="VK">
           <img src="./images/icons/vk.svg" alt="" width="40" height="40">
         </a>
-        <a href="#" aria-label="Telegram">
+        <a class="hover-scale" href="#" aria-label="Telegram">
           <img src="./images/icons/tg.svg" alt="" width="40" height="40">
         </a>
-        <a href="#" aria-label="WhatsApp">
+        <a class="hover-scale" href="#" aria-label="WhatsApp">
           <img src="./images/icons/wa.svg" alt="" width="40" height="40">
         </a>
-        <a href="#" aria-label="MAX">
+        <a class="hover-scale" href="#" aria-label="MAX">
           <img src="./images/icons/max.svg" alt="" width="40" height="40">
         </a>
       </div>
@@ -166,7 +219,7 @@
       </div>
     </section>
 
-    <section class="section about about--brand">
+    <section class="section about about--brand" id="about">
       <div class="container about__inner">
         <div class="about__innerwrapper">
           <div class="about__image about__image--main">
@@ -193,7 +246,7 @@
       </div>
     </section>
 
-    <section class="section brand__founder">
+    <section class="section brand__founder" id="founder">
       <div class="container">
         <div class="brand__founderinner">
           <img class="brand__founderavatar brand__founderavatar--desktop" src="./images/about-brand-founder.jpg" alt="Сулейманова Сафина Рустэмовна" width="147" height="147" loading="lazy">
@@ -215,7 +268,7 @@
       </div>
     </section>
 
-    <section class="section brand__values">
+    <section class="section brand__values" id="values">
       <div class="container">
         <div class="brand__valuesgrid">
           <article class="brand__value brand__value--beauty">
@@ -270,7 +323,7 @@
       </div>
     </section>
 
-    <section class="section corp__trust">
+    <section class="section corp__trust" id="trust">
       <div class="container">
         <h2>Нам доверяют</h2>
         <div class="corp__trustlogos">
@@ -293,12 +346,12 @@
       </div>
     </section>
 
-    <section class="section brand__gallery">
+    <section class="section brand__gallery" id="gallery">
       <div class="container">
         <h2 class="brand__gallerytitle">Галерея работ</h2>
       </div>
       <div class="brand__gallerytrack">
-        <button class="brand__galleryprev" type="button" aria-label="Назад">
+        <button class="brand__galleryprev hover-scale" type="button" aria-label="Назад">
           <img src="./images/icons/left-arrow.svg" alt="" width="18" height="18">
         </button>
         <div class="brand__slider swiper">
@@ -375,12 +428,12 @@
             </div>
           </div>
         </div>
-        <button class="brand__gallerynext" type="button" aria-label="Вперед">
+        <button class="brand__gallerynext hover-scale" type="button" aria-label="Вперед">
           <img src="./images/icons/right-arrow.svg" alt="" width="18" height="18">
         </button>
       </div>
       <div class="container brand__galleryactions">
-        <a class="btn btn--dark brand__gallerybtn" href="catalog.html">Перейти в каталог</a>
+        <a class="btn btn--dark btn--hover-border-white brand__gallerybtn" href="catalog.html">Перейти в каталог</a>
         <a class="btn btn--outline brand__gallerybtn" href="corporate.html">Больше о сотрудничестве</a>
       </div>
     </section>
@@ -397,8 +450,8 @@
             <li>Московская, 2 (Казанский ЦУМ)</li>
           </ul>
           <div class="contacts__links">
-            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
-            <a href="mailto:example@mail.ru">example@mail.ru</a>
+            <a href="tel:+79167800305">+7 (916) 780-03-05</a>
+            <a href="mailto:ida.sportwear@gmail.com">ida.sportwear@gmail.com</a>
           </div>
         </div>
       </div>
@@ -412,54 +465,54 @@
     <div class="container">
       <div class="footer__top">
         <div class="footer__brand">
-          <p>АЙДАSPORT</p>
-          <a href="#">ИП Сулейманова Сафина Рустэмовна</a>
+          <a class="footer__logolink hover-underline" href="index.html">АЙДАSPORT</a>
+          <a href="requisites.html">ИП Сулейманова Сафина Рустэмовна</a>
         </div>
         <div class="footer__columns">
           <div>
-            <h3>Каталог</h3>
-            <a href="#">Мужчинам</a>
-            <a href="#">Женщинам</a>
-            <a href="#">Детям</a>
-            <a href="#">Аксессуары</a>
+            <h3><a class="footer__headinglink hover-underline" href="catalog.html">Каталог</a></h3>
+            <a class="footer__navlink hover-underline" href="catalog.html?category=men">Мужчинам</a>
+            <a class="footer__navlink hover-underline" href="catalog.html?category=women">Женщинам</a>
+            <a class="footer__navlink hover-underline" href="catalog.html?category=kids">Детям</a>
+            <a class="footer__navlink hover-underline" href="catalog.html?category=accessories">Аксессуары</a>
           </div>
           <div>
-            <h3>Партнерам</h3>
-            <a href="#">Экипировка</a>
-            <a href="#">Мерч</a>
-            <a href="#">Партнерство</a>
-            <a href="#">Этапы работы</a>
+            <h3><a class="footer__headinglink hover-underline" href="corporate.html">Партнерам</a></h3>
+            <a class="footer__navlink hover-underline" href="corporate.html#directions">Направления</a>
+            <a class="footer__navlink hover-underline" href="corporate.html#steps">Этапы работы</a>
+            <a class="footer__navlink hover-underline" href="corporate.html#cases">Кейсы</a>
+            <a class="footer__navlink hover-underline" href="corporate.html#form">Заявка</a>
           </div>
           <div>
-            <h3>О нас</h3>
-            <a href="#">О бренде</a>
-            <a href="#">Доставка и оплата</a>
-            <a href="#">Возврат и обмен</a>
-            <a href="#">Контакты и адреса</a>
+            <h3><a class="footer__headinglink hover-underline" href="about-brand.html">О нас</a></h3>
+            <a class="footer__navlink hover-underline" href="about-brand.html#about">О бренде</a>
+            <a class="footer__navlink hover-underline" href="about-brand.html#founder">Основатель</a>
+            <a class="footer__navlink hover-underline" href="about-brand.html#trust">Партнеры</a>
+            <a class="footer__navlink hover-underline" href="about-brand.html#gallery">Галерея</a>
           </div>
         </div>
       </div>
       <div class="footer__line"></div>
       <div class="footer__bottom">
         <div class="footer__legal">
-          <a href="#">Политика конфиденциальности</a>
-          <a href="#">Публичная оферта</a>
+          <a class="footer__legallink hover-underline" href="privacy.html">Политика конфиденциальности</a>
+          <a class="footer__legallink hover-underline" href="#">Публичная оферта</a>
         </div>
         <div class="footer__contact">
-          <p>+7 (999) 999-99-99</p>
-          <p>example@mail.ru</p>
+          <a class="footer__contactlink hover-underline" href="tel:+79167800305">+7 (916) 780-03-05</a>
+          <a class="footer__contactlink hover-underline" href="mailto:ida.sportwear@gmail.com">ida.sportwear@gmail.com</a>
         </div>
         <div class="footer__socials">
-          <a href="#" aria-label="VK">
+          <a class="hover-scale" href="#" aria-label="VK">
             <img src="./images/icons/vk.svg" alt="" width="50" height="50">
           </a>
-          <a href="#" aria-label="Telegram">
+          <a class="hover-scale" href="#" aria-label="Telegram">
             <img src="./images/icons/tg.svg" alt="" width="50" height="50">
           </a>
-          <a href="#" aria-label="WhatsApp">
+          <a class="hover-scale" href="#" aria-label="WhatsApp">
             <img src="./images/icons/wa.svg" alt="" width="50" height="50">
           </a>
-          <a href="#" aria-label="MAX">
+          <a class="hover-scale" href="#" aria-label="MAX">
             <img src="./images/icons/max.svg" alt="" width="50" height="50">
           </a>
         </div>

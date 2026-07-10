@@ -10,6 +10,7 @@ const CATALOG_TABS = {
     { id: 'tracksuits', label: 'Спортивные костюмы' },
     { id: 'hoodies', label: 'Худи и толстовки' },
     { id: 'tshirts', label: 'Футболки и поло' },
+    { id: 'merch', label: 'Мерч' },
   ],
   women: [
     { id: 'vests', label: 'Жилеты, безрукавки' },
@@ -20,6 +21,7 @@ const CATALOG_TABS = {
     { id: 'tracksuits', label: 'Спортивные костюмы' },
     { id: 'hoodies', label: 'Худи и толстовки' },
     { id: 'tshirts', label: 'Футболки и поло' },
+    { id: 'merch', label: 'Мерч' },
   ],
   kids: [
     { id: 'vests-bombers', label: 'Жилеты и бомберы' },
@@ -27,11 +29,13 @@ const CATALOG_TABS = {
     { id: 'parks-jackets', label: 'Парки и куртки' },
     { id: 'hoodies', label: 'Худи и толстовки' },
     { id: 'tshirts', label: 'Футболки' },
+    { id: 'merch', label: 'Мерч' },
   ],
   accessories: [
     { id: 'caps', label: 'Кепки' },
     { id: 'hats', label: 'Шапки' },
     { id: 'mittens', label: 'Варежки' },
+    { id: 'merch', label: 'Мерч' },
   ],
 };
 
@@ -100,6 +104,10 @@ window.initCatalogTabs = function initCatalogTabs() {
 
   document.querySelectorAll('[data-catalog-category][data-catalog-tab]').forEach((link) => {
     link.addEventListener('click', (event) => {
+      if (link.closest('.header')) {
+        return;
+      }
+
       const { catalogCategory, catalogTab } = link.dataset;
       const isCatalogPage = Boolean(document.querySelector('.catalog'));
 

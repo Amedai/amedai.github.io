@@ -4,6 +4,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const burgerBtn = document.querySelector('.header__icon--burger');
   const mobileMenu = document.querySelector('.mobilemenu');
   const mobileMenuClose = document.querySelector('.mobilemenu__close');
+  const headerSub = document.querySelector('.header__sub');
+  const headerPanelTriggers = document.querySelectorAll('.header__topbtn[data-header-panel]');
+  const headerPanels = document.querySelectorAll('.header__subpanel');
   const subitems = document.querySelectorAll('.header__subitem');
 
   const closeSubmenus = (exceptItem) => {
@@ -16,6 +19,60 @@ window.addEventListener('DOMContentLoaded', () => {
       item.querySelector('.header__subtoggle')?.setAttribute('aria-expanded', 'false');
     });
   };
+
+  const closeHeaderSub = () => {
+    if (!headerSub) {
+      return;
+    }
+
+    headerSub.classList.remove('header__sub--open');
+    headerSub.setAttribute('aria-hidden', 'true');
+    headerPanels.forEach((panel) => {
+      panel.hidden = true;
+    });
+    headerPanelTriggers.forEach((button) => {
+      button.classList.remove('header__topbtn--active');
+      button.setAttribute('aria-expanded', 'false');
+    });
+    closeSubmenus();
+  };
+
+  const openHeaderSub = (panelName, trigger) => {
+    const panel = document.getElementById(`header-panel-${panelName}`);
+
+    if (!panel || !headerSub || !trigger) {
+      return;
+    }
+
+    const isSamePanel = trigger.classList.contains('header__topbtn--active');
+
+    closeHeaderSub();
+
+    if (!isSamePanel) {
+      headerSub.classList.add('header__sub--open');
+      headerSub.setAttribute('aria-hidden', 'false');
+      panel.hidden = false;
+      trigger.classList.add('header__topbtn--active');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  };
+
+  headerPanelTriggers.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      openHeaderSub(button.dataset.headerPanel, button);
+    });
+  });
+
+  headerSub?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      closeHeaderSub();
+    });
+  });
+
+  document.querySelector('.header__toplink')?.addEventListener('click', () => {
+    closeHeaderSub();
+  });
 
   subitems.forEach((item) => {
     const toggle = item.querySelector('.header__subtoggle');
@@ -47,6 +104,10 @@ window.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (event) => {
     if (!event.target.closest('.header__subitem')) {
       closeSubmenus();
+    }
+
+    if (!event.target.closest('.header')) {
+      closeHeaderSub();
     }
   });
 
@@ -121,6 +182,44 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   if (burgerBtn && mobileMenu && mobileMenuClose) {
+    const mobileMenuTriggers = document.querySelectorAll('.mobilemenu__btn[data-mobilemenu-panel]');
+    const mobileMenuPanels = document.querySelectorAll('[id^="mobilemenu-panel-"]');
+
+    const closeMobileMenuPanels = () => {
+      mobileMenuPanels.forEach((panel) => {
+        panel.hidden = true;
+      });
+      mobileMenuTriggers.forEach((button) => {
+        button.classList.remove('mobilemenu__btn--active');
+        button.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    const toggleMobileMenuPanel = (panelName, trigger) => {
+      const panel = document.getElementById(`mobilemenu-panel-${panelName}`);
+
+      if (!panel || !trigger) {
+        return;
+      }
+
+      const isSamePanel = trigger.classList.contains('mobilemenu__btn--active');
+
+      closeMobileMenuPanels();
+
+      if (!isSamePanel) {
+        panel.hidden = false;
+        trigger.classList.add('mobilemenu__btn--active');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    };
+
+    mobileMenuTriggers.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleMobileMenuPanel(button.dataset.mobilemenuPanel, button);
+      });
+    });
+
     const openMenu = () => {
       mobileMenu.classList.add('mobilemenu--open');
       mobileMenu.setAttribute('aria-hidden', 'false');
@@ -133,6 +232,7 @@ window.addEventListener('DOMContentLoaded', () => {
       mobileMenu.setAttribute('aria-hidden', 'true');
       burgerBtn.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      closeMobileMenuPanels();
     };
 
     burgerBtn.addEventListener('click', openMenu);
@@ -142,6 +242,12 @@ window.addEventListener('DOMContentLoaded', () => {
       if (event.target === mobileMenu) {
         closeMenu();
       }
+    });
+
+    mobileMenu.querySelectorAll('.mobilemenu__subnav a, .mobilemenu__link, .mobilemenu__logo').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
     });
   }
 
@@ -192,6 +298,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
+      closeHeaderSub();
       closeModal();
     }
   });
@@ -331,49 +438,63 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const corpCases = document.querySelector('.corp__cases');
 
-  if (corpCases && typeof Swiper !== 'undefined') {
-    const imageSlider = corpCases.querySelector('.corp__casesimageslider');
-    const prevEl = corpCases.querySelector('.corp__casesprev');
-    const nextEl = corpCases.querySelector('.corp__casesnext');
+  if (corpCases) {
+    const casesContainer = corpCases.querySelector('.corp__casescontainer');
+    const casesBodies = [...corpCases.querySelectorAll('.corp__casesbody')];
+    const casesFilterMenu = corpCases.querySelector('.corp__casesfiltermenu');
+    const casesFilterToggles = [...corpCases.querySelectorAll('.corp__casesfiltertoggle')];
+    const casesFilterOptions = [...corpCases.querySelectorAll('.corp__casesfilteroption')];
+    const casesSwipers = new WeakMap();
+    let activeCasesFilterToggle = null;
 
-    if (imageSlider) {
-      let imageSwiper = null;
+    const updateCasesNav = (body, imageSwiper) => {
+      if (!imageSwiper) {
+        return;
+      }
 
-      const updateCasesNav = () => {
-        if (!imageSwiper) {
-          return;
-        }
+      const prevEl = body.querySelector('.corp__casesprev');
+      const nextEl = body.querySelector('.corp__casesnext');
 
-        if (prevEl) {
-          prevEl.setAttribute('aria-disabled', imageSwiper.isBeginning ? 'true' : 'false');
-        }
+      if (prevEl) {
+        prevEl.setAttribute('aria-disabled', imageSwiper.isBeginning ? 'true' : 'false');
+      }
 
-        if (nextEl) {
-          nextEl.setAttribute('aria-disabled', imageSwiper.isEnd ? 'true' : 'false');
-        }
-      };
+      if (nextEl) {
+        nextEl.setAttribute('aria-disabled', imageSwiper.isEnd ? 'true' : 'false');
+      }
+    };
 
-      const updateCasesSwiper = () => {
-        if (!imageSwiper) {
-          return;
-        }
+    const updateCasesSwiper = (body) => {
+      const imageSwiper = casesSwipers.get(body);
 
-        imageSwiper.update();
-        updateCasesNav();
-      };
+      if (!imageSwiper) {
+        return;
+      }
 
-      const initCasesSwiper = () => {
+      imageSwiper.update();
+      updateCasesNav(body, imageSwiper);
+    };
+
+    const initCasesSwiper = (body) => {
+      if (typeof Swiper === 'undefined') {
+        return;
+      }
+
+      const imageSlider = body.querySelector('.corp__casesimageslider');
+      const prevEl = body.querySelector('.corp__casesprev');
+      const nextEl = body.querySelector('.corp__casesnext');
+
+      if (!imageSlider || casesSwipers.has(body)) {
+        return;
+      }
+
+      const tryInit = () => {
         if (imageSlider.offsetWidth === 0) {
-          requestAnimationFrame(initCasesSwiper);
+          requestAnimationFrame(tryInit);
           return;
         }
 
-        if (imageSwiper) {
-          updateCasesSwiper();
-          return;
-        }
-
-        imageSwiper = new Swiper(imageSlider, {
+        const imageSwiper = new Swiper(imageSlider, {
           wrapperClass: 'corp__casesimageswiperwrapper',
           slideClass: 'corp__casesimageswiperslide',
           slidesPerView: 1,
@@ -388,24 +509,139 @@ window.addEventListener('DOMContentLoaded', () => {
             nextEl,
           },
           pagination: {
-            el: corpCases.querySelector('.corp__casesimageswiperpagination'),
+            el: body.querySelector('.corp__casesimageswiperpagination'),
             bulletClass: 'corp__casesimageswiperpaginationbullet',
             bulletActiveClass: 'corp__casesimageswiperpaginationbullet--active',
             clickable: true,
           },
           on: {
-            init: updateCasesNav,
-            resize: updateCasesNav,
-            slideChange: updateCasesNav,
+            init: (swiper) => updateCasesNav(body, swiper),
+            resize: (swiper) => updateCasesNav(body, swiper),
+            slideChange: (swiper) => updateCasesNav(body, swiper),
           },
         });
 
-        updateCasesSwiper();
+        casesSwipers.set(body, imageSwiper);
+        updateCasesSwiper(body);
       };
 
-      initCasesSwiper();
-      window.addEventListener('load', updateCasesSwiper);
-      window.addEventListener('resize', updateCasesSwiper);
+      tryInit();
+    };
+
+    const showCasesBody = (value) => {
+      casesBodies.forEach((body) => {
+        const isActive = body.dataset.casesValue === value;
+
+        body.hidden = !isActive;
+
+        if (isActive) {
+          initCasesSwiper(body);
+          requestAnimationFrame(() => updateCasesSwiper(body));
+        }
+      });
+    };
+
+    const syncCasesFilterState = (value, selectedHtml) => {
+      casesFilterOptions.forEach((option) => {
+        const isActive = option.dataset.value === value;
+        option.classList.toggle('corp__casesfilteroption--active', isActive);
+        option.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      casesFilterToggles.forEach((toggle) => {
+        const filterValue = toggle.querySelector('.corp__casesfiltervalue');
+
+        if (filterValue) {
+          filterValue.innerHTML = selectedHtml;
+        }
+      });
+    };
+
+    const placeCasesFilterMenu = (trigger) => {
+      const containerRect = casesContainer.getBoundingClientRect();
+      const triggerRect = trigger.getBoundingClientRect();
+
+      casesFilterMenu.style.left = `${triggerRect.left - containerRect.left}px`;
+      casesFilterMenu.style.top = `${triggerRect.bottom - containerRect.top + 8}px`;
+      casesFilterMenu.style.width = `${triggerRect.width}px`;
+    };
+
+    const closeCasesFilterMenu = () => {
+      casesFilterMenu.classList.remove('corp__casesfiltermenu--open');
+      casesFilterMenu.hidden = true;
+      casesFilterMenu.style.left = '';
+      casesFilterMenu.style.top = '';
+      casesFilterMenu.style.width = '';
+      activeCasesFilterToggle = null;
+
+      casesFilterToggles.forEach((toggle) => {
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    casesBodies.forEach((body) => {
+      if (!body.hidden) {
+        initCasesSwiper(body);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (activeCasesFilterToggle) {
+        placeCasesFilterMenu(activeCasesFilterToggle);
+      }
+
+      casesBodies.forEach((body) => {
+        if (!body.hidden) {
+          updateCasesSwiper(body);
+        }
+      });
+    });
+
+    if (casesContainer && casesFilterMenu) {
+      casesContainer.addEventListener('click', (event) => {
+        const toggle = event.target.closest('.corp__casesfiltertoggle');
+        const option = event.target.closest('.corp__casesfilteroption');
+
+        if (toggle) {
+          const isOpen = casesFilterMenu.classList.contains('corp__casesfiltermenu--open');
+
+          if (isOpen && activeCasesFilterToggle === toggle) {
+            closeCasesFilterMenu();
+            return;
+          }
+
+          activeCasesFilterToggle = toggle;
+          placeCasesFilterMenu(toggle);
+          casesFilterMenu.hidden = false;
+          casesFilterMenu.classList.add('corp__casesfiltermenu--open');
+          toggle.setAttribute('aria-expanded', 'true');
+          return;
+        }
+
+        if (option) {
+          const selectedHtml = option.innerHTML.trim();
+          const selectedValue = option.dataset.value;
+
+          if (selectedValue) {
+            syncCasesFilterState(selectedValue, selectedHtml);
+            showCasesBody(selectedValue);
+          }
+
+          closeCasesFilterMenu();
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!casesContainer.contains(event.target)) {
+          closeCasesFilterMenu();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeCasesFilterMenu();
+        }
+      });
     }
   }
 

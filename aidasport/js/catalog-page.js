@@ -11,6 +11,7 @@ const CATALOG_PAGE_SIDEBAR = {
     { id: 'tracksuits', label: 'Спортивные костюмы' },
     { id: 'hoodies', label: 'Худи и толстовки' },
     { id: 'tshirts', label: 'Футболки и поло' },
+    { id: 'merch', label: 'Мерч' },
   ],
   women: [
     { id: 'all', label: 'ВСЕ ТОВАРЫ', muted: true },
@@ -22,6 +23,7 @@ const CATALOG_PAGE_SIDEBAR = {
     { id: 'tracksuits', label: 'Спортивные костюмы' },
     { id: 'hoodies', label: 'Худи и толстовки' },
     { id: 'tshirts', label: 'Футболки и поло' },
+    { id: 'merch', label: 'Мерч' },
   ],
   kids: [
     { id: 'all', label: 'ВСЕ ТОВАРЫ', muted: true },
@@ -30,12 +32,14 @@ const CATALOG_PAGE_SIDEBAR = {
     { id: 'parks-jackets', label: 'Парки и куртки' },
     { id: 'hoodies', label: 'Худи и толстовки' },
     { id: 'tshirts', label: 'Футболки' },
+    { id: 'merch', label: 'Мерч' },
   ],
   accessories: [
     { id: 'all', label: 'ВСЕ ТОВАРЫ', muted: true },
     { id: 'caps', label: 'Кепки' },
     { id: 'hats', label: 'Шапки' },
     { id: 'mittens', label: 'Варежки' },
+    { id: 'merch', label: 'Мерч' },
   ],
 };
 
@@ -412,7 +416,7 @@ window.initCatalogPage = function initCatalogPage() {
   });
 
   const params = new URLSearchParams(window.location.search);
-  const initialCategory = params.get('category') || 'women';
+  const initialCategory = params.get('category') || 'men';
   const initialTab = params.get('tab') || 'vests';
 
   activateCatalogState(initialCategory, initialTab);
