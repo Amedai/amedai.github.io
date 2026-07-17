@@ -3638,6 +3638,11 @@ body {
   box-sizing: border-box;
   padding-right: clamp(120px, -61.8181818182px + 11.3636363636vw, 170px);
 }
+@media (min-width: 2041px) {
+  .account-profile {
+    padding-right: 20vw;
+  }
+}
 .account-profile__title {
   margin: 0 0 26px;
   font-family: var(--font-unbounded);
@@ -4037,6 +4042,11 @@ body {
   min-width: 0;
   box-sizing: border-box;
   padding-right: clamp(120px, -61.8181818182px + 11.3636363636vw, 170px);
+}
+@media (min-width: 2041px) {
+  .account-finance {
+    padding-right: 20vw;
+  }
 }
 .account-finance__title {
   margin: 0 0 26px;
