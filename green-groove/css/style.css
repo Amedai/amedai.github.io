@@ -3620,7 +3620,7 @@ body {
   grid-column: 2;
   min-width: 0;
   color: var(--color-black);
-  padding: 73px 77px 80px;
+  padding: clamp(40px, -80px + 7.5vw, 73px) 77px 80px;
   background-color: var(--color-white);
   overflow: visible;
   box-sizing: border-box;
@@ -3636,11 +3636,12 @@ body {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  padding-right: clamp(120px, -61.8181818182px + 11.3636363636vw, 170px);
 }
 .account-profile__title {
   margin: 0 0 26px;
   font-family: var(--font-unbounded);
-  font-size: 40px;
+  font-size: clamp(24px, -16px + 2.5vw, 35px);
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
@@ -3648,18 +3649,20 @@ body {
 }
 .account-profile__card {
   display: grid;
-  grid-template-columns: minmax(0, 377px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, clamp(318px, 241.6363636364px + 4.7727272727vw, 339px)) minmax(0, 1fr);
   gap: 23px;
   align-items: stretch;
 }
 .account-profile__photo-wrap {
   position: relative;
   min-width: 0;
+  width: clamp(318px, 241.6363636364px + 4.7727272727vw, 339px);
+  height: 100%;
 }
 .account-profile__photo {
   display: block;
   width: 100%;
-  height: 372px;
+  height: 100%;
   border-radius: 15px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -3671,8 +3674,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: clamp(25px, 6.8181818182px + 1.1363636364vw, 30px);
+  height: clamp(25px, 6.8181818182px + 1.1363636364vw, 30px);
   padding: 0;
   border: 0;
   background: transparent;
@@ -3680,14 +3683,13 @@ body {
 }
 .account-profile__photo-btn-icon {
   display: block;
-  width: 36px;
-  height: 36px;
+  width: clamp(25px, 6.8181818182px + 1.1363636364vw, 30px);
+  height: clamp(25px, 6.8181818182px + 1.1363636364vw, 30px);
 }
 .account-profile__info {
   display: flex;
   flex-direction: column;
-  min-height: 372px;
-  padding: 23px 24px 24px;
+  padding: 24px 20px;
   border-radius: 15px;
   background-color: #e3e3e3;
   box-sizing: border-box;
@@ -3700,20 +3702,29 @@ body {
 }
 .account-profile__row {
   display: grid;
-  grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, clamp(95px, -105px + 12.5vw, 150px)) minmax(0, 1fr);
+  gap: 14px;
   align-items: start;
 }
 .account-profile__row--about {
   align-items: start;
 }
+.account-profile__row--full-name .account-profile__label,
+.account-profile__row--full-name .account-profile__text,
+.account-profile__row--full-name .account-profile__input {
+  text-transform: uppercase;
+}
+.account-profile__row--actions {
+  margin-top: auto;
+  padding-top: 24px;
+}
 .account-profile__label {
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: clamp(16px, -5.8181818182px + 1.3636363636vw, 22px);
   font-weight: 600;
   line-height: normal;
-  text-transform: uppercase;
   color: var(--color-black);
+  text-align: right;
 }
 .account-profile__control {
   position: relative;
@@ -3722,14 +3733,10 @@ body {
 }
 .account-profile__text {
   font-family: var(--font-bounded);
-  font-size: 24px;
+  font-size: clamp(16px, 1.4545454545px + 0.9090909091vw, 20px);
   font-weight: 400;
   line-height: normal;
-  text-transform: uppercase;
   color: var(--color-black);
-}
-.account-profile__text--about {
-  text-transform: none;
 }
 .account-profile__input, .account-profile__textarea {
   display: none;
@@ -3740,14 +3747,14 @@ body {
   border-radius: 0;
   background: transparent;
   font-family: var(--font-bounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
   line-height: normal;
   color: var(--color-black);
   outline: none;
 }
 .account-profile__input {
-  text-transform: uppercase;
+  text-transform: none;
 }
 .account-profile__textarea {
   min-height: 96px;
@@ -3768,23 +3775,28 @@ body {
 .account-profile__textarea::-webkit-scrollbar-track {
   background-color: transparent;
 }
+.account-profile__actions {
+  width: 100%;
+  min-width: 0;
+}
 .account-profile__action {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 55px;
-  margin-top: 24px;
+  height: clamp(38px, -23.8181818182px + 3.8636363636vw, 55px);
+  margin: 0;
   padding: 0 24px;
   border: 0;
-  border-radius: 15px;
+  border-radius: clamp(7px, -22.0909090909px + 1.8181818182vw, 15px);
   background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-forest) 100%);
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: clamp(16px, 1.4545454545px + 0.9090909091vw, 20px);
   font-weight: 600;
   line-height: normal;
   color: var(--color-white);
   cursor: pointer;
+  box-sizing: border-box;
 }
 .account-profile__action[hidden] {
   display: none;
@@ -3889,7 +3901,7 @@ body {
   border-radius: 15px;
   background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-forest) 100%);
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-white);
@@ -3905,14 +3917,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 77px 15px 25px;
+  padding: 15px 77px 15px 58px;
   background-color: var(--color-white);
   box-shadow: 0 21px 65.8px rgba(0, 0, 0, 0.22);
 }
 .account-header__logo {
   flex-shrink: 0;
-  width: clamp(70px, 4.5686900958px + 6.3897763578vw, 110px);
-  height: clamp(45px, 2.4696485623px + 4.1533546326vw, 71px);
+  width: clamp(60px, -194.5454545455px + 15.9090909091vw, 130px);
+  height: clamp(39px, -124.6363636364px + 10.2272727273vw, 84px);
 }
 .account-header__logo img {
   width: 100%;
@@ -3929,34 +3941,40 @@ body {
 .account-header__user {
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: clamp(18px, -40.1818181818px + 3.6363636364vw, 34px);
 }
 .account-header__notification {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: clamp(30px, 19.0909090909px + 0.6818181818vw, 33px);
+  height: clamp(30px, 19.0909090909px + 0.6818181818vw, 33px);
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
 }
+.account-header__notification img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 .account-header__profile {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: clamp(16px, -13.0909090909px + 1.8181818182vw, 24px);
 }
 .account-header__avatar {
-  width: 65px;
-  height: 65px;
+  width: clamp(55px, 25.9090909091px + 1.8181818182vw, 63px);
+  height: clamp(55px, 25.9090909091px + 1.8181818182vw, 63px);
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 .account-header__name {
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: clamp(16px, 8.7272727273px + 0.4545454545vw, 18px);
   font-weight: 700;
   line-height: normal;
   text-transform: uppercase;
@@ -3968,7 +3986,7 @@ body {
   align-self: stretch;
   z-index: 20;
   position: relative;
-  padding: 81px 58px 40px;
+  padding: clamp(40px, -109.0909090909px + 9.3181818182vw, 81px) 58px 40px;
   background-color: var(--color-white);
   box-shadow: -3px 4px 119.4px rgba(0, 0, 0, 0.25);
   overflow-x: hidden;
@@ -3981,7 +3999,7 @@ body {
 .account-sidebar__list {
   display: flex;
   flex-direction: column;
-  gap: 54px;
+  gap: clamp(34px, -38.7272727273px + 4.5454545455vw, 54px);
 }
 .account-sidebar__item {
   position: relative;
@@ -4001,7 +4019,7 @@ body {
   z-index: 1;
   display: inline-block;
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: clamp(16px, -5.8181818182px + 1.3636363636vw, 22px);
   font-weight: 600;
   line-height: normal;
   color: var(--color-black);
@@ -4018,11 +4036,12 @@ body {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  padding-right: clamp(120px, -61.8181818182px + 11.3636363636vw, 170px);
 }
 .account-finance__title {
-  margin-bottom: 26px;
+  margin: 0 0 26px;
   font-family: var(--font-unbounded);
-  font-size: 40px;
+  font-size: clamp(24px, -16px + 2.5vw, 35px);
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
@@ -4038,24 +4057,24 @@ body {
   margin-bottom: 55px;
 }
 .account-finance__payment {
-  min-height: 372px;
   padding: 29px 20px 24px;
   border-radius: 15px;
   background: linear-gradient(142.73deg, var(--color-green) 6.59%, var(--color-green-forest) 108.32%);
   color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .account-finance__payment-label {
-  margin-bottom: 102px;
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
 }
 .account-finance__payment-amount {
-  margin-bottom: 88px;
   font-family: var(--font-unbounded);
-  font-size: 48px;
+  font-size: 43px;
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
@@ -4069,7 +4088,7 @@ body {
 }
 .account-finance__payment-status {
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
@@ -4096,8 +4115,7 @@ body {
   pointer-events: none;
 }
 .account-finance__contract {
-  min-height: 372px;
-  padding: 61px 34px 34px;
+  padding: 60px 34px;
   border-radius: 15px;
   background: rgba(217, 217, 217, 0.72);
 }
@@ -4105,8 +4123,8 @@ body {
   margin-bottom: 40px;
   max-width: 755px;
   font-family: var(--font-unbounded);
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 400;
   line-height: 1.35;
   color: var(--color-black);
 }
@@ -4114,11 +4132,11 @@ body {
   margin-bottom: 40px;
 }
 .account-finance__contract-label {
-  font-weight: 900;
+  font-weight: 600;
 }
 .account-finance__contract-number {
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
@@ -4167,7 +4185,7 @@ body {
   border-radius: 15px;
   background-color: #bdbdbd;
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-black);
@@ -4232,7 +4250,7 @@ body {
   border-radius: 10px;
   background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-forest) 100%);
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-white);
@@ -4272,7 +4290,7 @@ body {
   border: 0;
   background: transparent;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   text-align: left;
@@ -4299,7 +4317,7 @@ body {
 .account-finance__reports-title {
   width: 100%;
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   text-align: center;
@@ -4317,7 +4335,7 @@ body {
   right: 0;
   transform: translateY(-50%);
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-black);
@@ -4383,7 +4401,7 @@ body {
 }
 .account-finance__report-name, .account-finance__report-date {
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-black);
@@ -4399,7 +4417,7 @@ body {
   border: 0;
   background: transparent;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: normal;
   color: var(--color-black);
@@ -4419,7 +4437,7 @@ body {
   border: 0;
   border-radius: 15px;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   cursor: pointer;
@@ -4520,7 +4538,7 @@ body {
   max-width: 535px;
   margin: 0 auto 56px;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: normal;
   text-align: center;
@@ -4541,7 +4559,7 @@ body {
 .account-finance__modal-label {
   margin: 0 0 18px;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: normal;
   color: var(--color-black);
@@ -4549,7 +4567,7 @@ body {
 .account-finance__modal-value {
   margin: 0;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: normal;
   color: var(--color-black);
@@ -4562,7 +4580,7 @@ body {
   border-radius: 16px;
   background-color: #e8e8e8;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   line-height: normal;
   color: #585656;
@@ -4652,7 +4670,7 @@ body {
 }
 .account-finance__modal-status-text {
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: normal;
   color: var(--color-black);
@@ -4677,7 +4695,7 @@ body {
 .account-finance__modal-phone-prefix {
   flex-shrink: 0;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   line-height: normal;
   color: #585656;
@@ -4700,7 +4718,7 @@ body {
   width: 100%;
   border: 0;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   line-height: normal;
   color: #585656;
@@ -4762,7 +4780,7 @@ body {
 }
 .account-finance__modal-agree-text {
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   line-height: normal;
   color: var(--color-black);
@@ -4797,7 +4815,7 @@ body {
   border-radius: 10px;
   background-color: #BDBDBD;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-black);
@@ -4815,16 +4833,13 @@ body {
   box-sizing: border-box;
 }
 .account-analytics__title {
-  margin: 0 0 32px;
+  margin: 0 0 26px;
   font-family: var(--font-unbounded);
-  font-size: 40px;
+  font-size: clamp(24px, -16px + 2.5vw, 35px);
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;
-  background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-forest) 42.785%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: var(--color-black);
 }
 .account-analytics__filters {
   display: grid;
@@ -4832,6 +4847,7 @@ body {
   gap: 13px;
   align-items: end;
   margin-bottom: 40px;
+  justify-content: space-between;
 }
 .account-analytics__filter {
   display: flex;
@@ -4980,7 +4996,7 @@ body {
   border-radius: 10px;
   background-color: #9b9b9b;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-white);
@@ -5007,7 +5023,7 @@ body {
 .account-analytics__total-value {
   margin: 0 0 4px;
   font-family: var(--font-unbounded);
-  font-size: 32px;
+  font-size: 29px;
   font-weight: 400;
   line-height: normal;
   text-transform: uppercase;
@@ -5055,7 +5071,7 @@ body {
   border-radius: 10px;
   background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-forest) 100%);
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-white);
@@ -5095,7 +5111,7 @@ body {
   border: 0;
   background: transparent;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   text-align: left;
@@ -5114,7 +5130,7 @@ body {
 .account-analytics__period-label {
   margin: 0;
   font-family: var(--font-unbounded);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: normal;
   color: var(--color-black);
@@ -5128,7 +5144,7 @@ body {
 .account-analytics__block-title {
   margin: 0 0 14px;
   font-family: var(--font-unbounded);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   text-transform: uppercase;

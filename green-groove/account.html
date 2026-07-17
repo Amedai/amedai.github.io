@@ -17,10 +17,10 @@
             </a>
             <div class="account-header__user">
                 <button class="account-header__notification" type="button" aria-label="Уведомления">
-                    <img src="./images/icons/notification.svg" alt="" width="30" height="30">
+                    <img src="./images/icons/notification.svg" alt="" width="33" height="33">
                 </button>
                 <div class="account-header__profile">
-                    <img class="account-header__avatar" src="./images/account/personal.jpg" alt="" width="74" height="74">
+                    <img class="account-header__avatar" src="./images/account/personal.jpg" alt="" width="63" height="63">
                     <p class="account-header__name">Глеб Горельчаник</p>
                 </div>
             </div>
@@ -57,15 +57,15 @@
 
                     <div class="account-profile__card">
                         <div class="account-profile__photo-wrap">
-                            <img class="account-profile__photo" src="./images/account/personal2.jpg" alt="Глеб Горельчаник" width="377" height="372" data-profile-photo>
+                            <img class="account-profile__photo" src="./images/account/personal2.jpg" alt="Глеб Горельчаник" width="339" height="335" data-profile-photo>
                             <button class="account-profile__photo-btn" type="button" aria-label="Изменить фото" data-profile-photo-open>
-                                <img class="account-profile__photo-btn-icon" src="./images/icons/account-profile-photo.png" alt="" width="36" height="36">
+                                <img class="account-profile__photo-btn-icon" src="./images/icons/account-profile-photo.png" alt="" width="30" height="30">
                             </button>
                         </div>
 
                         <div class="account-profile__info">
                             <div class="account-profile__rows">
-                                <div class="account-profile__row">
+                                <div class="account-profile__row account-profile__row--full-name">
                                     <span class="account-profile__label">ФИО:</span>
                                     <div class="account-profile__control">
                                         <span class="account-profile__text" data-profile-display="full-name">Иванов Иван Иванович</span>
@@ -96,10 +96,15 @@
                                         <textarea class="account-profile__textarea" data-profile-input="about">Российский электронный продюсер и один из наиболее заметных представителей Deep House-сцены в России и СНГ</textarea>
                                     </div>
                                 </div>
-                            </div>
 
-                            <button class="account-profile__action hover-dark-green" type="button" data-profile-edit>Редактировать</button>
-                            <button class="account-profile__action hover-dark-green" type="button" data-profile-save hidden>Сохранить</button>
+                                <div class="account-profile__row account-profile__row--actions">
+                                    <span class="account-profile__actions-spacer" aria-hidden="true"></span>
+                                    <div class="account-profile__actions">
+                                        <button class="account-profile__action hover-dark-green" type="button" data-profile-edit>Редактировать</button>
+                                        <button class="account-profile__action hover-dark-green" type="button" data-profile-save hidden>Сохранить</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
