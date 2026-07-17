@@ -388,6 +388,8 @@ function initAccountSidebarTabs(account) {
             panelEl.hidden = !isActive;
             panelEl.setAttribute('aria-hidden', isActive ? 'false' : 'true');
         });
+
+        account.classList.toggle('account--analytics', tabId === 'analytics');
     }
 
     sidebarLinks.forEach((link) => {

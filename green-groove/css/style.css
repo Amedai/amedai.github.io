@@ -3621,9 +3621,15 @@ body {
   min-width: 0;
   color: var(--color-black);
   padding: clamp(40px, -80px + 7.5vw, 73px) 77px 80px;
+  padding-right: clamp(140px, -223.6363636364px + 22.7272727273vw, 240px);
   background-color: var(--color-white);
   overflow: visible;
   box-sizing: border-box;
+}
+@media (min-width: 2041px) {
+  .account__main {
+    padding-right: 20vw;
+  }
 }
 .account__panel {
   display: none;
@@ -3631,17 +3637,27 @@ body {
 .account__panel--active {
   display: block;
 }
+.account--analytics .account__main {
+  padding-right: 77px;
+}
+@media (min-width: 2041px) {
+  .account--analytics .account__main {
+    padding-right: 77px;
+  }
+}
+.account--analytics .account-header {
+  padding-right: 77px;
+}
+@media (min-width: 2041px) {
+  .account--analytics .account-header {
+    padding-right: 77px;
+  }
+}
 
 .account-profile {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding-right: clamp(120px, -61.8181818182px + 11.3636363636vw, 170px);
-}
-@media (min-width: 2041px) {
-  .account-profile {
-    padding-right: 20vw;
-  }
 }
 .account-profile__title {
   margin: 0 0 26px;
@@ -3922,9 +3938,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 77px 15px 58px;
+  padding: 15px clamp(140px, -223.6363636364px + 22.7272727273vw, 240px) 15px 58px;
   background-color: var(--color-white);
   box-shadow: 0 21px 65.8px rgba(0, 0, 0, 0.22);
+}
+@media (min-width: 2041px) {
+  .account-header {
+    padding-right: 20vw;
+  }
 }
 .account-header__logo {
   flex-shrink: 0;
@@ -4041,12 +4062,6 @@ body {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding-right: clamp(120px, -61.8181818182px + 11.3636363636vw, 170px);
-}
-@media (min-width: 2041px) {
-  .account-finance {
-    padding-right: 20vw;
-  }
 }
 .account-finance__title {
   margin: 0 0 26px;
