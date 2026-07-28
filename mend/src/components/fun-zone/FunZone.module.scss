@@ -1,0 +1,175 @@
+@import "../../styles/mixins";
+
+.section {
+  @include section-padding;
+  position: relative;
+  background: $color-bg-alt;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 70% 20%, rgba($color-red, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba($color-primary, 0.05) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.container {
+  @include container;
+  position: relative;
+  z-index: 1;
+}
+
+// ── Header ───────────────────────────────────────────────────
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+
+  @media (max-width: $mobile-width) {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.title {
+  @include heading-xl;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: $font-heading;
+  font-weight: normal;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  text-transform: uppercase;
+  color: $color-cream;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  @include body-text;
+  font-size: 1.0625rem;
+  color: $color-text-muted;
+}
+
+// ── Grid ─────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+
+  @media (max-width: $tablet-width) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+// ── Food ─────────────────────────────────────────────────────
+.food {
+  @include card;
+  border-top: 3px solid $color-red;
+}
+
+.blockTitle {
+  font-family: $font-heading;
+  font-weight: normal;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  color: $color-primary;
+  text-shadow: $glow-text;
+  margin-bottom: 1rem;
+
+  @media (max-width: $mobile-width) {
+    font-size: 1.5rem;
+  }
+}
+
+.quote {
+  font-family: $font-body;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba($color-cream, 0.6);
+  line-height: 1.6;
+  padding-left: 1rem;
+  border-left: 2px solid $color-red-bright;
+  margin-bottom: 1.5rem;
+}
+
+.menuLabel {
+  font-family: $font-heading;
+  font-weight: normal;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: $color-gold;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menuItem {
+  position: relative;
+  padding-left: 1.25rem;
+  font-family: $font-body;
+  font-size: 0.9375rem;
+  color: rgba($color-cream, 0.7);
+  line-height: 1.5;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $color-red-bright;
+    box-shadow: 0 0 6px rgba($color-red-bright, 0.4);
+  }
+}
+
+// ── Entertainment ────────────────────────────────────────────
+.entertainment {
+  @include card;
+  border-top: 3px solid $color-primary;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.activity {
+  padding-left: 1rem;
+  border-left: 2px solid $color-border-strong;
+  transition: border-color $transition;
+
+  &:hover {
+    border-color: $color-primary;
+  }
+}
+
+.activityTitle {
+  font-family: $font-heading;
+  font-weight: normal;
+  font-size: 1.0625rem;
+  text-transform: uppercase;
+  color: $color-cream;
+  margin-bottom: 0.25rem;
+}
+
+.activityDesc {
+  font-family: $font-body;
+  font-size: 0.875rem;
+  color: $color-text-muted;
+  line-height: 1.5;
+}

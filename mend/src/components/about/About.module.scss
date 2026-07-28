@@ -1,0 +1,106 @@
+@import "../../styles/mixins";
+
+.about {
+  @include section-padding;
+  background: $color-bg-alt;
+  position: relative;
+
+  &::before {
+    @include section-divider;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.container {
+  @include container;
+  text-align: center;
+}
+
+.title {
+  @include heading-lg;
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  @include body-text;
+  font-size: 1.125rem;
+  color: rgba($color-cream, 0.65);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @media (max-width: $tablet-width) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: $mobile-width) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.feature {
+  background: $color-dark-card;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border;
+  overflow: hidden;
+  text-align: center;
+  transition: box-shadow $transition, border-color $transition, transform $transition;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    border-color: $color-border-strong;
+    transform: translateY(-3px);
+  }
+}
+
+.imgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 50%,
+      rgba($color-dark-card, 0.9) 100%
+    );
+    pointer-events: none;
+  }
+}
+
+.featureImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.featureBody {
+  padding: 1.25rem 1.5rem 1.75rem;
+}
+
+.featureTitle {
+  @include heading-md;
+  font-size: 1.25rem;
+  color: $color-cream;
+  margin-bottom: 0.75rem;
+}
+
+.featureText {
+  @include body-text;
+  font-size: 0.9375rem;
+  color: $color-text-muted;
+}

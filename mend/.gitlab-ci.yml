@@ -1,0 +1,65 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DEPLOY_PATH: "/var/storage/frontend/mendeleevsk"
+  NODE_ENV: production
+  # Use the pnpm store directory for caching
+  # https://pnpm.io/continuous-integration#gitlab-ci
+  PNPM_STORE_PATH: ".pnpm-store"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - ${PNPM_STORE_PATH}
+
+.pnpm-template: &pnpm-template
+  image: node:22-alpine # Choose a suitable Node.js image
+  before_script:
+    - npm install -g pnpm # Install pnpm
+    - pnpm config set store-dir ${PNPM_STORE_PATH}
+
+build:
+  <<: *pnpm-template
+  stage: build
+  script:
+    - pnpm install --frozen-lockfile # Install dependencies
+    - pnpm build # Build the Vite project
+  artifacts:
+    paths:
+      - dist/ # Assuming 'dist' is your Vite build output directory
+
+deploy_dev:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying to dev server..."
+    - mkdir -p ${DEPLOY_PATH} # Ensure target directory exists
+    - rm -rf $DEPLOY_PATH/*
+    - cp -r dist/* ${DEPLOY_PATH}/ # Simple copy, adjust if SSH/rsync needed
+    - echo "Deployment to dev complete."
+  environment:
+    name: development
+    # url: http://dev.example.com # Optional: Replace with your dev URL
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+  tags:
+    - dev # Tag for your development runner
+
+deploy_main:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying to main server..."
+    - mkdir -p ${DEPLOY_PATH} # Ensure target directory exists
+    - rm -rf $DEPLOY_PATH/*
+    - cp -r dist/* ${DEPLOY_PATH}/ # Simple copy, adjust if SSH/rsync needed
+    - echo "Deployment to main complete."
+  environment:
+    name: production
+    # url: https://example.com # Optional: Replace with your production URL
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  tags:
+    - prod # Tag for your main/production runner

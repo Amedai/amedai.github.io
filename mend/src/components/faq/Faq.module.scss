@@ -1,0 +1,154 @@
+@import "../../styles/mixins";
+
+.faq {
+  @include section-padding;
+  background: $color-bg-alt;
+  position: relative;
+
+  &::before {
+    @include section-divider;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.container {
+  @include container;
+}
+
+.title {
+  @include heading-lg;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  color: $color-text-muted;
+  font-family: $font-body;
+}
+
+.error {
+  color: $color-red-bright;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.tab {
+  padding: 0.5rem 1.5rem;
+  font-family: $font-heading;
+  font-weight: normal;
+  font-size: 0.9375rem;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  background: transparent;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: all $transition;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}
+
+.tabActive {
+  background: $color-red;
+  border-color: $color-red;
+  color: $color-white;
+  box-shadow: $glow-red;
+
+  &:hover {
+    border-color: $color-red-bright;
+    color: $color-white;
+  }
+}
+
+.list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.item {
+  border-bottom: 1px solid $color-border;
+
+  &:first-child {
+    border-top: 1px solid $color-border;
+  }
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.25rem 0;
+  font-family: $font-body;
+  font-weight: 600;
+  font-size: 1rem;
+  color: $color-cream;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 1rem;
+  transition: color $transition;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.arrow {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid $color-primary;
+  border-bottom: 2px solid $color-primary;
+  transform: rotate(45deg);
+  transition: transform $transition;
+
+  .itemOpen & {
+    transform: rotate(-135deg);
+  }
+}
+
+.answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  font-family: $font-body;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: $color-text-muted;
+
+  .itemOpen & {
+    max-height: 500px;
+    padding-bottom: 1.25rem;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: underline;
+    text-decoration-color: rgba($color-primary, 0.4);
+
+    &:hover {
+      color: $color-gold;
+      text-decoration-color: rgba($color-gold, 0.4);
+    }
+  }
+}
