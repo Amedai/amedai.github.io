@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!account) return;
 
     initAccountSidebarTabs(account);
+    initAccountHeaderMenu(account);
+    initAccountNotifications(account);
+    initAccountBurgerMenu(account);
     initAccountProfile(account);
     initAccountAnalytics(account);
     initAccountFinance(account);
@@ -228,6 +231,14 @@ function initAccountFinance(account) {
         });
     }
 
+    function syncFinancePeriodLabel(yearPanel, panel) {
+        const period = yearPanel.querySelector('[data-finance-period]');
+        const label = panel?.dataset.periodLabel;
+        if (period && label) {
+            period.textContent = label;
+        }
+    }
+
     function activateQuarter(yearPanel, quarter) {
         const quarterTabs = yearPanel.querySelectorAll('.account-finance__quarter-btn');
         const quarterPanels = yearPanel.querySelectorAll('.account-finance__quarter-panel');
@@ -238,6 +249,7 @@ function initAccountFinance(account) {
 
         setActiveTab(quarterTabs, tab, 'account-finance__quarter-btn--active');
         setActivePanel(quarterPanels, panel, 'account-finance__quarter-panel--active');
+        syncFinancePeriodLabel(yearPanel, panel);
 
         quarterTabs.forEach((quarterTab) => {
             const isActive = quarterTab === tab;
@@ -369,27 +381,35 @@ function initAccountSidebarTabs(account) {
     const sidebarLinks = account.querySelectorAll('[data-account-tab]');
     const panels = account.querySelectorAll('[data-account-panel]');
     const sidebarItems = account.querySelectorAll('.account-sidebar__item');
+    const main = account.querySelector('.account__main');
 
-    if (!sidebarLinks.length || !panels.length) return;
+    if (!panels.length) return;
 
     function activatePanel(tabId) {
         const panel = account.querySelector(`[data-account-panel="${tabId}"]`);
         const link = account.querySelector(`[data-account-tab="${tabId}"]`);
 
-        if (!panel || !link) return;
+        if (!panel) return;
 
         sidebarItems.forEach((item) => {
-            item.classList.toggle('account-sidebar__item--active', item.contains(link));
+            item.classList.toggle('account-sidebar__item--active', Boolean(link && item.contains(link)));
         });
 
         panels.forEach((panelEl) => {
             const isActive = panelEl === panel;
             panelEl.classList.toggle('account__panel--active', isActive);
-            panelEl.hidden = !isActive;
-            panelEl.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
+            if (isActive) {
+                panelEl.removeAttribute('hidden');
+                panelEl.setAttribute('aria-hidden', 'false');
+            } else {
+                panelEl.setAttribute('hidden', '');
+                panelEl.setAttribute('aria-hidden', 'true');
+            }
         });
 
-        account.classList.toggle('account--analytics', tabId === 'analytics');
+        main?.scrollTo({ top: 0, behavior: 'auto' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
     sidebarLinks.forEach((link) => {
@@ -403,7 +423,174 @@ function initAccountSidebarTabs(account) {
         });
     });
 
-    activatePanel('profile');
+    account.addEventListener('account:activate-panel', (event) => {
+        const tabId = event.detail?.tabId;
+        if (!tabId) return;
+        activatePanel(tabId);
+    });
+
+    activatePanel('analytics');
+}
+
+function initAccountHeaderMenu(account) {
+    const menu = account.querySelector('.account-header__menu');
+    const toggle = account.querySelector('[data-account-menu-toggle]');
+    const dropdown = account.querySelector('[data-account-menu]');
+
+    if (!menu || !toggle || !dropdown) return;
+
+    function closeMenu() {
+        menu.classList.remove('account-header__menu--open');
+        toggle.setAttribute('aria-expanded', 'false');
+        dropdown.hidden = true;
+    }
+
+    function openMenu() {
+        account.dispatchEvent(new CustomEvent('account:close-sidebar'));
+        account.dispatchEvent(new CustomEvent('account:close-notifications'));
+        menu.classList.add('account-header__menu--open');
+        toggle.setAttribute('aria-expanded', 'true');
+        dropdown.hidden = false;
+    }
+
+    toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        if (menu.classList.contains('account-header__menu--open')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    dropdown.addEventListener('click', (event) => {
+        const profileBtn = event.target.closest('[data-account-tab-target="profile"]');
+        if (!profileBtn || !dropdown.contains(profileBtn)) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        closeMenu();
+        account.dispatchEvent(new CustomEvent('account:activate-panel', {
+            detail: { tabId: 'profile' },
+        }));
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target)) {
+            closeMenu();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeMenu();
+        }
+    });
+
+    account.addEventListener('account:close-header-menu', closeMenu);
+}
+
+function initAccountNotifications(account) {
+    const wrap = account.querySelector('.account-header__notifications-wrap');
+    const toggle = account.querySelector('[data-account-notifications-toggle]');
+    const panel = account.querySelector('[data-account-notifications]');
+
+    if (!wrap || !toggle || !panel) return;
+
+    function closeNotifications() {
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.hidden = true;
+    }
+
+    function openNotifications() {
+        account.dispatchEvent(new CustomEvent('account:close-sidebar'));
+        account.dispatchEvent(new CustomEvent('account:close-header-menu'));
+        toggle.setAttribute('aria-expanded', 'true');
+        panel.hidden = false;
+    }
+
+    toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        if (panel.hidden) {
+            openNotifications();
+        } else {
+            closeNotifications();
+        }
+    });
+
+    panel.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!wrap.contains(event.target)) {
+            closeNotifications();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeNotifications();
+        }
+    });
+
+    account.addEventListener('account:close-notifications', closeNotifications);
+}
+
+function initAccountBurgerMenu(account) {
+    const burger = account.querySelector('[data-account-burger]');
+    const sidebar = account.querySelector('[data-account-sidebar]');
+    const header = account.querySelector('.account-header');
+
+    if (!burger || !sidebar) return;
+
+    const closeSidebar = () => {
+        sidebar.classList.remove('account-sidebar--open');
+        burger.classList.remove('account-header__burger--active');
+        burger.setAttribute('aria-expanded', 'false');
+        header?.classList.remove('account-header--menu-open');
+        document.body.classList.remove('no-scroll');
+    };
+
+    const openSidebar = () => {
+        account.dispatchEvent(new CustomEvent('account:close-header-menu'));
+        account.dispatchEvent(new CustomEvent('account:close-notifications'));
+        sidebar.classList.add('account-sidebar--open');
+        burger.classList.add('account-header__burger--active');
+        burger.setAttribute('aria-expanded', 'true');
+        header?.classList.add('account-header--menu-open');
+        document.body.classList.add('no-scroll');
+    };
+
+    burger.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        if (sidebar.classList.contains('account-sidebar--open')) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+
+    sidebar.querySelectorAll('[data-account-tab]').forEach((link) => {
+        link.addEventListener('click', closeSidebar);
+    });
+
+    sidebar.querySelector('[data-account-tab-target="profile"]')?.addEventListener('click', () => {
+        closeSidebar();
+        account.dispatchEvent(new CustomEvent('account:activate-panel', {
+            detail: { tabId: 'profile' },
+        }));
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeSidebar();
+        }
+    });
+
+    account.addEventListener('account:close-sidebar', closeSidebar);
 }
 
 function initReportActions(account) {
@@ -463,17 +650,24 @@ function initReportApproveModals(account) {
 
     document.querySelectorAll('[data-modal-action="confirm-requisites"]').forEach((btn) => {
         btn.addEventListener('click', () => {
+            const agreeInput = modals.confirm.querySelector('[data-confirm-agree]');
+            if (agreeInput && !agreeInput.checked) {
+                agreeInput.focus();
+                return;
+            }
+
             if (activeReport) {
                 activeReport.classList.add('account-finance__report--confirmed');
                 const icon = activeReport.querySelector('.account-finance__report-icon--approved');
-                const btn = activeReport.querySelector('.account-finance__report-btn--approved');
+                const reportBtn = activeReport.querySelector('.account-finance__report-btn--approved');
 
                 icon?.classList.remove('hover-dark-gray');
-                btn?.classList.remove('hover-dark-gray');
+                reportBtn?.classList.remove('hover-dark-gray');
                 icon?.classList.add('hover-dark-green');
-                btn?.classList.add('hover-dark-green');
+                reportBtn?.classList.add('hover-dark-green');
             }
 
+            if (agreeInput) agreeInput.checked = false;
             closeAllModals();
             activeReport = null;
         });
@@ -515,6 +709,9 @@ function initReportApproveModals(account) {
     }
 
     function closeAllModals() {
+        const agreeInput = modals.confirm.querySelector('[data-confirm-agree]');
+        if (agreeInput) agreeInput.checked = false;
+
         Object.values(modals).forEach((modal) => {
             closeModal(modal);
         });
@@ -541,9 +738,9 @@ const ACCOUNT_ANALYTICS_RANGE_LABELS = {
 const ACCOUNT_ANALYTICS_PLATFORM_LINES = [
     { id: 'vk', color: '#5378ff', min: 70000, max: 1180000 },
     { id: 'yam', color: '#e5cf09', min: 50000, max: 1020000 },
-    { id: 'zvuk', color: '#ff2a2d', min: 40000, max: 880000 },
-    { id: 'kion', color: '#ff3fd5', min: 35000, max: 760000 },
-    { id: 'apple', color: '#0bc9de', min: 45000, max: 980000 },
+    { id: 'zvuk', color: '#000000', min: 40000, max: 880000 },
+    { id: 'kion', color: '#FF0032', min: 35000, max: 760000 },
+    { id: 'apple', color: '#FB475F', min: 45000, max: 980000 },
     { id: 'spotify', color: '#14ce2e', min: 60000, max: 1120000 },
     { id: 'ok', color: '#ff891b', min: 30000, max: 620000 },
 ];
@@ -594,6 +791,7 @@ function initAccountAnalyticsFilters(section) {
     const searchInput = section.querySelector('[data-analytics-search]');
     const dateInput = section.querySelector('[data-analytics-date]');
     const rangeDropdown = section.querySelector('.account-analytics__range-dropdown');
+    const tags = section.querySelector('[data-analytics-tags]');
 
     if (dateInput && !dateInput.value) {
         const now = new Date();
@@ -620,15 +818,37 @@ function initAccountAnalyticsFilters(section) {
         clearAccountAnalyticsActiveState(section);
         renderAccountAnalyticsSection(section);
     });
+
+    tags?.addEventListener('click', (event) => {
+        const removeBtn = event.target.closest('[data-analytics-tag-remove]');
+        if (!removeBtn) return;
+
+        removeBtn.closest('.account-analytics__tag')?.remove();
+    });
 }
 
 function initAccountAnalyticsRangeDropdown(section, dropdown) {
     const toggle = dropdown.querySelector('[data-analytics-range-toggle]');
     const menu = dropdown.querySelector('.account-analytics__range-menu');
     const labelEl = dropdown.querySelector('[data-analytics-range-label]');
+    const tooltipEl = dropdown.querySelector('[data-analytics-range-tooltip]');
     const options = dropdown.querySelectorAll('[data-analytics-range]');
 
     if (!toggle || !menu) return;
+
+    function setRangeLabel(text) {
+        const value = text.trim();
+
+        if (labelEl) {
+            labelEl.textContent = value;
+        }
+
+        toggle.setAttribute('title', value);
+
+        if (tooltipEl) {
+            tooltipEl.textContent = value;
+        }
+    }
 
     function closeDropdown() {
         dropdown.classList.remove('account-analytics__range-dropdown--open');
@@ -663,11 +883,7 @@ function initAccountAnalyticsRangeDropdown(section, dropdown) {
             option.classList.add('account-analytics__range-option--active');
 
             section.dataset.analyticsRangePending = range;
-
-            if (labelEl) {
-                labelEl.textContent = option.textContent.trim();
-            }
-
+            setRangeLabel(option.textContent || '');
             closeDropdown();
         });
     });
@@ -677,6 +893,10 @@ function initAccountAnalyticsRangeDropdown(section, dropdown) {
             closeDropdown();
         }
     });
+
+    if (labelEl) {
+        setRangeLabel(labelEl.textContent || '');
+    }
 }
 
 function renderAccountAnalyticsSection(section) {
@@ -758,10 +978,12 @@ function buildAccountAnalyticsPeriodConfig(period, section) {
             const day = cursor.getDate();
             const month = cursor.getMonth() + 1;
             const dateLabel = `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}`;
+            const fullDate = `${dateLabel}.${cursor.getFullYear()}`;
 
             points.push({
                 label: '',
                 date: dateLabel,
+                fullDate,
                 timestamp: cursor.getTime(),
                 isFriday: cursor.getDay() === 5,
             });
@@ -771,9 +993,14 @@ function buildAccountAnalyticsPeriodConfig(period, section) {
     }
 
     if (!points.length) {
+        const axisLabel = formatAccountAnalyticsAxisLabel(referenceDate);
+        const day = String(referenceDate.getDate()).padStart(2, '0');
+        const month = String(referenceDate.getMonth() + 1).padStart(2, '0');
+
         points.push({
-            label: formatAccountAnalyticsAxisLabel(referenceDate),
-            date: formatAccountAnalyticsAxisLabel(referenceDate),
+            label: axisLabel,
+            date: axisLabel,
+            fullDate: `${day}.${month}.${referenceDate.getFullYear()}`,
             timestamp: referenceDate.getTime(),
             isFriday: referenceDate.getDay() === 5,
         });
@@ -986,10 +1213,13 @@ function createAccountAnalyticsChartState(type, period, section, filterKey) {
         const platformValues = ACCOUNT_ANALYTICS_PLATFORM_LINES.map((line, lineIndex) => (
             generateSmoothAccountAnalyticsLine(
                 pointCount,
-                line.min,
-                line.max,
+                Math.round(line.min / 7),
+                Math.round(line.max / 7),
                 periodSalt + lineIndex + 1 + searchSeed
             )
+        ));
+        const values = platformValues[0].map((_, index) => (
+            platformValues.reduce((sum, lineValues) => sum + (lineValues[index] || 0), 0)
         ));
 
         return {
@@ -1000,13 +1230,7 @@ function createAccountAnalyticsChartState(type, period, section, filterKey) {
             lines: [{
                 id: 'total',
                 color: '#009a5f',
-                width: 3,
-                values: generateSmoothAccountAnalyticsLine(
-                    pointCount,
-                    120000,
-                    1480000,
-                    periodSalt + searchSeed
-                ),
+                values,
             }],
             platformValues,
         };
@@ -1020,7 +1244,6 @@ function createAccountAnalyticsChartState(type, period, section, filterKey) {
         lines: ACCOUNT_ANALYTICS_PLATFORM_LINES.map((line, lineIndex) => ({
             id: line.id,
             color: line.color,
-            width: 2,
             values: generateWavyAccountAnalyticsLine(
                 pointCount,
                 line.min,
@@ -1029,6 +1252,19 @@ function createAccountAnalyticsChartState(type, period, section, filterKey) {
             ),
         })),
     };
+}
+
+function adapterAccountAnalyticsValue(maxViewport, minViewport, max, min) {
+    const viewport = window.innerWidth;
+    if (viewport >= maxViewport) return max;
+    if (viewport <= minViewport) return min;
+
+    const slope = (max - min) / (maxViewport - minViewport);
+    return min + (viewport - minViewport) * slope;
+}
+
+function getAccountAnalyticsChartLineWidth() {
+    return adapterAccountAnalyticsValue(2040, 1024, 4, 3);
 }
 
 function getAccountAnalyticsMetrics(width, height, pointCount) {
@@ -1238,7 +1474,7 @@ function drawAccountAnalyticsChart(canvas, state, width, height) {
             ctx,
             line.values,
             line.color,
-            line.width,
+            getAccountAnalyticsChartLineWidth(),
             metrics.indexToX,
             metrics.valueToY
         );
@@ -1307,24 +1543,12 @@ function updateAccountAnalyticsTooltipContent(tooltip, state, index, lineId = 'v
     if (dateEl) dateEl.textContent = dateLabel;
 
     if (state.type === 'total') {
-        const platformIds = ACCOUNT_ANALYTICS_PLATFORM_LINES.map((line) => line.id);
+        const valueEl = tooltip.querySelector('[data-analytics-tooltip-total]');
+        const value = state.lines[0]?.values[index] ?? 0;
 
-        tooltip.querySelectorAll('.account-analytics__tooltip-row').forEach((row, rowIndex) => {
-            const platformId = platformIds[rowIndex];
-            const valueEl = row.querySelector('.account-analytics__tooltip-value');
-            const platformValues = state.platformValues?.[rowIndex];
-            const value = platformValues
-                ? platformValues[index]
-                : deriveAccountAnalyticsValue(index, rowIndex, 12000, 98000);
-
-            if (valueEl) {
-                valueEl.textContent = formatAccountAnalyticsNumber(value);
-            }
-
-            if (platformId) {
-                row.className = `account-analytics__tooltip-row account-analytics__tooltip-row--${platformId}`;
-            }
-        });
+        if (valueEl) {
+            valueEl.textContent = formatAccountAnalyticsNumber(value);
+        }
 
         return;
     }
@@ -1349,16 +1573,6 @@ function updateAccountAnalyticsTotal(section) {
     if (!totalEl || !chartEl) return;
 
     const state = getAccountAnalyticsChartState(chartEl, 'total', section);
-
-    if (state.platformValues?.length) {
-        const totalValue = state.platformValues.reduce(
-            (sum, values) => sum + values.reduce((lineSum, value) => lineSum + value, 0),
-            0
-        );
-        totalEl.textContent = formatAccountAnalyticsNumber(totalValue);
-        return;
-    }
-
     const totalValue = state.lines[0]?.values.reduce((sum, value) => sum + value, 0) || 0;
     totalEl.textContent = formatAccountAnalyticsNumber(totalValue);
 }
@@ -1367,7 +1581,7 @@ function getAccountAnalyticsDateLabel(state, index) {
     const point = state.points[index];
     if (!point) return '';
 
-    return point.date || point.label;
+    return point.fullDate || point.date || point.label;
 }
 
 function renderAccountAnalyticsXAxis(chartEl, state, plotWidth) {
