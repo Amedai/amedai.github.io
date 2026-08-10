@@ -5,6 +5,12 @@ window.addEventListener('DOMContentLoaded',()=>{
    burger = document.querySelector('.header__burger'),
    menuLinks = inner.querySelectorAll('.header__menu-link');
 
+   document.querySelectorAll('.questions__policy-link').forEach((link) => {
+       link.addEventListener('click', (event) => {
+           event.stopPropagation();
+       });
+   });
+
    const closeMenu = () => {
        inner.classList.remove('header__inner--active');
        burger.classList.remove('header__burger--active');

@@ -238,6 +238,9 @@
                             <button class="account-finance__year-btn hover-dark-gray" type="button" role="tab" aria-selected="false" data-year="2032">2032</button>
                             <button class="account-finance__year-btn hover-dark-gray" type="button" role="tab" aria-selected="false" data-year="2033">2033</button>
                             <button class="account-finance__year-btn hover-dark-gray" type="button" role="tab" aria-selected="false" data-year="2034">2034</button>
+                            <button class="account-finance__year-btn hover-dark-gray" type="button" role="tab" aria-selected="false" data-year="2035">2035</button>
+                            <button class="account-finance__year-btn hover-dark-gray" type="button" role="tab" aria-selected="false" data-year="2036">2036</button>
+                            <button class="account-finance__year-btn hover-dark-gray" type="button" role="tab" aria-selected="false" data-year="2037">2037</button>
                         </div>
                     </div>
 
@@ -565,14 +568,23 @@
 
                         <div class="account-analytics__filter account-analytics__filter--date">
                             <span class="account-analytics__filter-label">Дата</span>
-                            <label class="account-analytics__date-field">
-                                <span class="visually-hidden">Месяц</span>
-                                <input class="account-analytics__date-input" type="month" data-analytics-date>
-                                <svg class="account-analytics__date-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M3 9H21M8 3V7M16 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </label>
+                            <div class="account-analytics__date-dropdown" data-analytics-date-dropdown>
+                                <button class="account-analytics__date-field" type="button" aria-expanded="false" aria-controls="account-analytics-date-menu" data-analytics-date-toggle>
+                                    <span class="account-analytics__date-display" data-analytics-date-display></span>
+                                    <img class="account-analytics__date-icon" src="./images/icons/calendar.svg" alt="" width="22" height="22" aria-hidden="true">
+                                </button>
+
+                                <div class="account-analytics__date-menu" id="account-analytics-date-menu" hidden>
+                                    <label class="account-analytics__date-picker">
+                                        <span class="account-analytics__date-picker-label">С</span>
+                                        <input class="account-analytics__date-input" type="date" data-analytics-date-from>
+                                    </label>
+                                    <label class="account-analytics__date-picker">
+                                        <span class="account-analytics__date-picker-label">По</span>
+                                        <input class="account-analytics__date-input" type="date" data-analytics-date-to>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
                         <button class="account-analytics__find hover-dark-green" type="submit">Найти</button>
@@ -602,7 +614,7 @@
                     <article class="account-analytics__block">
                         <div class="account-analytics__block-head">
                             <div class="account-analytics__block-info">
-                                <h2 class="account-analytics__block-title">Общее прослушивания по площадкам</h2>
+                                <h2 class="account-analytics__block-title">Общее прослушивания по&nbsp;площадкам</h2>
 
                                 <div class="account-analytics__total-stat">
                                     <p class="account-analytics__total-value" data-analytics-total>12 271 913</p>
@@ -767,7 +779,7 @@
     <div class="account-profile__modal" id="account-profile-photo-modal" hidden aria-hidden="true">
         <div class="account-profile__modal-overlay" data-profile-modal-close></div>
         <div class="account-profile__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="account-profile-photo-modal-title">
-            <button class="account-profile__modal-close" type="button" data-profile-modal-close aria-label="Закрыть">×</button>
+            <button class="account-profile__modal-close" type="button" data-profile-modal-close aria-label="Закрыть">x</button>
             <h2 class="account-profile__modal-title" id="account-profile-photo-modal-title">Изменить изображение</h2>
             <div class="account-profile__modal-preview">
                 <img class="account-profile__modal-preview-img" src="./images/account/personal2.jpg" alt="" width="344" height="344" data-profile-preview>
@@ -780,7 +792,7 @@
     <div class="account-finance__modal" id="account-finance-modal-confirm" hidden aria-hidden="true">
         <div class="account-finance__modal-overlay" data-modal-close></div>
         <div class="account-finance__modal-dialog account-finance__modal-dialog--confirm" role="dialog" aria-modal="true" aria-labelledby="account-finance-modal-confirm-title">
-            <button class="account-finance__modal-close" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <button class="account-finance__modal-close" type="button" data-modal-close aria-label="Закрыть">x</button>
             <h2 class="account-finance__modal-title" id="account-finance-modal-confirm-title">Подтвердите реквизиты</h2>
             <p class="account-finance__modal-subtitle">Подтвердите ваши реквизиты, чтобы утвердить отчет</p>
             <div class="account-finance__modal-section">
@@ -813,7 +825,7 @@
     <div class="account-finance__modal" id="account-finance-modal-edit" hidden aria-hidden="true">
         <div class="account-finance__modal-overlay" data-modal-close></div>
         <div class="account-finance__modal-dialog account-finance__modal-dialog--edit" role="dialog" aria-modal="true" aria-labelledby="account-finance-modal-edit-title">
-            <button class="account-finance__modal-close" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <button class="account-finance__modal-close" type="button" data-modal-close aria-label="Закрыть">x</button>
             <h2 class="account-finance__modal-title" id="account-finance-modal-edit-title">Ваши реквизиты</h2>
             <form class="account-finance__modal-form account-finance__modal-form--edit" id="account-finance-requisites-form">
                 <fieldset class="account-finance__modal-section account-finance__modal-section--status">
@@ -889,7 +901,7 @@
     <div class="account-finance__modal" id="account-finance-modal-manager" hidden aria-hidden="true">
         <div class="account-finance__modal-overlay" data-modal-close></div>
         <div class="account-finance__modal-dialog account-finance__modal-dialog--manager" role="dialog" aria-modal="true" aria-labelledby="account-finance-modal-manager-title">
-            <button class="account-finance__modal-close account-finance__modal-close--white" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <button class="account-finance__modal-close account-finance__modal-close--white" type="button" data-modal-close aria-label="Закрыть">x</button>
             <div class="account-finance__modal-notice">
                 <p class="account-finance__modal-notice-text" id="account-finance-modal-manager-title">Если реквизиты изменились,<br>свяжитесь с менеджером</p>
             </div>

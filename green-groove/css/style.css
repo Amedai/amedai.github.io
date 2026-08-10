@@ -1615,7 +1615,14 @@ body {
 }
 .footer__bottom {
   background-color: var(--color-bg-darkest);
-  padding: clamp(20px, 18.0606060606px + 0.6060606061vw, 28px) 0;
+  padding-top: clamp(30px, 14.8818897638px + 1.4763779528vw, 45px);
+  padding-bottom: clamp(60px, 29.7637795276px + 2.9527559055vw, 90px);
+}
+@media (max-width: 743.98px) {
+  .footer__bottom {
+    padding-top: clamp(20px, 12.4528301887px + 2.358490566vw, 30px);
+    padding-bottom: clamp(40px, 24.9056603774px + 4.7169811321vw, 60px);
+  }
 }
 .footer__bottom-inner {
   display: flex;
@@ -1632,12 +1639,12 @@ body {
   font-family: var(--font-rubik);
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(10px, 8.0606060606px + 0.6060606061vw, 18px);
+  font-size: clamp(10px, 8.5454545455px + 0.4545454545vw, 16px);
 }
 .footer__allrights {
   font-family: var(--font-bounded);
   text-transform: uppercase;
-  font-size: clamp(10px, 8.0606060606px + 0.6060606061vw, 18px);
+  font-size: clamp(10px, 8.5454545455px + 0.4545454545vw, 16px);
 }
 
 .title {
@@ -3052,10 +3059,25 @@ body {
   font-size: clamp(14px, 12.0606060606px + 0.6060606061vw, 22px);
 }
 .questions__policy {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   font-family: var(--font-unbounded);
   margin-top: 10px;
   font-size: clamp(11px, 9.5454545455px + 0.4545454545vw, 17px);
   font-weight: 500;
+  cursor: pointer;
+}
+.questions__policy-checkbox {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-green);
+  cursor: pointer;
+}
+.questions__policy-text {
+  min-width: 0;
 }
 .questions__policy-link {
   font-family: var(--font-unbounded);
@@ -3275,12 +3297,18 @@ body {
   font-family: var(--font-unbounded);
   font-weight: 700;
   color: var(--color-green-forest);
-  margin: 44px auto 0 auto;
+  margin: 24px auto 0 auto;
 }
 @media (max-width: 767.98px) {
   .form-demo__btn {
     width: 300px;
   }
+}
+
+.form-demo .questions__policy {
+  margin: 30px 0 0;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .main--policy {
@@ -3622,7 +3650,7 @@ body {
   grid-column: 2;
   min-width: 0;
   color: var(--color-black);
-  padding: clamp(26px, 1.811023622px + 2.3622047244vw, 50px) clamp(35px, -131.2992125984px + 16.2401574803vw, 200px) clamp(26px, 1.811023622px + 2.3622047244vw, 50px) clamp(26px, -48.5826771654px + 7.2834645669vw, 100px);
+  padding: clamp(26px, 1.811023622px + 2.3622047244vw, 50px) clamp(35px, -131.2992125984px + 16.2401574803vw, 200px) clamp(150px, 99.6062992126px + 4.9212598425vw, 200px) clamp(26px, -48.5826771654px + 7.2834645669vw, 100px);
   background-color: var(--color-white);
   overflow: visible;
   box-sizing: border-box;
@@ -3630,12 +3658,12 @@ body {
 @media (max-width: 1023.98px) {
   .account__main {
     grid-column: 1/-1;
-    padding: clamp(24px, 18.6857142857px + 0.7142857143vw, 26px) clamp(62px, 62px + 0vw, 62px);
+    padding: clamp(24px, 18.6857142857px + 0.7142857143vw, 26px) clamp(62px, 62px + 0vw, 62px) clamp(100px, 49.6062992126px + 4.9212598425vw, 150px) clamp(62px, 62px + 0vw, 62px);
   }
 }
 @media (max-width: 743.98px) {
   .account__main {
-    padding: clamp(16px, 9.9622641509px + 1.8867924528vw, 24px) clamp(10px, -29.2452830189px + 12.2641509434vw, 62px);
+    padding: clamp(16px, 9.9622641509px + 1.8867924528vw, 24px) clamp(10px, -29.2452830189px + 12.2641509434vw, 62px) clamp(70px, 39.7637795276px + 2.9527559055vw, 100px) clamp(10px, -29.2452830189px + 12.2641509434vw, 62px);
   }
 }
 .account__panel {
@@ -3765,6 +3793,17 @@ body {
   .account-profile__photo-wrap {
     max-width: none;
     aspect-ratio: 300/311;
+  }
+}
+@media (hover: hover) {
+  .account-profile__photo-wrap .account-profile__photo-btn {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .account-profile__photo-wrap:hover .account-profile__photo-btn, .account-profile__photo-wrap:focus-within .account-profile__photo-btn {
+    opacity: 1;
+    visibility: visible;
   }
 }
 .account-profile__photo {
@@ -3977,35 +4016,10 @@ body {
   text-transform: none;
 }
 .account-profile__textarea {
-  min-height: clamp(72px, 23.6220472441px + 4.7244094488vw, 120px);
-  max-height: clamp(96px, 71.811023622px + 2.3622047244vw, 120px);
   text-transform: none;
+  field-sizing: content;
   resize: none;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-green) transparent;
-}
-@media (max-width: 1023.98px) {
-  .account-profile__textarea {
-    min-height: clamp(90px, 137.8285714286px + -6.4285714286vw, 72px);
-    max-height: clamp(110px, 147.2px + -5vw, 96px);
-  }
-}
-@media (max-width: 743.98px) {
-  .account-profile__textarea {
-    min-height: clamp(90px, 97.5471698113px + -2.358490566vw, 80px);
-    max-height: clamp(105px, 108.7735849057px + -1.179245283vw, 100px);
-  }
-}
-.account-profile__textarea::-webkit-scrollbar {
-  width: 6px;
-}
-.account-profile__textarea::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: var(--color-green);
-}
-.account-profile__textarea::-webkit-scrollbar-track {
-  background-color: transparent;
+  overflow: hidden;
 }
 .account-profile__actions {
   width: 100%;
@@ -4095,7 +4109,7 @@ body {
   max-width: 468px;
   margin: auto;
   padding: clamp(28px, 15.905511811px + 1.1811023622vw, 40px) clamp(24px, 7.874015748px + 1.5748031496vw, 40px) clamp(28px, 15.905511811px + 1.1811023622vw, 40px);
-  border-radius: 40px;
+  border-radius: 30px;
   background-color: var(--color-white);
   box-sizing: border-box;
   overflow: clip;
@@ -4114,13 +4128,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(41px, 32.937007874px + 0.7874015748vw, 49px);
-  height: clamp(41px, 32.937007874px + 0.7874015748vw, 49px);
   padding: 0;
   border: 0;
   background: transparent;
   font-family: var(--font-unbounded);
-  font-size: clamp(37px, 28.937007874px + 0.7874015748vw, 45px);
+  font-size: 25px;
   font-weight: 900;
   line-height: 1;
   color: var(--color-black);
@@ -4130,9 +4142,11 @@ body {
   .account-profile__modal-close {
     top: 8px;
     right: 8px;
-    width: 37px;
-    height: 37px;
-    font-size: 33px;
+  }
+}
+@media (max-width: 743.98px) {
+  .account-profile__modal-close {
+    font-size: 18px;
   }
 }
 .account-profile__modal-title {
@@ -4163,6 +4177,7 @@ body {
   aspect-ratio: 1;
   background-color: #e3e3e3;
   overflow: hidden;
+  border-radius: 15px;
 }
 @media (max-width: 1023.98px) {
   .account-profile__modal-preview {
@@ -4170,6 +4185,7 @@ body {
     height: 261px;
     margin-bottom: 15px;
     aspect-ratio: auto;
+    border-radius: 8px;
   }
 }
 .account-profile__modal-preview-img {
@@ -4178,6 +4194,12 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 15px;
+}
+@media (max-width: 1023.98px) {
+  .account-profile__modal-preview-img {
+    border-radius: 8px;
+  }
 }
 .account-profile__modal-add {
   display: flex;
@@ -4228,6 +4250,9 @@ body {
   .account-header--menu-open {
     background-color: transparent;
     box-shadow: none;
+  }
+  .account-header--menu-open .account-header__notifications-wrap {
+    display: none;
   }
 }
 @media (max-width: 743.98px) {
@@ -4731,21 +4756,21 @@ body {
 }
 .account-header__dropdown-icon {
   flex-shrink: 0;
-  width: clamp(14px, 7.9527559055px + 0.5905511811vw, 20px);
-  height: clamp(14px, 7.9527559055px + 0.5905511811vw, 20px);
+  width: clamp(10px, 3.9527559055px + 0.5905511811vw, 16px);
+  height: clamp(10px, 3.9527559055px + 0.5905511811vw, 16px);
   -o-object-fit: contain;
      object-fit: contain;
 }
 @media (max-width: 1023.98px) {
   .account-header__dropdown-icon {
-    width: clamp(16px, 10.6857142857px + 0.7142857143vw, 18px);
-    height: clamp(16px, 10.6857142857px + 0.7142857143vw, 18px);
+    width: clamp(12px, 6.6857142857px + 0.7142857143vw, 14px);
+    height: clamp(12px, 6.6857142857px + 0.7142857143vw, 14px);
   }
 }
 @media (max-width: 743.98px) {
   .account-header__dropdown-icon {
-    width: clamp(12px, 8.9811320755px + 0.9433962264vw, 16px);
-    height: clamp(12px, 8.9811320755px + 0.9433962264vw, 16px);
+    width: clamp(8px, 4.9811320755px + 0.9433962264vw, 12px);
+    height: clamp(8px, 4.9811320755px + 0.9433962264vw, 12px);
   }
 }
 .account-header__avatar {
@@ -5038,11 +5063,11 @@ body {
 .account-finance__payment-icon::after {
   content: "";
   position: absolute;
-  left: 4px;
-  top: clamp(-12px, -5.9527559055px + -0.5905511811vw, -18px);
+  left: 2px;
+  top: clamp(-10px, -3.9527559055px + -0.5905511811vw, -16px);
   z-index: 1;
-  width: clamp(36px, 16.8503937008px + 1.8700787402vw, 55px);
-  height: clamp(36px, 16.8503937008px + 1.8700787402vw, 55px);
+  width: clamp(31px, 11.8503937008px + 1.8700787402vw, 50px);
+  height: clamp(31px, 11.8503937008px + 1.8700787402vw, 50px);
   background: url("../images/icons/paid-mark.png") no-repeat center/contain;
   pointer-events: none;
 }
@@ -5125,7 +5150,7 @@ body {
 .account-finance__years {
   display: inline-flex;
   flex-wrap: nowrap;
-  gap: clamp(10px, 1.937007874px + 0.7874015748vw, 18px);
+  gap: clamp(10px, -5.1181102362px + 1.4763779528vw, 25px);
   width: -moz-max-content;
   width: max-content;
   max-width: none;
@@ -5135,7 +5160,7 @@ body {
 .account-finance__year-btn {
   flex-shrink: 0;
   min-width: clamp(96px, 83.905511811px + 1.1811023622vw, 108px);
-  padding: clamp(6px, -0.0472440945px + 0.5905511811vw, 12px) clamp(20px, 6.8976377953px + 1.2795275591vw, 33px);
+  padding: clamp(6px, -0.0472440945px + 0.5905511811vw, 12px) clamp(20px, -0.157480315px + 1.968503937vw, 40px);
   border: 0;
   border-radius: clamp(10px, 4.9606299213px + 0.4921259843vw, 15px);
   background-color: #bdbdbd;
@@ -5269,7 +5294,7 @@ body {
   color: var(--color-green-forest);
 }
 .account-finance__reports {
-  margin-bottom: clamp(36px, 23.905511811px + 1.1811023622vw, 48px);
+  margin-bottom: clamp(60px, 39.842519685px + 1.968503937vw, 80px);
   min-width: 0;
 }
 .account-finance__reports-head {
@@ -5759,51 +5784,37 @@ body {
 .account-finance__modal-dialog--confirm .account-finance__modal-close {
   top: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
   right: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
-  width: clamp(33px, 24.937007874px + 0.7874015748vw, 41px);
-  height: clamp(33px, 24.937007874px + 0.7874015748vw, 41px);
-  font-size: clamp(27px, 20.9527559055px + 0.5905511811vw, 33px);
+  font-size: 25px;
 }
 @media (max-width: 1023.98px) {
   .account-finance__modal-dialog--confirm .account-finance__modal-close {
     top: clamp(14px, 19.3142857143px + -0.7142857143vw, 12px);
     right: clamp(14px, 19.3142857143px + -0.7142857143vw, 12px);
-    width: clamp(37px, 47.6285714286px + -1.4285714286vw, 33px);
-    height: clamp(37px, 47.6285714286px + -1.4285714286vw, 33px);
-    font-size: clamp(31px, 41.6285714286px + -1.4285714286vw, 27px);
   }
 }
 @media (max-width: 743.98px) {
   .account-finance__modal-dialog--confirm .account-finance__modal-close {
     top: clamp(8px, 3.4716981132px + 1.4150943396vw, 14px);
     right: clamp(8px, 3.4716981132px + 1.4150943396vw, 14px);
-    width: clamp(32px, 28.2264150943px + 1.179245283vw, 37px);
-    height: clamp(32px, 28.2264150943px + 1.179245283vw, 37px);
-    font-size: clamp(26px, 22.2264150943px + 1.179245283vw, 31px);
+    font-size: 18px;
   }
 }
 .account-finance__modal-dialog--edit .account-finance__modal-close {
   top: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
   right: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
-  width: clamp(33px, 28.968503937px + 0.3937007874vw, 37px);
-  height: clamp(33px, 28.968503937px + 0.3937007874vw, 37px);
-  font-size: clamp(27px, 20.9527559055px + 0.5905511811vw, 33px);
+  font-size: 25px;
 }
 @media (max-width: 1023.98px) {
   .account-finance__modal-dialog--edit .account-finance__modal-close {
     top: clamp(14px, 19.3142857143px + -0.7142857143vw, 12px);
     right: clamp(14px, 19.3142857143px + -0.7142857143vw, 12px);
-    width: clamp(37px, 47.6285714286px + -1.4285714286vw, 33px);
-    height: clamp(37px, 47.6285714286px + -1.4285714286vw, 33px);
-    font-size: clamp(31px, 41.6285714286px + -1.4285714286vw, 27px);
   }
 }
 @media (max-width: 743.98px) {
   .account-finance__modal-dialog--edit .account-finance__modal-close {
     top: clamp(8px, 3.4716981132px + 1.4150943396vw, 14px);
     right: clamp(8px, 3.4716981132px + 1.4150943396vw, 14px);
-    width: clamp(32px, 28.2264150943px + 1.179245283vw, 37px);
-    height: clamp(32px, 28.2264150943px + 1.179245283vw, 37px);
-    font-size: clamp(26px, 22.2264150943px + 1.179245283vw, 31px);
+    font-size: 18px;
   }
 }
 .account-finance__modal-dialog--edit .account-finance__modal-title {
@@ -6085,43 +6096,39 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
   padding: 0;
   border: 0;
   background: transparent;
   font-family: var(--font-unbounded);
-  font-size: 37px;
+  font-size: 25px;
   font-weight: 500;
   line-height: 1;
   color: var(--color-black);
   cursor: pointer;
 }
+@media (max-width: 743.98px) {
+  .account-finance__modal-close {
+    font-size: 18px;
+  }
+}
 .account-finance__modal-dialog--manager .account-finance__modal-close {
   top: clamp(10px, 7.9842519685px + 0.1968503937vw, 12px);
   right: clamp(10px, 7.9842519685px + 0.1968503937vw, 12px);
   z-index: 2;
-  width: clamp(37px, 28.937007874px + 0.7874015748vw, 45px);
-  height: clamp(37px, 28.937007874px + 0.7874015748vw, 45px);
-  font-size: clamp(27px, 20.9527559055px + 0.5905511811vw, 33px);
+  font-size: 25px;
   color: var(--color-white);
 }
 @media (max-width: 1023.98px) {
   .account-finance__modal-dialog--manager .account-finance__modal-close {
     top: clamp(8px, 2.6857142857px + 0.7142857143vw, 10px);
     right: clamp(8px, 2.6857142857px + 0.7142857143vw, 10px);
-    width: clamp(33px, 22.3714285714px + 1.4285714286vw, 37px);
-    height: clamp(33px, 22.3714285714px + 1.4285714286vw, 37px);
-    font-size: clamp(25px, 19.6857142857px + 0.7142857143vw, 27px);
   }
 }
 @media (max-width: 743.98px) {
   .account-finance__modal-dialog--manager .account-finance__modal-close {
     top: 6px;
     right: 6px;
-    width: 33px;
-    height: 33px;
-    font-size: 25px;
+    font-size: 18px;
   }
 }
 .account-finance__modal-close--white {
@@ -6428,7 +6435,7 @@ body {
   min-width: 0;
 }
 .account-finance__quarter-btn {
-  padding: clamp(5px, 1.9763779528px + 0.2952755906vw, 8px) clamp(20px, 6.8976377953px + 1.2795275591vw, 33px);
+  padding: clamp(6px, -0.0472440945px + 0.5905511811vw, 12px) clamp(15px, -0.1181102362px + 1.4763779528vw, 30px);
   border: 0;
   border-radius: clamp(6px, 1.968503937px + 0.3937007874vw, 10px);
   background-color: #BDBDBD;
@@ -6605,7 +6612,7 @@ body {
     gap: clamp(18px, 23.3142857143px + -0.7142857143vw, 16px);
   }
   .account-finance__quarter-btn {
-    padding: 8px 24px;
+    padding: 12px 30px;
     border-radius: 10px;
     font-size: 16px;
   }
@@ -6659,12 +6666,12 @@ body {
   }
   .account-finance__year-btn {
     min-width: clamp(88px, 72.9056603774px + 4.7169811321vw, 108px);
-    padding: clamp(10px, 8.4905660377px + 0.4716981132vw, 12px) clamp(20px, 10.1886792453px + 3.0660377358vw, 33px);
+    padding: clamp(8px, 6.4905660377px + 0.4716981132vw, 10px) clamp(20px, 10.1886792453px + 3.0660377358vw, 33px);
     border-radius: clamp(18px, 21.0188679245px + -0.9433962264vw, 14px);
     font-size: clamp(12px, 8.9811320755px + 0.9433962264vw, 16px);
   }
   .account-finance__reports {
-    margin-bottom: clamp(24px, 14.9433962264px + 2.8301886792vw, 36px);
+    margin-bottom: clamp(25px, 13.679245283px + 3.5377358491vw, 40px);
   }
   .account-finance__reports-head {
     flex-direction: column;
@@ -6756,6 +6763,7 @@ body {
     font-size: clamp(12px, 5.9622641509px + 1.8867924528vw, 20px);
   }
   .account-finance__quarter-btn {
+    padding: clamp(8px, 6.4905660377px + 0.4716981132vw, 10px) clamp(15px, 3.679245283px + 3.5377358491vw, 30px);
     font-size: clamp(12px, 8.9811320755px + 0.9433962264vw, 16px);
   }
   .account-finance__quarters {
@@ -6790,13 +6798,19 @@ body {
 }
 @media (max-width: 743.98px) {
   .account-analytics__title {
-    margin: 0 0 clamp(14px, 10.9811320755px + 0.9433962264vw, 18px);
+    margin: 0 0 clamp(20px, 16.9811320755px + 0.9433962264vw, 24px);
     font-size: clamp(16px, 9.9622641509px + 1.8867924528vw, 24px);
   }
 }
 .account-analytics__filters {
+  --analytics-control-radius: 10px;
+  --analytics-control-pad-block: clamp(6px, -0.0472440945px + 0.5905511811vw, 12px);
+  --analytics-control-pad-inline-start: 16px;
+  --analytics-control-pad-inline-end: clamp(28px, 11.874015748px + 1.5748031496vw, 44px);
+  --analytics-control-font-size: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
+  --analytics-control-line-height: 1.2;
   display: grid;
-  grid-template-columns: minmax(0, 439px) minmax(0, 263px) minmax(0, 263px) minmax(0, clamp(160px, 75.3385826772px + 8.2677165354vw, 244px));
+  grid-template-columns: minmax(0, 340px) minmax(0, 263px) minmax(0, 360px) minmax(0, clamp(160px, 75.3385826772px + 8.2677165354vw, 244px));
   gap: 13px;
   align-items: end;
   margin-bottom: 18px;
@@ -6806,6 +6820,11 @@ body {
 }
 @media (max-width: 1023.98px) {
   .account-analytics__filters {
+    --analytics-control-radius: clamp(10px, 10px + 0vw, 10px);
+    --analytics-control-pad-block: clamp(9px, 9px + 0vw, 9px);
+    --analytics-control-pad-inline-start: clamp(20px, 20px + 0vw, 20px);
+    --analytics-control-pad-inline-end: clamp(40px, 40px + 0vw, 40px);
+    --analytics-control-font-size: clamp(14px, 8.6857142857px + 0.7142857143vw, 16px);
     grid-template-columns: 1fr 1fr;
     gap: clamp(12px, 12px + 0vw, 12px);
     margin-bottom: clamp(18px, 18px + 0vw, 18px);
@@ -6813,9 +6832,14 @@ body {
 }
 @media (max-width: 743.98px) {
   .account-analytics__filters {
+    --analytics-control-radius: 3px;
+    --analytics-control-pad-block: clamp(7px, 5.4905660377px + 0.4716981132vw, 9px);
+    --analytics-control-pad-inline-start: clamp(10px, 2.4528301887px + 2.358490566vw, 20px);
+    --analytics-control-pad-inline-end: clamp(28px, 18.9433962264px + 2.8301886792vw, 40px);
+    --analytics-control-font-size: clamp(12px, 10.4905660377px + 0.4716981132vw, 14px);
     grid-template-columns: 1fr;
     gap: clamp(7px, 3.2264150943px + 1.179245283vw, 12px);
-    margin-bottom: clamp(10px, 3.9622641509px + 1.8867924528vw, 18px);
+    margin-bottom: clamp(14px, 7.9622641509px + 1.8867924528vw, 22px);
   }
 }
 .account-analytics__filter {
@@ -6850,35 +6874,102 @@ body {
     display: none;
   }
 }
-.account-analytics__search-field, .account-analytics__date-field {
+.account-analytics__search-field {
   position: relative;
   display: block;
   min-width: 0;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: var(--analytics-control-radius);
   background: linear-gradient(88deg, #eee 0.14%, #d3d3d3 321.47%);
 }
-@media (max-width: 1023.98px) {
-  .account-analytics__search-field, .account-analytics__date-field {
-    border-radius: clamp(10px, 10px + 0vw, 10px);
-  }
-}
-@media (max-width: 743.98px) {
-  .account-analytics__search-field, .account-analytics__date-field {
-    border-radius: 3px;
-  }
-}
-.account-analytics__search-input, .account-analytics__date-input {
+.account-analytics__date-dropdown {
+  position: relative;
   width: 100%;
   min-width: 0;
-  padding: clamp(6px, -0.0472440945px + 0.5905511811vw, 12px) clamp(28px, 11.874015748px + 1.5748031496vw, 44px) clamp(6px, -0.0472440945px + 0.5905511811vw, 12px) 16px;
+  z-index: 5;
+}
+.account-analytics__date-dropdown--open .account-analytics__date-field {
+  border-radius: var(--analytics-control-radius) var(--analytics-control-radius) 0 0;
+}
+.account-analytics__date-field {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding-block: var(--analytics-control-pad-block);
+  padding-inline: var(--analytics-control-pad-inline-start) var(--analytics-control-pad-inline-end);
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--analytics-control-radius);
+  background: linear-gradient(88deg, #eee 0.14%, #d3d3d3 321.47%);
+  cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+}
+.account-analytics__date-display {
+  display: block;
+  min-width: 0;
+  font-family: var(--font-unbounded);
+  font-size: var(--analytics-control-font-size);
+  font-weight: 400;
+  line-height: var(--analytics-control-line-height);
+  color: #4e4e4e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.account-analytics__date-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 0 0 var(--analytics-control-radius) var(--analytics-control-radius);
+  background: linear-gradient(88deg, #eee 0.14%, #d3d3d3 321.47%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+.account-analytics__date-menu[hidden] {
+  display: none;
+}
+@media (max-width: 743.98px) {
+  .account-analytics__date-menu {
+    gap: 8px;
+    padding: 10px;
+  }
+}
+.account-analytics__date-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+}
+.account-analytics__date-picker-label {
+  font-family: var(--font-unbounded);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #4e4e4e;
+}
+.account-analytics__search-input {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding-block: var(--analytics-control-pad-block);
+  padding-inline: var(--analytics-control-pad-inline-start) var(--analytics-control-pad-inline-end);
+  border: 0;
+  border-radius: var(--analytics-control-radius);
   background: transparent;
   font-family: var(--font-unbounded);
-  font-size: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
+  font-size: var(--analytics-control-font-size);
   font-weight: 400;
-  line-height: normal;
+  line-height: var(--analytics-control-line-height);
   color: #4e4e4e;
   outline: none;
   box-sizing: border-box;
@@ -6886,47 +6977,42 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@media (max-width: 1023.98px) {
-  .account-analytics__search-input, .account-analytics__date-input {
-    padding: clamp(9px, 9px + 0vw, 9px) clamp(40px, 40px + 0vw, 40px) clamp(9px, 9px + 0vw, 9px) clamp(20px, 20px + 0vw, 20px);
-    border-radius: clamp(10px, 10px + 0vw, 10px);
-    font-size: clamp(14px, 8.6857142857px + 0.7142857143vw, 16px);
-  }
-}
-@media (max-width: 743.98px) {
-  .account-analytics__search-input, .account-analytics__date-input {
-    padding: clamp(7px, 5.4905660377px + 0.4716981132vw, 9px) clamp(28px, 18.9433962264px + 2.8301886792vw, 40px) clamp(7px, 5.4905660377px + 0.4716981132vw, 9px) clamp(10px, 2.4528301887px + 2.358490566vw, 20px);
-    border-radius: 3px;
-    font-size: clamp(12px, 10.4905660377px + 0.4716981132vw, 14px);
-  }
-}
-.account-analytics__search-input::-moz-placeholder, .account-analytics__date-input::-moz-placeholder {
+.account-analytics__search-input::-moz-placeholder {
   color: #4e4e4e;
 }
-.account-analytics__search-input::placeholder, .account-analytics__date-input::placeholder {
+.account-analytics__search-input::placeholder {
   color: #4e4e4e;
 }
 .account-analytics__date-input {
-  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-white);
+  font-family: var(--font-unbounded);
+  font-size: var(--analytics-control-font-size);
+  font-weight: 400;
+  line-height: var(--analytics-control-line-height);
+  color: #4e4e4e;
+  outline: none;
+  box-sizing: border-box;
+  cursor: pointer;
   -moz-appearance: none;
        appearance: none;
   -webkit-appearance: none;
 }
-.account-analytics__date-input::-webkit-calendar-picker-indicator {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  background: transparent;
-  color: transparent;
-  cursor: pointer;
+@media (max-width: 743.98px) {
+  .account-analytics__date-input {
+    border-radius: 3px;
+    padding: 7px 8px;
+  }
 }
-.account-analytics__date-input::-webkit-inner-spin-button, .account-analytics__date-input::-webkit-clear-button {
-  display: none;
-  -webkit-appearance: none;
+.account-analytics__date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 1;
 }
 .account-analytics__search-icon, .account-analytics__date-icon {
   position: absolute;
@@ -6944,19 +7030,19 @@ body {
 }
 @media (max-width: 1023.98px) {
   .account-analytics__search-icon {
-    width: clamp(30px, 30px + 0vw, 30px);
-    height: clamp(30px, 30px + 0vw, 30px);
+    width: clamp(20px, -6.5714285714px + 3.5714285714vw, 30px);
+    height: clamp(20px, -6.5714285714px + 3.5714285714vw, 30px);
   }
 }
 @media (max-width: 743.98px) {
   .account-analytics__search-icon {
-    width: clamp(16px, 5.4339622642px + 3.3018867925vw, 30px);
-    height: clamp(16px, 5.4339622642px + 3.3018867925vw, 30px);
+    width: clamp(13px, 7.7169811321px + 1.6509433962vw, 20px);
+    height: clamp(13px, 7.7169811321px + 1.6509433962vw, 20px);
   }
 }
 .account-analytics__date-icon {
-  width: clamp(12px, -0.094488189px + 1.1811023622vw, 24px);
-  height: clamp(12px, -0.094488189px + 1.1811023622vw, 24px);
+  width: clamp(14px, 3.9212598425px + 0.9842519685vw, 24px);
+  height: clamp(14px, 3.9212598425px + 0.9842519685vw, 24px);
 }
 @media (max-width: 1023.98px) {
   .account-analytics__date-icon {
@@ -7123,40 +7209,40 @@ body {
   font-weight: 600;
 }
 .account-analytics__find {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
   min-width: 0;
-  padding: clamp(6px, -0.0472440945px + 0.5905511811vw, 12px) clamp(12px, -0.094488189px + 1.1811023622vw, 24px);
+  margin: 0;
+  padding-block: var(--analytics-control-pad-block);
+  padding-inline: clamp(12px, -0.094488189px + 1.1811023622vw, 24px);
   border: 0;
-  border-radius: clamp(8px, 5.9842519685px + 0.1968503937vw, 10px);
+  border-radius: var(--analytics-control-radius);
   background-color: #9b9b9b;
   font-family: var(--font-unbounded);
-  font-size: clamp(12px, 7.968503937px + 0.3937007874vw, 16px);
+  font-size: var(--analytics-control-font-size);
   font-weight: 600;
-  line-height: normal;
+  line-height: var(--analytics-control-line-height);
+  text-align: center;
   color: var(--color-white);
   cursor: pointer;
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 @media (max-width: 1023.98px) {
   .account-analytics__find {
     grid-column: 1/-1;
-    padding: clamp(12px, 12px + 0vw, 12px) 12px;
-    border-radius: clamp(10px, 10px + 0vw, 10px);
-    font-size: clamp(16px, 16px + 0vw, 16px);
+    padding-inline: 12px;
   }
 }
 @media (max-width: 743.98px) {
   .account-analytics__find {
     grid-column: auto;
-    padding: clamp(7px, 3.2264150943px + 1.179245283vw, 12px) 12px;
-    border-radius: 3px;
-    font-size: clamp(14px, 12.4905660377px + 0.4716981132vw, 16px);
+    padding-inline: 12px;
   }
 }
 .account-analytics__tags {
@@ -7265,14 +7351,6 @@ body {
     display: contents;
   }
 }
-@media (max-width: 743.98px) {
-  .account-analytics__block-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: clamp(10px, 6.9811320755px + 0.9433962264vw, 14px);
-  }
-}
 .account-analytics__total-stat {
   width: 308px;
   padding: 10px 18px;
@@ -7293,7 +7371,7 @@ body {
   .account-analytics__total-stat {
     width: 100%;
     padding: 16px clamp(8px, -1.0566037736px + 2.8301886792vw, 20px);
-    order: 0;
+    order: 3;
   }
 }
 .account-analytics__total-value {
@@ -7353,7 +7431,7 @@ body {
 }
 @media (max-width: 743.98px) {
   .account-analytics__controls {
-    order: 0;
+    order: 2;
     align-self: stretch;
     margin-left: 0;
     width: 100%;
@@ -7489,7 +7567,12 @@ body {
   }
 }
 .account-analytics__block {
-  margin-bottom: 51px;
+  margin-bottom: 70px;
+}
+@media (max-width: 743.98px) {
+  .account-analytics__block {
+    margin-bottom: 50px;
+  }
 }
 .account-analytics__block:last-child {
   margin-bottom: 0;
@@ -8211,18 +8294,15 @@ body {
 }
 .account-analytics__block--tracks {
   margin-top: 30px;
-  padding-bottom: 100px;
 }
 @media (max-width: 1023.98px) {
   .account-analytics__block--tracks {
     margin-top: clamp(40px, 40px + 0vw, 40px);
-    padding-bottom: clamp(60px, 6.8571428571px + 7.1428571429vw, 80px);
   }
 }
 @media (max-width: 743.98px) {
   .account-analytics__block--tracks {
     margin-top: clamp(28px, 21.9622641509px + 1.8867924528vw, 36px);
-    padding-bottom: clamp(40px, 24.9056603774px + 4.7169811321vw, 60px);
   }
 }
 .account-analytics__tracks-table {

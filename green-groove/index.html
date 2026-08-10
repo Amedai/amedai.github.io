@@ -54,7 +54,7 @@
                         </li>
                         <li class="header__social-item">
                             <a href="https://music.yandex.ru/label/2412747?ysclid=mlov7jcths256735107" class="header__social-link hover-scale">
-                                <img src="./images/icons/star.png" alt="" width="52" height="52">
+                                <img src="./images/icons/star.png?v=2" alt="" width="52" height="52">
                             </a>
                         </li>
                     </ul>
@@ -1351,7 +1351,10 @@
                         <span class="questions__custom-upload">Прикрепить файл</span>    
                         </label>
                     </div>
-                    <p class="questions__policy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c <a href="policy.html" class="questions__policy-link">политикой конфиденциальности</a></p>
+                    <label class="questions__policy">
+                        <input class="questions__policy-checkbox" type="checkbox" name="policy-consent" required>
+                        <span class="questions__policy-text">Я даю согласие на обработку персональных данных и соглашаюсь с <a href="policy.html" class="questions__policy-link">политикой конфиденциальности</a></span>
+                    </label>
                     <button class="questions__btn hover-scale" data-form="main">Отправить</button>
                 </form>
             </div>
@@ -1400,6 +1403,10 @@
                                 <input class="form-demo__input" type="text" name="contact-links" required>
                             </div>
                         </div>
+                        <label class="questions__policy">
+                            <input class="questions__policy-checkbox" type="checkbox" name="policy-consent" required>
+                            <span class="questions__policy-text">Я даю согласие на обработку персональных данных и соглашаюсь с <a href="policy.html" class="questions__policy-link">политикой конфиденциальности</a></span>
+                        </label>
                         <button class="form-demo__btn hover-scale"  data-form="demo">Отправить</button>
                     </form>
                 </div>

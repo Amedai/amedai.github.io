@@ -30,9 +30,22 @@ function initAccountProfile(account) {
     const photoPreview = photoModal?.querySelector('[data-profile-preview]');
     const photoFileInput = photoModal?.querySelector('[data-profile-file]');
     const photoAddBtn = photoModal?.querySelector('[data-profile-file-trigger]');
+    const aboutTextarea = profile.querySelector('[data-profile-input="about"]');
+    const usesFieldSizing = typeof CSS !== 'undefined' && CSS.supports('field-sizing', 'content');
 
     loadAccountProfileData(profile, photo, photoPreview);
     setEditing(false);
+
+    function syncAboutTextareaHeight() {
+        if (!aboutTextarea || usesFieldSizing) return;
+
+        aboutTextarea.style.height = 'auto';
+        aboutTextarea.style.height = `${aboutTextarea.scrollHeight}px`;
+    }
+
+    if (aboutTextarea && !usesFieldSizing) {
+        aboutTextarea.addEventListener('input', syncAboutTextareaHeight);
+    }
 
     function setEditing(isEditing) {
         profile.classList.toggle('account-profile--editing', isEditing);
@@ -49,6 +62,10 @@ function initAccountProfile(account) {
                     input.value = display.textContent.trim();
                 }
             });
+
+            requestAnimationFrame(syncAboutTextareaHeight);
+        } else if (aboutTextarea) {
+            aboutTextarea.style.height = '';
         }
     }
 
@@ -233,8 +250,21 @@ function initAccountFinance(account) {
 
     function syncFinancePeriodLabel(yearPanel, panel) {
         const period = yearPanel.querySelector('[data-finance-period]');
-        const label = panel?.dataset.periodLabel;
-        if (period && label) {
+        if (!period || !panel) return;
+
+        if (yearPanel.hasAttribute('data-year-fallback')) {
+            const year = finance.dataset.financeActiveYear;
+            const quarter = panel.dataset.quarter;
+
+            if (year && quarter) {
+                period.textContent = `${quarter} кв. ${year}`;
+            }
+
+            return;
+        }
+
+        const label = panel.dataset.periodLabel;
+        if (label) {
             period.textContent = label;
         }
     }
@@ -350,7 +380,7 @@ function initAccountFinance(account) {
 
     yearTabs.forEach((tab) => {
         tab.addEventListener('click', () => {
-            const year = tab.dataset.year;
+            const year = tab.dataset.year || tab.textContent.trim();
             let panel = finance.querySelector(`.account-finance__year-panel[data-year="${year}"]`);
 
             if (!panel && yearFallbackPanel) {
@@ -359,17 +389,18 @@ function initAccountFinance(account) {
 
             if (!panel) return;
 
-            if (panel === yearFallbackPanel) {
-                panel.querySelectorAll('.account-finance__report-period').forEach((periodEl, index) => {
-                    periodEl.textContent = `${index + 1} кв. ${year}`;
-                });
-            }
+            finance.dataset.financeActiveYear = year;
 
             setActiveTab(yearTabs, tab, 'account-finance__year-btn--active');
             setActivePanel(yearPanels, panel, 'account-finance__year-panel--active');
             activateFirstQuarter(panel);
         });
     });
+
+    const activeYearTab = finance.querySelector('.account-finance__year-btn--active');
+    if (activeYearTab) {
+        finance.dataset.financeActiveYear = activeYearTab.dataset.year || activeYearTab.textContent.trim();
+    }
 
     const activeYearPanel = finance.querySelector('.account-finance__year-panel--active');
     if (activeYearPanel) {
@@ -786,17 +817,142 @@ function initAccountAnalytics(account) {
     });
 }
 
+function formatAccountAnalyticsDateInput(date) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function formatAccountAnalyticsDateDisplay(value) {
+    const date = parseAccountAnalyticsDateInput(value);
+    if (!date) return '';
+
+    return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
+}
+
+function parseAccountAnalyticsDateInput(value) {
+    if (!value) return null;
+
+    const [year, month, day] = value.split('-').map(Number);
+    if (!year || !month || !day) return null;
+
+    return startOfDay(new Date(year, month - 1, day));
+}
+
+function syncAccountAnalyticsDateLimits(dateFromInput, dateToInput) {
+    if (!dateFromInput || !dateToInput) return;
+
+    dateToInput.min = dateFromInput.value || '';
+    dateFromInput.max = dateToInput.value || '';
+
+    if (dateFromInput.value && dateToInput.value && dateFromInput.value > dateToInput.value) {
+        dateToInput.value = dateFromInput.value;
+        dateFromInput.max = dateToInput.value;
+        dateToInput.min = dateFromInput.value;
+    }
+}
+
+function updateAccountAnalyticsDateDisplay(dateFromInput, dateToInput, displayEl) {
+    if (!displayEl) return;
+
+    const fromText = formatAccountAnalyticsDateDisplay(dateFromInput?.value);
+    const toText = formatAccountAnalyticsDateDisplay(dateToInput?.value);
+
+    if (fromText && toText) {
+        displayEl.textContent = `${fromText} — ${toText}`;
+        return;
+    }
+
+    displayEl.textContent = fromText || toText || '';
+}
+
+function initAccountAnalyticsDateDropdown(section) {
+    const dropdown = section.querySelector('[data-analytics-date-dropdown]');
+    const toggle = section.querySelector('[data-analytics-date-toggle]');
+    const menu = section.querySelector('.account-analytics__date-menu');
+    const dateFromInput = section.querySelector('[data-analytics-date-from]');
+    const dateToInput = section.querySelector('[data-analytics-date-to]');
+    const dateDisplay = section.querySelector('[data-analytics-date-display]');
+
+    if (!dropdown || !toggle || !menu || !dateFromInput || !dateToInput) return;
+
+    const today = startOfDay(new Date());
+
+    if (!dateToInput.value) {
+        dateToInput.value = formatAccountAnalyticsDateInput(today);
+    }
+
+    if (!dateFromInput.value) {
+        dateFromInput.value = formatAccountAnalyticsDateInput(addDays(today, -29));
+    }
+
+    syncAccountAnalyticsDateLimits(dateFromInput, dateToInput);
+    updateAccountAnalyticsDateDisplay(dateFromInput, dateToInput, dateDisplay);
+
+    function closeDropdown() {
+        dropdown.classList.remove('account-analytics__date-dropdown--open');
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.hidden = true;
+    }
+
+    function openDropdown() {
+        section.querySelectorAll('.account-analytics__range-dropdown--open').forEach((openRange) => {
+            openRange.classList.remove('account-analytics__range-dropdown--open');
+            openRange.querySelector('[data-analytics-range-toggle]')?.setAttribute('aria-expanded', 'false');
+            const openMenu = openRange.querySelector('.account-analytics__range-menu');
+            if (openMenu) openMenu.hidden = true;
+        });
+
+        dropdown.classList.add('account-analytics__date-dropdown--open');
+        toggle.setAttribute('aria-expanded', 'true');
+        menu.hidden = false;
+    }
+
+    toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        if (dropdown.classList.contains('account-analytics__date-dropdown--open')) {
+            closeDropdown();
+        } else {
+            openDropdown();
+        }
+    });
+
+    menu.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+    dateFromInput.addEventListener('change', () => {
+        syncAccountAnalyticsDateLimits(dateFromInput, dateToInput);
+        updateAccountAnalyticsDateDisplay(dateFromInput, dateToInput, dateDisplay);
+    });
+
+    dateToInput.addEventListener('change', () => {
+        syncAccountAnalyticsDateLimits(dateFromInput, dateToInput);
+        updateAccountAnalyticsDateDisplay(dateFromInput, dateToInput, dateDisplay);
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target)) {
+            closeDropdown();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeDropdown();
+        }
+    });
+}
+
 function initAccountAnalyticsFilters(section) {
     const form = section.querySelector('[data-analytics-filters]');
     const searchInput = section.querySelector('[data-analytics-search]');
-    const dateInput = section.querySelector('[data-analytics-date]');
+    const dateFromInput = section.querySelector('[data-analytics-date-from]');
+    const dateToInput = section.querySelector('[data-analytics-date-to]');
+    const dateDisplay = section.querySelector('[data-analytics-date-display]');
     const rangeDropdown = section.querySelector('.account-analytics__range-dropdown');
     const tags = section.querySelector('[data-analytics-tags]');
 
-    if (dateInput && !dateInput.value) {
-        const now = new Date();
-        dateInput.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-    }
+    initAccountAnalyticsDateDropdown(section);
 
     if (rangeDropdown) {
         initAccountAnalyticsRangeDropdown(section, rangeDropdown);
@@ -807,8 +963,12 @@ function initAccountAnalyticsFilters(section) {
 
         const activeRange = section.querySelector('.account-analytics__range-option--active');
 
+        syncAccountAnalyticsDateLimits(dateFromInput, dateToInput);
+        updateAccountAnalyticsDateDisplay(dateFromInput, dateToInput, dateDisplay);
+
         section.dataset.analyticsSearch = searchInput?.value.trim() || '';
-        section.dataset.analyticsDate = dateInput?.value || '';
+        section.dataset.analyticsDateFrom = dateFromInput?.value || '';
+        section.dataset.analyticsDateTo = dateToInput?.value || '';
         section.dataset.analyticsRange = activeRange?.dataset.analyticsRange
             || section.dataset.analyticsRangePending
             || '30';
@@ -857,6 +1017,13 @@ function initAccountAnalyticsRangeDropdown(section, dropdown) {
     }
 
     function openDropdown() {
+        section.querySelectorAll('.account-analytics__date-dropdown--open').forEach((openDate) => {
+            openDate.classList.remove('account-analytics__date-dropdown--open');
+            openDate.querySelector('[data-analytics-date-toggle]')?.setAttribute('aria-expanded', 'false');
+            const openMenu = openDate.querySelector('.account-analytics__date-menu');
+            if (openMenu) openMenu.hidden = true;
+        });
+
         dropdown.classList.add('account-analytics__range-dropdown--open');
         toggle.setAttribute('aria-expanded', 'true');
         menu.hidden = false;
@@ -912,14 +1079,10 @@ function getAccountAnalyticsReferenceDate(section) {
         return startOfDay(new Date());
     }
 
-    const monthValue = section.dataset.analyticsDate;
-    if (monthValue) {
-        const [year, month] = monthValue.split('-').map(Number);
-        if (year && month) {
-            const monthEnd = new Date(year, month, 0);
-            const today = startOfDay(new Date());
-            return monthEnd > today ? today : monthEnd;
-        }
+    const dateTo = parseAccountAnalyticsDateInput(section.dataset.analyticsDateTo);
+    if (dateTo) {
+        const today = startOfDay(new Date());
+        return dateTo > today ? today : dateTo;
     }
 
     return startOfDay(new Date());
@@ -957,15 +1120,23 @@ function buildAccountAnalyticsPeriodConfig(period, section) {
         }
     }
 
+    const today = startOfDay(new Date());
+    const filtersApplied = section.dataset.analyticsFiltersApplied === 'true';
+    const dateFrom = parseAccountAnalyticsDateInput(section.dataset.analyticsDateFrom);
+    const dateTo = parseAccountAnalyticsDateInput(section.dataset.analyticsDateTo);
+
+    if (filtersApplied && dateFrom && dateTo) {
+        periodStart = dateFrom;
+        periodEnd = dateTo;
+    }
+
     periodStart = startOfDay(periodStart);
     periodEnd = startOfDay(periodEnd);
 
-    const today = startOfDay(new Date());
-    const dataEnd = periodEnd > today ? today : periodEnd;
-    const filtersApplied = section.dataset.analyticsFiltersApplied === 'true';
+    let dataEnd = periodEnd > today ? today : periodEnd;
     let rangeStart = periodStart;
 
-    if (filtersApplied) {
+    if (filtersApplied && !(dateFrom && dateTo)) {
         const rangeDays = Number(section.dataset.analyticsRange) || 30;
         rangeStart = addDays(today, -(rangeDays - 1));
     }
@@ -1089,7 +1260,8 @@ function getAccountAnalyticsFilterKey(section) {
     return [
         section.dataset.analyticsSearch || '',
         section.dataset.analyticsRange || '30',
-        section.dataset.analyticsDate || '',
+        section.dataset.analyticsDateFrom || '',
+        section.dataset.analyticsDateTo || '',
     ].join('|');
 }
 
