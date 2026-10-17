@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7fb">
+  <meta name="description" content="Личная заметка: кто должен мне и кому должен я.">
+  <title>Долги — Мне и Я</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" type="module"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <a class="header__brand" href="./" aria-label="Долги — главная">
+        <span class="header__logo" aria-hidden="true">д.</span>
+        <span>долги<span class="header__dot">.</span></span>
+      </a>
+      <div class="header__account">
+        <span class="header__status" id="storage-status">Загрузка…</span>
+        <button class="button button--quiet" id="sign-out" hidden>Выйти</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="intro">
+        <p class="intro__eyebrow">ЛИЧНАЯ ЗАМЕТКА</p>
+        <h1 class="intro__title">Всё сходится.</h1>
+        <p class="intro__description">Помнить о долгах — проще, когда они записаны.</p>
+      </div>
+
+      <p class="notice" id="notice" role="status" hidden></p>
+
+      <section class="login" id="login" aria-labelledby="login-title" hidden>
+        <div class="login__icon" aria-hidden="true">↗</div>
+        <h2 id="login-title">Ваши долги под рукой</h2>
+        <p class="login__description">Войдите, чтобы открыть один и тот же список на всех устройствах.</p>
+        <form class="form" id="login-form">
+          <label class="form__label" for="email">Почта</label>
+          <input class="form__input" id="email" type="email" autocomplete="username" placeholder="you@example.com" required maxlength="254">
+          <label class="form__label" for="password">Пароль</label>
+          <input class="form__input" id="password" type="password" autocomplete="current-password" required>
+          <p class="form__error" id="login-error" role="alert" hidden></p>
+          <button class="button button--primary form__submit" type="submit">Войти</button>
+        </form>
+      </section>
+
+      <section class="ledger" id="ledger" aria-label="Заметка по долгам" hidden>
+        <div class="ledger__toolbar">
+          <div class="tabs" role="tablist" aria-label="Направление долга">
+            <button class="tabs__tab tabs__tab--active" id="tab-me" role="tab" aria-selected="true" aria-controls="debt-panel" data-direction="me"><span class="tabs__arrow" aria-hidden="true">↙</span> Мне <span class="tabs__count" id="count-me">0</span></button>
+            <button class="tabs__tab" id="tab-i" role="tab" aria-selected="false" aria-controls="debt-panel" tabindex="-1" data-direction="i"><span class="tabs__arrow" aria-hidden="true">↗</span> Я <span class="tabs__count" id="count-i">0</span></button>
+          </div>
+          <button class="button button--primary" id="add-debt"><span aria-hidden="true">＋</span> Добавить долг</button>
+        </div>
+
+        <div id="debt-panel" role="tabpanel" aria-labelledby="tab-me" tabindex="0">
+          <div class="summary">
+            <div><p class="summary__label" id="summary-label">Мне должны</p><p class="summary__amount" id="total">0 ₽</p></div>
+            <p class="summary__note" id="summary-note">Все долги в одном месте</p>
+          </div>
+          <div class="ledger__table-wrap">
+            <table class="debt-table">
+              <caption class="visually-hidden" id="table-caption">Долги мне</caption>
+              <thead><tr><th scope="col">Название</th><th scope="col" class="debt-table__amount">Сколько</th><th scope="col">Кто</th><th scope="col"><span class="visually-hidden">Действия</span></th></tr></thead>
+              <tbody id="debt-rows"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="empty">
+            <span class="empty__icon" aria-hidden="true">≡</span>
+            <h2 class="empty__title" id="empty-title">Пока никто не должен</h2>
+            <p class="empty__description">Добавьте первый долг — и он появится здесь.</p>
+            <button class="button button--outline" id="add-first">＋ Добавить первый долг</button>
+          </div>
+          <div class="ledger__bottom"><span id="record-count">Нет записей</span><span>Суммы в рублях</span></div>
+        </div>
+        <footer class="ledger__footer">
+          <p class="ledger__hint" id="storage-hint">Записи сохраняются в этом браузере.</p>
+          <div class="ledger__tools">
+            <button class="button button--quiet" id="refresh" hidden>↻ Обновить</button>
+            <button class="button button--quiet" id="export">Скачать копию</button>
+            <button class="button button--quiet" id="import">Загрузить копию</button>
+            <input id="import-file" type="file" accept=".json,application/json" hidden>
+          </div>
+        </footer>
+      </section>
+    </main>
+    <footer class="app__footer">Меньше держать в голове. Больше спокойствия.</footer>
+  </div>
+
+  <dialog class="dialog" id="editor" aria-labelledby="editor-title">
+    <form class="form" id="debt-form">
+      <div class="dialog__heading"><h2 id="editor-title">Новый долг</h2><button class="button button--icon" type="button" data-close="editor" aria-label="Закрыть">×</button></div>
+      <p class="dialog__description" id="editor-direction">Мне должны</p>
+      <label class="form__label" for="debt-title">Название</label>
+      <input class="form__input" id="debt-title" name="title" maxlength="120" placeholder="Например, за ужин" required>
+      <label class="form__label" for="debt-amount">Сколько, ₽</label>
+      <input class="form__input" id="debt-amount" name="amount" inputmode="decimal" maxlength="20" placeholder="0,00" required aria-describedby="amount-hint">
+      <p class="form__hint" id="amount-hint">Положительная сумма, до двух знаков после запятой.</p>
+      <label class="form__label" for="debt-person">Кто</label>
+      <input class="form__input" id="debt-person" name="person" maxlength="120" placeholder="Имя человека" required>
+      <p class="form__error" id="editor-error" role="alert" hidden></p>
+      <div class="dialog__actions"><button class="button button--outline" type="button" data-close="editor">Отмена</button><button class="button button--primary" type="submit" id="save-debt">Добавить</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="confirmation" aria-labelledby="confirm-title">
+    <form method="dialog" class="form">
+      <h2 id="confirm-title">Удалить долг?</h2>
+      <p class="dialog__description" id="confirm-description"></p>
+      <div class="dialog__actions"><button class="button button--outline" value="cancel" autofocus>Отмена</button><button class="button button--danger" value="confirm" id="confirm-action">Удалить</button></div>
+    </form>
+  </dialog>
+  <noscript><p class="notice">Для заметки нужно включить JavaScript в браузере.</p></noscript>
+</body>
+</html>

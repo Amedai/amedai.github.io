@@ -1,0 +1,12 @@
+{
+  "name": "debt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Личная заметка по долгам для GitHub Pages",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check app.js && node --check config.js && node --check core.mjs && node --check storage.mjs && node --check scripts/serve.mjs && npm test"
+  }
+}
