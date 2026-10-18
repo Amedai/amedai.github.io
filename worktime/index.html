@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="description" content="Проекты, рабочее время и задачи. Каждые полные 10 минут — 200 рублей.">
+  <title>Worktime — время в дело</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">К содержимому</a>
+  <div class="workspace">
+    <aside class="sidebar" aria-label="Проекты и настройки">
+      <a class="brand" href="./" aria-label="Worktime, главная"><img src="./favicon.svg" alt="" width="37" height="37"><span>worktime<span class="brand__dot">.</span></span></a>
+      <div class="sidebar__intro">Меньше рутины.<br>Больше ясности.</div>
+      <div class="sidebar__heading"><span>ПРОЕКТЫ</span><button id="add-project" class="icon-button" aria-label="Добавить проект" title="Добавить проект" hidden>+</button></div>
+      <nav id="projects" class="projects" aria-label="Выбрать проект"></nav>
+      <button id="manage-projects" class="sidebar__manage" hidden>Управление проектами ↗</button>
+      <div class="sidebar__bottom">
+        <div class="rate"><span class="rate__icon" aria-hidden="true">◷</span><div><strong>200 ₽ <span>/ 10 мин</span></strong><p>Только полные десятки</p></div></div>
+        <button id="login" class="button button--outline" disabled>Войти для изменений</button>
+        <button id="logout" class="button button--outline" hidden>Выйти</button>
+        <p id="access-label" class="sidebar__access">Подключаем хранилище…</p>
+      </div>
+    </aside>
+    <main id="main" class="main">
+      <header class="topbar"><span>МОЁ РАБОЧЕЕ ПРОСТРАНСТВО</span><time id="today"></time></header>
+      <div id="demo-banner" class="banner" hidden>Демо · данные сохраняются только в этом браузере. <a href="./">Открыть облачный трекер ↗</a></div>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <section class="intro" aria-labelledby="page-title"><div><p class="eyebrow">ВРЕМЯ В ДЕЛО</p><h1 id="page-title">Обзор работы<span>.</span></h1><p class="intro__description">У каждой задачи — своё время. У времени — своя стоимость.</p></div><div class="intro__actions"><button id="start-timer" class="button button--outline" hidden>▶ Таймер</button><button id="add-item" class="button button--primary" hidden><span aria-hidden="true">＋</span> Записать работу</button></div></section>
+      <section id="timer" class="timer" aria-label="Текущая задача" hidden>
+        <div class="timer__task"><p id="timer-status" class="eyebrow">В РАБОТЕ</p><h2 id="timer-title"></h2><p id="timer-project" class="timer__project"></p></div>
+        <div class="timer__numbers"><strong id="timer-clock" class="timer__clock" aria-label="Активное время">00:00:00</strong><span id="timer-cost" class="timer__cost">0 ₽ · предварительно</span></div>
+        <div id="timer-controls" class="timer__controls"><button id="timer-toggle" class="button button--outline">Ⅱ Пауза</button><button id="timer-finish" class="button button--primary">✓ Завершить</button></div>
+        <p class="timer__hint">Паузы не оплачиваются. Таймер сохраняется при обновлении страницы.</p>
+      </section>
+      <section class="stats" aria-label="Сводка по выбранному проекту и периоду">
+        <div class="stat stat--total"><div class="stat__label">Стоимость работы <span aria-hidden="true">↗</span></div><strong id="total" class="stat__value">—</strong><span class="stat__note">Завершённые записи выбранного проекта и периода</span></div>
+        <div class="stat"><div class="stat__label">Время в работе <span aria-hidden="true">◷</span></div><strong id="time-total" class="stat__value">—</strong><span id="time-note" class="stat__note">Все рабочие интервалы</span></div>
+        <div class="stat"><div class="stat__label">Задачи в планах <span aria-hidden="true">☷</span></div><strong id="plan-total" class="stat__value">—</strong><span class="stat__note">Открытые задачи выбранного проекта</span></div>
+      </section>
+      <section class="journal" aria-label="Работа и планы">
+        <div class="journal__top"><div class="tabs" aria-label="Раздел"><button id="tab-work" class="tabs__button tabs__button--active" aria-pressed="true">Журнал работы <span id="count-work">0</span></button><button id="tab-plan" class="tabs__button" aria-pressed="false">Планы <span id="count-plan">0</span></button></div><button id="refresh" class="text-button" disabled><span aria-hidden="true">↻</span> Обновить</button></div>
+        <div class="filters"><label class="filters__search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Найти задачу…" aria-label="Найти задачу" maxlength="200"></label><label id="period-label" class="filters__period"><span>Период</span><input id="month" type="month" aria-label="Месяц работы"><button id="all-time" class="text-button" type="button">За всё время</button></label><span id="plan-hint" class="filters__hint" hidden>То, что предстоит сделать</span></div>
+        <div class="journal__table-wrap"><table class="journal__table"><caption id="table-caption" class="visually-hidden">Журнал работы</caption><thead><tr><th>Задача / проект</th><th id="date-heading">Когда</th><th id="duration-heading">Время</th><th id="amount-heading">Стоимость</th><th id="actions-heading" class="journal__actions-heading" hidden><span class="visually-hidden">Действия</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div id="empty" class="empty"><div class="empty__icon" aria-hidden="true">◷</div><h2 id="empty-title">Загружаем рабочее пространство</h2><p id="empty-description">Собираем ваши проекты и задачи.</p><button id="add-first" class="button button--primary" hidden>＋ Первая запись</button></div>
+        <footer class="journal__footer"><span id="result-count">Нет записей</span><span id="billing-note">Каждые полные 10 минут = 200 ₽</span></footer>
+      </section>
+      <section class="rule" aria-label="Правило расчёта"><span class="rule__icon" aria-hidden="true">i</span><p><strong>Всё по времени.</strong> Каждую запись считаем отдельно: 9 мин — бесплатно, 10 мин — 200 ₽, 25 мин — 400 ₽. У таймера учитываем общее активное время без пауз.</p></section>
+      <footer class="footer"><span>worktime. <span class="footer__muted">Для спокойной работы</span></span><div><button id="export" class="text-button" disabled>Скачать копию ↓</button><button id="import" class="text-button" hidden>Загрузить копию ↑</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></footer>
+    </main>
+  </div>
+  <dialog id="editor" class="dialog" aria-labelledby="editor-title">
+    <form id="item-form" class="form"><div class="dialog__heading"><div><p class="eyebrow">ДЕТАЛИ ЗАДАЧИ</p><h2 id="editor-title">Записать работу</h2></div><button type="button" class="icon-button" data-close="editor" aria-label="Закрыть">×</button></div>
+      <label>Проект<select id="item-project" required></select></label>
+      <label>Что сделали<input id="item-title" required maxlength="200" placeholder="Например, сверстать блок с отзывами" autocomplete="off"></label>
+      <div id="time-fields" class="form__times"><label>Начало<input id="start" type="datetime-local" required></label><label id="end-label">Окончание<input id="end" type="datetime-local" required></label></div>
+      <p id="timer-editor-note" class="form__description" hidden>Укажите, когда начали работу, и нажмите «Пуск». Время перерывов исключается кнопкой «Пауза».</p>
+      <div id="calculation" class="calculation" aria-live="polite"><span id="calc-time">Укажите время работы</span><strong id="calc-amount">0 ₽</strong><small id="calc-note">200 ₽ за каждые полные 10 минут</small></div>
+      <label>Примечание <span class="form__optional">необязательно</span><textarea id="item-note" rows="3" maxlength="2000" placeholder="Детали, ссылка на задачу или результат"></textarea></label>
+      <p id="item-error" class="form__error" role="alert" hidden></p><div class="dialog__footer"><button type="button" class="button button--outline" data-close="editor">Отмена</button><button id="item-submit" type="submit" class="button button--primary">Сохранить</button></div>
+    </form>
+  </dialog>
+  <dialog id="project-dialog" class="dialog dialog--small" aria-labelledby="project-title"><form id="project-form" class="form"><div class="dialog__heading"><h2 id="project-title">Новый проект</h2><button type="button" class="icon-button" data-close="project-dialog" aria-label="Закрыть">×</button></div><label>Название<input id="project-name" required maxlength="100" placeholder="Например, сайт студии" autocomplete="off"></label><p id="project-error" class="form__error" role="alert" hidden></p><div id="project-list" class="project-list"></div><div class="dialog__footer"><button type="button" class="button button--outline" data-close="project-dialog">Отмена</button><button class="button button--primary" type="submit">Сохранить</button></div></form></dialog>
+  <dialog id="login-dialog" class="dialog dialog--small" aria-labelledby="login-title"><form id="login-form" class="form"><div class="dialog__heading"><h2 id="login-title">Вход владельца</h2><button type="button" class="icon-button" data-close="login-dialog" aria-label="Закрыть">×</button></div><p class="form__description">Войдите аккаунтом Supabase из проекта с долгами.</p><label>Почта<input id="email" type="email" required autocomplete="username"></label><label>Пароль<input id="password" type="password" required autocomplete="current-password"></label><p id="login-error" class="form__error" role="alert" hidden></p><div class="dialog__footer"><button type="button" class="button button--outline" data-close="login-dialog">Отмена</button><button type="submit" class="button button--primary">Войти</button></div></form></dialog>
+  <dialog id="confirm-dialog" class="dialog dialog--small" aria-labelledby="confirm-title"><form method="dialog" class="form"><div class="dialog__heading"><h2 id="confirm-title">Удалить запись?</h2></div><p id="confirm-text" class="form__description"></p><div class="dialog__footer"><button class="button button--outline" value="cancel">Отмена</button><button class="button button--danger" value="delete">Удалить</button></div></form></dialog>
+</body>
+</html>
