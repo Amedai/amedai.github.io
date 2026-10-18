@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { interval, validateData, validateItem, filterItems, parseBackup, mergeData, transitionTimer, workBill, elapsedMilliseconds, timerClock } from "../core.mjs";
+import { interval, validateData, validateItem, filterItems, parseBackup, mergeData, transitionTimer, workBill, elapsedMilliseconds, timerClock, localInput, moscowInputToISO } from "../core.mjs";
 import { localRepository, cloudRepository } from "../storage.mjs";
 const project = { id:"10000000-0000-4000-8000-000000000001", name:"Студия", created_at:"2026-10-18T09:00:00Z" };
 const item = { id:"20000000-0000-4000-8000-000000000001", project_id:project.id, title:"Шапка сайта", note:"", kind:"work", done:false, started_at:"2026-10-18T10:00:00Z", ended_at:"2026-10-18T10:25:00Z", created_at:project.created_at };
@@ -38,7 +38,19 @@ test("Резервная копия проверяет ссылки, форма�
   assert.throws(() => validateData({projects:[project,project],items:[]}),/повторяются/);
   assert.equal(mergeData(validateData(backup),backup).items.length,1);
 });
-test("Фильтры: проект, месяц по местному времени, поиск и планы", () => {
+test("МСК: ввод и обратное преобразование, полночь и некорректные даты", () => {
+  assert.equal(localInput("2026-10-18T18:13:00Z"), "2026-10-18T21:13");
+  assert.equal(moscowInputToISO("2026-10-18T21:13"), "2026-10-18T18:13:00.000Z");
+  assert.equal(localInput("2026-12-31T21:00:00Z"), "2027-01-01T00:00");
+  assert.equal(moscowInputToISO("2027-01-01T00:00"), "2026-12-31T21:00:00.000Z");
+  for (const input of ["2026-02-30T12:00", "2026-10-18T24:00", "2026-10-18T21:60", "2026-10-18T09:13 PM", "", null]) assert.throws(() => moscowInputToISO(input));
+});
+test("Фильтр месяца использует московскую дату на границе UTC", () => {
+  const boundary = {...item,started_at:"2026-10-31T21:30:00Z",ended_at:"2026-10-31T22:00:00Z"};
+  assert.equal(filterItems([boundary], {month:"2026-10"}).length,0);
+  assert.equal(filterItems([boundary], {month:"2026-11"}).length,1);
+});
+test("Фильтры: проект, месяц по МСК, поиск и планы", () => {
   const plan = {...item,id:"20000000-0000-4000-8000-000000000002",kind:"plan",started_at:null,ended_at:null};
   assert.equal(filterItems([item,plan], {search:"ШАПКА",month:"2026-10"}).length,1);
   assert.equal(filterItems([item], {month:"2026-09"}).length,0);

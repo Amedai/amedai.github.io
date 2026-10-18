@@ -30,7 +30,7 @@
       <header class="topbar"><span>МОЁ РАБОЧЕЕ ПРОСТРАНСТВО</span><time id="today"></time></header>
       <div id="demo-banner" class="banner" hidden>Демо · данные сохраняются только в этом браузере. <a href="./">Открыть облачный трекер ↗</a></div>
       <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
-      <section class="intro" aria-labelledby="page-title"><div><p class="eyebrow">ВРЕМЯ В ДЕЛО</p><h1 id="page-title">Обзор работы<span>.</span></h1><p class="intro__description">У каждой задачи — своё время. У времени — своя стоимость.</p></div><div class="intro__actions"><button id="start-timer" class="button button--outline" hidden>▶ Таймер</button><button id="add-item" class="button button--primary" hidden><span aria-hidden="true">＋</span> Записать работу</button></div></section>
+      <section class="intro" aria-labelledby="page-title"><div><p class="eyebrow">ВРЕМЯ В ДЕЛО</p><h1 id="page-title">Обзор работы<span>.</span></h1><p class="intro__description">У каждой задачи — своё время. У времени — своя стоимость.</p></div><div class="intro__actions"><button id="add-item" class="button button--primary" hidden>▶ Начать работу</button></div></section>
       <section id="timer" class="timer" aria-label="Текущая задача" hidden>
         <div class="timer__task"><p id="timer-status" class="eyebrow">В РАБОТЕ</p><h2 id="timer-title"></h2><p id="timer-project" class="timer__project"></p></div>
         <div class="timer__numbers"><strong id="timer-clock" class="timer__clock" aria-label="Активное время">00:00:00</strong><span id="timer-cost" class="timer__cost">0 ₽ · предварительно</span></div>
@@ -57,7 +57,10 @@
     <form id="item-form" class="form"><div class="dialog__heading"><div><p class="eyebrow">ДЕТАЛИ ЗАДАЧИ</p><h2 id="editor-title">Записать работу</h2></div><button type="button" class="icon-button" data-close="editor" aria-label="Закрыть">×</button></div>
       <label>Проект<select id="item-project" required></select></label>
       <label>Что сделали<input id="item-title" required maxlength="200" placeholder="Например, сверстать блок с отзывами" autocomplete="off"></label>
-      <div id="time-fields" class="form__times"><label>Начало<input id="start" type="datetime-local" required></label><label id="end-label">Окончание<input id="end" type="datetime-local" required></label></div>
+      <div id="time-fields" class="form">
+        <div class="form__times"><label>Дата начала<input id="start-date" type="date" required></label><label>Начало · МСК<input id="start" type="text" placeholder="21:13" pattern="([01][0-9]|2[0-3]):[0-5][0-9]" maxlength="5" title="Московское время в формате ЧЧ:ММ, например 21:13" autocomplete="off" required></label></div>
+        <div id="end-label" class="form__times"><label>Дата окончания<input id="end-date" type="date" required></label><label>Окончание · МСК<input id="end" type="text" placeholder="21:43" pattern="([01][0-9]|2[0-3]):[0-5][0-9]" maxlength="5" title="Московское время в формате ЧЧ:ММ, например 21:43" autocomplete="off" required></label></div>
+      </div>
       <p id="timer-editor-note" class="form__description" hidden>Укажите, когда начали работу, и нажмите «Пуск». Время перерывов исключается кнопкой «Пауза».</p>
       <div id="calculation" class="calculation" aria-live="polite"><span id="calc-time">Укажите время работы</span><strong id="calc-amount">0 ₽</strong><small id="calc-note">200 ₽ за каждые полные 10 минут</small></div>
       <label>Примечание <span class="form__optional">необязательно</span><textarea id="item-note" rows="3" maxlength="2000" placeholder="Детали, ссылка на задачу или результат"></textarea></label>

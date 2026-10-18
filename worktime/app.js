@@ -1,5 +1,5 @@
 import { config } from "./config.js";
-import { interval, money, duration, localInput, filterItems, parseBackup, activeTimer, workBill, timerClock } from "./core.mjs";
+import { interval, money, duration, localInput, moscowInputToISO, TIME_ZONE, filterItems, parseBackup, activeTimer, workBill, timerClock } from "./core.mjs";
 import { localRepository, cloudRepository } from "./storage.mjs";
 
 const $ = id => document.getElementById(id);
@@ -9,8 +9,8 @@ let repository, client, owner, canEdit = false, ready = false, busy = false;
 let editingItem = null, editorKind = "work", editingProject = null, revision = 0;
 let editorTimer = false;
 let confirmAction = null;
-const dateFormat = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "short" });
-const clockFormat = new Intl.DateTimeFormat("ru-RU", { hour: "2-digit", minute: "2-digit" });
+const dateFormat = new Intl.DateTimeFormat("ru-RU", { timeZone: TIME_ZONE, day: "numeric", month: "short" });
+const clockFormat = new Intl.DateTimeFormat("ru-RU", { timeZone: TIME_ZONE, hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
 const make = (tag, className = "", content = "") => { const e = document.createElement(tag); e.className = className; e.textContent = content; return e; };
 function action(label, text, handler, className = "icon-button") {
   const button = make("button", className, text);
@@ -38,7 +38,7 @@ function setBusy(value) {
     $("refresh").disabled = !repository && !client;
     $("export").disabled = !ready;
     $("login").disabled = !client || !owner;
-    $("start-timer").disabled = !ready || data.items.some(activeTimer);
+    $("add-item").disabled = !ready || (kind === "work" && data.items.some(activeTimer));
   }
 }
 async function perform(task, errorId) {
@@ -52,7 +52,7 @@ async function perform(task, errorId) {
 }
 function render() {
   const editable = ready && canEdit;
-  for (const id of ["add-project", "manage-projects", "add-item", "start-timer", "import", "actions-heading"]) $(id).hidden = !editable;
+  for (const id of ["add-project", "manage-projects", "add-item", "import", "actions-heading"]) $(id).hidden = !editable;
   $("login").hidden = demo || canEdit;
   $("logout").hidden = demo || !canEdit;
   $("access-label").textContent = demo ? "Локальное демо · без синхронизации" : canEdit ? "Вы вошли как владелец" : "Просмотр · изменения только владельцу";
@@ -79,9 +79,9 @@ function render() {
   $("count-plan").textContent = String(plans.filter(i => !i.done).length);
   for (const tab of ["work", "plan"]) { $("tab-" + tab).classList.toggle("tabs__button--active", tab === kind); $("tab-" + tab).setAttribute("aria-pressed", String(tab === kind)); }
   $("period-label").hidden = kind === "plan"; $("plan-hint").hidden = kind === "work";
-  $("add-item").textContent = kind === "work" ? "＋ Записать работу" : "＋ Добавить задачу";
+  $("add-item").textContent = kind === "work" ? "▶ Начать работу" : "＋ Добавить задачу";
   $("table-caption").textContent = kind === "work" ? "Журнал работы" : "Запланированные задачи";
-  $("date-heading").textContent = kind === "work" ? "Когда" : "Создана";
+  $("date-heading").textContent = kind === "work" ? "Когда · МСК" : "Создана · МСК";
   $("duration-heading").textContent = kind === "work" ? "Время" : "Статус";
   $("amount-heading").hidden = kind === "plan";
   $("billing-note").textContent = kind === "work" ? "Каждые полные 10 минут = 200 ₽" : "Запишите время, когда задача будет сделана";
@@ -97,7 +97,7 @@ function render() {
       const start = new Date(item.started_at), end = item.ended_at ? new Date(item.ended_at) : null;
       const ending = end ? `${localInput(start).slice(0,10) === localInput(end).slice(0,10) ? "" : dateFormat.format(end) + " "}${clockFormat.format(end)}` : item.timer_state === "paused" ? "пауза" : "в работе";
       date.append(make("span", "", dateFormat.format(start)), make("span", "journal__secondary", `${clockFormat.format(start)} — ${ending}`));
-      date.title = `${start.toLocaleString("ru-RU")} — ${end ? end.toLocaleString("ru-RU") : ending}`;
+      date.title = `${start.toLocaleString("ru-RU", { timeZone: TIME_ZONE, hourCycle: "h23" })} — ${end ? end.toLocaleString("ru-RU", { timeZone: TIME_ZONE, hourCycle: "h23" }) : ending} МСК`;
       const bill = workBill(item);
       const time = make("td", "", duration(bill.minutes));
       if (bill.freeMinutes) time.append(make("span", "journal__secondary", `${bill.freeMinutes} мин без оплаты`));
@@ -110,8 +110,7 @@ function render() {
       const cell = make("td"), group = make("div", "journal__actions");
       if (item.kind === "plan") {
         group.append(action(item.done ? "Вернуть в планы" : "Отметить выполненной", item.done ? "↶" : "✓", () => mutate(() => repository.saveItem({ ...item, done: !item.done }, true), "Статус задачи сохранён.")));
-        group.append(action("Записать время по задаче", "◷", () => openEditor(item, true)));
-        group.append(action("Запустить таймер по задаче", "▶", () => openEditor(item, true, true)));
+        group.append(action("Запустить таймер по задаче", "▶", () => openEditor(item, true)));
       }
       if (!activeTimer(item)) group.append(action("Изменить задачу", "✎", () => openEditor(item)), action("Удалить задачу", "×", () => confirmDelete(`Удалить «${item.title}»? Восстановить её можно будет только из копии.`, () => mutate(() => repository.removeItem(item.id), "Задача удалена."))));
       cell.append(group); row.append(cell);
@@ -123,9 +122,9 @@ function render() {
   $("result-count").textContent = `${visible.length} ${kind === "work" ? "рабочих записей" : "задач"}`;
   const filtered = $("search").value.trim() || (kind === "work" && month);
   $("empty-title").textContent = !ready ? "Хранилище не подключено" : filtered ? "Здесь пока нет записей" : kind === "plan" ? "Освободите голову для работы" : "У вашей работы будет история";
-  $("empty-description").textContent = !ready ? "Проверьте сообщение выше и нажмите «Обновить»." : filtered ? "Измените поиск или выберите другой период." : editable ? kind === "plan" ? "Запишите будущие задачи, чтобы всё важное было под рукой." : "Добавьте проект и запишите первый рабочий интервал. Стоимость посчитается сама." : "Владелец ещё не добавил записи. Для изменений нужен вход.";
+  $("empty-description").textContent = !ready ? "Проверьте сообщение выше и нажмите «Обновить»." : filtered ? "Измените поиск или выберите другой период." : editable ? kind === "plan" ? "Запишите будущие задачи, чтобы всё важное было под рукой." : "Добавьте проект и запустите таймер первой задачи. Стоимость посчитается сама." : "Владелец ещё не добавил записи. Для изменений нужен вход.";
   $("add-first").hidden = !editable || Boolean(filtered) || Boolean(visible.length);
-  $("add-first").textContent = data.projects.length ? kind === "plan" ? "＋ Добавить задачу" : "＋ Первая запись" : "＋ Создать первый проект";
+  $("add-first").textContent = data.projects.length ? kind === "plan" ? "＋ Добавить задачу" : "▶ Начать работу" : "＋ Создать первый проект";
   renderTimer();
   if (!busy) setBusy(false);
 }
@@ -137,7 +136,7 @@ function renderTimer() {
   $("timer").classList.toggle("timer--paused", task.timer_state === "paused");
   $("timer-status").textContent = task.timer_state === "paused" ? "НА ПАУЗЕ · ВРЕМЯ НЕ ИДЁТ" : "В РАБОТЕ";
   $("timer-title").textContent = task.title;
-  $("timer-project").textContent = `${data.projects.find(p => p.id === task.project_id)?.name || "Проект"} · начало ${new Date(task.started_at).toLocaleString("ru-RU", {day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}`;
+  $("timer-project").textContent = `${data.projects.find(p => p.id === task.project_id)?.name || "Проект"} · начало ${new Date(task.started_at).toLocaleString("ru-RU", {timeZone:TIME_ZONE,day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"})} МСК`;
   $("timer-toggle").textContent = task.timer_state === "paused" ? "▶ Продолжить" : "Ⅱ Пауза";
   tickTimer();
 }
@@ -169,34 +168,40 @@ async function mutate(operation, message) {
     catch (error) { notice(`Изменение сохранено, но обновить список не удалось. ${errorText(error)}`, true); }
   });
 }
-function openEditor(item = null, convert = false, timer = false) {
+function openEditor(item = null, startTimer = false) {
   if (!canEdit || !ready || busy) return;
+  const timer = startTimer || (!item && kind === "work");
   if (timer && data.items.some(activeTimer)) { notice("Сначала завершите текущий таймер. Одновременно можно вести одну задачу.", true); return; }
   if (!data.projects.length) return openProject();
   editingItem = item;
   editorTimer = timer;
-  editorKind = timer || convert ? "work" : item?.kind || kind;
+  editorKind = timer ? "work" : item?.kind || kind;
   $("item-form").reset(); $("item-error").hidden = true;
-  $("editor-title").textContent = editorKind === "plan" ? item ? "Изменить задачу" : "Новая задача" : convert ? "Записать время по задаче" : item ? "Изменить запись" : "Записать работу";
+  $("editor-title").textContent = editorKind === "plan" ? item ? "Изменить задачу" : "Новая задача" : "Изменить запись";
   if (timer) $("editor-title").textContent = "Запустить таймер";
   $("item-project").replaceChildren(...data.projects.map(p => { const option = make("option", "", p.name); option.value = p.id; return option; }));
   $("item-project").value = item?.project_id || (project !== "all" ? project : data.projects[0].id);
   $("item-title").value = item?.title || ""; $("item-note").value = item?.note || "";
   $("time-fields").hidden = editorKind !== "work"; $("calculation").hidden = timer || editorKind !== "work";
-  $("end-label").hidden = timer;
+  $("end-label").hidden = timer || item?.timer_state === "finished";
   $("timer-editor-note").hidden = !timer && item?.timer_state !== "finished";
   $("timer-editor-note").textContent = timer ? "Укажите, когда начали работу, и нажмите «Пуск». Перерывы исключаются кнопкой «Пауза»." : "Активное время рассчитано таймером без пауз. Здесь можно изменить название, проект и примечание.";
   $("item-submit").textContent = timer ? "▶ Пуск" : "Сохранить";
-  $("start").required = editorKind === "work";
-  $("end").required = editorKind === "work" && !timer;
-  $("start").disabled = $("end").disabled = item?.timer_state === "finished";
-  $("start").value = localInput(item?.started_at || (timer ? Date.now() : Date.now() - 30 * 60000));
-  $("end").value = localInput(item?.ended_at || new Date());
+  for (const id of ["start", "start-date"]) $(id).required = editorKind === "work";
+  for (const id of ["end", "end-date"]) $(id).required = editorKind === "work" && !timer && item?.timer_state !== "finished";
+  for (const id of ["start", "start-date", "end", "end-date"]) $(id).disabled = item?.timer_state === "finished";
+  setEditorTime("start", item?.started_at || (timer ? Date.now() : Date.now() - 30 * 60000));
+  setEditorTime("end", item?.ended_at || new Date());
   updateCalculation(); $("editor").showModal(); $("item-title").focus();
 }
+function setEditorTime(id, value) {
+  const [date, time] = localInput(value).split("T");
+  $(id + "-date").value = date; $(id).value = time;
+}
+function editorTime(id) { return moscowInputToISO(`${$(id + "-date").value}T${$(id).value}`); }
 function updateCalculation() {
   try {
-    const bill = editingItem?.timer_state === "finished" && !editorTimer ? workBill(editingItem) : interval(new Date($("start").value).toISOString(), new Date($("end").value).toISOString());
+    const bill = editingItem?.timer_state === "finished" && !editorTimer ? workBill(editingItem) : interval(editorTime("start"), editorTime("end"));
     $("calc-time").textContent = duration(bill.minutes); $("calc-amount").textContent = money(bill.amount);
     $("calc-note").textContent = `${bill.blocks} × 200 ₽${bill.freeMinutes ? ` · ${bill.freeMinutes} мин без оплаты` : ""}. ${editingItem?.timer_state === "finished" ? "Общее активное время без пауз." : "Каждый интервал рассчитывается отдельно."}`;
   } catch { $("calc-time").textContent = "Проверьте начало и окончание"; $("calc-amount").textContent = "—"; $("calc-note").textContent = "Окончание должно быть позже начала. После полуночи выберите следующий день."; }
@@ -220,10 +225,9 @@ document.querySelectorAll("[data-close]").forEach(button => button.addEventListe
 document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("cancel", event => { if (busy) event.preventDefault(); }));
 $("add-project").addEventListener("click", openProject); $("manage-projects").addEventListener("click", openProject);
 $("add-item").addEventListener("click", () => openEditor()); $("add-first").addEventListener("click", () => openEditor());
-$("start-timer").addEventListener("click", () => openEditor(null, false, true));
 $("timer-toggle").addEventListener("click", () => controlTimer(data.items.find(activeTimer)?.timer_state === "paused" ? "resume" : "pause"));
 $("timer-finish").addEventListener("click", () => controlTimer("finish"));
-$("start").addEventListener("input", updateCalculation); $("end").addEventListener("input", updateCalculation);
+for (const id of ["start", "start-date", "end", "end-date"]) $(id).addEventListener("input", updateCalculation);
 $("search").addEventListener("input", render); $("month").addEventListener("change", render);
 $("all-time").addEventListener("click", () => { $("month").value = ""; render(); });
 for (const tab of ["work", "plan"]) $("tab-" + tab).addEventListener("click", () => { kind = tab; render(); });
@@ -232,8 +236,8 @@ $("item-form").addEventListener("submit", event => {
   event.preventDefault(); $("item-error").hidden = true;
   perform(async () => {
     requireEdit();
-    const item = { ...editingItem, id: editingItem?.id || crypto.randomUUID(), project_id: $("item-project").value, title: $("item-title").value.trim(), note: $("item-note").value.trim(), kind: editorKind, done: editorKind === "plan" ? editingItem?.done || false : false, started_at: editorKind === "work" ? new Date($("start").value).toISOString() : null, ended_at: editorKind === "work" && !editorTimer ? new Date($("end").value).toISOString() : null, created_at: editingItem?.created_at || new Date().toISOString() };
-    if (editingItem?.timer_state === "finished" && !editorTimer) { item.started_at = editingItem.started_at; item.ended_at = editingItem.ended_at; }
+    const finishedTimer = editingItem?.timer_state === "finished" && !editorTimer;
+    const item = { ...editingItem, id: editingItem?.id || crypto.randomUUID(), project_id: $("item-project").value, title: $("item-title").value.trim(), note: $("item-note").value.trim(), kind: editorKind, done: editorKind === "plan" ? editingItem?.done || false : false, started_at: finishedTimer ? editingItem.started_at : editorKind === "work" ? editorTime("start") : null, ended_at: finishedTimer ? editingItem.ended_at : editorKind === "work" && !editorTimer ? editorTime("end") : null, created_at: editingItem?.created_at || new Date().toISOString() };
     if (editorTimer) {
       if (Date.parse(item.started_at) > Date.now()) throw new Error("Начало таймера не может быть в будущем.");
       if (data.items.some(activeTimer)) throw new Error("Сначала завершите текущий таймер.");
@@ -302,7 +306,7 @@ async function setupCloud() {
   });
 }
 async function boot() {
-  $("today").textContent = new Intl.DateTimeFormat("ru-RU", { day:"numeric", month:"long", year:"numeric" }).format(new Date());
+  $("today").textContent = new Intl.DateTimeFormat("ru-RU", { timeZone:TIME_ZONE, day:"numeric", month:"long", year:"numeric" }).format(new Date());
   $("today").dateTime = localInput().slice(0,10);
   setBusy(true);
   try { if (demo) { repository = localRepository(localStorage); canEdit = true; } else await setupCloud(); await refresh(); }

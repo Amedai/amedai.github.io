@@ -1,4 +1,6 @@
 export const STORAGE_KEY = "worktime.demo.v1";
+export const TIME_ZONE = "Europe/Moscow";
+const inputFormat = new Intl.DateTimeFormat("en-GB", { timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
 export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const MAX = 10000;
 function text(value, max, required = true) {
@@ -97,9 +99,14 @@ export function mergeData(current, incoming) {
 export const money = value => new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(value);
 export const duration = minutes => minutes >= 60 ? `${Math.floor(minutes / 60)} ч${minutes % 60 ? ` ${minutes % 60} мин` : ""}` : `${minutes} мин`;
 export function localInput(value = new Date()) {
-  const date = new Date(value);
-  const pad = n => String(n).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  const parts = Object.fromEntries(inputFormat.formatToParts(new Date(value)).map(({ type, value }) => [type, value]));
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+}
+export function moscowInputToISO(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T([01]\d|2[0-3]):[0-5]\d$/.test(value)) throw new Error("Укажите дату и время по МСК в формате ЧЧ:ММ.");
+  const date = new Date(`${value}:00+03:00`);
+  if (!Number.isFinite(date.getTime()) || localInput(date) !== value) throw new Error("Проверьте дату и время по МСК.");
+  return date.toISOString();
 }
 export function filterItems(items, { project = "all", month = "", search = "", kind = "work" } = {}) {
   const query = search.trim().toLocaleLowerCase("ru");
