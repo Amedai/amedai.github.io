@@ -1,6 +1,7 @@
--- 1. Создайте свой аккаунт: Authentication → Users → Add user.
--- 2. Замените OWNER_USER_UUID ниже на UUID этого пользователя.
--- 3. Выполните ВЕСЬ файл в SQL Editor. Старые долги не удаляются.
+-- UUID владельца уже заполнен для предоставленного аккаунта.
+-- Выполните ВЕСЬ файл в Supabase → SQL Editor → New query → Run.
+-- При подключении другого аккаунта измените UUID в строке values (true, ...).
+-- Старые долги не удаляются.
 -- Список и примечания станут видны всем; изменения доступны только владельцу.
 begin;
 
@@ -26,7 +27,7 @@ create table if not exists public.debt_settings (
 );
 
 insert into public.debt_settings (singleton, owner_id)
-values (true, 'OWNER_USER_UUID'::uuid)
+values (true, 'edb177a9-ec4a-4cee-9489-4e2650811dca'::uuid)
 on conflict (singleton) do update set owner_id = excluded.owner_id;
 
 alter table public.debt_settings enable row level security;
