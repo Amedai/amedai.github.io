@@ -19,6 +19,7 @@
       </a>
       <div class="header__account">
         <span class="header__status" id="storage-status">Загрузка…</span>
+        <button class="button button--quiet" id="sign-in" aria-expanded="false" aria-controls="login" hidden>Войти для изменений</button>
         <button class="button button--quiet" id="sign-out" hidden>Выйти</button>
       </div>
     </header>
@@ -34,8 +35,8 @@
 
       <section class="login" id="login" aria-labelledby="login-title" hidden>
         <div class="login__icon" aria-hidden="true">↗</div>
-        <h2 id="login-title">Ваши долги под рукой</h2>
-        <p class="login__description">Войдите, чтобы открыть один и тот же список на всех устройствах.</p>
+        <h2 id="login-title">Вход владельца</h2>
+        <p class="login__description">Список доступен всем. Добавлять и изменять долги может только владелец после входа.</p>
         <form class="form" id="login-form">
           <label class="form__label" for="email">Почта</label>
           <input class="form__input" id="email" type="email" autocomplete="username" placeholder="you@example.com" required maxlength="254">
@@ -60,17 +61,36 @@
             <div><p class="summary__label" id="summary-label">Мне должны</p><p class="summary__amount" id="total">0 ₽</p></div>
             <p class="summary__note" id="summary-note">Все долги в одном месте</p>
           </div>
+          <section class="people" id="people" aria-labelledby="people-title" hidden>
+            <h2 class="people__title" id="people-title">Сводка по людям</h2>
+            <p class="people__hint">Все записи из обеих вкладок. Имена с разным регистром и лишними пробелами объединены.</p>
+            <div class="ledger__table-wrap">
+              <table class="people__table">
+                <caption class="visually-hidden">Общая сумма долгов по каждому человеку</caption>
+                <thead><tr><th scope="col">Имя</th><th scope="col">Мне должны</th><th scope="col">Я должен</th><th scope="col">Итог</th></tr></thead>
+                <tbody id="people-rows"></tbody>
+              </table>
+            </div>
+          </section>
+          <div class="ledger__sort">
+            <label for="sort-order">Сортировка</label>
+            <select class="form__input ledger__select" id="sort-order">
+              <option value="name-asc">По имени: А → Я</option>
+              <option value="name-desc">По имени: Я → А</option>
+              <option value="newest">Сначала новые</option>
+            </select>
+          </div>
           <div class="ledger__table-wrap">
             <table class="debt-table">
               <caption class="visually-hidden" id="table-caption">Долги мне</caption>
-              <thead><tr><th scope="col">Название</th><th scope="col" class="debt-table__amount">Сколько</th><th scope="col">Кто</th><th scope="col"><span class="visually-hidden">Действия</span></th></tr></thead>
+              <thead><tr><th scope="col">Название / примечание</th><th scope="col" class="debt-table__amount">Сколько</th><th scope="col">Кто</th><th scope="col" id="actions-heading"><span class="visually-hidden">Действия</span></th></tr></thead>
               <tbody id="debt-rows"></tbody>
             </table>
           </div>
           <div class="empty" id="empty">
             <span class="empty__icon" aria-hidden="true">≡</span>
             <h2 class="empty__title" id="empty-title">Пока никто не должен</h2>
-            <p class="empty__description">Добавьте первый долг — и он появится здесь.</p>
+            <p class="empty__description" id="empty-description">Добавьте первый долг — и он появится здесь.</p>
             <button class="button button--outline" id="add-first">＋ Добавить первый долг</button>
           </div>
           <div class="ledger__bottom"><span id="record-count">Нет записей</span><span>Суммы в рублях</span></div>
@@ -81,6 +101,7 @@
             <button class="button button--quiet" id="refresh" hidden>↻ Обновить</button>
             <button class="button button--quiet" id="export">Скачать копию</button>
             <button class="button button--quiet" id="import">Загрузить копию</button>
+            <button class="button button--quiet" id="migrate-local" hidden>Перенести из браузера</button>
             <input id="import-file" type="file" accept=".json,application/json" hidden>
           </div>
         </footer>
@@ -99,7 +120,11 @@
       <input class="form__input" id="debt-amount" name="amount" inputmode="decimal" maxlength="20" placeholder="0,00" required aria-describedby="amount-hint">
       <p class="form__hint" id="amount-hint">Положительная сумма, до двух знаков после запятой.</p>
       <label class="form__label" for="debt-person">Кто</label>
-      <input class="form__input" id="debt-person" name="person" maxlength="120" placeholder="Имя человека" required>
+      <input class="form__input" id="debt-person" name="person" maxlength="120" placeholder="Выберите или введите имя" list="person-names" autocomplete="off" required aria-describedby="person-hint">
+      <datalist id="person-names"></datalist>
+      <p class="form__hint" id="person-hint">Начните вводить имя, чтобы выбрать из существующих, или введите новое.</p>
+      <label class="form__label" for="debt-note">Примечание</label>
+      <textarea class="form__input form__input--note" id="debt-note" name="note" maxlength="2000" rows="3" placeholder="Необязательно: детали долга, договорённости"></textarea>
       <p class="form__error" id="editor-error" role="alert" hidden></p>
       <div class="dialog__actions"><button class="button button--outline" type="button" data-close="editor">Отмена</button><button class="button button--primary" type="submit" id="save-debt">Добавить</button></div>
     </form>

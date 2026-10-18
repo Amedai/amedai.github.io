@@ -1,5 +1,5 @@
 import { config } from "./config.js";
-import { STORAGE_KEY, parseAmount, formatAmount, amountForInput, countLabel, validateRecord, parseBackup } from "./core.mjs";
+import { STORAGE_KEY, parseAmount, formatAmount, amountForInput, countLabel, validateRecord, parseBackup, sortRecords, existingNames, summarizePeople, personKey } from "./core.mjs";
 import { localRepository, cloudRepository } from "./storage.mjs";
 
 const $ = id => document.getElementById(id);
@@ -12,6 +12,8 @@ let editingId = null;
 let busy = false;
 let ready = false;
 let userId;
+let ownerId;
+let canEdit = !cloud;
 let generation = 0;
 let requestId = 0;
 
@@ -26,6 +28,7 @@ function readableError(error) {
   if (error?.message === "Invalid login credentials") return "Неверная почта или пароль.";
   if (error?.message === "Email not confirmed") return "Подтвердите почту перед входом.";
   if (error?.code === "PGRST205" || error?.code === "42P01") return "База ещё не настроена. Выполните supabase.sql по инструкции в README.";
+  if (error?.code === "42703" || error?.code === "PGRST204") return "Обновите базу: выполните новый supabase.sql, чтобы добавить примечания и права доступа.";
   if (error instanceof SyntaxError) return "Не удалось прочитать сохранённые записи. Они не перезаписаны. Проверьте данные браузера.";
   if (/fetch|network/i.test(error?.message || "")) return "Не удалось связаться с хранилищем. Проверьте интернет и попробуйте снова.";
   return error?.message || "Не удалось выполнить действие. Попробуйте ещё раз.";
@@ -35,7 +38,8 @@ function setBusy(value) {
   busy = value;
   document.querySelectorAll("button").forEach(button => { button.disabled = value; });
   document.querySelectorAll("button[data-action]").forEach(button => { button.disabled = value || !ready; });
-  ["add-debt", "add-first", "export", "import", "save-debt"].forEach(id => { $(id).disabled = value || !ready; });
+  ["add-debt", "add-first", "import", "migrate-local", "save-debt"].forEach(id => { $(id).disabled = value || !ready || !canEdit; });
+  $("export").disabled = value || !ready;
   $("ledger").setAttribute("aria-busy", String(value));
 }
 
@@ -63,7 +67,39 @@ function createAction(label, action, id, path) {
 }
 
 function render() {
-  const visible = records.filter(record => record.direction === direction);
+  const visible = sortRecords(records.filter(record => record.direction === direction), $("sort-order").value);
+  ["add-debt", "add-first", "import"].forEach(id => { $(id).hidden = !canEdit; });
+  $("migrate-local").hidden = !cloud || !canEdit;
+  $("actions-heading").hidden = !canEdit;
+  document.querySelector(".debt-table").classList.toggle("debt-table--readonly", !canEdit);
+  $("empty-description").textContent = !ready ? "Нажмите «Обновить», чтобы повторить загрузку." : canEdit ? "Добавьте первый долг — и он появится здесь." : "В этой вкладке пока нет записей.";
+  const names = existingNames(records).map(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    return option;
+  });
+  $("person-names").replaceChildren(...names);
+  const peopleFragment = document.createDocumentFragment();
+  for (const person of summarizePeople(records)) {
+    const row = document.createElement("tr");
+    const balance = person.me - person.i;
+    for (const value of [person.person, formatAmount(person.me), formatAmount(person.i)]) {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.append(cell);
+    }
+    const cell = document.createElement("td");
+    cell.className = balance < 0n ? "people__balance people__balance--outgoing" : "people__balance";
+    cell.textContent = formatAmount(balance < 0n ? -balance : balance);
+    const label = document.createElement("span");
+    label.className = "people__balance-label";
+    label.textContent = balance > 0n ? "мне должны" : balance < 0n ? "я должен" : "расчёт в ноль";
+    cell.append(label);
+    row.append(cell);
+    peopleFragment.append(row);
+  }
+  $("people-rows").replaceChildren(peopleFragment);
+  $("people").hidden = !records.length;
   const total = visible.reduce((sum, record) => sum + BigInt(record.amount_cents), 0n);
   $("total").textContent = formatAmount(total);
   $("total").classList.toggle("summary__amount--outgoing", direction === "i");
@@ -91,15 +127,23 @@ function render() {
       cell.className = className;
       row.append(cell);
     }
-    const actions = document.createElement("td");
-    const group = document.createElement("div");
-    group.className = "debt-table__actions";
-    group.append(
-      createAction(`Изменить: ${record.title}`, "edit", record.id, "m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5"),
-      createAction(`Удалить: ${record.title}`, "delete", record.id, "M3 6h18 M9 6V3h6v3 M5 6l1 15h12l1-15 M10 10v7 M14 10v7"),
-    );
-    actions.append(group);
-    row.append(actions);
+    if (record.note) {
+      const note = document.createElement("span");
+      note.className = "debt-table__note";
+      note.textContent = record.note;
+      row.firstElementChild.append(note);
+    }
+    if (canEdit) {
+      const actions = document.createElement("td");
+      const group = document.createElement("div");
+      group.className = "debt-table__actions";
+      group.append(
+        createAction(`Изменить: ${record.title}`, "edit", record.id, "m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5"),
+        createAction(`Удалить: ${record.title}`, "delete", record.id, "M3 6h18 M9 6V3h6v3 M5 6l1 15h12l1-15 M10 10v7 M14 10v7"),
+      );
+      actions.append(group);
+      row.append(actions);
+    }
     fragment.append(row);
   }
   $("debt-rows").replaceChildren(fragment);
@@ -133,7 +177,7 @@ async function perform(action) {
 }
 
 function openEditor(record) {
-  if (busy || !ready) return;
+  if (busy || !ready || !canEdit) return;
   editingId = record?.id || null;
   $("debt-form").reset();
   $("editor-error").hidden = true;
@@ -144,6 +188,7 @@ function openEditor(record) {
     $("debt-title").value = record.title;
     $("debt-amount").value = amountForInput(record.amount_cents);
     $("debt-person").value = record.person;
+    $("debt-note").value = record.note || "";
   }
   $("editor").showModal();
   $("debt-title").focus();
@@ -160,6 +205,12 @@ function confirmAction(title, description, label) {
 
 $("add-debt").addEventListener("click", () => openEditor());
 $("add-first").addEventListener("click", () => openEditor());
+$("sort-order").addEventListener("change", render);
+$("sign-in").addEventListener("click", () => {
+  $("login").hidden = !$("login").hidden;
+  $("sign-in").setAttribute("aria-expanded", String(!$("login").hidden));
+  if (!$("login").hidden) $("email").focus();
+});
 document.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => $(button.dataset.close).close()));
 [$("editor"), $("confirmation")].forEach(dialog => dialog.addEventListener("cancel", event => { if (busy) event.preventDefault(); }));
 document.querySelectorAll(".tabs__tab").forEach(tab => {
@@ -176,13 +227,15 @@ document.querySelectorAll(".tabs__tab").forEach(tab => {
 
 $("debt-form").addEventListener("submit", async event => {
   event.preventDefault();
-  if (busy || !ready) return;
+  if (busy || !ready || !canEdit) return;
   $("editor-error").hidden = true;
   let record;
   try {
     if (!editingId && records.length >= 10_000) throw new Error("В заметке может быть не больше 10 000 записей.");
     const previous = records.find(item => item.id === editingId);
-    record = validateRecord({ id: editingId || crypto.randomUUID(), direction, title: $("debt-title").value.trim(), amount_cents: parseAmount($("debt-amount").value), person: $("debt-person").value.trim(), created_at: previous?.created_at || new Date().toISOString() });
+    const name = $("debt-person").value.trim().replace(/\s+/g, " ");
+    const person = existingNames(records).find(value => personKey(value) === personKey(name)) || name;
+    record = validateRecord({ id: editingId || crypto.randomUUID(), direction, title: $("debt-title").value.trim(), amount_cents: parseAmount($("debt-amount").value), person, note: $("debt-note").value, created_at: previous?.created_at || new Date().toISOString() });
   } catch (error) {
     $("editor-error").textContent = !$("debt-title").value.trim() || !$("debt-person").value.trim() ? "Заполните название и имя человека." : readableError(error);
     $("editor-error").hidden = false;
@@ -202,13 +255,13 @@ $("debt-form").addEventListener("submit", async event => {
 
 $("debt-rows").addEventListener("click", async event => {
   const button = event.target.closest("button[data-action]");
-  if (!button || busy || !ready) return;
+  if (!button || busy || !ready || !canEdit) return;
   const record = records.find(item => item.id === button.dataset.id);
   if (!record) return;
   if (button.dataset.action === "edit") return openEditor(record);
   const currentGeneration = generation;
   if (await confirmAction("Удалить долг?", `«${record.title}» · ${formatAmount(record.amount_cents)} · ${record.person}. Запись будет удалена.`, "Удалить")) {
-    if (currentGeneration !== generation) return;
+    if (currentGeneration !== generation || !canEdit || !ready) return;
     await perform(async () => {
       await repository.remove(record.id);
       notice("Долг удалён.");
@@ -230,21 +283,37 @@ $("export").addEventListener("click", () => perform(async () => {
   anchor.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }));
-$("import").addEventListener("click", () => $("import-file").click());
+$("import").addEventListener("click", () => { if (canEdit && ready && !busy) $("import-file").click(); });
 $("import-file").addEventListener("change", async event => {
   const file = event.target.files[0];
   event.target.value = "";
-  if (!file || busy || !ready) return;
+  if (!file || busy || !ready || !canEdit) return;
   const currentGeneration = generation;
   try {
     if (file.size > 10 * 1024 * 1024) throw new Error("Копия слишком большая. Максимум — 10 МБ.");
     const imported = parseBackup(await file.text());
     if (!await confirmAction("Загрузить копию?", `${countLabel(imported.length)} в копии. Будут добавлены только записи с новыми идентификаторами. Существующие записи сохранятся.`, "Загрузить")) return;
-    if (currentGeneration !== generation) return;
+    if (currentGeneration !== generation || !canEdit || !ready) return;
     await perform(async () => {
       const added = await repository.import(imported);
       await refreshRecords();
       notice(`Добавлено записей: ${added}.`);
+    });
+  } catch (error) { notice(readableError(error), true); }
+});
+
+$("migrate-local").addEventListener("click", async () => {
+  if (!cloud || !canEdit || !ready || busy) return;
+  const currentGeneration = generation;
+  try {
+    const local = await localRepository(window.localStorage).list();
+    if (!local.length) return notice("В этом браузере нет локальных долгов. На старом устройстве скачайте копию и загрузите её здесь.");
+    if (!await confirmAction("Перенести долги в облако?", `${countLabel(local.length)} из этого браузера будут добавлены в общий список и станут видны всем по ссылке, включая примечания. Существующие записи и локальная копия сохранятся.`, "Перенести")) return;
+    if (currentGeneration !== generation || !canEdit || !ready) return;
+    await perform(async () => {
+      const added = await repository.import(local);
+      await refreshRecords();
+      notice(`Перенесено записей: ${added}. Локальная копия сохранена.`);
     });
   } catch (error) { notice(readableError(error), true); }
 });
@@ -274,26 +343,27 @@ async function useSession(session) {
   const nextUserId = session?.user?.id || null;
   if (userId === nextUserId) return;
   userId = nextUserId;
+  canEdit = userId === ownerId;
   generation++;
   records = [];
   ready = false;
-  repository = null;
+  repository = cloudRepository(client, ownerId);
   $("editor").close();
   $("confirmation").close("cancel");
-  $("login").hidden = Boolean(userId);
-  $("ledger").hidden = !userId;
+  $("login").hidden = true;
+  $("sign-in").hidden = Boolean(userId);
+  $("sign-in").setAttribute("aria-expanded", "false");
+  $("ledger").hidden = false;
   $("sign-out").hidden = !userId;
-  $("storage-status").textContent = userId ? "● Хранение в интернете" : "Вход в заметку";
+  $("storage-status").textContent = canEdit ? "● Вы владелец" : "● Только просмотр";
   notice("");
   render();
-  if (userId) {
-    repository = cloudRepository(client, userId);
-    const ownsBusy = !busy;
-    if (ownsBusy) setBusy(true);
-    try { await refreshRecords(); }
-    catch (error) { notice(readableError(error), true); }
-    finally { if (ownsBusy) setBusy(false); }
-  }
+  if (userId && !canEdit) notice("Этот аккаунт может только просматривать список. Для изменений войдите в аккаунт владельца.");
+  const ownsBusy = !busy;
+  if (ownsBusy) setBusy(true);
+  try { await refreshRecords(); }
+  catch (error) { notice(readableError(error), true); }
+  finally { if (ownsBusy) setBusy(false); }
 }
 
 async function initialize() {
@@ -316,7 +386,7 @@ async function initialize() {
       if (JSON.parse(atob(part)).role !== "anon") throw new Error();
     } catch { throw new Error("Укажите publishable key или старый anon key. Секретные ключи не поддерживаются."); }
   }
-  $("storage-hint").textContent = "Общий список на всех устройствах. Обновляется при возвращении на страницу.";
+  $("storage-hint").textContent = "Просмотр доступен всем по ссылке. Изменения — только владельцу. Список обновляется каждые 30 секунд.";
   $("refresh").hidden = false;
   await new Promise((resolve, reject) => {
     const script = document.createElement("script");
@@ -327,6 +397,10 @@ async function initialize() {
     document.head.append(script);
   });
   client = window.supabase.createClient(url.origin, config.supabaseKey);
+  const settings = await client.from("debt_settings").select("owner_id").eq("singleton", true).single();
+  if (settings.error) throw settings.error;
+  if (!settings.data?.owner_id) throw new Error("Не указан владелец списка. Выполните supabase.sql со своим UUID пользователя.");
+  ownerId = settings.data.owner_id;
   client.auth.onAuthStateChange((_event, session) => {
     // Обработчик Supabase должен завершиться до новых запросов к клиенту.
     setTimeout(() => useSession(session).catch(error => notice(readableError(error), true)), 0);
@@ -343,4 +417,7 @@ document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible" && repository && !busy && !$("editor").open && !$("confirmation").open) perform(refreshRecords);
 });
 window.addEventListener("online", () => { if (cloud && repository && !busy) perform(refreshRecords); });
+setInterval(() => {
+  if (cloud && document.visibilityState === "visible" && repository && !busy && !$("editor").open && !$("confirmation").open) perform(refreshRecords);
+}, 30_000);
 initialize().catch(error => { $("storage-status").textContent = "Ошибка подключения"; notice(readableError(error), true); });

@@ -33,7 +33,7 @@ export function localRepository(storage) {
 }
 
 export function cloudRepository(client, userId) {
-  const fields = "id,direction,title,person,amount_cents,created_at";
+  const fields = "id,direction,title,person,note,amount_cents,created_at";
   return {
     async list() {
       const records = [];

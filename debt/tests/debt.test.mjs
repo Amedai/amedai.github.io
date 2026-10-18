@@ -1,11 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { MAX_AMOUNT_CENTS, STORAGE_KEY, parseAmount, amountForInput, formatAmount, validateRecords, parseBackup, countLabel } from "../core.mjs";
+import { MAX_AMOUNT_CENTS, STORAGE_KEY, parseAmount, amountForInput, formatAmount, validateRecords, parseBackup, countLabel, sortRecords, existingNames, summarizePeople } from "../core.mjs";
 import { localRepository, cloudRepository } from "../storage.mjs";
 
 const firstId = "10000000-0000-4000-8000-000000000001";
 const secondId = "10000000-0000-4000-8000-000000000002";
-const record = (overrides = {}) => ({ id: firstId, direction: "me", title: "За ужин", amount_cents: 150050, person: "Алексей", created_at: "2026-10-17T10:00:00.000Z", ...overrides });
+const record = (overrides = {}) => ({ id: firstId, direction: "me", title: "За ужин", amount_cents: 150050, person: "Алексей", note: "", created_at: "2026-10-17T10:00:00.000Z", ...overrides });
 function memoryStorage(initial) {
   const values = new Map(initial === undefined ? [] : [[STORAGE_KEY, initial]]);
   return { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
@@ -45,6 +45,53 @@ test("некорректные копии и дубли не принимают�
 
 test("русские подписи количества", () => {
   for (const [n, text] of [[0, "Нет записей"], [1, "1 запись"], [2, "2 записи"], [11, "11 записей"], [21, "21 запись"], [112, "112 записей"]]) assert.equal(countLabel(n), text);
+});
+
+test("старые долги и копии без примечания читаются без потери записей", async () => {
+  const old = record();
+  delete old.note;
+  assert.deepEqual(parseBackup(JSON.stringify({ version: 1, records: [old] })), [record()]);
+  const repo = localRepository(memoryStorage(JSON.stringify([old])));
+  assert.deepEqual(await repo.list(), [record()]);
+});
+
+test("примечания сохраняются в хранилище, копиях и облачном запросе", async () => {
+  const item = record({ note: "Вернуть в пятницу\nЧасть за такси" });
+  const repo = localRepository(memoryStorage());
+  await repo.save(item);
+  assert.deepEqual(await repo.list(), [item]);
+  assert.deepEqual(parseBackup(JSON.stringify({ version: 1, records: [item] })), [item]);
+  const { client, calls } = fakeCloud([{ data: { id: firstId }, error: null }]);
+  await cloudRepository(client, "owner").save(item, true);
+  assert.equal(calls[0].data.note, item.note);
+  for (const note of [123, {}, "a".repeat(2001)]) assert.throws(() => validateRecords([record({ note })]));
+});
+
+test("сортировка по русским именам в обе стороны сохраняет исходный список", () => {
+  const input = [record({ person: "Яна" }), record({ id: secondId, person: "Алексей" }), record({ id: "10000000-0000-4000-8000-000000000003", person: "Борис" })];
+  assert.deepEqual(sortRecords(input, "name-asc").map(item => item.person), ["Алексей", "Борис", "Яна"]);
+  assert.deepEqual(sortRecords(input, "name-desc").map(item => item.person), ["Яна", "Борис", "Алексей"]);
+  assert.equal(input[0].person, "Яна");
+  assert.equal(sortRecords([input[0], record({ id: secondId, created_at: "2026-10-18T10:00:00Z" })], "newest")[0].id, secondId);
+});
+
+test("выбор имён объединяет регистр и пробелы из обеих вкладок", () => {
+  const input = [record({ person: "  Алексей  Иванов " }), record({ person: "алексей Иванов", direction: "i" }), record({ person: "Борис" })];
+  assert.deepEqual(existingNames(input), ["Алексей Иванов", "Борис"]);
+});
+
+test("сводка объединяет имена, считает обе стороны точно и не смешивает людей", () => {
+  const people = summarizePeople([
+    record({ person: "Алексей", amount_cents: 10 }),
+    record({ person: "алексей ", amount_cents: 20 }),
+    record({ person: "Алексей", direction: "i", amount_cents: 50 }),
+    record({ person: "Борис", amount_cents: MAX_AMOUNT_CENTS }),
+  ]);
+  assert.deepEqual(people[0], { person: "Алексей", me: 30n, i: 50n, count: 3 });
+  assert.equal(people[0].me - people[0].i, -20n);
+  assert.equal(people[1].me, BigInt(MAX_AMOUNT_CENTS));
+  assert.equal(summarizePeople(Array(10000).fill(record({ amount_cents: MAX_AMOUNT_CENTS })))[0].me, 9999999999990000n);
+  assert.deepEqual(summarizePeople([]), []);
 });
 
 test("локальный долг сохраняется после нового открытия, редактируется и удаляется", async () => {

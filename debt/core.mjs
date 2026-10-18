@@ -27,15 +27,17 @@ export function formatAmount(cents) {
 }
 
 export function validateRecord(record) {
+  const note = record?.note ?? "";
   if (!record || typeof record !== "object" || !uuidPattern.test(record.id) ||
       !["me", "i"].includes(record.direction) ||
       typeof record.title !== "string" || !record.title.trim() || record.title.length > 120 ||
       typeof record.person !== "string" || !record.person.trim() || record.person.length > 120 ||
+      typeof note !== "string" || note.length > 2000 ||
       !Number.isSafeInteger(record.amount_cents) || record.amount_cents <= 0 || record.amount_cents > MAX_AMOUNT_CENTS ||
       typeof record.created_at !== "string" || !Number.isFinite(Date.parse(record.created_at))) {
     throw new Error("В копии есть некорректная запись. Исходные данные не изменены.");
   }
-  return { id: record.id, direction: record.direction, title: record.title.trim(), person: record.person.trim(), amount_cents: record.amount_cents, created_at: record.created_at };
+  return { id: record.id, direction: record.direction, title: record.title.trim(), person: record.person.trim(), note: note.trim(), amount_cents: record.amount_cents, created_at: record.created_at };
 }
 
 export function validateRecords(records) {
@@ -52,8 +54,40 @@ export function parseBackup(text) {
   return validateRecords(backup.records);
 }
 
-export function sortRecords(records) {
-  return [...records].sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at) || a.id.localeCompare(b.id));
+export function personKey(person) {
+  return person.normalize("NFC").trim().replace(/\s+/g, " ").toLocaleLowerCase("ru-RU");
+}
+
+const nameCollator = new Intl.Collator("ru", { sensitivity: "base", numeric: true });
+
+export function existingNames(records) {
+  const names = new Map();
+  for (const record of records) {
+    const key = personKey(record.person);
+    if (!names.has(key)) names.set(key, record.person.trim().replace(/\s+/g, " "));
+  }
+  return [...names.values()].sort(nameCollator.compare);
+}
+
+export function summarizePeople(records) {
+  const people = new Map();
+  for (const record of records) {
+    const key = personKey(record.person);
+    if (!people.has(key)) people.set(key, { person: record.person.trim().replace(/\s+/g, " "), me: 0n, i: 0n, count: 0 });
+    const person = people.get(key);
+    person[record.direction] += BigInt(record.amount_cents);
+    person.count++;
+  }
+  return [...people.values()].sort((a, b) => nameCollator.compare(a.person, b.person));
+}
+
+export function sortRecords(records, order = "newest") {
+  return [...records].sort((a, b) => {
+    const byName = nameCollator.compare(personKey(a.person), personKey(b.person));
+    if (order === "name-asc" && byName) return byName;
+    if (order === "name-desc" && byName) return -byName;
+    return Date.parse(b.created_at) - Date.parse(a.created_at) || a.id.localeCompare(b.id);
+  });
 }
 
 export function countLabel(count) {
