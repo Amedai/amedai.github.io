@@ -1,4 +1,9 @@
-import { STORAGE_KEY, validateData, validateItem, validateProject, mergeData, transitionTimer } from "./core.mjs";
+import { STORAGE_KEY, validateData, validateItem, validateProject, mergeData, transitionTimer, createInvoice, invoiceFor } from "./core.mjs";
+
+function itemDetails(value) {
+  const { id, project_id, title, note } = validateItem(value);
+  return { id, project_id, title, note };
+}
 
 export function localRepository(storage) {
   const read = () => validateData(JSON.parse(storage.getItem(STORAGE_KEY) || '{"projects":[],"items":[]}'));
@@ -14,8 +19,20 @@ export function localRepository(storage) {
       if (data.items.some(i => i.project_id === id)) throw new Error("Сначала удалите или перенесите задачи проекта.");
       data.projects = data.projects.filter(p => p.id !== id); write(data);
     },
-    async saveItem(value) { const item = validateItem(value), data = read(); data.items = [...data.items.filter(i => i.id !== item.id), item]; write(data); },
-    async removeItem(id) { const data = read(); data.items = data.items.filter(i => i.id !== id); write(data); },
+    async saveItem(value) { const item = validateItem(value), data = read(); if (invoiceFor(data, item.id)) throw new Error("Задача уже включена в счёт и сохранена для истории."); data.items = [...data.items.filter(i => i.id !== item.id), item]; write(data); },
+    async updateItemDetails(value) {
+      const details = itemDetails(value), data = read();
+      if (invoiceFor(data, details.id)) throw new Error("Задача уже включена в счёт и сохранена для истории.");
+      if (!data.items.some(i => i.id === details.id)) throw new Error("Запись не найдена. Обновите список.");
+      data.items = data.items.map(i => i.id === details.id ? { ...i, ...details } : i); write(data);
+    },
+    async removeItem(id) { const data = read(); if (invoiceFor(data, id)) throw new Error("Задача уже включена в счёт и сохранена для истории."); data.items = data.items.filter(i => i.id !== id); write(data); },
+    async createInvoice(options) { const data = read(), invoice = createInvoice(data, options); data.invoices.push(invoice); write(data); return invoice.id; },
+    async payInvoice(id) {
+      const data = read(), invoice = data.invoices.find(i => i.id === id);
+      if (!invoice) throw new Error("Счёт не найден. Обновите список.");
+      invoice.paid_at ||= new Date().toISOString(); write(data);
+    },
     async timerAction(id, action, version) {
       const data = read(), item = data.items.find(i => i.id === id);
       if (!item || item.timer_version !== version) throw new Error("Таймер изменился в другой вкладке. Обновите список.");
@@ -47,16 +64,27 @@ export function cloudRepository(client, owner) {
   }
   return {
     async list() {
-      const [projects, items] = await Promise.all([
+      const [projects, items, invoices] = await Promise.all([
         listTable("worktime_projects", "id,name,created_at"),
         listTable("worktime_items", "id,project_id,title,note,kind,done,started_at,ended_at,created_at,timer_state,elapsed_ms,running_since,timer_version"),
+        listTable("worktime_invoices", "id,period_start,period_end,created_at,paid_at,items"),
       ]);
-      return validateData({ projects, items });
+      return validateData({ projects, items, invoices });
     },
     saveProject(value, existing) { return save("worktime_projects", validateProject(value), existing); },
     removeProject(id) { return remove("worktime_projects", id); },
     saveItem(value, existing) { return save("worktime_items", validateItem(value), existing); },
+    updateItemDetails(value) { return save("worktime_items", itemDetails(value), true); },
     removeItem(id) { return remove("worktime_items", id); },
+    async createInvoice({ id, start, end, project = "all" }) {
+      const { error } = await client.rpc("worktime_create_invoice", { invoice_id:id, date_start:start, date_end:end, selected_project:project === "all" ? null : project });
+      if (error) throw error;
+      return id;
+    },
+    async payInvoice(id) {
+      const { error } = await client.rpc("worktime_pay_invoice", { invoice_id:id });
+      if (error) throw error;
+    },
     async timerAction(id, action, version) {
       const { error } = await client.rpc("worktime_timer_action", { item_id:id, operation:action, expected_version:version });
       if (error) throw error;

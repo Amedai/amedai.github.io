@@ -1,9 +1,21 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { interval, validateData, validateItem, filterItems, parseBackup, mergeData, transitionTimer, workBill, elapsedMilliseconds, timerClock, localInput, moscowInputToISO } from "../core.mjs";
+import { interval, durationInterval, validateData, validateItem, filterItems, parseBackup, mergeData, transitionTimer, workBill, elapsedMilliseconds, timerClock, localInput, moscowInputToISO, createInvoice, invoiceCandidates, invoiceCSV, invoiceTotal } from "../core.mjs";
 import { localRepository, cloudRepository } from "../storage.mjs";
 const project = { id:"10000000-0000-4000-8000-000000000001", name:"Студия", created_at:"2026-10-18T09:00:00Z" };
 const item = { id:"20000000-0000-4000-8000-000000000001", project_id:project.id, title:"Шапка сайта", note:"", kind:"work", done:false, started_at:"2026-10-18T10:00:00Z", ended_at:"2026-10-18T10:25:00Z", created_at:project.created_at };
+test("Ввод длительности: полночь, границы оплаты и предел в семь дней", () => {
+  const start = "2026-09-30T23:50:00+03:00";
+  for (const [hours, minutes, amount] of [[0,9,0],[0,10,200],[1,25,1600],[168,0,201600]]) {
+    const result = durationInterval(start, String(hours), String(minutes));
+    assert.equal(workBill(result).amount, amount);
+    assert.equal(Date.parse(result.ended_at)-Date.parse(result.started_at),(hours*60+minutes)*60000);
+  }
+  assert.equal(localInput(durationInterval(start,"1","25").ended_at),"2026-10-01T01:15");
+  for (const [hours,minutes] of [[0,0],[-1,10],[1.5,0],[0,60],[168,1],[169,0],["",10],[0,""],["Infinity",0],["1e2",0],[null,10]]) {
+    assert.throws(()=>durationInterval(start,hours,minutes));
+  }
+});
 test("Оплата только полных десяток: границы, секунды и длительные интервалы", () => {
   const start = "2026-10-18T10:00:00Z";
   for (const [seconds, expected] of [[1,0],[599,0],[600,200],[1199,200],[1200,400],[1500,400],[3600,1200],[86400,28800]]) {
@@ -33,7 +45,7 @@ test("Планы без времени; неизвестные поля не с�
 test("Резервная копия проверяет ссылки, формат и повторяющиеся ID", () => {
   const backup = {format:"worktime",version:1,projects:[project],items:[item]};
   assert.equal(parseBackup(JSON.stringify(backup)).items.length,1);
-  assert.throws(() => parseBackup(JSON.stringify({...backup,version:3})));
+  assert.throws(() => parseBackup(JSON.stringify({...backup,version:4})));
   assert.throws(() => validateData({projects:[],items:[item]}),/отсутствует проект/);
   assert.throws(() => validateData({projects:[project,project],items:[]}),/повторяются/);
   assert.equal(mergeData(validateData(backup),backup).items.length,1);
@@ -67,7 +79,7 @@ test("Локальное сохранение, перенос проекта, и
   await repo.saveItem({...item,title:"Подвал сайта"});
   assert.equal((await repo.list()).items[0].title,"Подвал сайта");
   await repo.removeItem(item.id); await repo.removeProject(project.id);
-  assert.deepEqual(await repo.list(),{projects:[],items:[]});
+  assert.deepEqual(await repo.list(),{projects:[],items:[],invoices:[]});
 });
 test("Сбой хранилища не объявляется успешным сохранением", async () => {
   const repo=localRepository({getItem:()=>null,setItem:()=>{throw new Error("QuotaExceededError");}});
@@ -82,10 +94,38 @@ test("Облачный адаптер проверяет ошибки и не п
 });
 test("Облачное чтение обходит лимит страницы в 500 строк", async () => {
   let calls=0;
-  const client={from(table){const query={select(){return this;},eq(){return this;},order(){return this;},async range(start){calls++; return {data:table === "worktime_projects" ? [project] : start===0 ? Array.from({length:500},(_,n)=>({...item,id:`20000000-0000-4000-8000-${String(n).padStart(12,"0")}`})) : []};}};return query;}};
-  const result=await cloudRepository(client,project.id).list(); assert.equal(result.items.length,500); assert.equal(calls,3);
+  const client={from(table){const query={select(){return this;},eq(){return this;},order(){return this;},async range(start){calls++; return {data:table === "worktime_projects" ? [project] : table === "worktime_invoices" ? [] : start===0 ? Array.from({length:500},(_,n)=>({...item,id:`20000000-0000-4000-8000-${String(n).padStart(12,"0")}`})) : []};}};return query;}};
+  const result=await cloudRepository(client,project.id).list(); assert.equal(result.items.length,500); assert.equal(calls,4);
 });
 const timer = () => validateItem({...item,ended_at:null,timer_state:"running",elapsed_ms:0,running_since:item.started_at,timer_version:0});
+
+test("Счёт: период МСК включительно, отдельное округление, исключение активных и уже выставленных задач", () => {
+  const data = validateData({projects:[project], items:[item, {...item,id:"20000000-0000-4000-8000-000000000002",started_at:"2026-10-17T21:00:00Z",ended_at:"2026-10-17T21:09:00Z"}, {...timer(),id:"20000000-0000-4000-8000-000000000003"}]});
+  const invoice=createInvoice(data,{id:project.id,start:"2026-10-18",end:"2026-10-18"});
+  assert.equal(invoice.items.length,2);assert.equal(invoiceTotal(invoice),400);
+  assert.equal(invoiceCandidates({...data,invoices:[invoice]},"2026-10-18","2026-10-18").length,0);
+  assert.throws(()=>createInvoice(data,{id:project.id,start:"2026-10-19",end:"2026-10-18"}),/Конец/);
+  assert.throws(()=>createInvoice(data,{id:project.id,start:"2026-10-01",end:"2026-10-01"}),/завершённые/);
+  assert.throws(()=>validateData({...data,invoices:[invoice,{...invoice,id:item.id}]}),/дважды/);
+  assert.throws(()=>validateData({...data,items:data.items.map(i=>({...i,title:"Изменено"})),invoices:[invoice]}),/не совпадают/);
+});
+
+test("CSV содержит итог, экранирует текст и формулы, сохраняет русские названия", () => {
+  const invoice=createInvoice({projects:[project],items:[{...item,title:'=HYPERLINK("x")',note:'Детали; строка\nещё'}]}, {id:project.id,start:"2026-10-18",end:"2026-10-18"});
+  const csv=invoiceCSV(invoice);assert.ok(csv.startsWith("\uFEFF"));assert.match(csv,/'=HYPERLINK\(""x""\)/);assert.match(csv,/"ИТОГО";"";"";"25";"400"/);assert.match(csv,/Студия/);
+});
+
+test("Локальные счета: снимок, оплата, перезагрузка и резервная копия", async () => {
+  const values=new Map(), storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)}, repo=localRepository(storage);
+  await repo.saveProject(project);await repo.saveItem(item);
+  await repo.createInvoice({id:project.id,start:"2026-10-18",end:"2026-10-18"});
+  await assert.rejects(repo.removeItem(item.id),/включена/);await assert.rejects(repo.saveItem({...item,title:"Новая цена"}),/включена/);
+  await assert.rejects(repo.updateItemDetails({...item,title:"Изменить"}),/включена/);
+  await repo.payInvoice(project.id);const paid=(await repo.list()).invoices[0].paid_at;await repo.payInvoice(project.id);
+  const saved=await localRepository(storage).list();assert.equal(saved.invoices[0].paid_at,paid);assert.equal(saved.items.length,1);
+  assert.deepEqual(parseBackup(JSON.stringify({format:"worktime",version:3,...saved})),saved);
+  assert.deepEqual(mergeData(saved,saved),saved);
+});
 test("Таймер: работа, длинная пауза, продолжение и завершение; округление общей активности", () => {
   const start=Date.parse(item.started_at);
   const paused=transitionTimer(timer(),"pause",start+6*60000);
@@ -132,4 +172,35 @@ test("Локальный таймер: состояние сохраняется
   await assert.rejects(repo.timerAction(item.id,"resume",0),/другой вкладке/);
   await reloaded.timerAction(item.id,"finish",1);
   assert.equal((await repo.list()).items[0].timer_state,"finished");
+});
+
+test("Переименование из устаревшей формы сохраняет последние паузу, продолжение и завершение", async () => {
+  const values=new Map(), storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
+  const repo=localRepository(storage), snapshot=timer();
+  await repo.saveProject(project);await repo.saveItem(snapshot);
+  for (const operation of ["pause","resume","finish"]) {
+    const current=(await repo.list()).items[0];
+    await repo.timerAction(item.id,operation,current.timer_version);
+    const latest=(await repo.list()).items[0];
+    await repo.updateItemDetails({...snapshot,title:`Название после ${operation}`,note:"Исправлено"});
+    assert.deepEqual((await repo.list()).items[0],{...latest,title:`Название после ${operation}`,note:"Исправлено"});
+  }
+  await assert.rejects(repo.updateItemDetails({...snapshot,title:" "}),/название/);
+  await repo.removeItem(item.id);
+  await assert.rejects(repo.updateItemDetails(snapshot),/не найдена/);
+  assert.equal((await repo.list()).items.length,0);
+});
+
+test("Облачное переименование обновляет только детали задачи с фильтром владельца", async () => {
+  const snapshot=timer(), calls=[];
+  const latest=transitionTimer(snapshot,"pause",Date.parse(item.started_at)+25*60000);
+  const client={from(table){
+    assert.equal(table,"worktime_items");
+    return {update(row){calls.push(row);return this;},eq(key,value){calls.push([key,value]);return this;},select(){return this;},async single(){return {data:{id:snapshot.id}};}};
+  }};
+  await cloudRepository(client,project.id).updateItemDetails({...snapshot,title:"Исправлено",note:"Детали"});
+  assert.deepEqual(calls,[{id:snapshot.id,project_id:project.id,title:"Исправлено",note:"Детали"},["id",snapshot.id],["user_id",project.id]]);
+  assert.deepEqual({...latest,...calls[0]},{...latest,title:"Исправлено",note:"Детали"});
+  const failed=cloudRepository({from(){return {update(){return this;},eq(){return this;},select(){return this;},async single(){return {error:new Error("network unavailable")};}};}},project.id);
+  await assert.rejects(failed.updateItemDetails(snapshot),/network/);
 });

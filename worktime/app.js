@@ -1,5 +1,5 @@
 import { config } from "./config.js";
-import { interval, money, duration, localInput, moscowInputToISO, TIME_ZONE, filterItems, parseBackup, activeTimer, workBill, timerClock } from "./core.mjs";
+import { interval, durationInterval, money, duration, localInput, moscowInputToISO, TIME_ZONE, filterItems, parseBackup, activeTimer, workBill, timerClock, invoiceFor, invoiceCandidates, invoiceTotal, invoiceCSV } from "./core.mjs";
 import { localRepository, cloudRepository } from "./storage.mjs";
 
 const $ = id => document.getElementById(id);
@@ -8,6 +8,8 @@ let data = { projects: [], items: [] }, project = "all", kind = "work";
 let repository, client, owner, canEdit = false, ready = false, busy = false;
 let editingItem = null, editorKind = "work", editingProject = null, revision = 0;
 let editorTimer = false;
+let editorDuration = false;
+let invoiceProject = "all";
 let confirmAction = null;
 const dateFormat = new Intl.DateTimeFormat("ru-RU", { timeZone: TIME_ZONE, day: "numeric", month: "short" });
 const clockFormat = new Intl.DateTimeFormat("ru-RU", { timeZone: TIME_ZONE, hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
@@ -39,6 +41,9 @@ function setBusy(value) {
     $("export").disabled = !ready;
     $("login").disabled = !client || !owner;
     $("add-item").disabled = !ready || (kind === "work" && data.items.some(activeTimer));
+    $("add-completed").disabled = !ready;
+    $("new-invoice").disabled = !ready;
+    if ($("invoice-dialog").open) updateInvoicePreview(false);
   }
 }
 async function perform(task, errorId) {
@@ -52,7 +57,9 @@ async function perform(task, errorId) {
 }
 function render() {
   const editable = ready && canEdit;
-  for (const id of ["add-project", "manage-projects", "add-item", "import", "actions-heading"]) $(id).hidden = !editable;
+  for (const id of ["add-project", "manage-projects", "add-item", "import", "actions-heading", "new-invoice"]) $(id).hidden = !editable;
+  $("add-item").hidden = !editable || !["work", "plan"].includes(kind);
+  $("add-completed").hidden = !editable || kind !== "work";
   $("login").hidden = demo || canEdit;
   $("logout").hidden = demo || !canEdit;
   $("access-label").textContent = demo ? "Локальное демо · без синхронизации" : canEdit ? "Вы вошли как владелец" : "Просмотр · изменения только владельцу";
@@ -63,12 +70,13 @@ function render() {
     const button = action(p.name, "", () => { project = p.id; render(); }, "projects__button");
     button.classList.toggle("projects__button--active", p.id === project);
     button.setAttribute("aria-current", p.id === project ? "true" : "false");
-    button.append(make("span", "projects__symbol", index === 0 ? "▦" : p.name.slice(0,1).toUpperCase()), make("span", "projects__name", p.name), make("span", "projects__count", String(data.items.filter(i => p.id === "all" || i.project_id === p.id).length)));
+    button.append(make("span", "projects__symbol", index === 0 ? "▦" : p.name.slice(0,1).toUpperCase()), make("span", "projects__name", p.name), make("span", "projects__count", String(data.items.filter(i => (p.id === "all" || i.project_id === p.id) && !invoiceFor(data, i.id)?.paid_at).length)));
     return button;
   });
   $("projects").replaceChildren(...links);
   const month = $("month").value;
-  const work = filterItems(data.items, { project, month });
+  const currentItems = data.items.filter(i => !invoiceFor(data, i.id)?.paid_at);
+  const work = filterItems(currentItems, { project, month });
   const plans = filterItems(data.items, { project, kind: "plan" });
   const sum = work.filter(i => !activeTimer(i)).reduce((acc,i) => { const bill = workBill(i); acc.amount += bill.amount; acc.minutes += bill.minutes; acc.free += bill.freeMinutes; return acc; }, { amount:0, minutes:0, free:0 });
   $("total").textContent = ready ? money(sum.amount) : "—";
@@ -77,7 +85,10 @@ function render() {
   $("plan-total").textContent = ready ? String(plans.filter(i => !i.done).length).padStart(2,"0") : "—";
   $("count-work").textContent = String(work.length);
   $("count-plan").textContent = String(plans.filter(i => !i.done).length);
-  for (const tab of ["work", "plan"]) { $("tab-" + tab).classList.toggle("tabs__button--active", tab === kind); $("tab-" + tab).setAttribute("aria-pressed", String(tab === kind)); }
+  for (const tab of ["work", "plan", "invoices", "history"]) { $("tab-" + tab).classList.toggle("tabs__button--active", tab === kind); $("tab-" + tab).setAttribute("aria-pressed", String(tab === kind)); }
+  $("journal-content").hidden = !["work", "plan"].includes(kind);
+  $("invoice-list").hidden = ["work", "plan"].includes(kind);
+  renderInvoices();
   $("period-label").hidden = kind === "plan"; $("plan-hint").hidden = kind === "work";
   $("add-item").textContent = kind === "work" ? "▶ Начать работу" : "＋ Добавить задачу";
   $("table-caption").textContent = kind === "work" ? "Журнал работы" : "Запланированные задачи";
@@ -85,13 +96,15 @@ function render() {
   $("duration-heading").textContent = kind === "work" ? "Время" : "Статус";
   $("amount-heading").hidden = kind === "plan";
   $("billing-note").textContent = kind === "work" ? "Каждые полные 10 минут = 200 ₽" : "Запишите время, когда задача будет сделана";
-  const visible = filterItems(data.items, { project, month, kind, search: $("search").value });
+  const visible = filterItems(currentItems, { project, month, kind, search: $("search").value });
   const rows = visible.map(item => {
     const row = make("tr");
     const task = make("td");
     task.append(make("div", `journal__title${item.done ? " journal__done" : ""}`, item.title));
     if (item.note) task.append(make("span", "journal__note", item.note));
     const meta = make("div", "journal__meta"); meta.append(make("span", "journal__project", data.projects.find(p => p.id === item.project_id)?.name || "Проект")); task.append(meta); row.append(task);
+    const invoice = invoiceFor(data, item.id);
+    if (invoice) meta.append(make("span", "", "В счёте · ожидает оплаты"));
     const date = make("td", "journal__date");
     if (item.kind === "work") {
       const start = new Date(item.started_at), end = item.ended_at ? new Date(item.ended_at) : null;
@@ -112,7 +125,8 @@ function render() {
         group.append(action(item.done ? "Вернуть в планы" : "Отметить выполненной", item.done ? "↶" : "✓", () => mutate(() => repository.saveItem({ ...item, done: !item.done }, true), "Статус задачи сохранён.")));
         group.append(action("Запустить таймер по задаче", "▶", () => openEditor(item, true)));
       }
-      if (!activeTimer(item)) group.append(action("Изменить задачу", "✎", () => openEditor(item)), action("Удалить задачу", "×", () => confirmDelete(`Удалить «${item.title}»? Восстановить её можно будет только из копии.`, () => mutate(() => repository.removeItem(item.id), "Задача удалена."))));
+      if (!invoice) group.append(action("Изменить задачу", "✎", () => openEditor(item)));
+      if (!invoice && !activeTimer(item)) group.append(action("Удалить задачу", "×", () => confirmDelete(`Удалить «${item.title}»? Восстановить её можно будет только из копии.`, () => mutate(() => repository.removeItem(item.id), "Задача удалена."))));
       cell.append(group); row.append(cell);
     }
     return row;
@@ -128,6 +142,78 @@ function render() {
   renderTimer();
   if (!busy) setBusy(false);
 }
+function invoiceTable(invoice) {
+  const table = make("table", "journal__table invoice-table"), head = make("thead"), heading = make("tr"), body = make("tbody"), foot = make("tfoot"), total = make("tr");
+  const caption = make("caption", "visually-hidden", "Задачи и стоимость счёта");
+  for (const label of ["Задача / проект", "Дата · МСК", "Время", "Стоимость"]) heading.append(make("th", "", label));
+  head.append(heading);
+  for (const item of invoice.items) {
+    const row = make("tr"), title = make("td");
+    title.append(make("div", "journal__title", item.title), make("span", "journal__secondary", item.project_name));
+    if (item.note) title.append(make("span", "journal__note", item.note));
+    row.append(title, make("td", "journal__date", localInput(item.started_at).slice(0,10)), make("td", "", duration(workBill(item).minutes)), make("td", "journal__amount", money(workBill(item).amount)));
+    body.append(row);
+  }
+  total.append(make("th", "", "ИТОГО"), make("td"), make("td", "", duration(invoice.items.reduce((sum,i) => sum + workBill(i).minutes,0))), make("td", "journal__amount", money(invoiceTotal(invoice))));
+  foot.append(total); table.append(caption, head, body, foot); return table;
+}
+function renderInvoices() {
+  const invoices = (data.invoices ?? []).filter(i => (kind === "history" ? Boolean(i.paid_at) : !i.paid_at) && (project === "all" || i.items.some(task => task.project_id === project)))
+    .sort((a,b) => (b.paid_at || b.created_at).localeCompare(a.paid_at || a.created_at));
+  $("count-invoices").textContent = String((data.invoices ?? []).filter(i => !i.paid_at && (project === "all" || i.items.some(task => task.project_id === project))).length);
+  const cards = invoices.map(invoice => {
+    const card = make("article", "invoice-card"), top = make("div", "invoice-card__top"), info = make("div"), controls = make("div", "invoice-card__actions");
+    info.append(make("h2", "", `Счёт · ${invoice.period_start} — ${invoice.period_end}`), make("p", "", invoice.paid_at ? `Оплачен ${localInput(invoice.paid_at).replace("T", " ")} МСК` : "Ожидает оплаты"));
+    top.append(info, make("strong", "invoice-card__total", money(invoiceTotal(invoice))));
+    controls.append(action("Скачать таблицу счёта", "Скачать таблицу ↓", () => downloadInvoice(invoice), "button button--outline"));
+    if (canEdit && !invoice.paid_at) controls.append(action("Отметить счёт оплаченным", "✓ Оплачен", () => {
+      confirmDelete(`Подтвердить оплату ${money(invoiceTotal(invoice))} за ${invoice.period_start} — ${invoice.period_end}? Задачи этого счёта перейдут в историю.`, async () => {
+        await mutate(() => repository.payInvoice(invoice.id), "Оплата сохранена. Задачи и счёт перенесены в историю.");
+      }, "Подтвердить оплату?", "Да, оплачен" );
+    }, "button button--primary"));
+    const details = make("details"), summary = make("summary", "", `Задачи: ${invoice.items.length} · посмотреть состав`), wrap = make("div", "journal__table-wrap");
+    wrap.append(invoiceTable(invoice)); details.append(summary, wrap); card.append(top, controls, details); return card;
+  });
+  if (!cards.length) {
+    const empty = make("div", "empty");
+    empty.append(make("h2", "", kind === "history" ? "Оплаченные счета появятся здесь" : "Пока нет счетов к оплате"), make("p", "", kind === "history" ? "История хранит задачи, суммы и даты оплаты." : "Нажмите «Составить счёт» и выберите период работы.")); cards.push(empty);
+  }
+  $("invoice-list").replaceChildren(...cards);
+}
+function downloadInvoice(invoice) {
+  const url = URL.createObjectURL(new Blob([invoiceCSV(invoice)], { type:"text/csv;charset=utf-8" })), link = document.createElement("a");
+  link.href = url; link.download = `worktime-${invoice.period_start}-${invoice.period_end}-${invoice.id.slice(0,8)}.csv`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function updateInvoicePreview(clearError = true) {
+  try {
+    const items = invoiceCandidates(data, $("invoice-start").value, $("invoice-end").value, invoiceProject).map(i => ({ ...i, project_name:data.projects.find(p => p.id === i.project_id)?.name }));
+    $("invoice-preview").replaceChildren(items.length ? invoiceTable({ items }) : make("p", "form__description", "За этот период нет завершённых задач для нового счёта."));
+    $("invoice-submit").disabled = busy || !items.length;
+    if (clearError) $("invoice-error").hidden = true;
+  } catch (error) {
+    $("invoice-preview").replaceChildren(); $("invoice-submit").disabled = true;
+    $("invoice-error").textContent = errorText(error); $("invoice-error").hidden = false;
+  }
+}
+$("new-invoice").addEventListener("click", () => {
+  if (!canEdit || !ready || busy) return;
+  invoiceProject = project;
+  $("invoice-scope").textContent = project === "all" ? "Все проекты · последние 14 дней по умолчанию" : `${data.projects.find(p => p.id === project)?.name} · последние 14 дней по умолчанию`;
+  $("invoice-end").value = localInput().slice(0,10); $("invoice-start").value = localInput(Date.now() - 13 * 86400000).slice(0,10);
+  updateInvoicePreview(); $("invoice-dialog").showModal();
+});
+for (const id of ["invoice-start", "invoice-end"]) $(id).addEventListener("input", updateInvoicePreview);
+$("invoice-form").addEventListener("submit", event => {
+  event.preventDefault();
+  perform(async () => {
+    requireEdit();
+    const id = crypto.randomUUID();
+    await repository.createInvoice({ id, start:$("invoice-start").value, end:$("invoice-end").value, project:invoiceProject });
+    $("invoice-dialog").close(); kind = "invoices";
+    try { await refresh(); notice("Счёт создан. Скачайте таблицу и отправьте её заказчику. После оплаты нажмите «Оплачен»."); }
+    catch (error) { notice(`Счёт сохранён. Не удалось обновить список: ${errorText(error)}`, true); }
+  }, "invoice-error");
+});
 function renderTimer() {
   const task = data.items.find(activeTimer);
   $("timer").hidden = !task;
@@ -168,28 +254,35 @@ async function mutate(operation, message) {
     catch (error) { notice(`Изменение сохранено, но обновить список не удалось. ${errorText(error)}`, true); }
   });
 }
-function openEditor(item = null, startTimer = false) {
+function openEditor(item = null, startTimer = false, completed = false) {
   if (!canEdit || !ready || busy) return;
-  const timer = startTimer || (!item && kind === "work");
+  const timer = startTimer || (!item && kind === "work" && !completed);
+  const timedItem = Boolean(item?.timer_state && item.timer_state !== "manual" && !timer);
   if (timer && data.items.some(activeTimer)) { notice("Сначала завершите текущий таймер. Одновременно можно вести одну задачу.", true); return; }
   if (!data.projects.length) return openProject();
   editingItem = item;
   editorTimer = timer;
-  editorKind = timer ? "work" : item?.kind || kind;
+  editorDuration = completed;
+  editorKind = timer || completed ? "work" : item?.kind || kind;
   $("item-form").reset(); $("item-error").hidden = true;
   $("editor-title").textContent = editorKind === "plan" ? item ? "Изменить задачу" : "Новая задача" : "Изменить запись";
   if (timer) $("editor-title").textContent = "Запустить таймер";
+  if (completed) $("editor-title").textContent = "Добавить выполненную задачу";
   $("item-project").replaceChildren(...data.projects.map(p => { const option = make("option", "", p.name); option.value = p.id; return option; }));
   $("item-project").value = item?.project_id || (project !== "all" ? project : data.projects[0].id);
   $("item-title").value = item?.title || ""; $("item-note").value = item?.note || "";
   $("time-fields").hidden = editorKind !== "work"; $("calculation").hidden = timer || editorKind !== "work";
-  $("end-label").hidden = timer || item?.timer_state === "finished";
-  $("timer-editor-note").hidden = !timer && item?.timer_state !== "finished";
+  $("end-label").hidden = timer || timedItem || completed;
+  $("duration-fields").hidden = !completed;
+  for (const id of ["spent-hours", "spent-minutes"]) { $(id).disabled = !completed; $(id).required = completed; }
+  $("spent-hours").value = "0"; $("spent-minutes").value = "30";
+  $("timer-editor-note").hidden = !timer && !timedItem;
   $("timer-editor-note").textContent = timer ? "Укажите, когда начали работу, и нажмите «Пуск». Перерывы исключаются кнопкой «Пауза»." : "Активное время рассчитано таймером без пауз. Здесь можно изменить название, проект и примечание.";
   $("item-submit").textContent = timer ? "▶ Пуск" : "Сохранить";
-  for (const id of ["start", "start-date"]) $(id).required = editorKind === "work";
-  for (const id of ["end", "end-date"]) $(id).required = editorKind === "work" && !timer && item?.timer_state !== "finished";
-  for (const id of ["start", "start-date", "end", "end-date"]) $(id).disabled = item?.timer_state === "finished";
+  for (const id of ["start", "start-date"]) $(id).required = editorKind === "work" && !timedItem;
+  for (const id of ["end", "end-date"]) $(id).required = editorKind === "work" && !timer && !timedItem && !completed;
+  for (const id of ["start", "start-date", "end", "end-date"]) $(id).disabled = timedItem;
+  if (completed) for (const id of ["end", "end-date"]) $(id).disabled = true;
   setEditorTime("start", item?.started_at || (timer ? Date.now() : Date.now() - 30 * 60000));
   setEditorTime("end", item?.ended_at || new Date());
   updateCalculation(); $("editor").showModal(); $("item-title").focus();
@@ -199,12 +292,15 @@ function setEditorTime(id, value) {
   $(id + "-date").value = date; $(id).value = time;
 }
 function editorTime(id) { return moscowInputToISO(`${$(id + "-date").value}T${$(id).value}`); }
+function completedInterval() { return durationInterval(editorTime("start"), $("spent-hours").value, $("spent-minutes").value); }
 function updateCalculation() {
   try {
-    const bill = editingItem?.timer_state === "finished" && !editorTimer ? workBill(editingItem) : interval(editorTime("start"), editorTime("end"));
+    const timedItem = editingItem?.timer_state && editingItem.timer_state !== "manual" && !editorTimer;
+    const completed = editorDuration ? completedInterval() : null;
+    const bill = timedItem ? workBill(editingItem) : interval(completed?.started_at || editorTime("start"), completed?.ended_at || editorTime("end"));
     $("calc-time").textContent = duration(bill.minutes); $("calc-amount").textContent = money(bill.amount);
-    $("calc-note").textContent = `${bill.blocks} × 200 ₽${bill.freeMinutes ? ` · ${bill.freeMinutes} мин без оплаты` : ""}. ${editingItem?.timer_state === "finished" ? "Общее активное время без пауз." : "Каждый интервал рассчитывается отдельно."}`;
-  } catch { $("calc-time").textContent = "Проверьте начало и окончание"; $("calc-amount").textContent = "—"; $("calc-note").textContent = "Окончание должно быть позже начала. После полуночи выберите следующий день."; }
+    $("calc-note").textContent = `${bill.blocks} × 200 ₽${bill.freeMinutes ? ` · ${bill.freeMinutes} мин без оплаты` : ""}. ${timedItem ? "Общее активное время без пауз." : "Каждый интервал рассчитывается отдельно."}`;
+  } catch (error) { $("calc-time").textContent = editorDuration ? "Проверьте потраченное время" : "Проверьте начало и окончание"; $("calc-amount").textContent = "—"; $("calc-note").textContent = editorDuration ? error.message : "Окончание должно быть позже начала. После полуночи выберите следующий день."; }
 }
 function projectList() {
   $("project-list").replaceChildren(...data.projects.map(p => {
@@ -219,31 +315,41 @@ function openProject() {
   editingProject = null; $("project-form").reset(); $("project-error").hidden = true; $("project-title").textContent = "Новый проект";
   projectList(); $("project-dialog").showModal(); $("project-name").focus();
 }
-function confirmDelete(message, handler) { confirmAction = handler; $("confirm-text").textContent = message; $("confirm-dialog").returnValue = "cancel"; $("confirm-dialog").showModal(); }
+function confirmDelete(message, handler, title = "Удалить запись?", label = "Удалить") {
+  confirmAction = handler; $("confirm-title").textContent = title; $("confirm-text").textContent = message;
+  const button = $("confirm-dialog").querySelector('[value="delete"]');
+  button.textContent = label; button.className = title === "Удалить запись?" ? "button button--danger" : "button button--primary";
+  $("confirm-dialog").returnValue = "cancel"; $("confirm-dialog").showModal();
+}
 $("confirm-dialog").addEventListener("close", () => { const handler = confirmAction; confirmAction = null; if ($("confirm-dialog").returnValue === "delete") handler?.(); });
 document.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => { if (!busy) $(button.dataset.close).close(); }));
 document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("cancel", event => { if (busy) event.preventDefault(); }));
 $("add-project").addEventListener("click", openProject); $("manage-projects").addEventListener("click", openProject);
 $("add-item").addEventListener("click", () => openEditor()); $("add-first").addEventListener("click", () => openEditor());
+$("add-completed").addEventListener("click", () => openEditor(null, false, true));
 $("timer-toggle").addEventListener("click", () => controlTimer(data.items.find(activeTimer)?.timer_state === "paused" ? "resume" : "pause"));
 $("timer-finish").addEventListener("click", () => controlTimer("finish"));
-for (const id of ["start", "start-date", "end", "end-date"]) $(id).addEventListener("input", updateCalculation);
+$("timer-edit").addEventListener("click", () => { const task = data.items.find(activeTimer); if (task) openEditor(task); });
+for (const id of ["start", "start-date", "end", "end-date", "spent-hours", "spent-minutes"]) $(id).addEventListener("input", updateCalculation);
 $("search").addEventListener("input", render); $("month").addEventListener("change", render);
 $("all-time").addEventListener("click", () => { $("month").value = ""; render(); });
-for (const tab of ["work", "plan"]) $("tab-" + tab).addEventListener("click", () => { kind = tab; render(); });
+for (const tab of ["work", "plan", "invoices", "history"]) $("tab-" + tab).addEventListener("click", () => { kind = tab; render(); });
 $("refresh").addEventListener("click", () => perform(async () => { if (!repository) await setupCloud(); await refresh(); notice("Данные обновлены."); }));
 $("item-form").addEventListener("submit", event => {
   event.preventDefault(); $("item-error").hidden = true;
   perform(async () => {
     requireEdit();
-    const finishedTimer = editingItem?.timer_state === "finished" && !editorTimer;
-    const item = { ...editingItem, id: editingItem?.id || crypto.randomUUID(), project_id: $("item-project").value, title: $("item-title").value.trim(), note: $("item-note").value.trim(), kind: editorKind, done: editorKind === "plan" ? editingItem?.done || false : false, started_at: finishedTimer ? editingItem.started_at : editorKind === "work" ? editorTime("start") : null, ended_at: finishedTimer ? editingItem.ended_at : editorKind === "work" && !editorTimer ? editorTime("end") : null, created_at: editingItem?.created_at || new Date().toISOString() };
+    const timedItem = editingItem?.timer_state && editingItem.timer_state !== "manual" && !editorTimer;
+    const completed = editorDuration ? completedInterval() : null;
+    const item = { ...editingItem, id: editingItem?.id || crypto.randomUUID(), project_id: $("item-project").value, title: $("item-title").value.trim(), note: $("item-note").value.trim(), kind: editorKind, done: editorKind === "plan" ? editingItem?.done || false : false, started_at: timedItem ? editingItem.started_at : editorKind === "work" ? editorTime("start") : null, ended_at: timedItem ? editingItem.ended_at : completed ? completed.ended_at : editorKind === "work" && !editorTimer ? editorTime("end") : null, created_at: editingItem?.created_at || new Date().toISOString() };
     if (editorTimer) {
       if (Date.parse(item.started_at) > Date.now()) throw new Error("Начало таймера не может быть в будущем.");
       if (data.items.some(activeTimer)) throw new Error("Сначала завершите текущий таймер.");
       Object.assign(item, { timer_state:"running", elapsed_ms:0, running_since:item.started_at, timer_version:0 });
     }
-    await repository.saveItem(item, Boolean(editingItem)); $("editor").close();
+    if (timedItem) await repository.updateItemDetails(item);
+    else await repository.saveItem(item, Boolean(editingItem));
+    $("editor").close();
     if (editorTimer || (editingItem?.kind === "plan" && editorKind === "work")) kind = "work";
     try { await refresh(); notice(editorTimer ? "Таймер запущен. Перерывы отмечайте кнопкой «Пауза»." : "Задача сохранена."); }
     catch (error) { notice(`Задача сохранена. Не удалось обновить список: ${errorText(error)}`, true); }
@@ -276,7 +382,7 @@ $("logout").addEventListener("click", () => perform(async () => {
 }));
 $("export").addEventListener("click", () => {
   if (!ready) return;
-  const blob = new Blob([JSON.stringify({ format:"worktime", version:2, exported_at:new Date().toISOString(), ...data }, null, 2)], { type:"application/json" });
+  const blob = new Blob([JSON.stringify({ format:"worktime", version:3, exported_at:new Date().toISOString(), ...data }, null, 2)], { type:"application/json" });
   const url = URL.createObjectURL(blob), link = document.createElement("a"); link.href = url; link.download = `worktime-backup-${localInput().slice(0,10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 $("import").addEventListener("click", () => $("import-file").click());

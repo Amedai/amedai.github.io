@@ -22,6 +22,16 @@ export function interval(start, end) {
   if (to - from > 7 * 86400000) throw new Error("Один интервал не может быть длиннее 7 дней.");
   return billMilliseconds(to - from);
 }
+export function durationInterval(start, hours, minutes) {
+  if (![hours, minutes].every(value => /^\d+$/.test(String(value)))
+    || !Number.isSafeInteger(Number(hours)) || !Number.isSafeInteger(Number(minutes))
+    || Number(minutes) > 59) throw new Error("Укажите целые часы и минуты от 0 до 59.");
+  const total = Number(hours) * 60 + Number(minutes);
+  if (total <= 0) throw new Error("Потраченное время должно быть больше нуля.");
+  if (total > 7 * 24 * 60) throw new Error("Одна запись не может быть длиннее 168 часов (7 дней). Разделите работу на несколько записей.");
+  const started_at = timestamp(start);
+  return { started_at, ended_at: new Date(Date.parse(started_at) + total * 60000).toISOString() };
+}
 function billMilliseconds(milliseconds) {
   const minutes = Math.floor(milliseconds / 60000);
   const blocks = Math.floor(milliseconds / 600000);
@@ -83,18 +93,66 @@ export function validateData(value) {
   if (projectIds.size !== projects.length || new Set(items.map(i => i.id)).size !== items.length) throw new Error("Идентификаторы в копии повторяются.");
   if (items.some(i => !projectIds.has(i.project_id))) throw new Error("В копии отсутствует проект одной из задач.");
   if (items.filter(activeTimer).length > 1) throw new Error("Одновременно можно вести только один таймер. Завершите текущую задачу.");
-  return { projects, items };
+  const invoices = (value.invoices ?? []).map(validateInvoice);
+  if (invoices.length > MAX || new Set(invoices.map(i => i.id)).size !== invoices.length) throw new Error("Некорректный список счетов.");
+  const billed = invoices.flatMap(i => i.items.map(task => task.id));
+  if (new Set(billed).size !== billed.length || billed.some(taskId => !items.some(i => i.id === taskId))) throw new Error("Задача счёта отсутствует или включена дважды.");
+  const byId = new Map(items.map(i => [i.id, i]));
+  if (invoices.some(invoice => invoice.items.some(task => JSON.stringify(validateItem(task)) !== JSON.stringify(byId.get(task.id))))) throw new Error("Задачи не совпадают с сохранённым счётом.");
+  return { projects, items, invoices };
 }
 export function parseBackup(raw) {
   const value = JSON.parse(raw);
-  if (value.format !== "worktime" || ![1, 2].includes(value.version)) throw new Error("Это не копия Worktime поддерживаемой версии.");
+  if (value.format !== "worktime" || ![1, 2, 3].includes(value.version)) throw new Error("Это не копия Worktime поддерживаемой версии.");
   return validateData(value);
 }
 export function mergeData(current, incoming) {
   const source = validateData(incoming);
   const projectIds = new Set(current.projects.map(p => p.id));
   const itemIds = new Set(current.items.map(i => i.id));
-  return validateData({ projects: [...current.projects, ...source.projects.filter(p => !projectIds.has(p.id))], items: [...current.items, ...source.items.filter(i => !itemIds.has(i.id))] });
+  const invoiceIds = new Set((current.invoices ?? []).map(i => i.id));
+  return validateData({ projects: [...current.projects, ...source.projects.filter(p => !projectIds.has(p.id))], items: [...current.items, ...source.items.filter(i => !itemIds.has(i.id))], invoices: [...(current.invoices ?? []), ...source.invoices.filter(i => !invoiceIds.has(i.id))] });
+}
+export function invoicePeriod(start, end) {
+  moscowInputToISO(`${start}T00:00`); moscowInputToISO(`${end}T00:00`);
+  if (start > end) throw new Error("Конец периода должен быть не раньше начала.");
+  return { start, end };
+}
+export function invoiceFor(data, itemId) { return (data.invoices ?? []).find(i => i.items.some(task => task.id === itemId)); }
+export function invoiceCandidates(data, start, end, project = "all") {
+  invoicePeriod(start, end);
+  const billed = new Set((data.invoices ?? []).flatMap(i => i.items.map(task => task.id)));
+  return data.items.filter(i => i.kind === "work" && !activeTimer(i) && !billed.has(i.id)
+    && (project === "all" || i.project_id === project) && localInput(i.started_at).slice(0,10) >= start && localInput(i.started_at).slice(0,10) <= end)
+    .sort((a,b) => a.started_at.localeCompare(b.started_at));
+}
+export function validateInvoice(value) {
+  if (!value || !Array.isArray(value.items) || !value.items.length || value.items.length > MAX) throw new Error("Счёт должен содержать завершённые задачи.");
+  invoicePeriod(value.period_start, value.period_end);
+  const items = value.items.map(row => {
+    const task = validateItem(row);
+    if (task.kind !== "work" || activeTimer(task) || localInput(task.started_at).slice(0,10) < value.period_start || localInput(task.started_at).slice(0,10) > value.period_end) throw new Error("Задача не входит в период счёта или ещё не завершена.");
+    return { ...task, project_name: text(row.project_name, 100) };
+  });
+  const created_at = timestamp(value.created_at), paid_at = value.paid_at == null ? null : timestamp(value.paid_at);
+  if (paid_at && paid_at < created_at) throw new Error("Дата оплаты раньше создания счёта.");
+  return { id: id(value.id), period_start:value.period_start, period_end:value.period_end, created_at, paid_at, items };
+}
+export function createInvoice(data, { id: invoiceId, start, end, project = "all" }, now = new Date().toISOString()) {
+  const items = invoiceCandidates(data, start, end, project).map(i => ({ ...i, project_name:data.projects.find(p => p.id === i.project_id)?.name }));
+  return validateInvoice({ id:invoiceId, period_start:start, period_end:end, created_at:now, paid_at:null, items });
+}
+export const invoiceTotal = invoice => invoice.items.reduce((sum, i) => sum + workBill(i).amount, 0);
+export function invoiceCSV(invoice) {
+  const cell = value => {
+    let raw = String(value ?? "");
+    if (/^[\s]*[=+@-]/u.test(raw)) raw = "'" + raw;
+    return `"${raw.replaceAll('"', '""')}"`;
+  };
+  const rows = [["Счёт за период", invoice.period_start, invoice.period_end], ["Задача", "Проект", "Дата · МСК", "Время, мин", "Стоимость, ₽", "Примечание"],
+    ...invoice.items.map(i => [i.title, i.project_name, localInput(i.started_at).replace("T", " "), workBill(i).minutes, workBill(i).amount, i.note]),
+    ["ИТОГО", "", "", invoice.items.reduce((sum,i) => sum + workBill(i).minutes,0), invoiceTotal(invoice), ""]];
+  return "\uFEFF" + rows.map(row => row.map(cell).join(";")).join("\r\n");
 }
 export const money = value => new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(value);
 export const duration = minutes => minutes >= 60 ? `${Math.floor(minutes / 60)} ч${minutes % 60 ? ` ${minutes % 60} мин` : ""}` : `${minutes} мин`;

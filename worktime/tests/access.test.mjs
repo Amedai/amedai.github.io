@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
+import { validateData } from "../core.mjs";
 const owner="10000000-0000-4000-8000-000000000001", stranger="10000000-0000-4000-8000-000000000002";
 const project="20000000-0000-4000-8000-000000000001", task="30000000-0000-4000-8000-000000000001";
 const sql=(await readFile(new URL("../supabase.sql",import.meta.url),"utf8")).replace("edb177a9-ec4a-4cee-9489-4e2650811dca",owner);
@@ -21,6 +22,37 @@ async function as(db,role,user,fn) {
   await db.query("select set_config('request.jwt.claim.sub',$1,false)",[user||""]); await db.exec(`set role ${role}`);
   try {await fn();} finally {await db.exec("reset role");}
 }
+
+test("SQL: создание счёта, защита снимка и повторной оплаты, импорт оплаченной истории", async()=>{
+  const db=await database();try {await as(db,"authenticated",owner,async()=>{
+    await db.exec("update public.worktime_items set kind='work',started_at='2026-10-17 21:00Z',ended_at='2026-10-17 21:25Z'");
+    await db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[task]);
+    const invoice=(await db.query("select * from public.worktime_invoices")).rows[0];assert.equal(invoice.items.length,1);assert.equal(invoice.items[0].project_name,"Студия");
+    await assert.rejects(db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[project]),/Нет завершённых/);
+    await assert.rejects(db.exec("update public.worktime_items set title='Другая сумма'"),/включена в счёт/);
+    await assert.rejects(db.exec("delete from public.worktime_items"),/включена в счёт/);
+    await assert.rejects(db.exec("update public.worktime_invoices set items='[]'"),/не могут быть изменены/);
+    await db.query("select public.worktime_pay_invoice($1)",[task]);
+    const paid=(await db.query("select paid_at from public.worktime_invoices")).rows[0].paid_at;
+    await db.query("select public.worktime_pay_invoice($1)",[task]);assert.deepEqual((await db.query("select paid_at from public.worktime_invoices")).rows[0].paid_at,paid);
+    await assert.rejects(db.exec("update public.worktime_invoices set paid_at=null"),/не могут быть изменены/);
+    const payload=validateData(JSON.parse(JSON.stringify({projects:(await db.query("select * from public.worktime_projects")).rows,items:(await db.query("select * from public.worktime_items")).rows,invoices:(await db.query("select id,period_start::text,period_end::text,created_at,paid_at,items from public.worktime_invoices")).rows})));
+    await db.query("select public.worktime_import($1)",[JSON.stringify(payload)]);assert.equal((await db.query("select count(*)::int n from public.worktime_invoices")).rows[0].n,1);
+    // Импорт того же снимка в чистую базу, включая дату оплаты.
+    const fresh=await database();try {await as(fresh,"authenticated",owner,async()=>{
+      await fresh.exec("delete from public.worktime_items; delete from public.worktime_projects");
+      await fresh.query("select public.worktime_import($1)",[JSON.stringify(payload)]);
+      assert.deepEqual((await fresh.query("select paid_at from public.worktime_invoices")).rows[0].paid_at,paid);
+    });}finally{await fresh.close();}
+  });
+  for (const [role,user] of [["anon",null],["authenticated",stranger]]) await as(db,role,user,async()=>{
+    assert.equal((await db.query("select * from public.worktime_invoices")).rows.length,1);
+    await assert.rejects(db.query("select public.worktime_pay_invoice($1)",[task]),/permission denied|Only the owner/);
+    await assert.rejects(db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[project]),/permission denied|Only the owner/);
+    if (role === "anon") await assert.rejects(db.exec("update public.worktime_invoices set paid_at=now()"),/permission denied/);
+    else assert.equal((await db.query("update public.worktime_invoices set paid_at=now() returning id")).rows.length,0);
+  });}finally{await db.close();}
+});
 test("Посетитель читает, но не меняет записи, настройки и не вызывает импорт", async()=>{
   const db=await database(); try {await as(db,"anon",null,async()=>{
     assert.equal((await db.query("select * from public.worktime_items")).rows.length,1);

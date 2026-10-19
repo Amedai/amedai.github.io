@@ -12,9 +12,9 @@ const owner="10000000-0000-4000-8000-000000000001";
 const project={id:randomUUID(),name:"Студия",created_at:"2026-10-18T09:00:00Z"};
 const item={id:randomUUID(),project_id:project.id,title:"Шапка сайта",note:"Адаптивная версия",kind:"work",done:false,started_at:"2026-10-18T10:00:00Z",ended_at:"2026-10-18T10:25:00Z",created_at:project.created_at};
 const settle=async()=>{for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));};
-async function app({cloud=false,session=null,items=[item],projects=[project],missingSchema=false}={}) {
+async function app({cloud=false,session=null,items=[item],projects=[project],invoices=[],missingSchema=false}={}) {
   const {window,document}=parseHTML(html);
-  const values=new Map([[core.STORAGE_KEY,JSON.stringify({projects,items})]]);
+  const values=new Map([[core.STORAGE_KEY,JSON.stringify({projects,items,invoices})]]);
   const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
   for(const dialog of document.querySelectorAll("dialog")) {
     dialog.showModal=()=>{dialog.open=true;dialog.setAttribute("open","");};
@@ -35,20 +35,70 @@ async function app({cloud=false,session=null,items=[item],projects=[project],mis
   window.supabase={createClient:()=>client};
   const append=document.head.append.bind(document.head);
   document.head.append=element=>{append(element);if(element.localName==="script")queueMicrotask(()=>element.onload());};
-  const cloudData={projects:structuredClone(projects),items:structuredClone(items)};
+  const cloudData={projects:structuredClone(projects),items:structuredClone(items),invoices:structuredClone(invoices)};
+  let downloadBlob;
   const context=vm.createContext({...core,localRepository,cloudRepository:()=>({
     async list(){return structuredClone(cloudData);},
-    async saveItem(next){cloudData.items=cloudData.items.filter(i=>i.id!==next.id).concat(core.validateItem(next));}
-  }),config:{supabaseUrl:"https://test.supabase.co",supabaseKey:"sb_publishable_test"},window,document,location:{search:cloud?"":"?demo=1"},localStorage:storage,crypto:{randomUUID},URL,URLSearchParams,Blob,setTimeout,clearTimeout,setInterval:()=>1});
+    async saveItem(next){cloudData.items=cloudData.items.filter(i=>i.id!==next.id).concat(core.validateItem(next));},
+    async updateItemDetails(next){cloudData.items=cloudData.items.map(i=>i.id===next.id?core.validateItem({...i,title:next.title,project_id:next.project_id,note:next.note}):i);}
+  }),config:{supabaseUrl:"https://test.supabase.co",supabaseKey:"sb_publishable_test"},window,document,location:{search:cloud?"":"?demo=1"},localStorage:storage,crypto:{randomUUID},URL:{createObjectURL(blob){downloadBlob=blob;return "blob:test";},revokeObjectURL(){}},URLSearchParams,Blob,setTimeout,clearTimeout,setInterval:()=>1});
   vm.runInContext(source,context,{filename:"app.js"}); await context.initialization;
   return {document,window,storage,context,get:id=>document.getElementById(id),
     setTime(id,value){const [date,time]=value.split("T");document.getElementById(id+"-date").value=date;document.getElementById(id).value=time;},
     async click(id){document.getElementById(id).click();await settle();},
     async submit(id){document.getElementById(id).dispatchEvent(new window.Event("submit",{cancelable:true}));await settle();},
     async session(next){session=next;authCallback("SIGNED_IN",next);await settle();},
-    enableSchema(){schemaMissing=false;}
+    enableSchema(){schemaMissing=false;},get downloadBlob(){return downloadBlob;}
   };
 }
+for (const cloud of [false,true]) test(`DOM: старая задача по длительности, сумма и счёт (${cloud?"облако":"демо"})`,async()=>{
+  const ui=await app({cloud,session:cloud?{user:{id:owner}}:null,items:[]});
+  await ui.click("add-completed");assert.equal(ui.get("editor").open,true);
+  assert.equal(ui.get("duration-fields").hidden,false);assert.equal(ui.get("end-label").hidden,true);
+  assert.equal(ui.get("end").required,false);assert.equal(ui.get("spent-hours").required,true);
+  ui.get("item-title").value="Работа до запуска сайта";ui.get("item-note").value="Из старых записей";
+  ui.setTime("start","2026-09-30T23:50");ui.get("spent-hours").value="1";ui.get("spent-minutes").value="25";
+  ui.get("spent-minutes").dispatchEvent(new ui.window.Event("input"));assert.match(ui.get("calc-amount").textContent,/1\s?600/);
+  ui.get("end").value="";ui.get("end-date").value="";
+  await ui.submit("item-form");assert.equal(ui.get("editor").open,false);assert.equal(ui.get("timer").hidden,true);
+  assert.match(ui.get("total").textContent,/1\s?600/);assert.match(ui.get("time-total").textContent,/1 ч 25 мин/);
+  assert.match(ui.get("rows").textContent,/Работа до запуска сайта/);
+  await ui.click("new-invoice");ui.get("invoice-start").value="2026-09-30";ui.get("invoice-end").value="2026-09-30";
+  ui.get("invoice-start").dispatchEvent(new ui.window.Event("input"));assert.match(ui.get("invoice-preview").textContent,/1\s?600/);
+  if (!cloud) {
+    const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));assert.equal(saved.items.length,1);
+    assert.equal(saved.items[0].started_at,"2026-09-30T20:50:00.000Z");assert.equal(saved.items[0].ended_at,"2026-09-30T22:15:00.000Z");
+    const restored=await app({items:saved.items});assert.match(restored.get("total").textContent,/1\s?600/);
+    restored.document.querySelector('[aria-label="Изменить задачу"]').click();assert.equal(restored.get("duration-fields").hidden,true);
+    restored.setTime("end","2026-10-01T01:25");await restored.submit("item-form");assert.match(restored.get("total").textContent,/1\s?800/);
+  }
+});
+
+test("DOM: неверная длительность и сбой записи не сохраняют старую задачу",async()=>{
+  const ui=await app({items:[]});await ui.click("add-completed");ui.get("item-title").value="Старая задача";
+  for (const [hours,minutes] of [["0","0"],["-1","10"],["0","60"],["168","1"],["1.5","0"],["","10"]]) {
+    ui.get("spent-hours").value=hours;ui.get("spent-minutes").value=minutes;await ui.submit("item-form");
+    assert.equal(ui.get("editor").open,true);assert.equal(ui.get("item-error").hidden,false);
+    assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).items.length,0);
+  }
+  ui.get("spent-hours").value="1";ui.get("spent-minutes").value="0";
+  ui.storage.setItem=()=>{throw new Error("QuotaExceededError");};await ui.submit("item-form");
+  assert.equal(ui.get("editor").open,true);assert.match(ui.get("item-error").textContent,/QuotaExceeded/);
+});
+
+test("DOM: старая задача добавляется при активном таймере; поля формы сбрасываются",async()=>{
+  const running={...item,ended_at:null,timer_state:"running",elapsed_ms:0,running_since:item.started_at,timer_version:0};
+  const ui=await app({items:[running]});assert.equal(ui.get("add-item").disabled,true);assert.equal(ui.get("add-completed").disabled,false);
+  await ui.click("add-completed");ui.get("item-title").value="Старая задача";ui.setTime("start","2026-09-15T10:00");
+  ui.get("spent-hours").value="2";ui.get("spent-minutes").value="0";await ui.submit("item-form");
+  const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));assert.equal(saved.items.length,2);assert.equal(saved.items.filter(core.activeTimer).length,1);
+  assert.deepEqual(saved.items.find(i=>i.id===running.id),core.validateItem(running));assert.match(ui.get("total").textContent,/2\s?400/);
+  await ui.click("tab-plan");assert.equal(ui.get("add-completed").hidden,true);await ui.click("add-item");
+  assert.equal(ui.get("duration-fields").hidden,true);assert.equal(ui.get("spent-hours").required,false);
+  ui.get("editor").close();await ui.click("timer-finish");await ui.click("tab-work");await ui.click("add-item");
+  assert.equal(ui.get("duration-fields").hidden,true);assert.equal(ui.get("start").disabled,false);assert.equal(ui.get("end").required,false);
+});
+
 test("DOM: новая работа запускает таймер без ввода окончания",async()=>{
   const ui=await app();assert.match(ui.get("total").textContent,/400/);assert.equal(ui.get("demo-banner").hidden,false);
   await ui.click("add-item");assert.equal(ui.get("editor").open,true);
@@ -61,6 +111,40 @@ test("DOM: новая работа запускает таймер без вво
   await ui.click("timer-finish");saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));
   assert.equal(saved.items.find(i=>i.id===running.id).timer_state,"finished");assert.ok(saved.items.find(i=>i.id===running.id).ended_at);
   assert.match(ui.get("rows").textContent,/Бесплатно/);
+});
+
+test("DOM: счёт, выгрузка с итогом, оплата и история; новые задачи остаются в журнале",async()=>{
+  const ui=await app();await ui.click("new-invoice");assert.equal(ui.get("invoice-dialog").open,true);
+  ui.get("invoice-start").value="2026-10-18";ui.get("invoice-end").value="2026-10-18";ui.get("invoice-start").dispatchEvent(new ui.window.Event("input"));
+  assert.match(ui.get("invoice-preview").textContent,/ИТОГО/);assert.match(ui.get("invoice-preview").textContent,/400/);
+  await ui.submit("invoice-form");assert.equal(ui.get("invoice-dialog").open,false);assert.equal(ui.get("tab-invoices").getAttribute("aria-pressed"),"true");
+  assert.match(ui.get("invoice-list").textContent,/Ожидает оплаты/);ui.document.querySelector('[aria-label="Скачать таблицу счёта"]').click();
+  assert.match(await ui.downloadBlob.text(),/ИТОГО/);assert.match(await ui.downloadBlob.text(),/Шапка сайта/);
+  await ui.click("tab-work");assert.equal(ui.get("rows").children.length,1);assert.match(ui.get("rows").textContent,/В счёте/);assert.equal(ui.get("rows").querySelectorAll("button").length,0);
+  await ui.click("add-item");ui.get("item-title").value="Следующий период";ui.setTime("start",core.localInput(Date.now()-60000));await ui.submit("item-form");
+  await ui.click("tab-invoices");ui.document.querySelector('[aria-label="Отметить счёт оплаченным"]').click();assert.equal(ui.get("confirm-title").textContent,"Подтвердить оплату?");
+  ui.get("confirm-dialog").close("delete");await settle();
+  const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));assert.ok(saved.invoices[0].paid_at);assert.equal(saved.items.length,2);
+  await ui.click("tab-work");assert.equal(ui.get("rows").children.length,1);assert.match(ui.get("rows").textContent,/Следующий период/);assert.match(ui.get("total").textContent,/^0/);
+  await ui.click("tab-history");assert.match(ui.get("invoice-list").textContent,/Оплачен/);assert.match(ui.get("invoice-list").textContent,/Шапка сайта/);assert.equal(ui.document.querySelector('[aria-label="Отметить счёт оплаченным"]'),null);
+  const restored=await app({items:saved.items,invoices:saved.invoices});await restored.click("tab-history");assert.match(restored.get("invoice-list").textContent,/400/);
+});
+
+test("DOM: посетитель скачивает историю без возможности менять оплату",async()=>{
+  const invoice=core.createInvoice({projects:[project],items:[item]},{id:randomUUID(),start:"2026-10-18",end:"2026-10-18"});
+  const ui=await app({cloud:true,invoices:[invoice]});assert.equal(ui.get("new-invoice").hidden,true);
+  await ui.click("tab-invoices");assert.equal(ui.document.querySelector('[aria-label="Отметить счёт оплаченным"]'),null);
+  assert.ok(ui.document.querySelector('[aria-label="Скачать таблицу счёта"]'));
+});
+
+test("DOM: ошибка сохранения счёта остаётся видимой, пустой период нельзя выставить",async()=>{
+  const ui=await app();await ui.click("new-invoice");
+  ui.get("invoice-start").value="2026-10-01";ui.get("invoice-end").value="2026-10-01";ui.get("invoice-start").dispatchEvent(new ui.window.Event("input"));
+  assert.equal(ui.get("invoice-submit").disabled,true);
+  ui.get("invoice-start").value="2026-10-18";ui.get("invoice-end").value="2026-10-18";ui.get("invoice-start").dispatchEvent(new ui.window.Event("input"));
+  assert.equal(ui.get("invoice-submit").disabled,false);ui.storage.setItem=()=>{throw new Error("QuotaExceededError");};
+  await ui.submit("invoice-form");assert.equal(ui.get("invoice-dialog").open,true);assert.equal(ui.get("invoice-error").hidden,false);assert.match(ui.get("invoice-error").textContent,/QuotaExceeded/);
+  assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).invoices.length,0);
 });
 test("DOM: план создаётся без дат, отмечается выполненным и переносится в журнал",async()=>{
   const ui=await app();await ui.click("tab-plan");await ui.click("add-item");
@@ -80,7 +164,7 @@ test("DOM: неверный интервал не закрывает форму 
 });
 test("DOM: посетитель и чужой аккаунт видят список без действий редактирования",async()=>{
   const ui=await app({cloud:true});assert.equal(ui.get("rows").children.length,1);
-  for(const id of ["add-item","import","manage-projects"])assert.equal(ui.get(id).hidden,true);
+  for(const id of ["add-item","add-completed","import","manage-projects"])assert.equal(ui.get(id).hidden,true);
   assert.equal(ui.document.querySelectorAll(".journal__actions button").length,0);
   await ui.session({user:{id:"stranger"}});assert.equal(ui.get("add-item").hidden,true);
 });
@@ -145,6 +229,34 @@ test("DOM: активный таймер блокирует новую рабо�
   const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));assert.equal(saved.items.length,2);
   assert.equal(saved.items.filter(core.activeTimer).length,1);assert.equal(saved.items.find(i=>i.kind==="plan").title,"Будущая задача");
   await ui.click("tab-work");assert.equal(ui.get("add-item").disabled,true);
+});
+
+for (const cloud of [false,true]) test(`DOM: переименование работающего и приостановленного таймера (${cloud?"облако":"демо"})`,async()=>{
+  const started_at=new Date(Date.now()-25*60000-12345).toISOString();
+  const running={...item,started_at,ended_at:null,timer_state:"running",elapsed_ms:0,running_since:started_at,timer_version:0};
+  for (const state of ["running","paused"]) {
+    const task=state==="running"?running:core.transitionTimer(running,"pause");
+    const otherProject={...project,id:randomUUID(),name:"Другой проект"};
+    const ui=await app({cloud,session:cloud?{user:{id:owner}}:null,items:[task],projects:[project,otherProject]});
+    const edit=ui.document.querySelector('[aria-label="Изменить задачу"]');
+    assert.ok(edit,"У активной задачи доступно редактирование");edit.click();
+    assert.equal(ui.get("editor").open,true);assert.equal(ui.get("end-label").hidden,true);
+    for (const id of ["start","start-date","end","end-date"]) assert.equal(ui.get(id).disabled,true);
+    ui.get("item-title").value=`Новое название ${state}`;ui.get("item-note").value="Новые детали";ui.get("item-project").value=otherProject.id;
+    ui.get("end").value="";ui.get("end-date").value="";
+    await ui.submit("item-form");
+    assert.equal(ui.get("editor").open,false);assert.equal(ui.get("item-error").hidden,true);
+    assert.equal(ui.get("timer-title").textContent,`Новое название ${state}`);
+    assert.match(ui.get("timer-project").textContent,/Другой проект/);
+    assert.match(ui.get("rows").textContent,/Новые детали/);
+    if (!cloud) {
+      const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).items;
+      assert.equal(saved.length,1);
+      assert.deepEqual(saved[0],core.validateItem({...task,title:`Новое название ${state}`,note:"Новые детали",project_id:otherProject.id}));
+    }
+    await ui.click("tab-plan");await ui.click("timer-edit");
+    assert.equal(ui.get("editor").open,true);assert.equal(ui.get("item-title").value,`Новое название ${state}`);
+  }
 });
 
 test("DOM: время отображается и сохраняется по МСК в 24-часовом формате",async()=>{
