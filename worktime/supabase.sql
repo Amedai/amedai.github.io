@@ -82,13 +82,18 @@ create table if not exists public.worktime_invoices (
 alter table public.worktime_invoices enable row level security;
 revoke all on public.worktime_invoices from public, anon, authenticated;
 grant select on public.worktime_invoices to anon, authenticated;
-grant insert, update on public.worktime_invoices to authenticated;
+grant insert, update, delete on public.worktime_invoices to authenticated;
 
 -- Состав счёта неизменяем. Даже запрос в обход интерфейса не изменит историю.
 create or replace function public.worktime_guard_invoice() returns trigger
 language plpgsql security invoker set search_path = '' as $$
 declare entry jsonb; task public.worktime_items%rowtype;
 begin
+  if tg_op = 'DELETE' then
+    perform pg_advisory_xact_lock(hashtextextended(old.user_id::text, 0));
+    if old.paid_at is not null then raise exception 'Оплаченный счёт нельзя удалить'; end if;
+    return old;
+  end if;
   perform pg_advisory_xact_lock(hashtextextended(new.user_id::text, 0));
   if tg_op = 'UPDATE' then
     if (to_jsonb(new) - 'paid_at') is distinct from (to_jsonb(old) - 'paid_at')
@@ -116,7 +121,7 @@ begin
   return new;
 end $$;
 drop trigger if exists worktime_guard_invoice on public.worktime_invoices;
-create trigger worktime_guard_invoice before insert or update on public.worktime_invoices for each row execute function public.worktime_guard_invoice();
+create trigger worktime_guard_invoice before insert or update or delete on public.worktime_invoices for each row execute function public.worktime_guard_invoice();
 
 create or replace function public.worktime_guard_billed_item() returns trigger
 language plpgsql security invoker set search_path = '' as $$

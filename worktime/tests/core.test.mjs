@@ -91,6 +91,16 @@ test("Облачный адаптер проверяет ошибки и не п
   const repo = cloudRepository({from:()=>query,rpc:async()=>({error})},project.id);
   await assert.rejects(repo.list(),/network/); await assert.rejects(repo.saveItem(item),/network/);
   await assert.rejects(repo.removeItem(item.id),/network/); await assert.rejects(repo.import({projects:[project],items:[item]}),/network/);
+  await assert.rejects(repo.removeInvoice(project.id),/network/);
+});
+
+test("Облачное удаление счёта ограничено ID и владельцем, отсутствие записи возвращает ошибку", async () => {
+  const calls=[];let error=null;
+  const query={delete(){calls.push(["delete"]);return this;},eq(...args){calls.push(["eq",...args]);return this;},select(...args){calls.push(["select",...args]);return this;},async single(){return {data:error?null:{id:item.id},error};}};
+  const repo=cloudRepository({from(table){calls.push(["from",table]);return query;}},project.id);
+  await repo.removeInvoice(item.id);
+  assert.deepEqual(calls,[["from","worktime_invoices"],["delete"],["eq","id",item.id],["eq","user_id",project.id],["select","id"]]);
+  error=new Error("Счёт не найден");await assert.rejects(repo.removeInvoice(item.id),/не найден/);
 });
 test("Облачное чтение обходит лимит страницы в 500 строк", async () => {
   let calls=0;
@@ -125,6 +135,19 @@ test("Локальные счета: снимок, оплата, перезаг�
   const saved=await localRepository(storage).list();assert.equal(saved.invoices[0].paid_at,paid);assert.equal(saved.items.length,1);
   assert.deepEqual(parseBackup(JSON.stringify({format:"worktime",version:3,...saved})),saved);
   assert.deepEqual(mergeData(saved,saved),saved);
+});
+
+test("Удаление неоплаченного счёта сохраняет задачи и освобождает их для нового счёта", async () => {
+  const values=new Map(),storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)},repo=localRepository(storage);
+  await repo.saveProject(project);await repo.saveItem(item);
+  await repo.createInvoice({id:project.id,start:"2026-10-18",end:"2026-10-18"});
+  const before=await repo.list();await repo.removeInvoice(project.id);
+  const saved=await localRepository(storage).list();assert.deepEqual(saved.items,before.items);assert.deepEqual(saved.projects,before.projects);assert.equal(saved.invoices.length,0);
+  assert.equal(invoiceCandidates(saved,"2026-10-18","2026-10-18").length,1);
+  await assert.rejects(repo.removeInvoice(project.id),/Счёт не найден/);
+  await repo.saveItem({...item,title:"Исправленная задача"});
+  await repo.createInvoice({id:project.id,start:"2026-10-18",end:"2026-10-18"});await repo.payInvoice(project.id);
+  const paid=await repo.list();await assert.rejects(repo.removeInvoice(project.id),/Оплаченный счёт нельзя удалить/);assert.deepEqual(await repo.list(),paid);
 });
 test("Таймер: работа, длинная пауза, продолжение и завершение; округление общей активности", () => {
   const start=Date.parse(item.started_at);

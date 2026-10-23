@@ -166,11 +166,17 @@ function renderInvoices() {
     info.append(make("h2", "", `Счёт · ${invoice.period_start} — ${invoice.period_end}`), make("p", "", invoice.paid_at ? `Оплачен ${localInput(invoice.paid_at).replace("T", " ")} МСК` : "Ожидает оплаты"));
     top.append(info, make("strong", "invoice-card__total", money(invoiceTotal(invoice))));
     controls.append(action("Скачать таблицу счёта", "Скачать таблицу ↓", () => downloadInvoice(invoice), "button button--outline"));
-    if (canEdit && !invoice.paid_at) controls.append(action("Отметить счёт оплаченным", "✓ Оплачен", () => {
-      confirmDelete(`Подтвердить оплату ${money(invoiceTotal(invoice))} за ${invoice.period_start} — ${invoice.period_end}? Задачи этого счёта перейдут в историю.`, async () => {
-        await mutate(() => repository.payInvoice(invoice.id), "Оплата сохранена. Задачи и счёт перенесены в историю.");
-      }, "Подтвердить оплату?", "Да, оплачен" );
-    }, "button button--primary"));
+    if (canEdit && !invoice.paid_at) {
+      controls.append(action("Отметить счёт оплаченным", "✓ Оплачен", () => {
+        confirmDelete(`Подтвердить оплату ${money(invoiceTotal(invoice))} за ${invoice.period_start} — ${invoice.period_end}? Задачи этого счёта перейдут в историю.`, async () => {
+          await mutate(() => repository.payInvoice(invoice.id), "Оплата сохранена. Задачи и счёт перенесены в историю.");
+        }, "Подтвердить оплату?", "Да, оплачен" );
+      }, "button button--primary"));
+      controls.append(action("Удалить счёт", "Удалить", () => {
+        confirmDelete(`Удалить счёт за ${invoice.period_start} — ${invoice.period_end} на ${money(invoiceTotal(invoice))}? Задачи останутся в журнале, их можно будет включить в новый счёт.`,
+          () => mutate(() => repository.removeInvoice(invoice.id), "Счёт удалён. Задачи доступны для нового счёта."), "Удалить счёт?");
+      }, "button button--danger"));
+    }
     const details = make("details"), summary = make("summary", "", `Задачи: ${invoice.items.length} · посмотреть состав`), wrap = make("div", "journal__table-wrap");
     wrap.append(invoiceTable(invoice)); details.append(summary, wrap); card.append(top, controls, details); return card;
   });
@@ -318,7 +324,7 @@ function openProject() {
 function confirmDelete(message, handler, title = "Удалить запись?", label = "Удалить") {
   confirmAction = handler; $("confirm-title").textContent = title; $("confirm-text").textContent = message;
   const button = $("confirm-dialog").querySelector('[value="delete"]');
-  button.textContent = label; button.className = title === "Удалить запись?" ? "button button--danger" : "button button--primary";
+  button.textContent = label; button.className = label === "Удалить" ? "button button--danger" : "button button--primary";
   $("confirm-dialog").returnValue = "cancel"; $("confirm-dialog").showModal();
 }
 $("confirm-dialog").addEventListener("close", () => { const handler = confirmAction; confirmAction = null; if ($("confirm-dialog").returnValue === "delete") handler?.(); });

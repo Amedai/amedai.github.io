@@ -127,6 +127,7 @@ test("DOM: счёт, выгрузка с итогом, оплата и исто�
   const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));assert.ok(saved.invoices[0].paid_at);assert.equal(saved.items.length,2);
   await ui.click("tab-work");assert.equal(ui.get("rows").children.length,1);assert.match(ui.get("rows").textContent,/Следующий период/);assert.match(ui.get("total").textContent,/^0/);
   await ui.click("tab-history");assert.match(ui.get("invoice-list").textContent,/Оплачен/);assert.match(ui.get("invoice-list").textContent,/Шапка сайта/);assert.equal(ui.document.querySelector('[aria-label="Отметить счёт оплаченным"]'),null);
+  assert.equal(ui.document.querySelector('[aria-label="Удалить счёт"]'),null);
   const restored=await app({items:saved.items,invoices:saved.invoices});await restored.click("tab-history");assert.match(restored.get("invoice-list").textContent,/400/);
 });
 
@@ -134,7 +135,35 @@ test("DOM: посетитель скачивает историю без воз�
   const invoice=core.createInvoice({projects:[project],items:[item]},{id:randomUUID(),start:"2026-10-18",end:"2026-10-18"});
   const ui=await app({cloud:true,invoices:[invoice]});assert.equal(ui.get("new-invoice").hidden,true);
   await ui.click("tab-invoices");assert.equal(ui.document.querySelector('[aria-label="Отметить счёт оплаченным"]'),null);
+  assert.equal(ui.document.querySelector('[aria-label="Удалить счёт"]'),null);
   assert.ok(ui.document.querySelector('[aria-label="Скачать таблицу счёта"]'));
+});
+
+test("DOM: удаление счёта после подтверждения сохраняет задачи и позволяет выставить их снова",async()=>{
+  const invoice=core.createInvoice({projects:[project],items:[item]},{id:randomUUID(),start:"2026-10-18",end:"2026-10-18"});
+  const ui=await app({invoices:[invoice]});await ui.click("tab-invoices");
+  const remove=()=>ui.document.querySelector('[aria-label="Удалить счёт"]').click();
+  remove();assert.equal(ui.get("confirm-title").textContent,"Удалить счёт?");assert.match(ui.get("confirm-text").textContent,/Задачи останутся в журнале/);
+  ui.get("confirm-dialog").close("cancel");await settle();assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).invoices.length,1);
+  remove();ui.get("confirm-dialog").close("delete");await settle();
+  const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));assert.equal(saved.invoices.length,0);assert.deepEqual(saved.items,[core.validateItem(item)]);
+  assert.equal(ui.get("count-invoices").textContent,"0");assert.match(ui.get("invoice-list").textContent,/Пока нет счетов/);
+  await ui.click("tab-work");assert.doesNotMatch(ui.get("rows").textContent,/В счёте/);assert.ok(ui.document.querySelector('[aria-label="Изменить задачу"]'));
+  await ui.click("new-invoice");ui.get("invoice-start").value="2026-10-18";ui.get("invoice-end").value="2026-10-18";
+  await ui.submit("invoice-form");assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).invoices.length,1);
+});
+
+test("DOM: сбой удаления и оплата в другой вкладке сохраняют счёт и показывают ошибку",async()=>{
+  const invoice=core.createInvoice({projects:[project],items:[item]},{id:randomUUID(),start:"2026-10-18",end:"2026-10-18"});
+  for (const paid of [false,true]) {
+    const ui=await app({invoices:[invoice]});await ui.click("tab-invoices");ui.document.querySelector('[aria-label="Удалить счёт"]').click();
+    if (paid) {const saved=JSON.parse(ui.storage.getItem(core.STORAGE_KEY));saved.invoices[0].paid_at=new Date().toISOString();ui.storage.setItem(core.STORAGE_KEY,JSON.stringify(saved));}
+    else ui.storage.setItem=()=>{throw new Error("QuotaExceededError");};
+    ui.get("confirm-dialog").close("delete");await settle();
+    assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).invoices.length,1);assert.equal(ui.get("notice").hidden,false);
+    assert.match(ui.get("notice").textContent,paid?/Оплаченный счёт нельзя удалить/:/QuotaExceeded/);
+    assert.doesNotMatch(ui.get("notice").textContent,/Счёт удалён/);
+  }
 });
 
 test("DOM: ошибка сохранения счёта остаётся видимой, пустой период нельзя выставить",async()=>{

@@ -28,6 +28,12 @@ export function localRepository(storage) {
     },
     async removeItem(id) { const data = read(); if (invoiceFor(data, id)) throw new Error("Задача уже включена в счёт и сохранена для истории."); data.items = data.items.filter(i => i.id !== id); write(data); },
     async createInvoice(options) { const data = read(), invoice = createInvoice(data, options); data.invoices.push(invoice); write(data); return invoice.id; },
+    async removeInvoice(id) {
+      const data = read(), invoice = data.invoices.find(i => i.id === id);
+      if (!invoice) throw new Error("Счёт не найден. Обновите список.");
+      if (invoice.paid_at) throw new Error("Оплаченный счёт нельзя удалить.");
+      data.invoices = data.invoices.filter(i => i.id !== id); write(data);
+    },
     async payInvoice(id) {
       const data = read(), invoice = data.invoices.find(i => i.id === id);
       if (!invoice) throw new Error("Счёт не найден. Обновите список.");
@@ -76,6 +82,7 @@ export function cloudRepository(client, owner) {
     saveItem(value, existing) { return save("worktime_items", validateItem(value), existing); },
     updateItemDetails(value) { return save("worktime_items", itemDetails(value), true); },
     removeItem(id) { return remove("worktime_items", id); },
+    removeInvoice(id) { return remove("worktime_invoices", id); },
     async createInvoice({ id, start, end, project = "all" }) {
       const { error } = await client.rpc("worktime_create_invoice", { invoice_id:id, date_start:start, date_end:end, selected_project:project === "all" ? null : project });
       if (error) throw error;

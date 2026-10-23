@@ -59,6 +59,30 @@ test("Посетитель читает, но не меняет записи, н
     for (const statement of ["delete from public.worktime_projects","update public.worktime_items set title='hack'",`update public.worktime_settings set owner_id='${stranger}'`,"select public.worktime_import('{}')"]) await assert.rejects(db.exec(statement),/permission denied/);
   });} finally {await db.close();}
 });
+
+test("SQL: удаление только неоплаченного счёта владельцем; задачи сохраняются и доступны для нового счёта",async()=>{
+  const db=await database();try {
+    await as(db,"authenticated",owner,async()=>{
+      await db.exec("update public.worktime_items set kind='work',started_at='2026-10-18 10:00Z',ended_at='2026-10-18 10:25Z'");
+      await db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[task]);
+    });
+    await db.exec('create policy broad on public.worktime_invoices for all to authenticated using(true) with check(true)');
+    await as(db,"anon",null,async()=>{await assert.rejects(db.exec("delete from public.worktime_invoices"),/permission denied/);});
+    await as(db,"authenticated",stranger,async()=>{assert.equal((await db.query("delete from public.worktime_invoices returning id")).rows.length,0);});
+    await as(db,"authenticated",owner,async()=>{
+      const before=(await db.query("select * from public.worktime_items")).rows;
+      assert.equal((await db.query("delete from public.worktime_invoices where id=$1 returning id",[task])).rows.length,1);
+      assert.deepEqual((await db.query("select * from public.worktime_items")).rows,before);
+      await db.exec("update public.worktime_items set title='Исправлено'");
+      await db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[project]);
+      await db.query("select public.worktime_pay_invoice($1)",[project]);
+      const paid=(await db.query("select * from public.worktime_invoices")).rows;
+      await assert.rejects(db.exec("delete from public.worktime_invoices"),/Оплаченный счёт нельзя удалить/);
+      assert.deepEqual((await db.query("select * from public.worktime_invoices")).rows,paid);
+      await assert.rejects(db.exec("delete from public.worktime_items"),/включена в счёт/);
+    });
+  }finally{await db.close();}
+});
 test("Чужой аккаунт не пишет даже при посторонней разрешающей политике", async()=>{
   const db=await database(); try {
     for (const table of ["worktime_projects","worktime_items"]) await db.exec(`create policy broad on public.${table} for all to authenticated using(true) with check(true)`);
