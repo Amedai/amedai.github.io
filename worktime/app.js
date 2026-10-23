@@ -70,7 +70,7 @@ function render() {
     const button = action(p.name, "", () => { project = p.id; render(); }, "projects__button");
     button.classList.toggle("projects__button--active", p.id === project);
     button.setAttribute("aria-current", p.id === project ? "true" : "false");
-    button.append(make("span", "projects__symbol", index === 0 ? "▦" : p.name.slice(0,1).toUpperCase()), make("span", "projects__name", p.name), make("span", "projects__count", String(data.items.filter(i => (p.id === "all" || i.project_id === p.id) && !invoiceFor(data, i.id)?.paid_at).length)));
+    button.append(make("span", "projects__symbol", index === 0 ? "▦" : p.name.slice(0,1).toUpperCase()), make("span", "projects__name", p.name), make("span", "projects__count", String(data.items.filter(i => i.kind === "plan" && !i.done && (p.id === "all" || i.project_id === p.id)).length)));
     return button;
   });
   $("projects").replaceChildren(...links);
