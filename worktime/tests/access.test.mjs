@@ -126,6 +126,28 @@ test("Повторный запуск SQL сохраняет записи; та�
     assert.equal((await db.query("select note from public.debts")).rows[0].note,"Сохранить");
   } finally {await db.close();}
 });
+
+test("SQL: повторный запуск восстанавливает права записи владельца после 42501",async()=>{
+  const db=await database();try {
+    await db.exec("revoke insert,update,delete on public.worktime_items from authenticated");
+    await as(db,"authenticated",owner,async()=>{
+      for (const query of ["update public.worktime_items set title='Исправлено'","delete from public.worktime_items"])
+        await assert.rejects(db.exec(query),error=>error.code==="42501");
+    });
+    await db.exec(sql);
+    assert.equal((await db.query("select title from public.worktime_items where id=$1",[task])).rows[0].title,"Блок");
+    await as(db,"authenticated",owner,async()=>{
+      assert.equal((await db.query("update public.worktime_items set title='Исправлено' where id=$1 returning title",[task])).rows[0].title,"Исправлено");
+      assert.equal((await db.query("delete from public.worktime_items where id=$1 returning id",[task])).rows.length,1);
+    });
+    await as(db,"anon",null,async()=>{
+      await assert.rejects(db.exec("delete from public.worktime_projects"),error=>error.code==="42501");
+    });
+    await as(db,"authenticated",stranger,async()=>{
+      assert.equal((await db.query("delete from public.worktime_projects returning id")).rows.length,0);
+    });
+  }finally{await db.close();}
+});
 test("SQL: таймер складывает активные отрезки и защищает переходы версией", async()=>{
   const db=await database();try {await as(db,"authenticated",owner,async()=>{
     await db.exec(`update public.worktime_items set kind='work',started_at=clock_timestamp()-interval '30 minutes',
@@ -171,4 +193,29 @@ test("SQL: миграция прежней схемы сохраняет руч�
       result=(await db.query("select * from public.worktime_items where id=$1",[payload.items[0].id])).rows[0];assert.equal(result.elapsed_ms,1500000);assert.equal(result.timer_state,"finished");assert.equal(result.timer_version,4);
     });
   }finally{await db.close();}
+});
+
+test("SQL: фото проходят импорт, счета и повторную миграцию; неверные вложения отклоняются",async()=>{
+  const db=await database();
+  const image="data:image/png;base64,aGVsbG8=";
+  try {
+    await as(db,"authenticated",owner,async()=>{
+      await db.query("update public.worktime_items set images=$1",[JSON.stringify([image])]);
+      for (const images of [["javascript:alert(1)"],Array(6).fill(image),{},["data:image/png;base64,xx"],["data:image/svg+xml;base64,PHN2Zz4="]]) {
+        await assert.rejects(db.query("update public.worktime_items set images=$1",[JSON.stringify(images)]),/worktime_images/);
+      }
+      await db.exec("update public.worktime_items set kind='work',started_at='2026-10-17 21:00Z',ended_at='2026-10-17 21:25Z'");
+      await db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[task]);
+    });
+    await db.exec(sql);
+    const invoice=(await db.query("select * from public.worktime_invoices")).rows[0];
+    assert.deepEqual(invoice.items[0].images,[image]);
+    const fresh=await database();
+    try {
+      await fresh.exec("delete from public.worktime_items");
+      const payload={projects:(await db.query("select * from public.worktime_projects")).rows,items:(await db.query("select * from public.worktime_items")).rows,invoices:[invoice]};
+      await as(fresh,"authenticated",owner,()=>fresh.query("select public.worktime_import($1)",[JSON.stringify(payload)]));
+      assert.deepEqual((await fresh.query("select images from public.worktime_items")).rows[0].images,[image]);
+    } finally { await fresh.close(); }
+  } finally { await db.close(); }
 });

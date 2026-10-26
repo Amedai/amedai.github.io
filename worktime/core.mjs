@@ -83,7 +83,20 @@ export function validateItem(value) {
     item.done = false;
   } else if (value.started_at != null || value.ended_at != null) throw new Error("У запланированной задачи не должно быть рабочего интервала.");
   if ((item.kind === "plan" && item.timer_state !== "manual") || (item.timer_state === "manual" && item.elapsed_ms !== 0) || (item.timer_state !== "running" && value.running_since != null)) throw new Error("Некорректные данные таймера.");
+  item.images = validateImages(value.images ?? []);
   return item;
+}
+export const MAX_TASK_IMAGES = 5;
+export const MAX_IMAGE_DATA = 2000000;
+export function validateImages(images) {
+  if (!Array.isArray(images) || images.length > MAX_TASK_IMAGES) throw new Error("К задаче можно прикрепить до 5 фото.");
+  let size = 0;
+  for (const image of images) {
+    if (typeof image !== "string" || image.length > MAX_IMAGE_DATA || !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(image) || image.split(",")[1].length % 4 !== 0) throw new Error("Некорректное фото. Используйте PNG, JPEG или WebP.");
+    size += image.length;
+  }
+  if (size > MAX_IMAGE_DATA) throw new Error("Фото занимают слишком много места. Удалите лишнее или вставьте меньший фрагмент.");
+  return [...images];
 }
 export function validateData(value) {
   if (!value || !Array.isArray(value.projects) || !Array.isArray(value.items) || value.projects.length > MAX || value.items.length > MAX) throw new Error("Некорректная копия или слишком много записей (максимум 10 000).");
@@ -103,7 +116,7 @@ export function validateData(value) {
 }
 export function parseBackup(raw) {
   const value = JSON.parse(raw);
-  if (value.format !== "worktime" || ![1, 2, 3].includes(value.version)) throw new Error("Это не копия Worktime поддерживаемой версии.");
+  if (value.format !== "worktime" || ![1, 2, 3, 4].includes(value.version)) throw new Error("Это не копия Worktime поддерживаемой версии.");
   return validateData(value);
 }
 export function mergeData(current, incoming) {

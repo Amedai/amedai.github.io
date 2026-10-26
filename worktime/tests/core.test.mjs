@@ -45,7 +45,7 @@ test("Планы без времени; неизвестные поля не с�
 test("Резервная копия проверяет ссылки, формат и повторяющиеся ID", () => {
   const backup = {format:"worktime",version:1,projects:[project],items:[item]};
   assert.equal(parseBackup(JSON.stringify(backup)).items.length,1);
-  assert.throws(() => parseBackup(JSON.stringify({...backup,version:4})));
+  assert.throws(() => parseBackup(JSON.stringify({...backup,version:5})));
   assert.throws(() => validateData({projects:[],items:[item]}),/отсутствует проект/);
   assert.throws(() => validateData({projects:[project,project],items:[]}),/повторяются/);
   assert.equal(mergeData(validateData(backup),backup).items.length,1);
@@ -222,8 +222,29 @@ test("Облачное переименование обновляет толь�
     return {update(row){calls.push(row);return this;},eq(key,value){calls.push([key,value]);return this;},select(){return this;},async single(){return {data:{id:snapshot.id}};}};
   }};
   await cloudRepository(client,project.id).updateItemDetails({...snapshot,title:"Исправлено",note:"Детали"});
-  assert.deepEqual(calls,[{id:snapshot.id,project_id:project.id,title:"Исправлено",note:"Детали"},["id",snapshot.id],["user_id",project.id]]);
+  assert.deepEqual(calls,[{id:snapshot.id,project_id:project.id,title:"Исправлено",note:"Детали",images:[]},["id",snapshot.id],["user_id",project.id]]);
   assert.deepEqual({...latest,...calls[0]},{...latest,title:"Исправлено",note:"Детали"});
   const failed=cloudRepository({from(){return {update(){return this;},eq(){return this;},select(){return this;},async single(){return {error:new Error("network unavailable")};}};}},project.id);
   await assert.rejects(failed.updateItemDetails(snapshot),/network/);
+});
+
+test("Фото: валидация, перезапуск таймера, счета и копия версии 4 сохраняют вложения", async () => {
+  const image = "data:image/png;base64,aGVsbG8=";
+  const task = validateItem({...item, images:[image]});
+  assert.deepEqual(validateItem(item).images, []);
+  for (const images of [["javascript:alert(1)"], ["data:image/svg+xml;base64,PHN2Zz4="], ["data:image/png;base64,xx"], [image.repeat(100000)], Array(6).fill(image), "bad"]) {
+    assert.throws(() => validateItem({...item, images}));
+  }
+  const large = "data:image/png;base64," + "a".repeat(1100000);
+  assert.throws(() => validateItem({...item, images:[large,large]}), /много места/);
+  const values = new Map(); const storage = {getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v)};
+  const repo = localRepository(storage);
+  await repo.saveProject(project); await repo.saveItem(task);
+  const invoice = await repo.createInvoice({id:project.id,start:"2026-10-18",end:"2026-10-18"});
+  const data = await localRepository(storage).list();
+  assert.deepEqual(data.items[0].images, [image]);
+  assert.deepEqual(data.invoices.find(i=>i.id===invoice).items[0].images, [image]);
+  assert.deepEqual(parseBackup(JSON.stringify({format:"worktime",version:4,...data})), data);
+  const running = {...timer(),images:[image]};
+  assert.deepEqual(transitionTimer(running,"pause",Date.parse(item.started_at)+60000).images,[image]);
 });

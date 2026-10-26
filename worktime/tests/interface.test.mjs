@@ -12,7 +12,7 @@ const owner="10000000-0000-4000-8000-000000000001";
 const project={id:randomUUID(),name:"Студия",created_at:"2026-10-18T09:00:00Z"};
 const item={id:randomUUID(),project_id:project.id,title:"Шапка сайта",note:"Адаптивная версия",kind:"work",done:false,started_at:"2026-10-18T10:00:00Z",ended_at:"2026-10-18T10:25:00Z",created_at:project.created_at};
 const settle=async()=>{for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));};
-async function app({cloud=false,session=null,items=[item],projects=[project],invoices=[],missingSchema=false}={}) {
+async function app({cloud=false,session=null,items=[item],projects=[project],invoices=[],missingSchema=false,writeError=null}={}) {
   const {window,document}=parseHTML(html);
   const values=new Map([[core.STORAGE_KEY,JSON.stringify({projects,items,invoices})]]);
   const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
@@ -39,8 +39,9 @@ async function app({cloud=false,session=null,items=[item],projects=[project],inv
   let downloadBlob;
   const context=vm.createContext({...core,localRepository,cloudRepository:()=>({
     async list(){return structuredClone(cloudData);},
-    async saveItem(next){cloudData.items=cloudData.items.filter(i=>i.id!==next.id).concat(core.validateItem(next));},
-    async updateItemDetails(next){cloudData.items=cloudData.items.map(i=>i.id===next.id?core.validateItem({...i,title:next.title,project_id:next.project_id,note:next.note}):i);}
+    async saveItem(next){if(writeError)throw writeError;cloudData.items=cloudData.items.filter(i=>i.id!==next.id).concat(core.validateItem(next));},
+    async updateItemDetails(next){cloudData.items=cloudData.items.map(i=>i.id===next.id?core.validateItem({...i,title:next.title,project_id:next.project_id,note:next.note,images:next.images}):i);},
+    async removeItem(id){if(writeError)throw writeError;cloudData.items=cloudData.items.filter(i=>i.id!==id);}
   }),config:{supabaseUrl:"https://test.supabase.co",supabaseKey:"sb_publishable_test"},window,document,location:{search:cloud?"":"?demo=1"},localStorage:storage,crypto:{randomUUID},URL:{createObjectURL(blob){downloadBlob=blob;return "blob:test";},revokeObjectURL(){}},URLSearchParams,Blob,setTimeout,clearTimeout,setInterval:()=>1});
   vm.runInContext(source,context,{filename:"app.js"}); await context.initialization;
   return {document,window,storage,context,get:id=>document.getElementById(id),
@@ -202,6 +203,37 @@ test("DOM: выход владельца закрывает редактор и 
   await ui.click("add-item");assert.equal(ui.get("editor").open,true);
   await ui.session(null);assert.equal(ui.get("editor").open,false);assert.equal(ui.get("add-item").hidden,true);assert.equal(ui.get("rows").children.length,1);
 });
+
+for (const message of ['permission denied for table worktime_items','new row violates row-level security policy for table "worktime_items"']) test(`DOM: отказ базы владельцу при удалении: ${message}`,async()=>{
+  const ui=await app({cloud:true,session:{user:{id:owner}},writeError:{code:"42501",message}});
+  ui.document.querySelector('[aria-label="Удалить задачу"]').click();
+  ui.get("confirm-dialog").close("delete");await settle();
+  assert.match(ui.get("notice").textContent,/supabase.sql/);
+  assert.ok(ui.get("notice").textContent.includes(message));
+  assert.doesNotMatch(ui.get("notice").textContent,/Войдите своим аккаунтом/);
+  assert.equal(ui.get("rows").children.length,1);
+  assert.equal(ui.get("logout").hidden,false);
+});
+
+test("DOM: отказ RLS посетителю предлагает войти и сохраняет причину",async()=>{
+  const ui=await app({cloud:true});
+  const message=vm.runInContext('errorText({code:"42501",message:"new row violates row-level security policy"})',ui.context);
+  assert.match(message,/Войдите своим аккаунтом/);
+  assert.match(message,/row-level security/);
+});
+
+test("DOM: отказ прав при сохранении владельцем оставляет введённые данные в форме",async()=>{
+  const ui=await app({cloud:true,session:{user:{id:owner}},writeError:{code:"42501",message:"permission denied for table worktime_items"}});
+  ui.document.querySelector('[aria-label="Изменить задачу"]').click();
+  ui.get("item-title").value="Сохранить введённый текст";
+  await ui.submit("item-form");
+  assert.equal(ui.get("editor").open,true);
+  assert.equal(ui.get("item-title").value,"Сохранить введённый текст");
+  assert.match(ui.get("item-error").textContent,/supabase.sql/);
+  assert.match(ui.get("item-error").textContent,/permission denied for table worktime_items/);
+  assert.doesNotMatch(ui.get("item-error").textContent,/Войдите своим аккаунтом/);
+  assert.match(ui.get("rows").textContent,/Шапка сайта/);
+});
 test("DOM: после настройки SQL можно повторить подключение кнопкой обновления",async()=>{
   const ui=await app({cloud:true,missingSchema:true});assert.match(ui.get("notice").textContent,/supabase.sql/);assert.equal(ui.get("refresh").disabled,false);
   ui.enableSchema();await ui.click("refresh");assert.equal(ui.get("rows").children.length,1);assert.equal(ui.get("export").disabled,false);
@@ -300,4 +332,42 @@ test("DOM: время отображается и сохраняется по М
   await ui.click("add-item");ui.setTime("start","2026-10-18T24:00");await ui.submit("item-form");
   assert.equal(ui.get("editor").open,true);assert.match(ui.get("item-error").textContent,/МСК/);
   assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).items.length,1);
+});
+
+const pastedImage = "data:image/png;base64,aGVsbG8=";
+async function paste(ui, files = [], text = "") {
+  const event = new ui.window.Event("paste", {bubbles:true,cancelable:true});
+  event.clipboardData = {items:files.map(file=>({kind:"file",type:file.type,getAsFile:()=>file})),files,getData:()=>text};
+  ui.get("item-note").dispatchEvent(event); await settle(); return event;
+}
+for (const cloud of [false,true]) test(`DOM: Ctrl+V прикрепляет фото, просмотр и удаление (${cloud?"облако":"демо"})`,async()=>{
+  const ui=await app({cloud,session:cloud?{user:{id:owner}}:null,items:[]});
+  vm.runInContext('encodePhoto = async file => file.encoded',ui.context);
+  await ui.click("tab-plan");await ui.click("add-item");ui.get("item-title").value="По скриншоту";
+  const text=await paste(ui,[],"Описание");assert.equal(text.defaultPrevented,false);
+  const image=await paste(ui,[{type:"image/png",encoded:pastedImage}]);assert.equal(image.defaultPrevented,true);
+  assert.equal(ui.get("item-photos").querySelectorAll("img").length,1);
+  await ui.submit("item-form");assert.equal(ui.get("editor").open,false);
+  assert.equal(ui.get("rows").querySelector("img").src,pastedImage);
+  ui.get("rows").querySelector('[aria-label="Открыть фото 1"]').click();assert.equal(ui.get("photo-viewer").open,true);
+  assert.equal(ui.get("photo-full").src,pastedImage);ui.get("photo-viewer").close();assert.equal(ui.get("photo-full").hasAttribute("src"),false);
+  ui.document.querySelector('[aria-label="Запустить таймер по задаче"]').click();
+  assert.equal(ui.get("item-photos").querySelectorAll("img").length,1);await ui.submit("item-form");
+  await ui.click("timer-edit");assert.equal(ui.get("item-photos").querySelectorAll("img").length,1);
+  ui.get("item-photos").querySelector('[aria-label="Удалить фото 1"]').click();await ui.submit("item-form");
+  assert.equal(ui.get("rows").querySelectorAll("img").length,0);
+  await ui.click("timer-edit");assert.equal(ui.get("item-photos").querySelectorAll("img").length,0);
+});
+test("DOM: лимит, отмена и ошибка записи сохраняют правильный набор фото",async()=>{
+  const ui=await app({items:[]});await ui.click("tab-plan");await ui.click("add-item");
+  vm.runInContext('encodePhoto = async file => file.encoded',ui.context);
+  ui.get("item-title").value="Не потерять";
+  const file={type:"image/png",encoded:pastedImage};
+  await paste(ui,Array(5).fill(file));await paste(ui,[file]);
+  assert.equal(ui.get("item-photos").querySelectorAll("img").length,5);assert.match(ui.get("item-error").textContent,/до 5/);
+  const write=ui.storage.setItem;ui.storage.setItem=()=>{throw new Error("QuotaExceededError");};
+  await ui.submit("item-form");assert.equal(ui.get("editor").open,true);assert.equal(ui.get("item-photos").querySelectorAll("img").length,5);
+  ui.storage.setItem=write;ui.get("editor").close();await ui.click("add-item");assert.equal(ui.get("item-photos").querySelectorAll("img").length,0);
+  vm.runInContext('encodePhoto = async () => { throw new Error("Не удалось прочитать фото."); }',ui.context);
+  await paste(ui,[file]);assert.equal(ui.get("item-photos").querySelectorAll("img").length,0);assert.match(ui.get("item-error").textContent,/прочитать фото/);
 });

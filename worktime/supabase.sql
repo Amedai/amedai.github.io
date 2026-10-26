@@ -45,6 +45,25 @@ create index if not exists worktime_items_project_idx on public.worktime_items(p
 create index if not exists worktime_items_date_idx on public.worktime_items(user_id, started_at desc);
 
 -- Обновление существующей базы: старые записи остаются ручными интервалами.
+alter table public.worktime_items add column if not exists images jsonb not null default '[]'::jsonb;
+create or replace function public.worktime_valid_images(images jsonb) returns boolean
+language plpgsql immutable set search_path = public as $$
+declare photo jsonb; encoded text; total_size integer := 0;
+begin
+  if jsonb_typeof(images) is distinct from 'array' then return false; end if;
+  if jsonb_array_length(images) > 5 then return false; end if;
+  for photo in select * from jsonb_array_elements(images) loop
+    if jsonb_typeof(photo) is distinct from 'string' then return false; end if;
+    encoded := photo #>> '{}';
+    total_size := total_size + length(encoded);
+    if total_size > 2000000 or encoded !~ '^data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$'
+      or length(split_part(encoded, ',', 2)) % 4 <> 0 then return false; end if;
+  end loop;
+  return true;
+end;
+$$;
+alter table public.worktime_items drop constraint if exists worktime_images;
+alter table public.worktime_items add constraint worktime_images check (public.worktime_valid_images(images));
 alter table public.worktime_items add column if not exists timer_state text not null default 'manual';
 alter table public.worktime_items add column if not exists elapsed_ms bigint not null default 0;
 alter table public.worktime_items add column if not exists running_since timestamptz;
@@ -111,7 +130,7 @@ begin
       or (task.started_at at time zone 'Europe/Moscow')::date not between new.period_start and new.period_end
       or nullif(trim(entry->>'project_name'), '') is null
       or char_length(entry->>'project_name') > 100
-      or to_jsonb(jsonb_populate_record(null::public.worktime_items, entry || jsonb_build_object('user_id',new.user_id))) is distinct from to_jsonb(task) then
+      or to_jsonb(jsonb_populate_record(null::public.worktime_items, entry || jsonb_build_object('user_id',new.user_id,'images',coalesce(entry->'images','[]'::jsonb)))) is distinct from to_jsonb(task) then
       raise exception 'Задача счёта изменилась или не завершена. Обновите список';
     end if;
     if exists (select 1 from public.worktime_invoices i where i.items @> jsonb_build_array(jsonb_build_object('id',task.id))) then
@@ -183,13 +202,13 @@ begin
       as p(id uuid, name text, created_at timestamptz)
     on conflict (id) do nothing;
   insert into public.worktime_items (id, user_id, project_id, title, note, kind, done, started_at, ended_at, created_at,
-    timer_state, elapsed_ms, running_since, timer_version)
+    timer_state, elapsed_ms, running_since, timer_version, images)
     select id, auth.uid(), project_id, title, coalesce(note, ''), kind, done, started_at, ended_at, created_at,
-      coalesce(timer_state, 'manual'), coalesce(elapsed_ms, 0), running_since, coalesce(timer_version, 0)
+      coalesce(timer_state, 'manual'), coalesce(elapsed_ms, 0), running_since, coalesce(timer_version, 0), coalesce(images, '[]'::jsonb)
     from jsonb_to_recordset(payload->'items')
       as i(id uuid, project_id uuid, title text, note text, kind text, done boolean,
         started_at timestamptz, ended_at timestamptz, created_at timestamptz,
-        timer_state text, elapsed_ms bigint, running_since timestamptz, timer_version integer)
+        timer_state text, elapsed_ms bigint, running_since timestamptz, timer_version integer, images jsonb)
     on conflict (id) do nothing;
   insert into public.worktime_invoices (id, user_id, period_start, period_end, created_at, paid_at, items)
     select id, auth.uid(), period_start, period_end, created_at, paid_at, items

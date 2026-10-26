@@ -1,8 +1,8 @@
 import { STORAGE_KEY, validateData, validateItem, validateProject, mergeData, transitionTimer, createInvoice, invoiceFor } from "./core.mjs";
 
 function itemDetails(value) {
-  const { id, project_id, title, note } = validateItem(value);
-  return { id, project_id, title, note };
+  const { id, project_id, title, note, images } = validateItem(value);
+  return { id, project_id, title, note, images };
 }
 
 export function localRepository(storage) {
@@ -72,7 +72,7 @@ export function cloudRepository(client, owner) {
     async list() {
       const [projects, items, invoices] = await Promise.all([
         listTable("worktime_projects", "id,name,created_at"),
-        listTable("worktime_items", "id,project_id,title,note,kind,done,started_at,ended_at,created_at,timer_state,elapsed_ms,running_since,timer_version"),
+        listTable("worktime_items", "id,project_id,title,note,images,kind,done,started_at,ended_at,created_at,timer_state,elapsed_ms,running_since,timer_version"),
         listTable("worktime_invoices", "id,period_start,period_end,created_at,paid_at,items"),
       ]);
       return validateData({ projects, items, invoices });

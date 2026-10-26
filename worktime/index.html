@@ -82,11 +82,22 @@
       <p id="timer-editor-note" class="form__description" hidden>Укажите, когда начали работу, и нажмите «Пуск». Время перерывов исключается кнопкой «Пауза».</p>
       <div id="calculation" class="calculation" aria-live="polite"><span id="calc-time">Укажите время работы</span><strong id="calc-amount">0 ₽</strong><small id="calc-note">200 ₽ за каждые полные 10 минут</small></div>
       <label>Примечание <span class="form__optional">необязательно</span><textarea id="item-note" rows="3" maxlength="2000" placeholder="Детали, ссылка на задачу или результат"></textarea></label>
+      <section id="photo-paste" class="photo-paste" tabindex="0" aria-labelledby="photo-label" aria-describedby="photo-hint">
+        <span id="photo-label">Фото задачи <span class="form__optional">необязательно</span></span>
+        <p id="photo-hint" class="form__description">Сделайте скриншот (Win+Shift+S) и нажмите Ctrl+V в этой форме. До 5 фото.</p>
+        <button id="photo-select" type="button" class="text-button">＋ Выбрать фото</button>
+        <input id="photo-file" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+        <div id="item-photos" class="task-photos" aria-live="polite"></div>
+      </section>
       <p id="item-error" class="form__error" role="alert" hidden></p><div class="dialog__footer"><button type="button" class="button button--outline" data-close="editor">Отмена</button><button id="item-submit" type="submit" class="button button--primary">Сохранить</button></div>
     </form>
   </dialog>
   <dialog id="project-dialog" class="dialog dialog--small" aria-labelledby="project-title"><form id="project-form" class="form"><div class="dialog__heading"><h2 id="project-title">Новый проект</h2><button type="button" class="icon-button" data-close="project-dialog" aria-label="Закрыть">×</button></div><label>Название<input id="project-name" required maxlength="100" placeholder="Например, сайт студии" autocomplete="off"></label><p id="project-error" class="form__error" role="alert" hidden></p><div id="project-list" class="project-list"></div><div class="dialog__footer"><button type="button" class="button button--outline" data-close="project-dialog">Отмена</button><button class="button button--primary" type="submit">Сохранить</button></div></form></dialog>
   <dialog id="login-dialog" class="dialog dialog--small" aria-labelledby="login-title"><form id="login-form" class="form"><div class="dialog__heading"><h2 id="login-title">Вход владельца</h2><button type="button" class="icon-button" data-close="login-dialog" aria-label="Закрыть">×</button></div><p class="form__description">Войдите аккаунтом Supabase из проекта с долгами.</p><label>Почта<input id="email" type="email" required autocomplete="username"></label><label>Пароль<input id="password" type="password" required autocomplete="current-password"></label><p id="login-error" class="form__error" role="alert" hidden></p><div class="dialog__footer"><button type="button" class="button button--outline" data-close="login-dialog">Отмена</button><button type="submit" class="button button--primary">Войти</button></div></form></dialog>
   <dialog id="confirm-dialog" class="dialog dialog--small" aria-labelledby="confirm-title"><form method="dialog" class="form"><div class="dialog__heading"><h2 id="confirm-title">Удалить запись?</h2></div><p id="confirm-text" class="form__description"></p><div class="dialog__footer"><button class="button button--outline" value="cancel">Отмена</button><button class="button button--danger" value="delete">Удалить</button></div></form></dialog>
+  <dialog id="photo-viewer" class="dialog dialog--photo" aria-label="Фото задачи">
+    <button type="button" class="icon-button" data-close="photo-viewer" aria-label="Закрыть фото">×</button>
+    <img id="photo-full" alt="Фото задачи в полном размере">
+  </dialog>
 </body>
 </html>

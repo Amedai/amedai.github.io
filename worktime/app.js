@@ -1,6 +1,7 @@
 import { config } from "./config.js";
 import { interval, durationInterval, money, duration, localInput, moscowInputToISO, TIME_ZONE, filterItems, parseBackup, activeTimer, workBill, timerClock, invoiceFor, invoiceCandidates, invoiceTotal, invoiceCSV } from "./core.mjs";
 import { localRepository, cloudRepository } from "./storage.mjs";
+import { validateImages, MAX_TASK_IMAGES } from "./core.mjs";
 
 const $ = id => document.getElementById(id);
 const demo = new URLSearchParams(location.search).get("demo") === "1";
@@ -9,6 +10,7 @@ let repository, client, owner, canEdit = false, ready = false, busy = false;
 let editingItem = null, editorKind = "work", editingProject = null, revision = 0;
 let editorTimer = false;
 let editorDuration = false;
+let editorImages = [];
 let invoiceProject = "all";
 let confirmAction = null;
 const dateFormat = new Intl.DateTimeFormat("ru-RU", { timeZone: TIME_ZONE, day: "numeric", month: "short" });
@@ -24,12 +26,59 @@ function notice(message, error = false) {
   $("notice").textContent = message; $("notice").hidden = !message;
   $("notice").classList.toggle("notice--error", error);
 }
+function photoGallery(images = [], editable = false) {
+  const gallery = make("div", "task-photos");
+  images.forEach((src, index) => {
+    const card = make("div", "task-photo");
+    const preview = action(`Открыть фото ${index + 1}`, "", () => {
+      $("photo-full").src = src;
+      $("photo-viewer").showModal();
+    }, "task-photo__preview");
+    const img = make("img"); img.src = src; img.alt = `Фото задачи ${index + 1}`; img.loading = "lazy";
+    preview.append(img); card.append(preview);
+    if (editable) card.append(action(`Удалить фото ${index + 1}`, "×", () => {
+      editorImages.splice(index, 1); renderEditorPhotos();
+    }, "task-photo__remove icon-button"));
+    gallery.append(card);
+  });
+  return gallery;
+}
+function renderEditorPhotos() { $("item-photos").replaceChildren(photoGallery(editorImages, true)); }
+async function encodePhoto(file) {
+  if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) throw new Error("Используйте фото PNG, JPEG или WebP.");
+  if (file.size > 20 * 1024 * 1024) throw new Error("Исходное фото не должно превышать 20 МБ.");
+  const url = URL.createObjectURL(file);
+  try {
+    const image = document.createElement("img");
+    await new Promise((resolve, reject) => { image.onload = resolve; image.onerror = () => reject(new Error("Не удалось прочитать фото.")); image.src = url; });
+    const scale = Math.min(1, 1920 / Math.max(image.naturalWidth, image.naturalHeight));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(image.naturalWidth * scale)); canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+    canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL("image/webp", 0.88);
+  } finally { URL.revokeObjectURL(url); }
+}
+async function addPhotos(files) {
+  if (!files.length || busy || !canEdit || !$("editor").open) return;
+  await perform(async () => {
+    $("item-error").hidden = true;
+    if (editorImages.length + files.length > MAX_TASK_IMAGES) throw new Error("К задаче можно прикрепить до 5 фото.");
+    const added = [];
+    for (const file of files) added.push(await encodePhoto(file));
+    editorImages = validateImages([...editorImages, ...added]);
+    renderEditorPhotos();
+  }, "item-error");
+}
 function errorText(error) {
   if (["42P01", "42703", "PGRST204", "PGRST205", "PGRST202"].includes(error.code)) return "Хранилище нужно обновить. Выполните файл worktime/supabase.sql в SQL Editor вашего Supabase и нажмите «Обновить». Для знакомства с интерфейсом откройте ?demo=1.";
   if (error.code === "23503") return "В проекте остались задачи либо проект уже удалён. Обновите список.";
   if (error.code === "23505") return /worktime_one_timer/.test(error.message || "") ? "Уже есть незавершённый таймер. Обновите список и завершите текущую задачу." : "Запись уже существует. Обновите список.";
   if (/Timer changed/.test(error.message || "")) return "Таймер изменился на другом устройстве. Нажмите «Обновить», прежде чем продолжить.";
-  if (error.code === "42501") return "Изменять данные может только владелец. Войдите своим аккаунтом.";
+  if (error.code === "42501") {
+    const reason = error.message ? ` Причина: ${error.message}` : "";
+    if (canEdit || /permission denied/i.test(error.message || "")) return "База данных отклонила запрос из-за прав доступа. Проверьте права и политики Worktime: выполните supabase.sql в SQL Editor вашего Supabase и нажмите «Обновить»." + reason;
+    return "Изменять данные может только владелец. Войдите своим аккаунтом." + reason;
+  }
   if (/fetch|network|load failed/i.test(error.message || "")) return "Не удалось связаться с хранилищем. Проверьте интернет и нажмите «Обновить».";
   return error.message || "Не удалось выполнить действие.";
 }
@@ -102,6 +151,7 @@ function render() {
     const task = make("td");
     task.append(make("div", `journal__title${item.done ? " journal__done" : ""}`, item.title));
     if (item.note) task.append(make("span", "journal__note", item.note));
+    if (item.images?.length) task.append(photoGallery(item.images));
     const meta = make("div", "journal__meta"); meta.append(make("span", "journal__project", data.projects.find(p => p.id === item.project_id)?.name || "Проект")); task.append(meta); row.append(task);
     const invoice = invoiceFor(data, item.id);
     if (invoice) meta.append(make("span", "", "В счёте · ожидает оплаты"));
@@ -151,6 +201,7 @@ function invoiceTable(invoice) {
     const row = make("tr"), title = make("td");
     title.append(make("div", "journal__title", item.title), make("span", "journal__secondary", item.project_name));
     if (item.note) title.append(make("span", "journal__note", item.note));
+    if (item.images?.length) title.append(photoGallery(item.images));
     row.append(title, make("td", "journal__date", localInput(item.started_at).slice(0,10)), make("td", "", duration(workBill(item).minutes)), make("td", "journal__amount", money(workBill(item).amount)));
     body.append(row);
   }
@@ -277,6 +328,7 @@ function openEditor(item = null, startTimer = false, completed = false) {
   $("item-project").replaceChildren(...data.projects.map(p => { const option = make("option", "", p.name); option.value = p.id; return option; }));
   $("item-project").value = item?.project_id || (project !== "all" ? project : data.projects[0].id);
   $("item-title").value = item?.title || ""; $("item-note").value = item?.note || "";
+  editorImages = [...(item?.images || [])]; renderEditorPhotos();
   $("time-fields").hidden = editorKind !== "work"; $("calculation").hidden = timer || editorKind !== "work";
   $("end-label").hidden = timer || timedItem || completed;
   $("duration-fields").hidden = !completed;
@@ -348,6 +400,7 @@ $("item-form").addEventListener("submit", event => {
     const timedItem = editingItem?.timer_state && editingItem.timer_state !== "manual" && !editorTimer;
     const completed = editorDuration ? completedInterval() : null;
     const item = { ...editingItem, id: editingItem?.id || crypto.randomUUID(), project_id: $("item-project").value, title: $("item-title").value.trim(), note: $("item-note").value.trim(), kind: editorKind, done: editorKind === "plan" ? editingItem?.done || false : false, started_at: timedItem ? editingItem.started_at : editorKind === "work" ? editorTime("start") : null, ended_at: timedItem ? editingItem.ended_at : completed ? completed.ended_at : editorKind === "work" && !editorTimer ? editorTime("end") : null, created_at: editingItem?.created_at || new Date().toISOString() };
+    item.images = [...editorImages];
     if (editorTimer) {
       if (Date.parse(item.started_at) > Date.now()) throw new Error("Начало таймера не может быть в будущем.");
       if (data.items.some(activeTimer)) throw new Error("Сначала завершите текущий таймер.");
@@ -361,6 +414,19 @@ $("item-form").addEventListener("submit", event => {
     catch (error) { notice(`Задача сохранена. Не удалось обновить список: ${errorText(error)}`, true); }
   }, "item-error");
 });
+$("item-form").addEventListener("paste", event => {
+  const clipboard = event.clipboardData;
+  const files = Array.from(clipboard?.items || []).filter(item => item.kind === "file" && item.type.startsWith("image/")).map(item => item.getAsFile()).filter(Boolean);
+  if (!files.length) files.push(...Array.from(clipboard?.files || []).filter(file => file.type.startsWith("image/")));
+  if (!files.length) return;
+  event.preventDefault();
+  addPhotos(files);
+});
+$("photo-select").addEventListener("click", () => { if (!busy) $("photo-file").click(); });
+$("photo-file").addEventListener("change", () => {
+  const files = Array.from($("photo-file").files || []); $("photo-file").value = ""; addPhotos(files);
+});
+$("photo-viewer").addEventListener("close", () => { $("photo-full").removeAttribute("src"); });
 $("project-form").addEventListener("submit", event => {
   event.preventDefault(); $("project-error").hidden = true;
   perform(async () => {
@@ -388,7 +454,7 @@ $("logout").addEventListener("click", () => perform(async () => {
 }));
 $("export").addEventListener("click", () => {
   if (!ready) return;
-  const blob = new Blob([JSON.stringify({ format:"worktime", version:3, exported_at:new Date().toISOString(), ...data }, null, 2)], { type:"application/json" });
+  const blob = new Blob([JSON.stringify({ format:"worktime", version:4, exported_at:new Date().toISOString(), ...data }, null, 2)], { type:"application/json" });
   const url = URL.createObjectURL(blob), link = document.createElement("a"); link.href = url; link.download = `worktime-backup-${localInput().slice(0,10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 $("import").addEventListener("click", () => $("import-file").click());
