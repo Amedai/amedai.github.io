@@ -46,18 +46,40 @@ test("SQL: создание счёта, защита снимка и повто�
     });}finally{await fresh.close();}
   });
   for (const [role,user] of [["anon",null],["authenticated",stranger]]) await as(db,role,user,async()=>{
-    assert.equal((await db.query("select * from public.worktime_invoices")).rows.length,1);
+    if (role === "anon") await assert.rejects(db.query("select * from public.worktime_invoices"),/permission denied/);
+    else assert.equal((await db.query("select * from public.worktime_invoices")).rows.length,1);
     await assert.rejects(db.query("select public.worktime_pay_invoice($1)",[task]),/permission denied|Only the owner/);
     await assert.rejects(db.query("select public.worktime_create_invoice($1,'2026-10-18','2026-10-18',null)",[project]),/permission denied|Only the owner/);
     if (role === "anon") await assert.rejects(db.exec("update public.worktime_invoices set paid_at=now()"),/permission denied/);
     else assert.equal((await db.query("update public.worktime_invoices set paid_at=now() returning id")).rows.length,0);
   });}finally{await db.close();}
 });
-test("Посетитель читает, но не меняет записи, настройки и не вызывает импорт", async()=>{
+test("Посетитель не читает и не меняет записи, настройки и не вызывает импорт", async()=>{
   const db=await database(); try {await as(db,"anon",null,async()=>{
-    assert.equal((await db.query("select * from public.worktime_items")).rows.length,1);
+    for (const table of ["worktime_settings","worktime_projects","worktime_items","worktime_invoices"])
+      await assert.rejects(db.query(`select * from public.${table}`),/permission denied/);
     for (const statement of ["delete from public.worktime_projects","update public.worktime_items set title='hack'",`update public.worktime_settings set owner_id='${stranger}'`,"select public.worktime_import('{}')"]) await assert.rejects(db.exec(statement),/permission denied/);
   });} finally {await db.close();}
+});
+test("SQL: вошедший пользователь читает данные; анониму не помогает посторонняя политика",async()=>{
+  const db=await database();try {
+    for (const table of ["worktime_projects","worktime_items","worktime_invoices"]) {
+      await db.exec(`grant select on public.${table} to anon; create policy broad_read on public.${table} for select to anon using(true)`);
+    }
+    await as(db,"anon",null,async()=>{
+      for (const table of ["worktime_projects","worktime_items","worktime_invoices"])
+        await assert.rejects(db.query(`select * from public.${table}`),/permission denied/);
+    });
+    await as(db,"authenticated",stranger,async()=>{
+      assert.equal((await db.query("select * from public.worktime_projects")).rows.length,1);
+      assert.equal((await db.query("select * from public.worktime_items")).rows.length,1);
+    });
+    await db.exec(sql);
+    await as(db,"anon",null,async()=>{
+      for (const table of ["worktime_settings","worktime_projects","worktime_items","worktime_invoices"])
+        await assert.rejects(db.query(`select * from public.${table}`),/permission denied/);
+    });
+  }finally{await db.close();}
 });
 
 test("SQL: удаление только неоплаченного счёта владельцем; задачи сохраняются и доступны для нового счёта",async()=>{

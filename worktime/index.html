@@ -11,8 +11,20 @@
   <script type="module" src="./app.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">К содержимому</a>
-  <div class="workspace">
+  <main id="auth-gate" class="main" aria-labelledby="auth-title">
+    <section class="form">
+      <h1 id="auth-title">Войдите в Worktime</h1>
+      <p class="form__description">Содержимое сайта доступно только после входа в аккаунт.</p>
+      <p id="auth-notice" class="notice" role="status" aria-live="polite" hidden></p>
+      <div class="intro__actions">
+        <button id="auth-login" class="button button--primary" disabled>Войти</button>
+        <button id="auth-refresh" class="button button--outline">Обновить</button>
+      </div>
+      <noscript>Для входа включите JavaScript в браузере.</noscript>
+    </section>
+  </main>
+  <a id="skip" class="skip" href="#main" hidden>К содержимому</a>
+  <div id="workspace" class="workspace" hidden>
     <aside class="sidebar" aria-label="Проекты и настройки">
       <a class="brand" href="./" aria-label="Worktime, главная"><img src="./favicon.svg" alt="" width="37" height="37"><span>worktime<span class="brand__dot">.</span></span></a>
       <div class="sidebar__intro">Меньше рутины.<br>Больше ясности.</div>
@@ -21,7 +33,7 @@
       <button id="manage-projects" class="sidebar__manage" hidden>Управление проектами ↗</button>
       <div class="sidebar__bottom">
         <div class="rate"><span class="rate__icon" aria-hidden="true">◷</span><div><strong>200 ₽ <span>/ 10 мин</span></strong><p>Только полные десятки</p></div></div>
-        <button id="login" class="button button--outline" disabled>Войти для изменений</button>
+        <button id="login" class="button button--outline" disabled>Войти</button>
         <button id="logout" class="button button--outline" hidden>Выйти</button>
         <p id="access-label" class="sidebar__access">Подключаем хранилище…</p>
       </div>
@@ -93,7 +105,7 @@
     </form>
   </dialog>
   <dialog id="project-dialog" class="dialog dialog--small" aria-labelledby="project-title"><form id="project-form" class="form"><div class="dialog__heading"><h2 id="project-title">Новый проект</h2><button type="button" class="icon-button" data-close="project-dialog" aria-label="Закрыть">×</button></div><label>Название<input id="project-name" required maxlength="100" placeholder="Например, сайт студии" autocomplete="off"></label><p id="project-error" class="form__error" role="alert" hidden></p><div id="project-list" class="project-list"></div><div class="dialog__footer"><button type="button" class="button button--outline" data-close="project-dialog">Отмена</button><button class="button button--primary" type="submit">Сохранить</button></div></form></dialog>
-  <dialog id="login-dialog" class="dialog dialog--small" aria-labelledby="login-title"><form id="login-form" class="form"><div class="dialog__heading"><h2 id="login-title">Вход владельца</h2><button type="button" class="icon-button" data-close="login-dialog" aria-label="Закрыть">×</button></div><p class="form__description">Войдите аккаунтом Supabase из проекта с долгами.</p><label>Почта<input id="email" type="email" required autocomplete="username"></label><label>Пароль<input id="password" type="password" required autocomplete="current-password"></label><p id="login-error" class="form__error" role="alert" hidden></p><div class="dialog__footer"><button type="button" class="button button--outline" data-close="login-dialog">Отмена</button><button type="submit" class="button button--primary">Войти</button></div></form></dialog>
+  <dialog id="login-dialog" class="dialog dialog--small" aria-labelledby="login-title"><form id="login-form" class="form"><div class="dialog__heading"><h2 id="login-title">Вход в аккаунт</h2><button type="button" class="icon-button" data-close="login-dialog" aria-label="Закрыть">×</button></div><p class="form__description">Введите почту и пароль зарегистрированного аккаунта.</p><label>Почта<input id="email" type="email" required autocomplete="username"></label><label>Пароль<input id="password" type="password" required autocomplete="current-password"></label><p id="login-error" class="form__error" role="alert" hidden></p><div class="dialog__footer"><button type="button" class="button button--outline" data-close="login-dialog">Отмена</button><button type="submit" class="button button--primary">Войти</button></div></form></dialog>
   <dialog id="confirm-dialog" class="dialog dialog--small" aria-labelledby="confirm-title"><form method="dialog" class="form"><div class="dialog__heading"><h2 id="confirm-title">Удалить запись?</h2></div><p id="confirm-text" class="form__description"></p><div class="dialog__footer"><button class="button button--outline" value="cancel">Отмена</button><button class="button button--danger" value="delete">Удалить</button></div></form></dialog>
   <dialog id="photo-viewer" class="dialog dialog--photo" aria-label="Фото задачи">
     <button type="button" class="icon-button" data-close="photo-viewer" aria-label="Закрыть фото">×</button>

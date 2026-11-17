@@ -1,6 +1,6 @@
 -- Выполните целиком в SQL Editor существующего проекта Supabase.
 -- Таблицы debt не изменяются. Владелец — тот же предоставленный аккаунт.
--- Посетители читают задачи; только владелец изменяет данные.
+-- Данные доступны только после входа; только владелец изменяет данные.
 begin;
 
 create table if not exists public.worktime_settings (
@@ -12,9 +12,9 @@ values (true, 'edb177a9-ec4a-4cee-9489-4e2650811dca'::uuid)
 on conflict (singleton) do update set owner_id = excluded.owner_id;
 alter table public.worktime_settings enable row level security;
 revoke all on public.worktime_settings from public, anon, authenticated;
-grant select on public.worktime_settings to anon, authenticated;
+grant select on public.worktime_settings to authenticated;
 drop policy if exists "Read worktime settings" on public.worktime_settings;
-create policy "Read worktime settings" on public.worktime_settings for select to anon, authenticated using (singleton);
+create policy "Read worktime settings" on public.worktime_settings for select to authenticated using (singleton and auth.uid() is not null);
 
 create table if not exists public.worktime_projects (
   id uuid primary key default gen_random_uuid(),
@@ -100,7 +100,7 @@ create table if not exists public.worktime_invoices (
 );
 alter table public.worktime_invoices enable row level security;
 revoke all on public.worktime_invoices from public, anon, authenticated;
-grant select on public.worktime_invoices to anon, authenticated;
+grant select on public.worktime_invoices to authenticated;
 grant insert, update, delete on public.worktime_invoices to authenticated;
 
 -- Состав счёта неизменяем. Даже запрос в обход интерфейса не изменит историю.
@@ -157,7 +157,7 @@ create trigger worktime_guard_billed_item before update or delete on public.work
 alter table public.worktime_projects enable row level security;
 alter table public.worktime_items enable row level security;
 revoke all on public.worktime_projects, public.worktime_items from public, anon, authenticated;
-grant select on public.worktime_projects, public.worktime_items to anon, authenticated;
+grant select on public.worktime_projects, public.worktime_items to authenticated;
 grant insert, update, delete on public.worktime_projects, public.worktime_items to authenticated;
 
 -- Даже посторонняя разрешающая политика не расширяет границы владельца.
@@ -167,10 +167,10 @@ begin
   foreach target in array array['worktime_projects', 'worktime_items', 'worktime_invoices'] loop
     execute format('drop policy if exists "Owner boundary" on public.%I', target);
     execute format('create policy "Owner boundary" on public.%I as restrictive for all to anon, authenticated
-      using (user_id = (select owner_id from public.worktime_settings where singleton))
-      with check (user_id = (select owner_id from public.worktime_settings where singleton))', target);
+      using (auth.uid() is not null and user_id = (select owner_id from public.worktime_settings where singleton))
+      with check (auth.uid() is not null and user_id = (select owner_id from public.worktime_settings where singleton))', target);
     execute format('drop policy if exists "Read owner data" on public.%I', target);
-    execute format('create policy "Read owner data" on public.%I for select to anon, authenticated using (true)', target);
+    execute format('create policy "Read owner data" on public.%I for select to authenticated using (auth.uid() is not null)', target);
     execute format('drop policy if exists "Owner writes" on public.%I', target);
     execute format('create policy "Owner writes" on public.%I for all to authenticated
       using (auth.uid() = user_id) with check (auth.uid() = user_id)', target);

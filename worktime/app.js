@@ -7,6 +7,7 @@ const $ = id => document.getElementById(id);
 const demo = new URLSearchParams(location.search).get("demo") === "1";
 let data = { projects: [], items: [] }, project = "all", kind = "work";
 let repository, client, owner, canEdit = false, ready = false, busy = false;
+let authUser = null;
 let editingItem = null, editorKind = "work", editingProject = null, revision = 0;
 let editorTimer = false;
 let editorDuration = false;
@@ -25,6 +26,8 @@ function action(label, text, handler, className = "icon-button") {
 function notice(message, error = false) {
   $("notice").textContent = message; $("notice").hidden = !message;
   $("notice").classList.toggle("notice--error", error);
+  $("auth-notice").textContent = message; $("auth-notice").hidden = !message;
+  $("auth-notice").classList.toggle("notice--error", error);
 }
 function photoGallery(images = [], editable = false) {
   const gallery = make("div", "task-photos");
@@ -86,9 +89,10 @@ function setBusy(value) {
   busy = value;
   document.querySelectorAll("button").forEach(button => { button.disabled = value; });
   if (!value) {
-    $("refresh").disabled = !repository && !client;
+    $("refresh").disabled = !client;
     $("export").disabled = !ready;
-    $("login").disabled = !client || !owner;
+    $("login").disabled = !client;
+    $("auth-login").disabled = !client;
     $("add-item").disabled = !ready || (kind === "work" && data.items.some(activeTimer));
     $("add-completed").disabled = !ready;
     $("new-invoice").disabled = !ready;
@@ -105,12 +109,17 @@ async function perform(task, errorId) {
   } finally { setBusy(false); }
 }
 function render() {
+  const workspaceVisible = Boolean(authUser && ready);
+  $("workspace").hidden = !workspaceVisible;
+  $("skip").hidden = !workspaceVisible;
+  $("auth-gate").hidden = workspaceVisible;
+  $("auth-login").hidden = Boolean(authUser);
   const editable = ready && canEdit;
   for (const id of ["add-project", "manage-projects", "add-item", "import", "actions-heading", "new-invoice"]) $(id).hidden = !editable;
   $("add-item").hidden = !editable || !["work", "plan"].includes(kind);
   $("add-completed").hidden = !editable || kind !== "work";
-  $("login").hidden = demo || canEdit;
-  $("logout").hidden = demo || !canEdit;
+  $("login").hidden = Boolean(authUser);
+  $("logout").hidden = !authUser;
   $("access-label").textContent = demo ? "Локальное демо · без синхронизации" : canEdit ? "Вы вошли как владелец" : "Просмотр · изменения только владельцу";
   $("demo-banner").hidden = !demo;
   $("page-title").textContent = project === "all" ? "Обзор работы." : (data.projects.find(p => p.id === project)?.name || "Обзор работы.");
@@ -295,8 +304,16 @@ async function controlTimer(operation) {
   await mutate(() => repository.timerAction(task.id, operation, task.timer_version), operation === "finish" ? "Задача завершена. В журнале сохранено время без перерывов." : operation === "pause" ? "Таймер на паузе. Перерыв не оплачивается." : "Таймер продолжен.");
 }
 async function refresh() {
-  if (!repository) return;
+  if (!authUser) { render(); return; }
   const request = ++revision;
+  if (!repository) {
+    const { data: settings, error } = await client.from("worktime_settings").select("owner_id").single();
+    if (request !== revision) return;
+    if (error) throw error;
+    owner = settings.owner_id;
+    canEdit = authUser === owner;
+    repository = demo ? localRepository(localStorage) : cloudRepository(client, owner);
+  }
   const next = await repository.list();
   if (request !== revision) return;
   data = next; ready = true;
@@ -436,7 +453,13 @@ $("project-form").addEventListener("submit", event => {
     catch (error) { notice(`Проект сохранён. Не удалось обновить список: ${errorText(error)}`, true); }
   }, "project-error");
 });
-$("login").addEventListener("click", () => { $("login-error").hidden = true; $("login-dialog").showModal(); });
+function openLogin() { $("login-error").hidden = true; $("login-dialog").showModal(); }
+$("login").addEventListener("click", openLogin);
+$("auth-login").addEventListener("click", openLogin);
+$("auth-refresh").addEventListener("click", () => perform(async () => {
+  if (!client) await setupCloud();
+  await refresh();
+}));
 $("login-dialog").addEventListener("close", () => { $("password").value = ""; });
 $("login-form").addEventListener("submit", event => {
   event.preventDefault(); $("login-error").hidden = true;
@@ -444,13 +467,14 @@ $("login-form").addEventListener("submit", event => {
     const { data: result, error } = await client.auth.signInWithPassword({ email: $("email").value.trim(), password: $("password").value });
     $("password").value = "";
     if (error) throw new Error(error.code === "invalid_credentials" ? "Неверная почта или пароль." : errorText(error));
-    if (result.user.id !== owner) { await client.auth.signOut(); throw new Error("У этого аккаунта нет доступа к изменениям."); }
-    canEdit = true; $("login-dialog").close(); render(); notice("Вы вошли. Изменения доступны.");
+    setSession(result);
+    await refresh();
+    $("login-dialog").close(); render(); notice("Вы вошли.");
   }, "login-error");
 });
 $("logout").addEventListener("click", () => perform(async () => {
   const { error } = await client.auth.signOut(); if (error) throw error;
-  canEdit = false; revision++; document.querySelectorAll("dialog[open]").forEach(d => d.close()); render(); notice("Вы вышли. Включён режим просмотра.");
+  setSession(null); notice("Вы вышли. Для доступа к сайту войдите в аккаунт.");
 }));
 $("export").addEventListener("click", () => {
   if (!ready) return;
@@ -462,6 +486,25 @@ $("import-file").addEventListener("change", event => {
   const file = event.target.files[0]; event.target.value = ""; if (!file) return;
   perform(async () => { requireEdit(); if (file.size > 10 * 1024 * 1024) throw new Error("Размер копии не должен превышать 10 МБ."); const backup = parseBackup(await file.text()); await repository.import(backup); await refresh(); notice("Копия загружена. Существующие записи сохранены."); });
 });
+function setSession(session) {
+  const nextUser = session?.user?.id || null;
+  if (authUser === nextUser) return false;
+  authUser = nextUser;
+  revision++;
+  repository = undefined; owner = null; canEdit = false; ready = false;
+  data = { projects: [], items: [], invoices: [] }; project = "all";
+  editingItem = null; editingProject = null; editorImages = []; confirmAction = null;
+  document.querySelectorAll("dialog[open]").forEach(dialog => {
+    if (!nextUser || dialog.id !== "login-dialog") dialog.close();
+  });
+  for (const id of ["item-form", "project-form", "invoice-form"]) $(id).reset();
+  for (const id of ["item-photos", "item-project", "invoice-preview", "project-list"]) $(id).replaceChildren();
+  $("search").value = "";
+  for (const id of ["timer-title", "timer-project", "timer-clock", "timer-cost", "confirm-text", "invoice-scope"]) $(id).textContent = "";
+  $("photo-full").removeAttribute("src");
+  notice(""); render();
+  return true;
+}
 async function setupCloud() {
   if (!config.supabaseUrl || !config.supabaseKey) throw new Error("Заполните config.js для облачного хранения. Для локального знакомства откройте ?demo=1.");
   if (!client) await new Promise((resolve, reject) => {
@@ -471,28 +514,25 @@ async function setupCloud() {
     script.onload = () => { clearTimeout(timeout); resolve(); }; script.onerror = () => { clearTimeout(timeout); reject(new Error("Не удалось загрузить модуль входа. Перезагрузите страницу.")); }; document.head.append(script);
   });
   client ||= window.supabase.createClient(config.supabaseUrl, config.supabaseKey, { auth: { storageKey:"worktime.auth.v1" } });
-  const { data: settings, error } = await client.from("worktime_settings").select("owner_id").single();
-  if (error) throw error;
-  owner = settings.owner_id; repository = cloudRepository(client, owner);
+  client.auth.onAuthStateChange((_event, next) => {
+    if (setSession(next) && authUser) setTimeout(() => {
+      if (authUser && !ready && !busy) perform(refresh);
+    }, 0);
+  });
   const { data: session, error: sessionError } = await client.auth.getSession();
   if (sessionError) throw sessionError;
-  canEdit = session.session?.user.id === owner;
-  client.auth.onAuthStateChange((_event, next) => {
-    canEdit = next?.user.id === owner;
-    if (!canEdit) document.querySelectorAll("dialog[open]").forEach(d => d.close());
-    render();
-  });
+  setSession(session.session);
 }
 async function boot() {
   $("today").textContent = new Intl.DateTimeFormat("ru-RU", { timeZone:TIME_ZONE, day:"numeric", month:"long", year:"numeric" }).format(new Date());
   $("today").dateTime = localInput().slice(0,10);
   setBusy(true);
-  try { if (demo) { repository = localRepository(localStorage); canEdit = true; } else await setupCloud(); await refresh(); }
+  try { await setupCloud(); await refresh(); }
   catch (error) { render(); notice(errorText(error), true); }
   finally { setBusy(false); }
 }
 async function autoRefresh() {
-  if (!repository || busy || document.hidden || document.querySelector("dialog[open]")) return;
+  if (!authUser || busy || document.hidden || document.querySelector("dialog[open]")) return;
   await perform(async () => { await refresh(); });
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden) autoRefresh(); });

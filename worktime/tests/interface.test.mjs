@@ -12,7 +12,7 @@ const owner="10000000-0000-4000-8000-000000000001";
 const project={id:randomUUID(),name:"Студия",created_at:"2026-10-18T09:00:00Z"};
 const item={id:randomUUID(),project_id:project.id,title:"Шапка сайта",note:"Адаптивная версия",kind:"work",done:false,started_at:"2026-10-18T10:00:00Z",ended_at:"2026-10-18T10:25:00Z",created_at:project.created_at};
 const settle=async()=>{for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));};
-async function app({cloud=false,session=null,items=[item],projects=[project],invoices=[],missingSchema=false,writeError=null}={}) {
+async function app({cloud=false,session=cloud?null:{user:{id:owner}},items=[item],projects=[project],invoices=[],missingSchema=false,writeError=null,readList=null}={}) {
   const {window,document}=parseHTML(html);
   const values=new Map([[core.STORAGE_KEY,JSON.stringify({projects,items,invoices})]]);
   const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
@@ -23,9 +23,9 @@ async function app({cloud=false,session=null,items=[item],projects=[project],inv
   for(const form of document.querySelectorAll("form")) form.reset=()=>{for(const input of form.querySelectorAll("input,textarea"))input.value="";};
   const select=document.getElementById("item-project");
   Object.defineProperty(select,"value",{get(){return this._selectedValue||"";},set(value){this._selectedValue=value;}});
-  let authCallback, schemaMissing=missingSchema;
+  let authCallback, schemaMissing=missingSchema, reads=0, settingsReads=0;
   const client={
-    from(){return {select(){return this;},async single(){return schemaMissing?{error:{code:"PGRST205"}}:{data:{owner_id:owner}};}};},
+    from(){settingsReads++;return {select(){return this;},async single(){return schemaMissing?{error:{code:"PGRST205"}}:{data:{owner_id:owner}};}};},
     auth:{
       async getSession(){return {data:{session}};},onAuthStateChange(fn){authCallback=fn;},
       async signOut(){session=null;authCallback?.("SIGNED_OUT",null);return {};},
@@ -38,7 +38,7 @@ async function app({cloud=false,session=null,items=[item],projects=[project],inv
   const cloudData={projects:structuredClone(projects),items:structuredClone(items),invoices:structuredClone(invoices)};
   let downloadBlob;
   const context=vm.createContext({...core,localRepository,cloudRepository:()=>({
-    async list(){return structuredClone(cloudData);},
+    async list(){reads++;return readList?readList(structuredClone(cloudData)):structuredClone(cloudData);},
     async saveItem(next){if(writeError)throw writeError;cloudData.items=cloudData.items.filter(i=>i.id!==next.id).concat(core.validateItem(next));},
     async updateItemDetails(next){cloudData.items=cloudData.items.map(i=>i.id===next.id?core.validateItem({...i,title:next.title,project_id:next.project_id,note:next.note,images:next.images}):i);},
     async removeItem(id){if(writeError)throw writeError;cloudData.items=cloudData.items.filter(i=>i.id!==id);}
@@ -48,12 +48,12 @@ async function app({cloud=false,session=null,items=[item],projects=[project],inv
     setTime(id,value){const [date,time]=value.split("T");document.getElementById(id+"-date").value=date;document.getElementById(id).value=time;},
     async click(id){document.getElementById(id).click();await settle();},
     async submit(id){document.getElementById(id).dispatchEvent(new window.Event("submit",{cancelable:true}));await settle();},
-    async session(next){session=next;authCallback("SIGNED_IN",next);await settle();},
-    enableSchema(){schemaMissing=false;},get downloadBlob(){return downloadBlob;}
+    async session(next){session=next;authCallback("SIGNED_IN",next);await new Promise(resolve=>setTimeout(resolve,0));await settle();},
+    enableSchema(){schemaMissing=false;},get downloadBlob(){return downloadBlob;},get reads(){return reads;},get settingsReads(){return settingsReads;}
   };
 }
 for (const cloud of [false,true]) test(`DOM: старая задача по длительности, сумма и счёт (${cloud?"облако":"демо"})`,async()=>{
-  const ui=await app({cloud,session:cloud?{user:{id:owner}}:null,items:[]});
+  const ui=await app({cloud,session:{user:{id:owner}},items:[]});
   await ui.click("add-completed");assert.equal(ui.get("editor").open,true);
   assert.equal(ui.get("duration-fields").hidden,false);assert.equal(ui.get("end-label").hidden,true);
   assert.equal(ui.get("end").required,false);assert.equal(ui.get("spent-hours").required,true);
@@ -132,9 +132,9 @@ test("DOM: счёт, выгрузка с итогом, оплата и исто�
   const restored=await app({items:saved.items,invoices:saved.invoices});await restored.click("tab-history");assert.match(restored.get("invoice-list").textContent,/400/);
 });
 
-test("DOM: посетитель скачивает историю без возможности менять оплату",async()=>{
+test("DOM: вошедший пользователь скачивает историю без возможности менять оплату",async()=>{
   const invoice=core.createInvoice({projects:[project],items:[item]},{id:randomUUID(),start:"2026-10-18",end:"2026-10-18"});
-  const ui=await app({cloud:true,invoices:[invoice]});assert.equal(ui.get("new-invoice").hidden,true);
+  const ui=await app({cloud:true,session:{user:{id:"stranger"}},invoices:[invoice]});assert.equal(ui.get("new-invoice").hidden,true);
   await ui.click("tab-invoices");assert.equal(ui.document.querySelector('[aria-label="Отметить счёт оплаченным"]'),null);
   assert.equal(ui.document.querySelector('[aria-label="Удалить счёт"]'),null);
   assert.ok(ui.document.querySelector('[aria-label="Скачать таблицу счёта"]'));
@@ -192,16 +192,45 @@ test("DOM: неверный интервал не закрывает форму 
   assert.equal(ui.get("editor").open,true);assert.equal(ui.get("item-error").hidden,false);assert.match(ui.get("item-error").textContent,/позже начала/);
   assert.equal(JSON.parse(ui.storage.getItem(core.STORAGE_KEY)).items.length,1);
 });
-test("DOM: посетитель и чужой аккаунт видят список без действий редактирования",async()=>{
-  const ui=await app({cloud:true});assert.equal(ui.get("rows").children.length,1);
+test("DOM: до входа содержимое скрыто и данные не запрашиваются; вошедший читатель видит список",async()=>{
+  assert.match(html, /id="workspace"[^>]*hidden/);
+  const ui=await app({cloud:true});assert.equal(ui.get("rows").children.length,0);
+  assert.equal(ui.get("workspace").hidden,true);assert.equal(ui.get("auth-gate").hidden,false);
+  assert.equal(ui.reads,0);assert.equal(ui.settingsReads,0);
   for(const id of ["add-item","add-completed","import","manage-projects"])assert.equal(ui.get(id).hidden,true);
   assert.equal(ui.document.querySelectorAll(".journal__actions button").length,0);
   await ui.session({user:{id:"stranger"}});assert.equal(ui.get("add-item").hidden,true);
+  assert.equal(ui.get("workspace").hidden,false);assert.equal(ui.get("rows").children.length,1);
+  assert.equal(ui.get("logout").hidden,false);
+});
+test("DOM: экран входа открывает форму и загружает данные после входа",async()=>{
+  const ui=await app({cloud:true});await ui.click("auth-login");
+  assert.equal(ui.get("login-dialog").open,true);
+  ui.get("email").value="owner@example.com";ui.get("password").value="password";
+  await ui.submit("login-form");
+  assert.equal(ui.get("workspace").hidden,false);assert.equal(ui.get("auth-gate").hidden,true);
+  assert.equal(ui.get("rows").children.length,1);assert.equal(ui.get("password").value,"");
+  await ui.click("logout");assert.equal(ui.get("workspace").hidden,true);
+  assert.equal(ui.get("rows").children.length,0);assert.equal(ui.get("export").disabled,true);
+});
+test("DOM: параметр демо не обходит обязательный вход",async()=>{
+  const ui=await app({session:null});
+  assert.equal(ui.get("workspace").hidden,true);assert.equal(ui.get("rows").children.length,0);
+  assert.equal(ui.settingsReads,0);
+});
+test("DOM: ответ запроса после выхода не возвращает закрытые данные",async()=>{
+  let release;let delayed=false;
+  const ui=await app({cloud:true,session:{user:{id:owner}},readList:data=>delayed?new Promise(resolve=>{release=()=>resolve(data);}):data});
+  delayed=true;ui.get("refresh").click();await settle();
+  await ui.session(null);release();await settle();
+  assert.equal(ui.get("workspace").hidden,true);assert.equal(ui.get("rows").children.length,0);
+  assert.equal(ui.get("export").disabled,true);
 });
 test("DOM: выход владельца закрывает редактор и скрывает изменения",async()=>{
   const ui=await app({cloud:true,session:{user:{id:owner}}});assert.equal(ui.get("add-item").hidden,false);
   await ui.click("add-item");assert.equal(ui.get("editor").open,true);
-  await ui.session(null);assert.equal(ui.get("editor").open,false);assert.equal(ui.get("add-item").hidden,true);assert.equal(ui.get("rows").children.length,1);
+  await ui.session(null);assert.equal(ui.get("editor").open,false);assert.equal(ui.get("add-item").hidden,true);assert.equal(ui.get("rows").children.length,0);
+  assert.equal(ui.get("workspace").hidden,true);assert.equal(ui.get("item-title").value,"");
 });
 
 for (const message of ['permission denied for table worktime_items','new row violates row-level security policy for table "worktime_items"']) test(`DOM: отказ базы владельцу при удалении: ${message}`,async()=>{
@@ -235,8 +264,8 @@ test("DOM: отказ прав при сохранении владельцем 
   assert.match(ui.get("rows").textContent,/Шапка сайта/);
 });
 test("DOM: после настройки SQL можно повторить подключение кнопкой обновления",async()=>{
-  const ui=await app({cloud:true,missingSchema:true});assert.match(ui.get("notice").textContent,/supabase.sql/);assert.equal(ui.get("refresh").disabled,false);
-  ui.enableSchema();await ui.click("refresh");assert.equal(ui.get("rows").children.length,1);assert.equal(ui.get("export").disabled,false);
+  const ui=await app({cloud:true,session:{user:{id:owner}},missingSchema:true});assert.match(ui.get("auth-notice").textContent,/supabase.sql/);assert.equal(ui.get("auth-refresh").disabled,false);
+  ui.enableSchema();await ui.click("auth-refresh");assert.equal(ui.get("rows").children.length,1);assert.equal(ui.get("export").disabled,false);
 });
 test("DOM: названия задач отображаются текстом, поиск не влияет на сводку",async()=>{
   const ui=await app({items:[{...item,title:'<img src=x onerror="alert(1)">'}]});
@@ -278,7 +307,7 @@ test("DOM: будущее начало отклоняется, посетите�
   ui.setTime("start",core.localInput(Date.now()+3600000));await ui.submit("item-form");
   assert.equal(ui.get("editor").open,true);assert.match(ui.get("item-error").textContent,/в будущем/);
   const running={...item,ended_at:null,timer_state:"running",elapsed_ms:0,running_since:item.started_at,timer_version:0};
-  const visitor=await app({cloud:true,items:[running]});assert.equal(visitor.get("timer").hidden,false);
+  const visitor=await app({cloud:true,items:[running]});assert.equal(visitor.get("timer").hidden,true);
   assert.equal(visitor.get("timer-controls").hidden,true);assert.equal(visitor.get("add-item").hidden,true);
 });
 
@@ -298,7 +327,7 @@ for (const cloud of [false,true]) test(`DOM: переименование раб
   for (const state of ["running","paused"]) {
     const task=state==="running"?running:core.transitionTimer(running,"pause");
     const otherProject={...project,id:randomUUID(),name:"Другой проект"};
-    const ui=await app({cloud,session:cloud?{user:{id:owner}}:null,items:[task],projects:[project,otherProject]});
+    const ui=await app({cloud,session:{user:{id:owner}},items:[task],projects:[project,otherProject]});
     const edit=ui.document.querySelector('[aria-label="Изменить задачу"]');
     assert.ok(edit,"У активной задачи доступно редактирование");edit.click();
     assert.equal(ui.get("editor").open,true);assert.equal(ui.get("end-label").hidden,true);
@@ -341,7 +370,7 @@ async function paste(ui, files = [], text = "") {
   ui.get("item-note").dispatchEvent(event); await settle(); return event;
 }
 for (const cloud of [false,true]) test(`DOM: Ctrl+V прикрепляет фото, просмотр и удаление (${cloud?"облако":"демо"})`,async()=>{
-  const ui=await app({cloud,session:cloud?{user:{id:owner}}:null,items:[]});
+  const ui=await app({cloud,session:{user:{id:owner}},items:[]});
   vm.runInContext('encodePhoto = async file => file.encoded',ui.context);
   await ui.click("tab-plan");await ui.click("add-item");ui.get("item-title").value="По скриншоту";
   const text=await paste(ui,[],"Описание");assert.equal(text.defaultPrevented,false);
